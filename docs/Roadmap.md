@@ -163,6 +163,7 @@ Extend the app into higher-trust, collaborative, and specialized workflows once 
 - [ClickableFlowMap.md](<ClickableFlowMap.md>) describes the MVP navigation and user paths.
 - [DetailedWireframes.md](<DetailedWireframes.md>) describes MVP-first screen concepts and future-facing UI opportunities.
 - [Screen-By-ScreenRequirements.md](<Screen-By-ScreenRequirements.md>) defines implementation-ready MVP requirements.
+- [AgileDeliveryPlan.md](<AgileDeliveryPlan.md>) breaks roadmap milestones into sprint-sized delivery work.
 - `Roadmap.md` owns milestone sequencing and release progression across the document set.
 
 ## **Shared Dependencies And Risks**
