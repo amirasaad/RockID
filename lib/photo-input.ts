@@ -2,6 +2,12 @@ type PermissionResult = {
   granted: boolean;
 };
 
+type ImagePickerAsset = {
+  uri: string;
+  width?: number;
+  height?: number;
+};
+
 type SelectRockPhotoFromLibraryDependencies = {
   requestMediaLibraryPermission: () => Promise<PermissionResult>;
   launchImageLibrary: (options: {
@@ -9,6 +15,7 @@ type SelectRockPhotoFromLibraryDependencies = {
     quality: 1;
   }) => Promise<{
     canceled: boolean;
+    assets?: ImagePickerAsset[];
   }>;
 };
 
@@ -20,6 +27,13 @@ export type PhotoInputResult =
   | {
       kind: 'cancelled';
       source: 'upload';
+    }
+  | {
+      kind: 'selected';
+      source: 'upload';
+      uri: string;
+      width?: number;
+      height?: number;
     };
 
 export async function selectRockPhotoFromLibrary({
@@ -47,5 +61,20 @@ export async function selectRockPhotoFromLibrary({
     };
   }
 
-  throw new Error('Gallery selection is not implemented yet.');
+  const [asset] = selection.assets ?? [];
+
+  if (!asset) {
+    return {
+      kind: 'cancelled',
+      source: 'upload',
+    };
+  }
+
+  return {
+    kind: 'selected',
+    source: 'upload',
+    uri: asset.uri,
+    width: asset.width,
+    height: asset.height,
+  };
 }
