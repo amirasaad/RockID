@@ -37,4 +37,31 @@ describe('selectRockPhotoFromLibrary', () => {
       source: 'upload',
     });
   });
+
+  it('returns a selected upload photo when the user chooses an image from the picker', async () => {
+    const requestMediaLibraryPermission = vi.fn().mockResolvedValue({ granted: true });
+    const launchImageLibrary = vi.fn().mockResolvedValue({
+      canceled: false,
+      assets: [
+        {
+          uri: 'file:///field/granite-sample.jpg',
+          width: 1600,
+          height: 1200,
+        },
+      ],
+    });
+
+    const result = await selectRockPhotoFromLibrary({
+      requestMediaLibraryPermission,
+      launchImageLibrary,
+    });
+
+    expect(result).toEqual({
+      kind: 'selected',
+      source: 'upload',
+      uri: 'file:///field/granite-sample.jpg',
+      width: 1600,
+      height: 1200,
+    });
+  });
 });
