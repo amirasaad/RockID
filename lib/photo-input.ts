@@ -8,15 +8,24 @@ type ImagePickerAsset = {
   height?: number;
 };
 
-type SelectRockPhotoFromLibraryDependencies = {
+type LibraryPickerOptions = {
+  allowsEditing: false;
+  quality: 1;
+};
+
+type LibrarySelection = {
+  canceled: boolean;
+  assets?: ImagePickerAsset[];
+};
+
+type LibraryPhotoInputDependencies = {
   requestMediaLibraryPermission: () => Promise<PermissionResult>;
-  launchImageLibrary: (options: {
-    allowsEditing: false;
-    quality: 1;
-  }) => Promise<{
-    canceled: boolean;
-    assets?: ImagePickerAsset[];
-  }>;
+  launchImageLibrary: (options: LibraryPickerOptions) => Promise<LibrarySelection>;
+};
+
+const libraryPickerOptions: LibraryPickerOptions = {
+  allowsEditing: false,
+  quality: 1,
 };
 
 export type PhotoInputResult =
@@ -39,7 +48,7 @@ export type PhotoInputResult =
 export async function selectRockPhotoFromLibrary({
   requestMediaLibraryPermission,
   launchImageLibrary,
-}: SelectRockPhotoFromLibraryDependencies): Promise<PhotoInputResult> {
+}: LibraryPhotoInputDependencies): Promise<PhotoInputResult> {
   const permission = await requestMediaLibraryPermission();
 
   if (!permission.granted) {
@@ -49,10 +58,7 @@ export async function selectRockPhotoFromLibrary({
     };
   }
 
-  const selection = await launchImageLibrary({
-    allowsEditing: false,
-    quality: 1,
-  });
+  const selection = await launchImageLibrary(libraryPickerOptions);
 
   if (selection.canceled) {
     return {
