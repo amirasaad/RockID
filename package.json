@@ -9,7 +9,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:unit": "vitest run __tests__/photo-input.test.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
