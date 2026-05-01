@@ -1,8 +1,9 @@
+import 'react-native-reanimated';
+
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ThemeProvider, DefaultTheme } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
 
 import { palette } from '@/constants/theme';
 
