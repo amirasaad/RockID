@@ -60,7 +60,7 @@ Before merge, verify all of the following:
 ## **Known Local Environment Notes**
 
 - Use `pnpm`.
-- Use global Node `20.x` (enforced via `package.json` `engines`).
+- Use global Node `23.x` (enforced via `package.json` `engines`).
 - Start Expo with:
   - `pnpm exec expo start --lan`
 - If iOS Simulator fails, continue validation on physical iPhone via Expo Go and capture simulator issues separately.

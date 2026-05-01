@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { selectRockPhotoFromLibrary } from '@/lib/photo-input';
+import { selectRockPhotoFromCamera, selectRockPhotoFromLibrary } from '@/lib/photo-input';
 
 describe('selectRockPhotoFromLibrary', () => {
   it('returns permission-denied and does not open the picker when library permission is denied', async () => {
@@ -62,6 +62,70 @@ describe('selectRockPhotoFromLibrary', () => {
       uri: 'file:///field/granite-sample.jpg',
       width: 1600,
       height: 1200,
+    });
+  });
+});
+
+describe('selectRockPhotoFromCamera', () => {
+  it('returns permission-denied and does not open the camera when camera permission is denied', async () => {
+    const requestCameraPermission = vi.fn().mockResolvedValue({ granted: false });
+    const launchCamera = vi.fn();
+
+    const result = await selectRockPhotoFromCamera({
+      requestCameraPermission,
+      launchCamera,
+    });
+
+    expect(launchCamera).not.toHaveBeenCalled();
+    expect(result).toEqual({
+      kind: 'permission-denied',
+      source: 'camera',
+    });
+  });
+
+  it('returns cancelled when the user closes the camera without taking a photo', async () => {
+    const requestCameraPermission = vi.fn().mockResolvedValue({ granted: true });
+    const launchCamera = vi.fn().mockResolvedValue({ canceled: true });
+
+    const result = await selectRockPhotoFromCamera({
+      requestCameraPermission,
+      launchCamera,
+    });
+
+    expect(launchCamera).toHaveBeenCalledWith({
+      allowsEditing: false,
+      quality: 1,
+    });
+    expect(result).toEqual({
+      kind: 'cancelled',
+      source: 'camera',
+    });
+  });
+
+  it('returns a selected camera photo when the user captures an image', async () => {
+    const requestCameraPermission = vi.fn().mockResolvedValue({ granted: true });
+    const launchCamera = vi.fn().mockResolvedValue({
+      canceled: false,
+      assets: [
+        {
+          uri: 'file:///field/basalt-sample.jpg',
+          width: 1200,
+          height: 900,
+        },
+      ],
+    });
+
+    const result = await selectRockPhotoFromCamera({
+      requestCameraPermission,
+      launchCamera,
+    });
+
+    expect(result).toEqual({
+      kind: 'selected',
+      source: 'camera',
+      uri: 'file:///field/basalt-sample.jpg',
+      width: 1200,
+      height: 900,
     });
   });
 });

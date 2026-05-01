@@ -23,19 +23,26 @@ type LibraryPhotoInputDependencies = {
   launchImageLibrary: (options: LibraryPickerOptions) => Promise<LibrarySelection>;
 };
 
+type CameraPhotoInputDependencies = {
+  requestCameraPermission: () => Promise<PermissionResult>;
+  launchCamera: (options: LibraryPickerOptions) => Promise<LibrarySelection>;
+};
+
+type PhotoSource = 'upload' | 'camera';
+
 type PermissionDeniedResult = {
   kind: 'permission-denied';
-  source: 'upload';
+  source: PhotoSource;
 };
 
 type CancelledResult = {
   kind: 'cancelled';
-  source: 'upload';
+  source: PhotoSource;
 };
 
 type SelectedResult = {
   kind: 'selected';
-  source: 'upload';
+  source: PhotoSource;
   uri: string;
   width?: number;
   height?: number;
@@ -53,39 +60,53 @@ export async function selectRockPhotoFromLibrary({
   launchImageLibrary,
 }: LibraryPhotoInputDependencies): Promise<PhotoInputResult> {
   const permission = await requestMediaLibraryPermission();
-  return permission.granted ? selectPermittedLibraryPhoto(launchImageLibrary) : permissionDenied();
+  return permission.granted
+    ? selectPermittedPhoto(launchImageLibrary, 'upload')
+    : permissionDenied('upload');
 }
 
-async function selectPermittedLibraryPhoto(
-  launchImageLibrary: LibraryPhotoInputDependencies['launchImageLibrary']
+export async function selectRockPhotoFromCamera({
+  requestCameraPermission,
+  launchCamera,
+}: CameraPhotoInputDependencies): Promise<PhotoInputResult> {
+  const permission = await requestCameraPermission();
+  return permission.granted ? selectPermittedPhoto(launchCamera, 'camera') : permissionDenied('camera');
+}
+
+async function selectPermittedPhoto(
+  launchPicker: (options: LibraryPickerOptions) => Promise<LibrarySelection>,
+  source: PhotoSource
 ): Promise<PhotoInputResult> {
-  const selection = await launchImageLibrary(libraryPickerOptions);
-  return selection.canceled ? cancelled() : selectedOrCancelled(selection.assets);
+  const selection = await launchPicker(libraryPickerOptions);
+  return selection.canceled ? cancelled(source) : selectedOrCancelled(selection.assets, source);
 }
 
-function selectedOrCancelled(assets: ImagePickerAsset[] = []): SelectedResult | CancelledResult {
+function selectedOrCancelled(
+  assets: ImagePickerAsset[] = [],
+  source: PhotoSource
+): SelectedResult | CancelledResult {
   const [asset] = assets;
-  return asset ? selected(asset) : cancelled();
+  return asset ? selected(asset, source) : cancelled(source);
 }
 
-function permissionDenied(): PermissionDeniedResult {
+function permissionDenied(source: PhotoSource): PermissionDeniedResult {
   return {
     kind: 'permission-denied',
-    source: 'upload',
+    source,
   };
 }
 
-function cancelled(): CancelledResult {
+function cancelled(source: PhotoSource): CancelledResult {
   return {
     kind: 'cancelled',
-    source: 'upload',
+    source,
   };
 }
 
-function selected(asset: ImagePickerAsset): SelectedResult {
+function selected(asset: ImagePickerAsset, source: PhotoSource): SelectedResult {
   return {
     kind: 'selected',
-    source: 'upload',
+    source,
     uri: asset.uri,
     width: asset.width,
     height: asset.height,

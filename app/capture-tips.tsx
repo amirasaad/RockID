@@ -1,9 +1,12 @@
-import { Link } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { router } from 'expo-router';
+import React from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen } from '@/components/Layout';
 import { palette } from '@/constants/theme';
+import { selectRockPhotoFromCamera } from '@/lib/photo-input';
 
 const tips = [
   'Use bright, even light',
@@ -13,10 +16,42 @@ const tips = [
 ];
 
 export default function CaptureTipsScreen() {
+  async function handleOpenCamera() {
+    const result = await selectRockPhotoFromCamera({
+      requestCameraPermission: ImagePicker.requestCameraPermissionsAsync,
+      launchCamera: async (options) => {
+        const selection = await ImagePicker.launchCameraAsync(options);
+        return {
+          canceled: selection.canceled,
+          assets: selection.assets ?? undefined,
+        };
+      },
+    });
+
+    if (result.kind === 'permission-denied') {
+      Alert.alert('Camera access needed', 'Allow camera access to capture a rock photo.');
+      return;
+    }
+
+    if (result.kind === 'cancelled') {
+      return;
+    }
+
+    router.push({
+      pathname: '/review',
+      params: {
+        source: result.source,
+        imageUri: result.uri,
+        width: result.width?.toString(),
+        height: result.height?.toString(),
+      },
+    });
+  }
+
   return (
     <Screen
       title="Before You Snap"
-      subtitle="We have not wired the live camera yet, so this prototype flows into a review screen with a mock sample.">
+      subtitle="Capture a clear field photo so the review step can check quality before analysis.">
       <Card>
         {tips.map((tip, index) => (
           <View key={tip} style={styles.row}>
@@ -25,9 +60,7 @@ export default function CaptureTipsScreen() {
           </View>
         ))}
       </Card>
-      <Link href="/review?source=camera" asChild>
-        <ActionButton label="Use Demo Capture" onPress={() => undefined} />
-      </Link>
+      <ActionButton label="Open Camera" onPress={handleOpenCamera} />
     </Screen>
   );
 }

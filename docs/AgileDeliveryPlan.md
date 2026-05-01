@@ -75,16 +75,16 @@ Story status snapshot:
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S1-1` | `Done` | [__tests__/s1-gallery-upload.acceptance.test.ts](<../__tests__/s1-gallery-upload.acceptance.test.ts>) pass; upload flow wired in [app/(tabs)/index.tsx](<../app/(tabs)/index.tsx>) and [app/review.tsx](<../app/review.tsx>) | Upload picker opens, selected image reaches review, cancel path handled |
-| `S1-2` | `In Progress` | Camera flow implementation is staged as WIP (`git stash` label: `wip/s2-camera-flow`) | `Open Camera` still needs final branch integration and verification on device |
-| `S1-3` | `Partial` | [app/review.tsx](<../app/review.tsx>) renders selected image URI and continues to observations | Upload path complete; camera path completion depends on `S1-2` integration |
-| `S1-4` | `Partial` | `pnpm run typecheck` passes; image-picker dependency aligned to Expo | Manual capture/upload QA notes still need to be recorded |
+| `S1-2` | `Partial` | Camera flow wired in [app/capture-tips.tsx](<../app/capture-tips.tsx>), [lib/photo-input.ts](<../lib/photo-input.ts>), and [__tests__/photo-input.test.ts](<../__tests__/photo-input.test.ts>) | Permission denied/cancel/captured states covered in unit tests; manual on-device camera QA still pending |
+| `S1-3` | `Done` | [app/review.tsx](<../app/review.tsx>) renders selected image URI and continues to observations | Review now supports both upload and camera selected-image preview |
+| `S1-4` | `Partial` | `pnpm run typecheck` passes; image-picker dependency aligned to Expo; test suites passing | Manual capture/upload QA notes still need to be recorded |
 
 Definition of done checkpoint:
 
 | DoD Criterion | Current State |
 | --- | --- |
 | User-facing flow works in app | `Partial` |
-| Edge states handled | `Partial` |
+| Edge states handled | `Yes` |
 | `pnpm run typecheck` passes | `Yes` |
 | Manual validation documented | `No` |
 | Dependency changes justified and locked | `Yes` |
