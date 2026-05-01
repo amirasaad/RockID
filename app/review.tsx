@@ -1,5 +1,6 @@
 import { Link, useLocalSearchParams } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen } from '@/components/Layout';
@@ -7,15 +8,21 @@ import { DetailRow } from '@/components/Row';
 import { palette } from '@/constants/theme';
 
 export default function ReviewScreen() {
-  const { source } = useLocalSearchParams<{ source?: string }>();
+  const { imageUri, source } = useLocalSearchParams<{ imageUri?: string; source?: string }>();
+  const hasSelectedImage = typeof imageUri === 'string' && imageUri.length > 0;
+  const sourceLabel = source === 'upload' ? 'uploaded' : 'captured';
 
   return (
     <Screen
       title="Review Photo"
-      subtitle={`This is a mock ${source === 'upload' ? 'upload' : 'camera'} review state so we can build the full flow before wiring native modules.`}>
+      subtitle={`Review the ${sourceLabel} rock photo before moving into observations and analysis.`}>
       <Card>
         <View style={styles.preview}>
-          <Text style={styles.previewText}>Rock preview</Text>
+          {hasSelectedImage ? (
+            <Image source={{ uri: imageUri }} style={styles.previewImage} resizeMode="cover" />
+          ) : (
+            <Text style={styles.previewText}>Rock preview</Text>
+          )}
         </View>
         <DetailRow label="Sharpness" value="Good" />
         <DetailRow label="Lighting" value="Fair" />
@@ -39,6 +46,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 220,
     justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  previewImage: {
+    height: '100%',
+    width: '100%',
   },
   previewText: {
     color: palette.accentDark,

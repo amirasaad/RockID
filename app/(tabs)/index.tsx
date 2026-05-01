@@ -1,13 +1,48 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { Link, router } from 'expo-router';
+import React from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette, spacing } from '@/constants/theme';
 import { recentFinds } from '@/lib/mock-data';
+import { selectRockPhotoFromLibrary } from '@/lib/photo-input';
 
 export default function IdentifyScreen() {
+  async function handleUploadPhoto() {
+    const result = await selectRockPhotoFromLibrary({
+      requestMediaLibraryPermission: ImagePicker.requestMediaLibraryPermissionsAsync,
+      launchImageLibrary: async (options) => {
+        const selection = await ImagePicker.launchImageLibraryAsync(options);
+        return {
+          canceled: selection.canceled,
+          assets: selection.assets ?? undefined,
+        };
+      },
+    });
+
+    if (result.kind === 'permission-denied') {
+      Alert.alert('Photo access needed', 'Allow photo library access to upload a rock image.');
+      return;
+    }
+
+    if (result.kind === 'cancelled') {
+      return;
+    }
+
+    router.push({
+      pathname: '/review',
+      params: {
+        source: result.source,
+        imageUri: result.uri,
+        width: result.width?.toString(),
+        height: result.height?.toString(),
+      },
+    });
+  }
+
   return (
     <Screen
       title="Rock ID"
@@ -23,9 +58,7 @@ export default function IdentifyScreen() {
         <Link href="/capture-tips" asChild>
           <ActionButton label="Take Photo" onPress={() => undefined} />
         </Link>
-        <Link href="/review?source=upload" asChild>
-          <ActionButton label="Upload Photo" variant="secondary" onPress={() => undefined} />
-        </Link>
+        <ActionButton label="Upload Photo" variant="secondary" onPress={handleUploadPhoto} />
       </Card>
 
       <Card>
