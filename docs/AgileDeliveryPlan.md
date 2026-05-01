@@ -96,6 +96,18 @@ Tracking update policy:
 - Link every story status change to either a passing test, a code reference, or a demo note.
 - Do not mark `Done` until all DoD criteria are satisfied for that story.
 
+Manual QA log (`Sprint 1`):
+
+- Date:
+- Device/OS:
+- Tester:
+- `S1-2` camera permission prompt appears: `Pass` / `Fail`
+- `S1-2` denied camera permission shows useful message: `Pass` / `Fail`
+- `S1-2` captured photo appears on review screen: `Pass` / `Fail`
+- `S1-2` cancel camera returns gracefully: `Pass` / `Fail`
+- `S1-4` upload path manually re-verified on device: `Pass` / `Fail`
+- Notes / follow-up fixes:
+
 Out of scope for Sprint 1:
 
 - Real image quality scoring.
