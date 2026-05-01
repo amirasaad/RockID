@@ -252,3 +252,5 @@ Excluded from MVP:
 ## **Roadmap**
 
 Release sequencing for `MVP`, `V1`, `V2`, and `Future` lives in [Roadmap.md](<Roadmap.md>). This PRD defines product intent and scope, while the roadmap defines milestone order, major deliverables, dependencies, and readiness criteria across releases.
+
+Sprint-level execution tracking, story status, and definition-of-done checkpoints live in [AgileDeliveryPlan.md](<AgileDeliveryPlan.md>).

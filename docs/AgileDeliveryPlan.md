@@ -66,6 +66,34 @@ Stories:
 | `S1-3` | As a user, I can review the actual selected image before analysis. | Review screen renders the selected image URI; missing image shows a recovery state; `Use Photo` continues to observations. | Must |
 | `S1-4` | As the team, we can validate the app after dependency changes. | `expo-image-picker` is installed with pnpm; `pnpm run typecheck` passes; manual capture/upload paths are verified. | Must |
 
+## **Sprint 1 Tracking**
+
+Story status snapshot:
+
+| Story | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| `S1-1` | `Done` | [__tests__/s1-gallery-upload.acceptance.test.ts](<../__tests__/s1-gallery-upload.acceptance.test.ts>) pass; upload flow wired in [app/(tabs)/index.tsx](<../app/(tabs)/index.tsx>) and [app/review.tsx](<../app/review.tsx>) | Upload picker opens, selected image reaches review, cancel path handled |
+| `S1-2` | `In Progress` | Camera flow implementation is staged as WIP (`git stash` label: `wip/s2-camera-flow`) | `Open Camera` still needs final branch integration and verification on device |
+| `S1-3` | `Partial` | [app/review.tsx](<../app/review.tsx>) renders selected image URI and continues to observations | Upload path complete; camera path completion depends on `S1-2` integration |
+| `S1-4` | `Partial` | `pnpm run typecheck` passes; image-picker dependency aligned to Expo | Manual capture/upload QA notes still need to be recorded |
+
+Definition of done checkpoint:
+
+| DoD Criterion | Current State |
+| --- | --- |
+| User-facing flow works in app | `Partial` |
+| Edge states handled | `Partial` |
+| `pnpm run typecheck` passes | `Yes` |
+| Manual validation documented | `No` |
+| Dependency changes justified and locked | `Yes` |
+| No MVP requirement conflicts | `Yes` |
+
+Tracking update policy:
+
+- Update this table at the end of each sprint demo.
+- Link every story status change to either a passing test, a code reference, or a demo note.
+- Do not mark `Done` until all DoD criteria are satisfied for that story.
+
 Out of scope for Sprint 1:
 
 - Real image quality scoring.
