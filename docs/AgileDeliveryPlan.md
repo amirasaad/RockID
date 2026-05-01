@@ -2,6 +2,8 @@
 
 This document turns the product roadmap into a working agile delivery cycle. It is intentionally lightweight: enough structure to keep development disciplined, without slowing down implementation.
 
+Driver handoff and day-to-day engineering execution standards live in [NextDriverDevGuide.md](<NextDriverDevGuide.md>).
+
 ## **Delivery Model**
 
 - Cadence: 1-week sprints during MVP discovery and buildout.
