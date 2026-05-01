@@ -1,16 +1,35 @@
 import { Link } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette } from '@/constants/theme';
+import { useIdentificationSession } from '@/lib/identification-session-context';
 import { topMatches } from '@/lib/mock-data';
 
 export default function ResultsScreen() {
+  const { session } = useIdentificationSession();
   const [topMatch, ...alternatives] = topMatches;
 
   return (
     <Screen title="Results" subtitle="This is mocked data, but the screen structure follows the MVP output contract from the spec.">
+      <Card>
+        <View style={styles.thumbnailRow}>
+          <View style={styles.thumbnail}>
+            {session?.selectedPhoto?.uri ? (
+              <Image source={{ uri: session.selectedPhoto.uri }} style={styles.thumbnailImage} resizeMode="cover" />
+            ) : (
+              <Text style={styles.thumbnailText}>Sample</Text>
+            )}
+          </View>
+          <View style={styles.thumbnailMeta}>
+            <Text style={styles.metaTitle}>Session</Text>
+            <Text style={styles.metaValue}>{session?.observations?.grainSize ?? '—'} grain</Text>
+            <Text style={styles.metaValue}>{session?.observations?.color ?? '—'} color</Text>
+          </View>
+        </View>
+      </Card>
+
       <Card>
         <Text style={styles.kicker}>Likely match</Text>
         <View style={styles.headlineRow}>
@@ -53,6 +72,45 @@ export default function ResultsScreen() {
 }
 
 const styles = StyleSheet.create({
+  thumbnailRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 16,
+  },
+  thumbnail: {
+    alignItems: 'center',
+    backgroundColor: '#e7ddcf',
+    borderRadius: 18,
+    height: 88,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    width: 88,
+  },
+  thumbnailImage: {
+    height: '100%',
+    width: '100%',
+  },
+  thumbnailText: {
+    color: palette.accentDark,
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  thumbnailMeta: {
+    flex: 1,
+    gap: 4,
+  },
+  metaTitle: {
+    color: palette.slate,
+    fontSize: 13,
+    fontWeight: '700',
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
+  },
+  metaValue: {
+    color: palette.muted,
+    fontSize: 14,
+    lineHeight: 20,
+  },
   kicker: {
     color: palette.accentDark,
     fontSize: 13,

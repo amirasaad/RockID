@@ -6,12 +6,14 @@ import { ActionButton } from '@/components/Buttons';
 import { Chip } from '@/components/Chip';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette, spacing } from '@/constants/theme';
+import { useIdentificationSession } from '@/lib/identification-session-context';
 
 const colorOptions = ['Light', 'Dark', 'Red', 'Green', 'Mixed'];
 const grainOptions = ['Fine', 'Medium', 'Coarse'];
 const featureOptions = ['Layered', 'Glassy', 'Vesicles', 'Banding', 'Visible Crystals'];
 
 export default function ObservationsScreen() {
+  const { setObservations } = useIdentificationSession();
   const [selectedColor, setSelectedColor] = useState<string>('Mixed');
   const [selectedGrain, setSelectedGrain] = useState<string>('Coarse');
   const [notes, setNotes] = useState('Coarse grains with light feldspar and darker minerals.');
@@ -80,8 +82,20 @@ export default function ObservationsScreen() {
         <Text style={styles.helper}>Field notes, magnetism, and acid reaction can plug into the backend later.</Text>
       </Card>
 
-      <Link href="/analyzing" asChild>
-        <ActionButton label="Analyze Rock" onPress={() => undefined} />
+      <Link
+        href="/analyzing"
+        asChild>
+        <ActionButton
+          label="Analyze Rock"
+          onPress={() => {
+            setObservations({
+              color: selectedColor,
+              grainSize: selectedGrain,
+              features: selectedFeatures,
+              notes,
+            });
+          }}
+        />
       </Link>
     </Screen>
   );

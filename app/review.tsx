@@ -6,11 +6,32 @@ import { ActionButton } from '@/components/Buttons';
 import { Card, Screen } from '@/components/Layout';
 import { DetailRow } from '@/components/Row';
 import { palette } from '@/constants/theme';
+import { useIdentificationSession } from '@/lib/identification-session-context';
 
 export default function ReviewScreen() {
-  const { imageUri, source } = useLocalSearchParams<{ imageUri?: string; source?: string }>();
-  const hasSelectedImage = typeof imageUri === 'string' && imageUri.length > 0;
-  const sourceLabel = source === 'upload' ? 'uploaded' : 'captured';
+  const { session, setSelectedPhoto } = useIdentificationSession();
+  const { imageUri, source, width, height } = useLocalSearchParams<{
+    imageUri?: string;
+    source?: string;
+    width?: string;
+    height?: string;
+  }>();
+
+  React.useEffect(() => {
+    if (session?.selectedPhoto) return;
+    if (typeof imageUri !== 'string' || imageUri.length === 0) return;
+    if (source !== 'upload' && source !== 'camera') return;
+    setSelectedPhoto({
+      source,
+      uri: imageUri,
+      width: width ? Number(width) : undefined,
+      height: height ? Number(height) : undefined,
+    });
+  }, [height, imageUri, session?.selectedPhoto, setSelectedPhoto, source, width]);
+
+  const selectedPhoto = session?.selectedPhoto;
+  const hasSelectedImage = typeof selectedPhoto?.uri === 'string' && selectedPhoto.uri.length > 0;
+  const sourceLabel = selectedPhoto?.source === 'upload' ? 'uploaded' : 'captured';
 
   return (
     <Screen
@@ -19,7 +40,7 @@ export default function ReviewScreen() {
       <Card>
         <View style={styles.preview}>
           {hasSelectedImage ? (
-            <Image source={{ uri: imageUri }} style={styles.previewImage} resizeMode="cover" />
+            <Image source={{ uri: selectedPhoto?.uri }} style={styles.previewImage} resizeMode="cover" />
           ) : (
             <Text style={styles.previewText}>Rock preview</Text>
           )}

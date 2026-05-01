@@ -7,10 +7,13 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette, spacing } from '@/constants/theme';
+import { useIdentificationSession } from '@/lib/identification-session-context';
 import { recentFinds } from '@/lib/mock-data';
 import { selectRockPhotoFromLibrary } from '@/lib/photo-input';
 
 export default function IdentifyScreen() {
+  const { startSession } = useIdentificationSession();
+
   async function handleUploadPhoto() {
     const result = await selectRockPhotoFromLibrary({
       requestMediaLibraryPermission: ImagePicker.requestMediaLibraryPermissionsAsync,
@@ -32,13 +35,17 @@ export default function IdentifyScreen() {
       return;
     }
 
+    const session = startSession({
+      source: result.source,
+      uri: result.uri,
+      width: result.width,
+      height: result.height,
+    });
+
     router.push({
       pathname: '/review',
       params: {
-        source: result.source,
-        imageUri: result.uri,
-        width: result.width?.toString(),
-        height: result.height?.toString(),
+        sessionId: session.id,
       },
     });
   }

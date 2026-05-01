@@ -33,7 +33,7 @@ Still mocked or future scope:
 - Vitest
 - pnpm
 
-The project expects Node `>=20 <23`, as defined in `package.json`.
+The project expects Node `>=23 <24`, as defined in `package.json`.
 
 ## Getting Started
 
