@@ -14,7 +14,8 @@
       "backgroundColor": "#f4efe7"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.rock-id"
     },
     "android": {
       "adaptiveIcon": {
