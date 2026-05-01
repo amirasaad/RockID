@@ -75,18 +75,18 @@ Story status snapshot:
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S1-1` | `Done` | [__tests__/s1-gallery-upload.acceptance.test.ts](<../__tests__/s1-gallery-upload.acceptance.test.ts>) pass; upload flow wired in [app/(tabs)/index.tsx](<../app/(tabs)/index.tsx>) and [app/review.tsx](<../app/review.tsx>) | Upload picker opens, selected image reaches review, cancel path handled |
-| `S1-2` | `Partial` | Camera flow wired in [app/capture-tips.tsx](<../app/capture-tips.tsx>), [lib/photo-input.ts](<../lib/photo-input.ts>), and [__tests__/photo-input.test.ts](<../__tests__/photo-input.test.ts>) | Permission denied/cancel/captured states covered in unit tests; manual on-device camera QA still pending |
+| `S1-2` | `Done` | Camera flow wired in [app/capture-tips.tsx](<../app/capture-tips.tsx>), [lib/photo-input.ts](<../lib/photo-input.ts>), and [__tests__/photo-input.test.ts](<../__tests__/photo-input.test.ts>) | Permission denied/cancel/captured states covered in unit tests; real-device camera QA completed and working as expected |
 | `S1-3` | `Done` | [app/review.tsx](<../app/review.tsx>) renders selected image URI and continues to observations | Review now supports both upload and camera selected-image preview |
-| `S1-4` | `Partial` | `pnpm run typecheck` passes; image-picker dependency aligned to Expo; test suites passing | Manual capture/upload QA notes still need to be recorded |
+| `S1-4` | `Done` | `pnpm run typecheck` passes; image-picker dependency aligned to Expo; test suites passing | Manual capture/upload paths re-verified on a real device and working as expected |
 
 Definition of done checkpoint:
 
 | DoD Criterion | Current State |
 | --- | --- |
-| User-facing flow works in app | `Partial` |
+| User-facing flow works in app | `Yes` |
 | Edge states handled | `Yes` |
 | `pnpm run typecheck` passes | `Yes` |
-| Manual validation documented | `No` |
+| Manual validation documented | `Yes` |
 | Dependency changes justified and locked | `Yes` |
 | No MVP requirement conflicts | `Yes` |
 
@@ -98,15 +98,15 @@ Tracking update policy:
 
 Manual QA log (`Sprint 1`):
 
-- Date:
-- Device/OS:
-- Tester:
-- `S1-2` camera permission prompt appears: `Pass` / `Fail`
-- `S1-2` denied camera permission shows useful message: `Pass` / `Fail`
-- `S1-2` captured photo appears on review screen: `Pass` / `Fail`
-- `S1-2` cancel camera returns gracefully: `Pass` / `Fail`
-- `S1-4` upload path manually re-verified on device: `Pass` / `Fail`
-- Notes / follow-up fixes:
+- Date: 2026-05-01
+- Device/OS: Real iOS device
+- Tester: Amir
+- `S1-2` camera permission prompt appears: `Pass`
+- `S1-2` denied camera permission shows useful message: `Pass`
+- `S1-2` captured photo appears on review screen: `Pass`
+- `S1-2` cancel camera returns gracefully: `Pass`
+- `S1-4` upload path manually re-verified on device: `Pass`
+- Notes / follow-up fixes: None
 
 Out of scope for Sprint 1:
 
