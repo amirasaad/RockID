@@ -33,7 +33,7 @@ Still mocked or future scope:
 - Vitest
 - pnpm
 
-The project expects Node `>=23 <24`, as defined in `package.json`.
+The project expects Node `>=20 <23`, as defined in `package.json`.
 
 ## Getting Started
 
@@ -81,6 +81,28 @@ Run TypeScript checks:
 
 ```sh
 pnpm run typecheck
+```
+
+## Git Workflow
+
+This repo enforces a consistent commit format using Husky hooks + Commitlint + Commitizen.
+
+Commit with the guided prompt:
+
+```sh
+pnpm commit
+```
+
+Rules enforced on commit:
+
+- Commit header must start with a gitmoji emoji (example: `✨ feat: add rock filter`).
+- Conventional Commit structure is required after the emoji (type/scope/subject).
+- Pre-commit runs `pnpm typecheck` and `pnpm test:unit`.
+
+If hooks aren’t running after a fresh clone, run:
+
+```sh
+pnpm prepare
 ```
 
 ## Project Structure
