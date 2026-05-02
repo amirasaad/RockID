@@ -10,7 +10,8 @@ describe('S5 saved finds persistence acceptance', () => {
     const storage = createTestKeyValueStorage();
 
     const storeA = await createSavedFindStoreWithPersistence({ storage });
-    const savedFind = createSavedFind({ session: sampleSession(), analysis: analyzeIdentificationSession(sampleSession()) });
+    const session = sampleSession();
+    const savedFind = createSavedFind({ session, analysis: analyzeIdentificationSession(session) });
     storeA.save(savedFind);
 
     const storeB = await createSavedFindStoreWithPersistence({ storage });
