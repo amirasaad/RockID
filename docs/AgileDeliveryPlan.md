@@ -412,11 +412,11 @@ Definition of done checkpoint (`Sprint 6`):
 
 | DoD Criterion | Current State |
 | --- | --- |
-| User-facing flow works in app | `Ready for manual QA` - Home Recent Finds now uses saved-find state |
+| User-facing flow works in app | `Yes` - Home Recent Finds validated on web and iPhone |
 | Edge states handled | `Yes` - empty state, 3-item limit, and tied timestamp ordering covered |
 | `pnpm run typecheck` passes | `Yes` |
 | Relevant tests pass | `Yes` - `pnpm test` passes |
-| Manual validation documented | `Pending` - quick Home Recent Finds device QA still needed before merge |
+| Manual validation documented | `Yes` - web and iPhone QA recorded |
 | MVP version remains in `v0.x.y` | `Yes` |
 | Dependency changes justified and locked | `N/A` - no dependency changes in S6 |
 | No MVP requirement conflicts | `Yes` |
@@ -425,10 +425,14 @@ Manual QA log (`Sprint 6`):
 
 - Date: 2026-05-02
 - Scope: Home Recent Finds uses real saved finds
-- Validation type: Pending manual device QA
+- Validation type: Manual web and iPhone QA
+- Device/Platform: Web and iPhone
+- Tester: Amir
+- Home Recent Finds updates after saving a result: `Pass`
+- Tapping a recent find opens Saved Find detail: `Pass`
 - `pnpm run typecheck`: `Pass`
 - `pnpm test`: `Pass`
-- Notes / follow-up fixes: Confirm on device that saving a result updates Home Recent Finds and tapping a recent find opens Saved Find detail.
+- Notes / follow-up fixes: None
 
 ## **Backlog Prioritization Rules**
 
@@ -440,4 +444,4 @@ Manual QA log (`Sprint 6`):
 
 ## **Current Next Action**
 
-Manual QA Sprint 6 Home Recent Finds on device, then merge `feat/s6-recent-finds` to `main` if the flow passes.
+Merge `feat/s6-recent-finds` to `main`, then choose the next sprint story with a failing acceptance test.
