@@ -1,4 +1,4 @@
-import type { SavedFind, SavedFindSnapshot, SavedFindStore } from './saved-finds';
+import type { SavedFind, SavedFindStore } from './saved-finds';
 import { createSavedFindStore } from './saved-finds';
 
 export type KeyValueStorage = {
@@ -20,7 +20,7 @@ export async function createSavedFindStoreWithPersistence(input: { storage: KeyV
   return {
     save(savedFind) {
       const next = base.save(savedFind);
-      void persistSnapshot(input.storage, base.getSnapshot());
+      void persistSavedFinds(input.storage, base.getSnapshot().savedFinds);
       return next;
     },
     getSnapshot: base.getSnapshot,
@@ -55,19 +55,19 @@ export async function loadSavedFinds(storage: KeyValueStorage): Promise<SavedFin
   try {
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(isSavedFind) as SavedFind[];
+    return parsed.filter(isSavedFind);
   } catch {
     return [];
   }
 }
 
 /**
- * Persists the current saved-find snapshot to storage.
+ * Persists a list of saved finds to storage.
  * @param storage - The KeyValueStorage implementation.
- * @param snapshot - Snapshot to persist.
+ * @param savedFinds - Saved finds to persist.
  */
-export async function persistSnapshot(storage: KeyValueStorage, snapshot: SavedFindSnapshot): Promise<void> {
-  await storage.setItem(STORAGE_KEY, JSON.stringify(snapshot.savedFinds));
+export async function persistSavedFinds(storage: KeyValueStorage, savedFinds: SavedFind[]): Promise<void> {
+  await storage.setItem(STORAGE_KEY, JSON.stringify(savedFinds));
 }
 
 function createSavedFindStoreWithInitialState(initial: SavedFind[]): SavedFindStore {
