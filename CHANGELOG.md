@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.7.3 (2026-05-02)
+
+
+### ✅ Tests
+
+* **workflow**: Require e2e before bump 6df9c25
+
+
+
+
+
 ## 0.7.2 (2026-05-02)
 
 
