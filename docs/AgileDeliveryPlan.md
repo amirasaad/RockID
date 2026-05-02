@@ -451,7 +451,30 @@ Story status snapshot:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S7-1` | `In Progress` | Pending | Merge flow warned that `react-native-worklets@0.8.1` should be `0.5.1` for Expo compatibility |
+| `S7-1` | `Done` | [package.json](<../package.json>) and [pnpm-lock.yaml](<../pnpm-lock.yaml>) | `react-native-worklets` aligned from `0.8.1` to Expo-expected `0.5.1`; Expo dependency check reports dependencies are up to date using local map |
+
+Definition of done checkpoint (`S7-1`):
+
+| DoD Criterion | Current State |
+| --- | --- |
+| Expo compatibility warning resolved | `Yes` - `pnpm exec expo install --check` reports dependencies are up to date using the local dependency map |
+| `react-native-worklets` version aligned | `Yes` - `0.5.1` in `package.json` and `pnpm-lock.yaml` |
+| `pnpm run typecheck` passes | `Yes` |
+| Relevant tests pass | `Yes` - `pnpm test` passes |
+| Manual validation documented | `N/A for dependency-only slice`; automated compatibility and test checks recorded |
+| MVP version remains in `v0.x.y` | `Yes` |
+| Dependency changes justified and locked | `Yes` |
+| No MVP requirement conflicts | `Yes` |
+
+Manual QA log (`S7-1`):
+
+- Date: 2026-05-02
+- Scope: Expo compatibility for `react-native-worklets`
+- Validation type: Automated dependency check, typecheck, and tests
+- `pnpm exec expo install --check`: `Pass` using local dependency map in offline mode
+- `pnpm run typecheck`: `Pass`
+- `pnpm test`: `Pass`
+- Notes / follow-up fixes: None
 
 ## **Backlog Prioritization Rules**
 
@@ -463,4 +486,4 @@ Story status snapshot:
 
 ## **Current Next Action**
 
-Complete `S7-1`: align `react-native-worklets` with Expo, verify, record DoD, and merge.
+Merge `chore/s7-expo-worklets-compat` to `main`, then choose the next sprint story with a failing acceptance test.
