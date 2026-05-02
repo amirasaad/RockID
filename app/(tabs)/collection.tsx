@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { StyleSheet, Text } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 import { Chip } from '@/components/Chip';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
@@ -33,9 +33,20 @@ export default function CollectionScreen() {
         viewModel.items.map((find) => (
           <Link href={`/saved/${find.id}`} key={find.id} asChild>
             <Card>
-              <Text style={styles.title}>{find.title}</Text>
-              <Text style={styles.meta}>{find.savedAtLabel}</Text>
-              <Text style={styles.meta}>{find.confidenceLabel}</Text>
+              <View style={styles.row}>
+                <View style={styles.thumbnail}>
+                  {find.hasImage && find.imageUri ? (
+                    <Image source={{ uri: find.imageUri }} style={styles.thumbnailImage} resizeMode="cover" />
+                  ) : (
+                    <Text style={styles.thumbnailFallback}>No photo</Text>
+                  )}
+                </View>
+                <View style={styles.textCol}>
+                  <Text style={styles.title}>{find.title}</Text>
+                  <Text style={styles.meta}>{find.savedAtLabel}</Text>
+                  <Text style={styles.meta}>{find.confidenceLabel}</Text>
+                </View>
+              </View>
             </Card>
           </Link>
         ))
@@ -48,6 +59,33 @@ const styles = StyleSheet.create({
   search: {
     color: palette.muted,
     fontSize: 15,
+  },
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 14,
+  },
+  thumbnail: {
+    alignItems: 'center',
+    backgroundColor: '#e7ddcf',
+    borderRadius: 18,
+    height: 72,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    width: 72,
+  },
+  thumbnailImage: {
+    height: '100%',
+    width: '100%',
+  },
+  thumbnailFallback: {
+    color: palette.accentDark,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  textCol: {
+    flex: 1,
+    gap: 2,
   },
   emptyTitle: {
     color: palette.ink,

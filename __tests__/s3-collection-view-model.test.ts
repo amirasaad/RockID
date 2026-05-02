@@ -29,12 +29,16 @@ describe('S3 collection view model', () => {
           title: 'Basalt',
           confidenceLabel: 'High confidence',
           savedAtLabel: 'Saved May 2, 2026',
+          imageUri: 'file:///field/newer-find.jpg',
+          hasImage: true,
         },
         {
           id: 'older-find',
           title: 'Granite',
           confidenceLabel: 'Medium confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
+          imageUri: 'file:///field/older-find.jpg',
+          hasImage: true,
         },
       ],
     });

@@ -5,6 +5,8 @@ export type CollectionItemViewModel = {
   title: string;
   confidenceLabel: string;
   savedAtLabel: string;
+  imageUri?: string;
+  hasImage: boolean;
 };
 
 export type EmptyCollectionViewModel = {
@@ -54,5 +56,7 @@ function toCollectionItem(savedFind: SavedFind): CollectionItemViewModel {
     title: savedFind.title,
     confidenceLabel: `${savedFind.confidence} confidence`,
     savedAtLabel: `Saved ${savedDateFormatter.format(new Date(savedFind.savedAt))}`,
+    imageUri: savedFind.imageUri,
+    hasImage: typeof savedFind.imageUri === 'string' && savedFind.imageUri.length > 0,
   };
 }
