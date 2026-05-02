@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.7.1 (2026-05-02)
+
+
+### 🐛 Bug Fixes
+
+* **tabs**: Hide learn topic route 51da53a
+
+
+
+
+
 # 0.7.0 (2026-05-02)
 
 
