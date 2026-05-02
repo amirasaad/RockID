@@ -434,6 +434,25 @@ Manual QA log (`Sprint 6`):
 - `pnpm test`: `Pass`
 - Notes / follow-up fixes: None
 
+## **Sprint 7: Expo Compatibility Maintenance**
+
+Sprint goal:
+Remove Expo compatibility warnings that could destabilize web or iPhone validation.
+
+Stories:
+
+| ID | Story | Acceptance Criteria | Priority |
+| --- | --- | --- | --- |
+| `S7-1` | As the team, we can align `react-native-worklets` with the installed Expo SDK so local runs stop warning about incompatible package versions. | `react-native-worklets` matches Expo's expected version; lockfile is updated; `pnpm run typecheck` and `pnpm test` pass. | Must |
+
+## **Sprint 7 Tracking**
+
+Story status snapshot:
+
+| Story | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| `S7-1` | `In Progress` | Pending | Merge flow warned that `react-native-worklets@0.8.1` should be `0.5.1` for Expo compatibility |
+
 ## **Backlog Prioritization Rules**
 
 - Prefer vertical slices over isolated infrastructure.
@@ -444,4 +463,4 @@ Manual QA log (`Sprint 6`):
 
 ## **Current Next Action**
 
-Merge `feat/s6-recent-finds` to `main`, then choose the next sprint story with a failing acceptance test.
+Complete `S7-1`: align `react-native-worklets` with Expo, verify, record DoD, and merge.
