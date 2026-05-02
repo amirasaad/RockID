@@ -329,3 +329,15 @@ Action items:
 ## **Current Next Action**
 
 Pick the next Sprint 4 story (accessibility pass or manual QA checklist) and start with ATDD/TDD.
+
+## **Sprint 5: Saved Finds Persistence**
+
+Sprint goal:
+Persist saved finds across app restarts on the same device.
+
+Stories:
+
+| ID | Story | Acceptance Criteria | Priority |
+| --- | --- | --- | --- |
+| `S5-1` | As a user, my saved finds persist across app restarts so I do not lose my collection. | Saved finds are stored locally; after app restart, Collection shows previously saved finds and Saved Find detail opens without "could not be loaded". | Must |
+| `S5-2` | As a user, I can delete a saved find so I can keep my collection clean. | Delete action removes a saved find; Collection updates; opening a deleted id shows a recovery state. | Should |
