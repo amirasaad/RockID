@@ -17,7 +17,7 @@ describe('S3 collection view model', () => {
 
   it('maps saved finds to newest-first collection rows', () => {
     const olderFind = savedFind({ id: 'older-find', title: 'Granite', confidence: 'Medium', savedAt: 100 });
-    const newerFind = savedFind({ id: 'newer-find', title: 'Basalt', confidence: 'High', savedAt: 200 });
+    const newerFind = savedFind({ id: 'newer-find', title: 'Basalt', confidence: 'High', savedAt: 1_777_680_000_000 });
 
     const viewModel = createCollectionViewModel([olderFind, newerFind]);
 
