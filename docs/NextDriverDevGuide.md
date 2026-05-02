@@ -9,6 +9,7 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
   - Red: add or update a failing acceptance/unit test.
   - Green: implement the smallest change to pass.
   - Refactor: improve readability while tests stay green.
+- For acceptance tests that define a user-visible story (ATDD), use the `feat` commit type so release bump tooling can “see” feature work even when the first commit is test-only.
 - Keep docs and code aligned in the same PR when behavior changes.
 - Merge to `main` only when story DoD criteria are met.
 - Keep product/app versions in `v0.x.y` throughout MVP. Use `pnpm bump:dry` to preview, then `pnpm bump:patch` or `pnpm bump:minor` only when release criteria are met.
@@ -60,6 +61,12 @@ If bump did not run:
    - `pnpm run typecheck`
 6. Update story status in [AgileDeliveryPlan.md](<AgileDeliveryPlan.md>) with evidence links.
 7. Commit.
+
+Commit message conventions (ATDD):
+
+- Failing acceptance test (red): `🧪 feat(scope): add failing acceptance test for <story>`
+- Passing implementation (green): `✅ feat(scope): test-pass <story>`
+- Unit-only tests (non-story plumbing): keep `🧪 test(...)` / `✅ test(...)`
 
 ## **Definition Of Done Gate**
 

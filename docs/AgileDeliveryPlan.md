@@ -373,6 +373,20 @@ Manual QA log (`Sprint 5`):
 - Result: TBD
 - Notes / follow-up fixes: TBD
 
+## **Sprint 5 Retro (Quick)**
+
+What went well:
+
+- Kept the red → green rhythm and commit narrative (failing test → test-pass → refactor).
+
+What to improve:
+
+- Acceptance-test commits used `test:` which meant release bump tooling didn’t “see” early feature work.
+
+Action:
+
+- For ATDD acceptance tests tied to user-visible stories, use `feat:` commit type going forward (keep 🧪 emoji if it’s primarily test code).
+
 ## **Backlog Prioritization Rules**
 
 - Prefer vertical slices over isolated infrastructure.
