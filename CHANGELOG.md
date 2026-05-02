@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.6.0 (2026-05-02)
+
+
+### ✅ Tests
+
+* **analytics**: Add failing stub contract 2cddabe
+
+
+### ✨ Features
+
+* **analytics**: Add track stub a438dc5
+* **analytics**: Wire baseline events 134de68
+
+
+### 📝 Documentation
+
+* **s4**: Add S4-1 tracking ab1ba96
+
+
+
+
+
 # 0.5.0 (2026-05-02)
 
 
