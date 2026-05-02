@@ -6,7 +6,7 @@ import {
   type ResultFeedbackChoice,
 } from '@/lib/result-feedback';
 
-describe('S8 result feedback', () => {
+describe('S8 result feedback acceptance', () => {
   it('records whether a completed result was useful for field-test learning', () => {
     const store = createResultFeedbackStore();
     const choice: ResultFeedbackChoice = 'useful';

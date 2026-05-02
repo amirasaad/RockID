@@ -82,6 +82,6 @@ Story status snapshot:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S8-1` | `In Progress` | [s8-result-feedback.test.ts](<../../../__tests__/s8-result-feedback.test.ts>) | Red test committed first |
+| `S8-1` | `In Progress` | [s8-result-feedback.acceptance.test.ts](<../../../__tests__/s8-result-feedback.acceptance.test.ts>) | Red acceptance test committed first |
 | `S8-2` | `Ready` | This sprint plan | Success signals defined |
 | `S8-3` | `Ready` | TBD | Red/green/refactor required |
