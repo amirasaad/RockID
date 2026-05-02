@@ -11,7 +11,7 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
   - Refactor: improve readability while tests stay green.
 - Keep docs and code aligned in the same PR when behavior changes.
 - Merge to `main` only when story DoD criteria are met.
-- Keep product/app versions in `v0.x.y` throughout MVP.
+- Keep product/app versions in `v0.x.y` throughout MVP. Use `pnpm bump:dry` to preview, then `pnpm bump:patch` or `pnpm bump:minor` only when release criteria are met.
 
 ## **Branch Workflow**
 
@@ -45,7 +45,7 @@ Before merge, verify all of the following:
 - Relevant tests pass.
 - Manual validation notes are captured in sprint tracking.
 - Dependency changes are justified and locked (`package.json` and `pnpm-lock.yaml`).
-- Version changes are intentional, stay in `v0.x.y` during MVP, and update `package.json` plus `app.json` together.
+- Version changes are intentional, stay in `v0.x.y` during MVP, and use the configured bump tooling so `package.json` plus `app.json` update together.
 - No conflict with [Screen-By-ScreenRequirements.md](<Screen-By-ScreenRequirements.md>).
 
 ## **Stash And Context Handoff**

@@ -9,7 +9,7 @@ Driver handoff and day-to-day engineering execution standards live in [NextDrive
 - Cadence: 1-week sprints during MVP discovery and buildout.
 - Sprint goal format: one user-visible outcome per sprint.
 - Release strategy: ship vertical slices that can be demoed in the app.
-- Versioning strategy: stay in `v0.x.y` during MVP; use minor bumps for sprint-level progress and patch bumps for fixes/docs/tooling.
+- Versioning strategy: stay in `v0.x.y` during MVP; use Commitizen-shaped history plus `pnpm bump:dry`, `pnpm bump:patch`, or `pnpm bump:minor` for tracked release bumps.
 - Backlog owner: product/engineering pair, using the PRD and roadmap as source material.
 - Technical quality gate: every sprint should end with typecheck passing and a short demo path verified manually.
 
