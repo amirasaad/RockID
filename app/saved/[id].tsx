@@ -1,7 +1,8 @@
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Alert, StyleSheet, Text } from 'react-native';
 
+import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { DetailRow } from '@/components/Row';
@@ -12,7 +13,7 @@ import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function SavedFindScreen() {
   const { id: rawId } = useLocalSearchParams<{ id?: string | string[] }>();
-  const { savedFinds } = useSavedFinds();
+  const { savedFinds, deleteFind } = useSavedFinds();
   const id = Array.isArray(rawId) ? rawId[0] : rawId;
   const savedFind = savedFinds.find((find) => find.id === id);
 
@@ -58,6 +59,27 @@ export default function SavedFindScreen() {
         <DetailRow label="Date" value={viewModel.savedAtLabel} />
         <DetailRow label="Source" value="Local saved find" />
         <DetailRow label="Location" value="Planned next" />
+      </Card>
+
+      <Card>
+        <SectionTitle>Actions</SectionTitle>
+        <ActionButton
+          label="Delete Saved Find"
+          variant="secondary"
+          onPress={() => {
+            Alert.alert('Delete saved find?', 'This cannot be undone.', [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Delete',
+                style: 'destructive',
+                onPress: () => {
+                  deleteFind(id);
+                  router.replace('/collection');
+                },
+              },
+            ]);
+          }}
+        />
       </Card>
     </Screen>
   );

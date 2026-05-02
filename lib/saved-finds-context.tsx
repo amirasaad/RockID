@@ -42,6 +42,7 @@ function createNoopStorage(): KeyValueStorage {
 type SavedFindsContextValue = {
   savedFinds: SavedFind[];
   saveFind: (savedFind: SavedFind) => SavedFind;
+  deleteFind: (id: string) => boolean;
 };
 
 const SavedFindsContext = createContext<SavedFindsContextValue | null>(null);
@@ -50,6 +51,7 @@ export type SavedFindsRepository = {
   hydrate: () => Promise<void>;
   flush: () => Promise<void>;
   saveFind: (savedFind: SavedFind) => SavedFind;
+  deleteFind: (id: string) => boolean;
   getSnapshot: () => { savedFinds: SavedFind[] };
 };
 
@@ -62,6 +64,9 @@ export function createSavedFindsRepository(input: { storage: KeyValueStorage }):
     flush: controller.flush,
     saveFind(savedFind) {
       return store.save(savedFind);
+    },
+    deleteFind(id) {
+      return store.delete(id);
     },
     getSnapshot: store.getSnapshot,
   };
@@ -89,6 +94,12 @@ export function SavedFindsProvider(props: { children: React.ReactNode }) {
       setSavedFinds(store.getSnapshot().savedFinds);
       if (controller.current) void controller.current.flush();
       return next;
+    },
+    deleteFind(id) {
+      const deleted = store.delete(id);
+      setSavedFinds(store.getSnapshot().savedFinds);
+      if (controller.current) void controller.current.flush();
+      return deleted;
     },
   };
 

@@ -44,4 +44,37 @@ describe('S5 saved finds context persistence unit', () => {
     const raw = await storage.getItem('rockid.savedFinds.v1');
     expect(JSON.parse(raw ?? 'null')).toEqual([next, existing]);
   });
+
+  it('persists deletions through the repository', async () => {
+    const storage = createTestKeyValueStorage();
+    const older: SavedFind = {
+      id: 'find-sess-1',
+      sessionId: 'sess-1',
+      imageUri: 'file:///field/one.jpg',
+      title: 'Granite',
+      confidence: 'Medium',
+      notes: 'Older note',
+      savedAt: 1_777_680_000_000,
+      topMatch: {
+        name: 'Granite',
+        category: 'Igneous intrusive',
+        confidence: 'Medium',
+        score: 72,
+      },
+      matches: [],
+    };
+    const newer: SavedFind = { ...older, id: 'find-sess-2', sessionId: 'sess-2', savedAt: 1_777_680_000_100 };
+
+    await storage.setItem('rockid.savedFinds.v1', JSON.stringify([older, newer]));
+
+    const repo = createSavedFindsRepository({ storage });
+    await repo.hydrate();
+    expect(repo.getSnapshot().savedFinds).toEqual([newer, older]);
+
+    expect(repo.deleteFind(newer.id)).toBe(true);
+    await repo.flush();
+
+    const raw = await storage.getItem('rockid.savedFinds.v1');
+    expect(JSON.parse(raw ?? 'null')).toEqual([older]);
+  });
 });

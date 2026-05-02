@@ -44,6 +44,7 @@ export type SavedFindSnapshot = {
 
 export type SavedFindStore = {
   save: (savedFind: SavedFind) => SavedFind;
+  delete: (id: string) => boolean;
   getSnapshot: () => SavedFindSnapshot;
 };
 
@@ -59,6 +60,11 @@ export function createSavedFindStore(): SavedFindStore {
       const otherSavedFinds = savedFinds.filter((existingFind) => existingFind.id !== savedFind.id);
       savedFinds = [savedFind, ...otherSavedFinds].sort(compareSavedAtDescending);
       return savedFind;
+    },
+    delete(id) {
+      const before = savedFinds.length;
+      savedFinds = savedFinds.filter((find) => find.id !== id);
+      return savedFinds.length !== before;
     },
     getSnapshot() {
       return { savedFinds: [...savedFinds] };

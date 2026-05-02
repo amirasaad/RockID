@@ -28,6 +28,11 @@ export async function createSavedFindStoreWithPersistence(input: { storage: KeyV
       void persistSavedFinds(input.storage, base.getSnapshot().savedFinds);
       return next;
     },
+    delete(id) {
+      const deleted = base.delete(id);
+      void persistSavedFinds(input.storage, base.getSnapshot().savedFinds);
+      return deleted;
+    },
     getSnapshot: base.getSnapshot,
   };
 }
