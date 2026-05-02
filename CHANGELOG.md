@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.7.4 (2026-05-02)
+
+
+### ♻ Code Refactoring
+
+* **docs**: Collapse old sprints e56b8c9
+* **docs**: Move kanban to dedicated file a5066d2
+* **docs**: Restructure sprints 4-5 15cf2c2
+* **saved**: Extract storage resolver a1ed554
+* **saved**: Simplify persistence writes 2863366
+
+
+### ✅ Tests
+
+* **saved**: Add failing context persistence 61000d3
+* **saved**: Add failing persistence 894ae1f
+* **saved**: Add failing provider persistence bf810fc
+* **saved**: Test-pass context persistence 09a1ea2
+* **saved**: Test-pass persistence module c1e4d82
+* **saved**: Test-pass provider persistence f13ef2e
+
+
+### 📝 Documentation
+
+* **kanban**: Add live board e83b379
+* **s5**: Add manual QA log template 8dbf2e5
+* **s5**: Define persistence sprint e6262a2
+* **s5**: Update tracking after wiring 6e49a98
+* **s5**: Update tracking for persistence 0894abc
+
+
+
+
+
 ## 0.7.3 (2026-05-02)
 
 
