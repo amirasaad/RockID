@@ -29,6 +29,20 @@ describe('S3 saved find store', () => {
       savedFinds: [updatedFind],
     });
   });
+
+  it('deletes an existing saved find by id', () => {
+    const store = createSavedFindStore();
+    const olderFind = savedFind({ id: 'delete-older', savedAt: 100 });
+    const newerFind = savedFind({ id: 'delete-newer', savedAt: 200 });
+
+    store.save(olderFind);
+    store.save(newerFind);
+    store.delete(olderFind.id);
+
+    expect(store.getSnapshot()).toEqual({
+      savedFinds: [newerFind],
+    });
+  });
 });
 
 function savedFind(overrides: Pick<SavedFind, 'id' | 'savedAt'>): SavedFind {
