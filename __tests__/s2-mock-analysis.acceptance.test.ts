@@ -38,4 +38,31 @@ describe('S2 mock analysis acceptance', () => {
     expect(analysis.reasoning).toContain('fine grain');
     expect(analysis.nextCheck).toContain('vesicles');
   });
+
+  it('returns a low-confidence result with uncertainty-focused copy when evidence is weak', () => {
+    const session: IdentificationSession = {
+      id: 'session-weak-evidence',
+      selectedPhoto: {
+        source: 'upload',
+        uri: 'file:///field/unclear-sample.jpg',
+        width: 900,
+        height: 900,
+      },
+      observations: {
+        color: undefined,
+        grainSize: undefined,
+        features: [],
+        notes: '',
+      },
+      createdAt: 1,
+      updatedAt: 1,
+    };
+
+    const analysis = analyzeIdentificationSession(session);
+
+    expect(analysis.topMatch.confidence).toBe('Low');
+    expect(analysis.matches).toHaveLength(3);
+    expect(analysis.reasoning).toContain('not enough evidence');
+    expect(analysis.nextCheck).toContain('add a clearer photo');
+  });
 });
