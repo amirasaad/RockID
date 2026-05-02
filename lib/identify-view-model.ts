@@ -49,7 +49,14 @@ export function createIdentifyRecentFindsViewModel(savedFinds: SavedFind[]): Ide
 }
 
 function compareSavedAtDescending(first: SavedFind, second: SavedFind): number {
-  return second.savedAt - first.savedAt;
+  const bySavedAt = second.savedAt - first.savedAt;
+  if (bySavedAt !== 0) return bySavedAt;
+
+  return compareTitleAscending(first, second);
+}
+
+function compareTitleAscending(first: SavedFind, second: SavedFind): number {
+  return first.title.localeCompare(second.title);
 }
 
 function toRecentFindItem(savedFind: SavedFind): IdentifyRecentFindItemViewModel {
