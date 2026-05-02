@@ -360,7 +360,7 @@ Story status snapshot:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S5-1` | `Not Started` | N/A | Next up: add local persistence layer and prove it with acceptance coverage |
+| `S5-1` | `In Progress` | [lib/saved-finds-persistence.ts](<../lib/saved-finds-persistence.ts>) and [__tests__/s5-saved-finds-persistence.acceptance.test.ts](<../__tests__/s5-saved-finds-persistence.acceptance.test.ts>) | Persistence module + acceptance coverage in place; next: wire persistence into SavedFindsProvider using AsyncStorage |
 | `S5-2` | `Not Started` | N/A | Depends on persistence + delete UX |
 
 ## **Backlog Prioritization Rules**
