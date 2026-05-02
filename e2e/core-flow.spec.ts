@@ -16,5 +16,6 @@ test('core flow: review → observations → results → save', async ({ page })
   await page.getByText('Save Result', { exact: true }).click();
   await page.waitForURL('**/saved/**');
   await expect(page.getByRole('heading', { name: 'Saved Find' })).toBeVisible();
-  await expect(page.getByText('Granite', { exact: true })).toBeVisible();
+  await expect(page.getByText('Saved Metadata', { exact: true })).toBeVisible();
+  await expect(page.getByText('Local saved find', { exact: true })).toBeVisible();
 });
