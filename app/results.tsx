@@ -15,6 +15,9 @@ import { isLowConfidenceVariant } from '@/lib/results-clarity';
 import { saveIdentificationResult } from '@/lib/saved-finds-actions';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
+const LOW_CONFIDENCE_TITLE = 'Low confidence';
+const LOW_CONFIDENCE_MESSAGE = 'One photo may not be enough. Add another photo to improve confidence before saving.';
+
 export default function ResultsScreen() {
   const { session } = useIdentificationSession();
   const { saveFind } = useSavedFinds();
@@ -24,18 +27,19 @@ export default function ResultsScreen() {
   const alternatives = matches.slice(1);
   const resultFeedback = getFeedbackForSession(analysis.sessionId);
   const isLowConfidence = isLowConfidenceVariant(topMatch.confidence);
+  const lowConfidenceEventProps = {
+    sessionId: analysis.sessionId,
+    topMatch: topMatch.name,
+  };
   const lastTrackedLowConfidenceSessionRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!isLowConfidence) return;
     if (lastTrackedLowConfidenceSessionRef.current === analysis.sessionId) return;
 
-    track('low_confidence_result_viewed', {
-      sessionId: analysis.sessionId,
-      topMatch: topMatch.name,
-    });
+    track('low_confidence_result_viewed', lowConfidenceEventProps);
     lastTrackedLowConfidenceSessionRef.current = analysis.sessionId;
-  }, [analysis.sessionId, isLowConfidence, topMatch.name]);
+  }, [analysis.sessionId, isLowConfidence, lowConfidenceEventProps]);
 
   function handleSaveResult() {
     if (!session) {
@@ -60,10 +64,7 @@ export default function ResultsScreen() {
   }
 
   function handleAddAnotherPhoto() {
-    track('low_confidence_add_photo_tapped', {
-      sessionId: analysis.sessionId,
-      topMatch: topMatch.name,
-    });
+    track('low_confidence_add_photo_tapped', lowConfidenceEventProps);
     router.replace('/capture-tips');
   }
 
@@ -75,15 +76,50 @@ export default function ResultsScreen() {
     });
   }
 
+  function renderFeedbackCard() {
+    return (
+      <Card>
+        <SectionTitle>Was this result useful?</SectionTitle>
+        {resultFeedback ? (
+          <Text style={styles.bodyText}>
+            Thanks for the feedback. You marked this result as {resultFeedback.choice === 'useful' ? 'useful' : 'not useful'}.
+          </Text>
+        ) : (
+          <View style={styles.feedbackButtons}>
+            <FeedbackChoiceButton label="Useful" onPress={() => handleResultFeedback('useful')} />
+            <FeedbackChoiceButton label="Not useful" onPress={() => handleResultFeedback('not_useful')} />
+          </View>
+        )}
+      </Card>
+    );
+  }
+
+  function renderResultActions() {
+    if (isLowConfidence) {
+      return (
+        <>
+          <ActionButton label="Add Another Photo" onPress={handleAddAnotherPhoto} />
+          <ActionButton label="Save Result" variant="secondary" onPress={handleSaveResult} />
+          <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
+        </>
+      );
+    }
+
+    return (
+      <>
+        <ActionButton label="Save Result" onPress={handleSaveResult} />
+        <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
+      </>
+    );
+  }
+
   return (
     <Screen title="Results" subtitle="This is mocked data, but the screen structure follows the MVP output contract from the spec.">
       {isLowConfidence ? (
         <Card>
           <View style={styles.lowConfidenceBanner}>
-            <Text style={styles.lowConfidenceTitle}>Low confidence</Text>
-            <Text style={styles.bodyText}>
-              One photo may not be enough. Add another photo to improve confidence before saving.
-            </Text>
+            <Text style={styles.lowConfidenceTitle}>{LOW_CONFIDENCE_TITLE}</Text>
+            <Text style={styles.bodyText}>{LOW_CONFIDENCE_MESSAGE}</Text>
           </View>
         </Card>
       ) : null}
@@ -134,43 +170,25 @@ export default function ResultsScreen() {
         <Text style={styles.bodyText}>{analysis.reasoning}</Text>
       </Card>
 
-      <Card>
-        <SectionTitle>Was this result useful?</SectionTitle>
-        {resultFeedback ? (
-          <Text style={styles.bodyText}>
-            Thanks for the feedback. You marked this result as {resultFeedback.choice === 'useful' ? 'useful' : 'not useful'}.
-          </Text>
-        ) : (
-          <View style={styles.feedbackButtons}>
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => handleResultFeedback('useful')}
-              style={({ pressed }) => [styles.feedbackButton, pressed && styles.feedbackButtonPressed]}>
-              <Text style={styles.feedbackButtonLabel}>Useful</Text>
-            </Pressable>
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => handleResultFeedback('not_useful')}
-              style={({ pressed }) => [styles.feedbackButton, pressed && styles.feedbackButtonPressed]}>
-              <Text style={styles.feedbackButtonLabel}>Not useful</Text>
-            </Pressable>
-          </View>
-        )}
-      </Card>
-
-      {isLowConfidence ? (
-        <>
-          <ActionButton label="Add Another Photo" onPress={handleAddAnotherPhoto} />
-          <ActionButton label="Save Result" variant="secondary" onPress={handleSaveResult} />
-          <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
-        </>
-      ) : (
-        <>
-          <ActionButton label="Save Result" onPress={handleSaveResult} />
-          <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
-        </>
-      )}
+      {renderFeedbackCard()}
+      {renderResultActions()}
     </Screen>
+  );
+}
+
+type FeedbackChoiceButtonProps = {
+  label: string;
+  onPress: () => void;
+};
+
+function FeedbackChoiceButton({ label, onPress }: FeedbackChoiceButtonProps) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => [styles.feedbackButton, pressed && styles.feedbackButtonPressed]}>
+      <Text style={styles.feedbackButtonLabel}>{label}</Text>
+    </Pressable>
   );
 }
 
