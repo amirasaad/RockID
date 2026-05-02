@@ -318,18 +318,6 @@ Action items:
 - Prefer unit tests for pure logic (view models, actions, mapping functions) before wiring UI.
 - Add a proper E2E smoke path for the core flow (Identify → Review → Observations → Results → Save → Collection → Saved Detail).
 
-## **Backlog Prioritization Rules**
-
-- Prefer vertical slices over isolated infrastructure.
-- Do not build backend/model integration before the app can reliably capture, review, and carry image input.
-- Keep mocks typed and easy to replace.
-- Treat confidence and uncertainty messaging as core product behavior, not polish.
-- Defer account sync, expert review, and community workflows until after the local MVP loop works.
-
-## **Current Next Action**
-
-Pick the next Sprint 4 story (accessibility pass or manual QA checklist) and start with ATDD/TDD.
-
 ## **Sprint 5: Saved Finds Persistence**
 
 Sprint goal:
@@ -341,3 +329,24 @@ Stories:
 | --- | --- | --- | --- |
 | `S5-1` | As a user, my saved finds persist across app restarts so I do not lose my collection. | Saved finds are stored locally; after app restart, Collection shows previously saved finds and Saved Find detail opens without "could not be loaded". | Must |
 | `S5-2` | As a user, I can delete a saved find so I can keep my collection clean. | Delete action removes a saved find; Collection updates; opening a deleted id shows a recovery state. | Should |
+
+## **Sprint 5 Tracking**
+
+Story status snapshot:
+
+| Story | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| `S5-1` | `Not Started` | N/A | Next up: add local persistence layer and prove it with acceptance coverage |
+| `S5-2` | `Not Started` | N/A | Depends on persistence + delete UX |
+
+## **Backlog Prioritization Rules**
+
+- Prefer vertical slices over isolated infrastructure.
+- Do not build backend/model integration before the app can reliably capture, review, and carry image input.
+- Keep mocks typed and easy to replace.
+- Treat confidence and uncertainty messaging as core product behavior, not polish.
+- Defer account sync, expert review, and community workflows until after the local MVP loop works.
+
+## **Current Next Action**
+
+Start Sprint 5 with `S5-1`: add a failing acceptance test for persistence across app restart, then implement the local storage layer.
