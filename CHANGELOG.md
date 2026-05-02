@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.5.0 (2026-05-02)
+
+
+### ✨ Features
+
+* **review**: Add image quality hints 28928ca
+
+
+### 📝 Documentation
+
+* **workflow**: Document merge bump continue 6dd7f68
+
+
+
+
+
 ## 0.4.1 (2026-05-02)
 
 
