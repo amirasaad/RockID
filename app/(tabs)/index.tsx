@@ -72,6 +72,9 @@ export default function IdentifyScreen() {
           </View>
           <FontAwesome name="diamond" size={28} color={palette.accent} />
         </View>
+        <Text style={styles.offerText}>
+          Identify rocks from a photo, see confidence, and get field tips for what to check next.
+        </Text>
         <Link href="/capture-tips" asChild>
           <ActionButton
             label="Take Photo"
@@ -130,6 +133,13 @@ const styles = StyleSheet.create({
     color: palette.ink,
     fontSize: 22,
     fontWeight: '800',
+  },
+  offerText: {
+    color: palette.muted,
+    fontSize: 15,
+    lineHeight: 22,
+    marginBottom: spacing.md,
+    marginTop: spacing.sm,
   },
   bodyText: {
     color: palette.muted,
