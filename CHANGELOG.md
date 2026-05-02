@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.4.0 (2026-05-02)
+
+
+### ♻ Code Refactoring
+
+* **analysis**: Clarify mock result rules 221fa99
+* **saved-finds**: Harden saved find factory cb26ab8
+* **saved-finds**: Replace duplicate saves 8436663
+* **ui**: Reuse photo thumbnail 4b8bce6
+
+
+### ✅ Tests
+
+* **analysis**: Add low-confidence acceptance case 1b56fcd
+* **collection**: Add saved finds view model case 8129bd3
+* **s3**: Add failing collection thumbnail ATDD bfa366c
+* **s3**: Add failing saved detail missing-image ATDD 3b89596
+* **saved-finds**: Add saved find model case 36ea1b3
+* **saved-finds**: Add saved find store case ed7a81d
+
+
+### ✨ Features
+
+* **analysis**: Add low-confidence mock result 1bcb460
+* **collection**: Add saved finds view model 2425ab9
+* **collection**: Read saved finds from store cddc224
+* **collection**: Show saved thumbnails 593b74c
+* **saved-finds**: Add in-memory saved find store 24feaa9
+* **saved-finds**: Add saved find model b0f057d
+* **saved**: Handle missing image ee10952
+
+
+### 📝 Documentation
+
+* **agile**: Mark S2-4 done f1f0c97
+* **agile**: Mark S3-1 done 63244a9
+* **agile**: Mark S3-2 done 724623b
+* **agile**: Mark S3-3 done e62cc6f
+* **agile**: Mark S3-4 done a5eed72
+* **s3**: Define DoD checklist 1baca65
+
+
+
+
+
 # 0.3.0 (2026-05-02)
 
 
