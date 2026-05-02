@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.7.5 (2026-05-02)
+
+
+### ✅ Tests
+
+* **saved**: Add failing delete ab36dae
+* **saved**: Test-pass delete saved find 067ff0f
+
+
+### 📝 Documentation
+
+* **s5**: Mark S5-2 done 0002dc9
+
+
+
+
+
 ## 0.7.4 (2026-05-02)
 
 
