@@ -2,7 +2,7 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
   parserPreset: {
     parserOpts: {
-      headerPattern: /^(\p{Extended_Pictographic}+)\s(\w+)(?:\(([^)]+)\))?(!)?: (.+)$/u,
+      headerPattern: /^(\S+)\s(\w+)(?:\(([^)]+)\))?(!)?: (.+)$/,
       headerCorrespondence: ['emoji', 'type', 'scope', 'breaking', 'subject'],
     },
   },
@@ -11,4 +11,3 @@ module.exports = {
     'subject-empty': [2, 'never'],
   },
 };
-

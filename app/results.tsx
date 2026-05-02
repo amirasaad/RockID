@@ -1,8 +1,9 @@
 import { Link } from 'expo-router';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
+import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
@@ -17,13 +18,13 @@ export default function ResultsScreen() {
     <Screen title="Results" subtitle="This is mocked data, but the screen structure follows the MVP output contract from the spec.">
       <Card>
         <View style={styles.thumbnailRow}>
-          <View style={styles.thumbnail}>
-            {session?.selectedPhoto?.uri ? (
-              <Image source={{ uri: session.selectedPhoto.uri }} style={styles.thumbnailImage} resizeMode="cover" />
-            ) : (
-              <Text style={styles.thumbnailText}>Sample</Text>
-            )}
-          </View>
+          <PhotoThumbnail
+            uri={session?.selectedPhoto?.uri}
+            size={88}
+            borderRadius={18}
+            fallbackText="Sample"
+            fallbackFontSize={16}
+          />
           <View style={styles.thumbnailMeta}>
             <Text style={styles.metaTitle}>Session</Text>
             <Text style={styles.metaValue}>{session?.observations?.grainSize ?? '—'} grain</Text>
@@ -78,24 +79,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: 16,
-  },
-  thumbnail: {
-    alignItems: 'center',
-    backgroundColor: '#e7ddcf',
-    borderRadius: 18,
-    height: 88,
-    justifyContent: 'center',
-    overflow: 'hidden',
-    width: 88,
-  },
-  thumbnailImage: {
-    height: '100%',
-    width: '100%',
-  },
-  thumbnailText: {
-    color: palette.accentDark,
-    fontSize: 16,
-    fontWeight: '800',
   },
   thumbnailMeta: {
     flex: 1,

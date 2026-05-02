@@ -30,7 +30,7 @@ function shouldSkip(header) {
  * @throws {Error} If the header is missing the required gitmoji prefix.
  */
 function assertGitmojiPrefix(header) {
-  const pattern = /^\p{Extended_Pictographic}+\s+/u;
+  const pattern = /^(?:\p{Extended_Pictographic}|\p{Emoji_Modifier}|\uFE0F|\u200D)+\s+/u;
   if (!pattern.test(header)) {
     throw new Error('Commit message must start with a gitmoji emoji followed by a space, e.g. "✨ feat: add X".');
   }
@@ -46,4 +46,3 @@ const header = await readHeaderLine(commitMsgFilePath);
 if (header && !shouldSkip(header)) {
   assertGitmojiPrefix(header);
 }
-

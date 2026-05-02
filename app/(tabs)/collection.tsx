@@ -1,8 +1,9 @@
 import { Link } from 'expo-router';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { Chip } from '@/components/Chip';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
+import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
 import { createCollectionViewModel } from '@/lib/collection-view-model';
 import { useSavedFinds } from '@/lib/saved-finds-context';
@@ -34,13 +35,7 @@ export default function CollectionScreen() {
           <Link href={`/saved/${find.id}`} key={find.id} asChild>
             <Card>
               <View style={styles.row}>
-                <View style={styles.thumbnail}>
-                  {find.hasImage && find.imageUri ? (
-                    <Image source={{ uri: find.imageUri }} style={styles.thumbnailImage} resizeMode="cover" />
-                  ) : (
-                    <Text style={styles.thumbnailFallback}>No photo</Text>
-                  )}
-                </View>
+                <PhotoThumbnail uri={find.imageUri} size={72} borderRadius={18} fallbackText="No photo" fallbackFontSize={12} />
                 <View style={styles.textCol}>
                   <Text style={styles.title}>{find.title}</Text>
                   <Text style={styles.meta}>{find.savedAtLabel}</Text>
@@ -64,24 +59,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: 14,
-  },
-  thumbnail: {
-    alignItems: 'center',
-    backgroundColor: '#e7ddcf',
-    borderRadius: 18,
-    height: 72,
-    justifyContent: 'center',
-    overflow: 'hidden',
-    width: 72,
-  },
-  thumbnailImage: {
-    height: '100%',
-    width: '100%',
-  },
-  thumbnailFallback: {
-    color: palette.accentDark,
-    fontSize: 12,
-    fontWeight: '700',
   },
   textCol: {
     flex: 1,
