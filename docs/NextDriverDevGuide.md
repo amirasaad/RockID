@@ -22,6 +22,30 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
 4. Rebase or merge from `main` before final verification.
 5. Fast-forward merge to `main` when possible.
 
+## **Merge And Continue**
+
+Preferred merge path (fast-forward, local):
+
+1. `git checkout main`
+2. `git pull --ff-only`
+3. `git merge --ff-only <your-branch>`
+
+What happens on merge:
+
+- On `main`, the repo runs `pnpm bump` automatically via the local git `post-merge` hook.
+- If `pnpm bump` fails, the hook resets `main` back to the pre-merge commit and exits non-zero (treat this as a failed merge).
+
+Continue to the next story:
+
+1. Confirm `main` is clean: `git status`
+2. Start the next branch from `main`: `git checkout -b feat/s4-<story-scope>`
+
+If bump did not run:
+
+- Confirm hooks are installed: run `pnpm prepare` once after cloning.
+- Confirm hooks path: `git config core.hooksPath` should be `.husky/_`.
+- Note: hooks only run locally; merges done on GitHub will not trigger local bump automation.
+
 ## **Story Execution Loop**
 
 1. Pick one story from [AgileDeliveryPlan.md](<AgileDeliveryPlan.md>) tracking table.
