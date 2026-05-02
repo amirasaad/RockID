@@ -5,11 +5,13 @@ import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette } from '@/constants/theme';
 import { useIdentificationSession } from '@/lib/identification-session-context';
-import { topMatches } from '@/lib/mock-data';
+import { analyzeIdentificationSession } from '@/lib/mock-analysis';
 
 export default function ResultsScreen() {
   const { session } = useIdentificationSession();
-  const [topMatch, ...alternatives] = topMatches;
+  const analysis = analyzeIdentificationSession(session);
+  const { topMatch, matches } = analysis;
+  const alternatives = matches.slice(1);
 
   return (
     <Screen title="Results" subtitle="This is mocked data, but the screen structure follows the MVP output contract from the spec.">
@@ -42,7 +44,7 @@ export default function ResultsScreen() {
       <Card>
         <SectionTitle>Why this match</SectionTitle>
         <Text style={styles.bodyText}>
-          Coarse interlocking grains, visible feldspar and quartz, and a massive texture all point toward granite.
+          {analysis.reasoning}
         </Text>
       </Card>
 
@@ -58,7 +60,7 @@ export default function ResultsScreen() {
 
       <Card>
         <SectionTitle>Check next</SectionTitle>
-        <Text style={styles.bodyText}>Look for foliation or mineral banding to rule out granitic gneiss.</Text>
+        <Text style={styles.bodyText}>{analysis.nextCheck}</Text>
       </Card>
 
       <Link href="/saved/granite-trail" asChild>

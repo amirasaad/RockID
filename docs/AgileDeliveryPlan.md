@@ -120,12 +120,25 @@ Out of scope for Sprint 1:
 Sprint goal:
 Carry the selected image and observation data into a single in-app identification session.
 
-Candidate stories:
+Stories:
 
-- Store selected image URI and optional observations in shared state.
-- Show selected image thumbnail on analysis and results screens.
-- Replace hardcoded result data with a typed mock analysis service.
-- Add low-confidence result variant using mock fixtures.
+| ID | Story | Acceptance Criteria | Priority |
+| --- | --- | --- | --- |
+| `S2-1` | As a user, my selected rock photo stays attached to the identification session. | Selected image URI is stored in shared session state and survives navigation from review through analysis/results. | Must |
+| `S2-2` | As a user, I can see the selected image throughout analysis and results. | Analysis and results screens render the current session photo thumbnail when available. | Must |
+| `S2-3` | As the team, we can replace hardcoded results with a typed mock analysis service. | Results screen reads from a typed mock analysis result generated from selected photo and observations. | Must |
+| `S2-4` | As a user, I can see a low-confidence result variant when evidence is weak. | Mock analysis can return a low-confidence fixture with uncertainty-focused copy. | Should |
+
+## **Sprint 2 Tracking**
+
+Story status snapshot:
+
+| Story | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| `S2-1` | `Done` | [lib/identification-session.ts](<../lib/identification-session.ts>) and [__tests__/s2-session-state.acceptance.test.ts](<../__tests__/s2-session-state.acceptance.test.ts>) | In-memory session carries selected photo and observations |
+| `S2-2` | `Done` | [app/analyzing.tsx](<../app/analyzing.tsx>) and [app/results.tsx](<../app/results.tsx>) | Session image thumbnail appears after review |
+| `S2-3` | `Done` | [lib/mock-analysis.ts](<../lib/mock-analysis.ts>), [app/results.tsx](<../app/results.tsx>), and [__tests__/s2-mock-analysis.acceptance.test.ts](<../__tests__/s2-mock-analysis.acceptance.test.ts>) | Basalt fixture uses dark, fine-grained, vesicular observations |
+| `S2-4` | `Not Started` | Pending | Next Sprint 2 candidate |
 
 ## **Sprint 3: Saved Finds**
 
@@ -162,4 +175,4 @@ Candidate stories:
 
 ## **Current Next Action**
 
-Start Sprint 1 with `S1-1` and `S1-2` together because `expo-image-picker` supports both library selection and camera capture. The implementation should update the Identify, Capture Tips, and Review screens so the first real user input flows through the app.
+Continue Sprint 2 with `S2-4`: add a low-confidence mock result variant with uncertainty-focused copy and acceptance coverage.
