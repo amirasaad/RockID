@@ -12,6 +12,7 @@ test('core flow: review → observations → results → save', async ({ page })
   await page.getByText('Analyze Rock', { exact: true }).click();
   await page.waitForURL('**/results');
   await expect(page.getByRole('heading', { name: 'Results' })).toBeVisible();
+  await expect(page.getByText(/mocked data/i)).toHaveCount(0);
 
   await page.getByText('Useful', { exact: true }).click();
   await expect(page.getByText('Thanks for the feedback. You marked this result as useful.', { exact: true })).toBeVisible();
