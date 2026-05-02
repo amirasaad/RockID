@@ -51,7 +51,7 @@ If bump did not run:
 
 ## **Story Execution Loop**
 
-1. Pick one story from [AgileDeliveryPlan.md](<AgileDeliveryPlan.md>) tracking table.
+1. Pick one story from [agile/README.md](<agile/README.md>) or [agile/EpicMilestones.md](<agile/EpicMilestones.md>).
 2. Confirm acceptance criteria and edge states.
 3. Write failing test(s) tied to the criteria.
 4. Implement behavior.
@@ -59,7 +59,7 @@ If bump did not run:
    - `pnpm run test:unit`
    - `pnpm test -- __tests__/s1-gallery-upload.acceptance.test.ts` (or story-equivalent acceptance suite)
    - `pnpm run typecheck`
-6. Update story status in [AgileDeliveryPlan.md](<AgileDeliveryPlan.md>) with evidence links.
+6. Update the relevant sprint file in [agile/sprints](<agile/sprints>) and [agile/EpicMilestones.md](<agile/EpicMilestones.md>) when status changes.
 7. Commit.
 
 Commit message conventions (ATDD):

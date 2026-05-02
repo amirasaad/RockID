@@ -155,7 +155,9 @@ assets/images/       App icons and splash assets
 - `docs/PRD.md` defines product goals, target users, MVP scope, and trust requirements.
 - `docs/Screen-By-ScreenRequirements.md` details expected UI, states, analytics, and actions by screen.
 - `docs/ClickableFlowMap.md` maps the end-to-end user flow.
-- `docs/AgileDeliveryPlan.md` tracks sprint stories and delivery order.
+- `docs/AgileDeliveryPlan.md` is the agile delivery hub and current-next-action pointer.
+- `docs/agile/README.md` indexes sprint files and epic milestone tracking.
+- `docs/Kanban.md` is the live board for what is backlog, ready, in progress, review, and done.
 - `docs/NextDriverDevGuide.md` documents the engineering workflow and validation gate.
 
 ## Engineering Notes
