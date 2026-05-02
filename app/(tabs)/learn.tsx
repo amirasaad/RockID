@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { StyleSheet, Text } from 'react-native';
+import { Link } from 'expo-router';
 
 import { Card, Screen } from '@/components/Layout';
 import { palette } from '@/constants/theme';
 import { track } from '@/lib/analytics';
+import { createLearnTopicsViewModel } from '@/lib/learn-view-model';
 import { learnTopics } from '@/lib/mock-data';
 
 export default function LearnScreen() {
@@ -11,15 +13,17 @@ export default function LearnScreen() {
     track('learn_tab_viewed');
   }, []);
 
+  const viewModel = createLearnTopicsViewModel(learnTopics);
+
   return (
     <Screen title="Learn" subtitle="Short, approachable geology primers for beginners in the field.">
-      {learnTopics.map((topic) => (
-        <Card key={topic}>
-          <Text style={styles.topic}>{topic}</Text>
-          <Text style={styles.summary}>
-            This topic is ready for deeper content once we wire the educational detail pages.
-          </Text>
-        </Card>
+      {viewModel.items.map((topic) => (
+        <Link href={topic.href as never} key={topic.slug} asChild>
+          <Card>
+            <Text style={styles.topic}>{topic.title}</Text>
+            <Text style={styles.summary}>Tap to open a short field-friendly overview.</Text>
+          </Card>
+        </Link>
       ))}
     </Screen>
   );

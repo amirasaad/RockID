@@ -298,7 +298,7 @@ Story status snapshot:
 | --- | --- | --- | --- |
 | `S4-1` | `Done` | [app/review.tsx](<../app/review.tsx>), [lib/image-quality.ts](<../lib/image-quality.ts>), and [__tests__/s4-image-quality.test.ts](<../__tests__/s4-image-quality.test.ts>) | Review now shows basic quality hints and a single tip using local metadata only |
 | `S4-2` | `Done` | [lib/analytics.ts](<../lib/analytics.ts>), [__tests__/s4-analytics.acceptance.test.ts](<../__tests__/s4-analytics.acceptance.test.ts>), and [app/(tabs)/index.tsx](<../app/(tabs)/index.tsx>) | Analytics wrapper exists and key screens emit baseline events without binding to a vendor |
-| `S4-3` | `Not Started` | N/A | Next up: wire learn topic detail routes and richer content |
+| `S4-3` | `Done` | [app/(tabs)/learn.tsx](<../app/(tabs)/learn.tsx>), [app/(tabs)/learn/[slug].tsx](<../app/(tabs)/learn/[slug].tsx>), and [__tests__/s4-learn-topics.acceptance.test.ts](<../__tests__/s4-learn-topics.acceptance.test.ts>) | Learn topics now navigate into a placeholder detail screen and emit `learn_topic_opened` analytics |
 
 ## **Backlog Prioritization Rules**
 
@@ -310,4 +310,4 @@ Story status snapshot:
 
 ## **Current Next Action**
 
-Continue Sprint 4 with `S4-3`: begin wiring learn topic detail routes using ATDD/TDD.
+Pick the next Sprint 4 story (accessibility pass or manual QA checklist) and start with ATDD/TDD.
