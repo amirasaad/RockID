@@ -32,7 +32,7 @@ describe('S6 identify recent finds acceptance', () => {
       title: 'Slate',
       confidenceLabel: 'Medium confidence',
       savedAtLabel: 'Saved Jan 1, 1970',
-      href: '/saved/find-extra',
+      href: { pathname: '/saved/[id]', params: { id: 'find-extra' } },
     });
   });
 });

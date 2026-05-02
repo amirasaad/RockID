@@ -5,7 +5,10 @@ export type IdentifyRecentFindItemViewModel = {
   title: string;
   confidenceLabel: string;
   savedAtLabel: string;
-  href: string;
+  href: {
+    pathname: '/saved/[id]';
+    params: { id: string };
+  };
 };
 
 export type IdentifyRecentFindsEmptyViewModel = {
@@ -22,6 +25,13 @@ export type IdentifyRecentFindsPopulatedViewModel = {
 
 export type IdentifyRecentFindsViewModel = IdentifyRecentFindsEmptyViewModel | IdentifyRecentFindsPopulatedViewModel;
 
+const savedDateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
 export function createIdentifyRecentFindsViewModel(savedFinds: SavedFind[]): IdentifyRecentFindsViewModel {
   if (savedFinds.length === 0) {
     return {
@@ -34,6 +44,23 @@ export function createIdentifyRecentFindsViewModel(savedFinds: SavedFind[]): Ide
 
   return {
     kind: 'populated',
-    items: [],
+    items: [...savedFinds].sort(compareSavedAtDescending).slice(0, 3).map(toRecentFindItem),
+  };
+}
+
+function compareSavedAtDescending(first: SavedFind, second: SavedFind): number {
+  return second.savedAt - first.savedAt;
+}
+
+function toRecentFindItem(savedFind: SavedFind): IdentifyRecentFindItemViewModel {
+  return {
+    id: savedFind.id,
+    title: savedFind.title,
+    confidenceLabel: `${savedFind.confidence} confidence`,
+    savedAtLabel: `Saved ${savedDateFormatter.format(new Date(savedFind.savedAt))}`,
+    href: {
+      pathname: '/saved/[id]',
+      params: { id: savedFind.id },
+    },
   };
 }

@@ -8,12 +8,15 @@ import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette, spacing } from '@/constants/theme';
 import { track } from '@/lib/analytics';
+import { createIdentifyRecentFindsViewModel } from '@/lib/identify-view-model';
 import { useIdentificationSession } from '@/lib/identification-session-context';
-import { recentFinds } from '@/lib/mock-data';
 import { selectRockPhotoFromLibrary } from '@/lib/photo-input';
+import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function IdentifyScreen() {
   const { startSession } = useIdentificationSession();
+  const { savedFinds } = useSavedFinds();
+  const recentFinds = createIdentifyRecentFindsViewModel(savedFinds);
 
   React.useEffect(() => {
     track('home_viewed');
@@ -89,15 +92,22 @@ export default function IdentifyScreen() {
       </Card>
 
       <SectionTitle>Recent Finds</SectionTitle>
-      {recentFinds.map((find) => (
-        <Link href={`/saved/${find.id}`} key={find.id} asChild>
-          <Card>
-            <Text style={styles.findTitle}>{find.title}</Text>
-            <Text style={styles.meta}>{find.date}</Text>
-            <Text style={styles.confidence}>{find.confidence} confidence</Text>
-          </Card>
-        </Link>
-      ))}
+      {recentFinds.kind === 'empty' ? (
+        <Card>
+          <Text style={styles.findTitle}>{recentFinds.title}</Text>
+          <Text style={styles.meta}>{recentFinds.message}</Text>
+        </Card>
+      ) : (
+        recentFinds.items.map((find) => (
+          <Link href={find.href} key={find.id} asChild>
+            <Card>
+              <Text style={styles.findTitle}>{find.title}</Text>
+              <Text style={styles.meta}>{find.savedAtLabel}</Text>
+              <Text style={styles.confidence}>{find.confidenceLabel}</Text>
+            </Card>
+          </Link>
+        ))
+      )}
     </Screen>
   );
 }
