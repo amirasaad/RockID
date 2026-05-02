@@ -35,6 +35,18 @@ describe('S6 identify recent finds acceptance', () => {
       href: { pathname: '/saved/[id]', params: { id: 'find-extra' } },
     });
   });
+
+  it('breaks savedAt ties consistently using title order', () => {
+    const zeta = savedFind({ id: 'find-zeta', title: 'Zeta', savedAt: 500 });
+    const alpha = savedFind({ id: 'find-alpha', title: 'Alpha', savedAt: 500 });
+
+    const viewModel = createIdentifyRecentFindsViewModel([zeta, alpha]);
+
+    expect(viewModel.kind).toBe('populated');
+    if (viewModel.kind !== 'populated') return;
+
+    expect(viewModel.items.map((item) => item.id)).toEqual(['find-alpha', 'find-zeta']);
+  });
 });
 
 function savedFind(overrides: Pick<SavedFind, 'id' | 'title' | 'savedAt'>): SavedFind {
