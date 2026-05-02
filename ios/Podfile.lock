@@ -1773,6 +1773,28 @@ PODS:
     - React-utils (= 0.81.5)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.81.5)
+  - RNCAsyncStorage (2.2.0):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - RNReanimated (4.1.7):
     - hermes-engine
     - RCTRequired
@@ -2049,6 +2071,7 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - "ReactCommon/turbomodule/core (from `../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/ReactCommon`)"
   - "ReactNativeDependencies (from `../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)"
+  - "RNCAsyncStorage (from `../node_modules/.pnpm/@react-native-async-storage+async-storage@2.2.0_react-native@0.81.5_@babel+core@7.29.0__8dedbfc959f1eab015519d509d2be511/node_modules/@react-native-async-storage/async-storage`)"
   - "RNReanimated (from `../node_modules/.pnpm/react-native-reanimated@4.1.7_react-native-worklets@0.8.1_@babel+core@7.29.0_@react-nat_cc7f99063c7ab97a88ec00e564831041/node_modules/react-native-reanimated`)"
   - "RNScreens (from `../node_modules/.pnpm/react-native-screens@4.16.0_react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-_85d298e7181ad04463c6b9d3cf700780/node_modules/react-native-screens`)"
   - "RNWorklets (from `../node_modules/.pnpm/react-native-worklets@0.8.1_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel_0034dbf1664ae04accb0ae8f8a620840/node_modules/react-native-worklets`)"
@@ -2216,6 +2239,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/ReactCommon"
   ReactNativeDependencies:
     :podspec: "../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec"
+  RNCAsyncStorage:
+    :path: "../node_modules/.pnpm/@react-native-async-storage+async-storage@2.2.0_react-native@0.81.5_@babel+core@7.29.0__8dedbfc959f1eab015519d509d2be511/node_modules/@react-native-async-storage/async-storage"
   RNReanimated:
     :path: "../node_modules/.pnpm/react-native-reanimated@4.1.7_react-native-worklets@0.8.1_@babel+core@7.29.0_@react-nat_cc7f99063c7ab97a88ec00e564831041/node_modules/react-native-reanimated"
   RNScreens:
@@ -2306,6 +2331,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 21176f27491e89136a9defcfc032753db8790aa1
   ReactCommon: e6e232202a447d353e5531f2be82f50f47cbaa9a
   ReactNativeDependencies: 71ce9c28beb282aa720ea7b46980fff9669f428a
+  RNCAsyncStorage: e85a99325df9eb0191a6ee2b2a842644c7eb29f4
   RNReanimated: e1231f6b01cacd628ab9678f77bab2dad6a28d6c
   RNScreens: dd61bc3a3e6f6901ad833efa411917d44827cf51
   RNWorklets: 63579d0d01594a9fb67a3a02588473ca2c386e40
