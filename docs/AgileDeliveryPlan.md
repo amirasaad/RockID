@@ -60,7 +60,8 @@ A story is done when:
 | Sprint 6 | Home Recent Finds | [Sprint-06](<agile/sprints/Sprint-06-home-recent-finds.md>) |
 | Sprint 7 | Expo Compatibility Maintenance | [Sprint-07](<agile/sprints/Sprint-07-expo-compatibility-maintenance.md>) |
 | Sprint 8 | Field-Test Readiness | [Sprint-08](<agile/sprints/Sprint-08-field-test-readiness.md>) |
+| Sprint 9 | Results Clarity (Low-Confidence First) | [Sprint-09](<agile/sprints/Sprint-09-results-clarity.md>) |
 
 ## **Current Next Action**
 
-Start `S8-1` from [agile/sprints/Sprint-08-field-test-readiness.md](<agile/sprints/Sprint-08-field-test-readiness.md>) with a failing acceptance or unit test, then move it through red, green, and refactor.
+Advance `S9-1` in [agile/sprints/Sprint-09-results-clarity.md](<agile/sprints/Sprint-09-results-clarity.md>) by completing manual web + iPhone QA, then move story status to `Done`.
