@@ -360,18 +360,18 @@ Story status snapshot:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S5-1` | `In Progress` | [lib/saved-finds-context.tsx](<../lib/saved-finds-context.tsx>), [lib/saved-finds-persistence.ts](<../lib/saved-finds-persistence.ts>), and [__tests__/s5-saved-finds-context-persistence.test.ts](<../__tests__/s5-saved-finds-context-persistence.test.ts>) | Persistence module exists and SavedFindsProvider hydrates/persists via AsyncStorage; next: add on-device restart QA notes and ensure Collection reflects persisted state after a real restart |
+| `S5-1` | `Done` | [lib/saved-finds-context.tsx](<../lib/saved-finds-context.tsx>), [lib/saved-finds-persistence.ts](<../lib/saved-finds-persistence.ts>), and [__tests__/s5-saved-finds-context-persistence.test.ts](<../__tests__/s5-saved-finds-context-persistence.test.ts>) | On-device restart QA passed on iPhone: after force quit + reopen, `Collection` still shows saved finds and Saved Find detail opens normally |
 | `S5-2` | `Done` | [app/saved/[id].tsx](<../app/saved/[id].tsx>), [lib/saved-finds.ts](<../lib/saved-finds.ts>), and [__tests__/s3-saved-find-store.test.ts](<../__tests__/s3-saved-find-store.test.ts>) | Saved Find detail includes a delete action; deletion removes the record, updates Collection, and opening a deleted id shows the recovery state |
 
 Manual QA log (`Sprint 5`):
 
 - Date: 2026-05-02
 - Scope: `S5-1` saved finds persistence across app restart
-- Device/OS: TBD
-- Tester: TBD
+- Device/OS: iPhone (iOS)
+- Tester: Amir
 - Steps: Save a result → force quit app → reopen → confirm `Collection` still shows saved find → open saved find detail
-- Result: TBD
-- Notes / follow-up fixes: TBD
+- Result: Pass
+- Notes / follow-up fixes: None
 
 ## **Sprint 5 Retro (Quick)**
 
@@ -397,4 +397,4 @@ Action:
 
 ## **Current Next Action**
 
-Complete on-device restart QA for `S5-1` and fill in the Sprint 5 manual QA log with device/OS/test result.
+Start the next sprint story with a failing acceptance test (ATDD), then implement.
