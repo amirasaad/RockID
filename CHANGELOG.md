@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.7.2 (2026-05-02)
+
+
+### ✅ Tests
+
+* **e2e**: Add playwright smoke 66c06be
+
+
+### 📝 Documentation
+
+* **retro**: Capture TDD + e2e gaps bb1aa6c
+
+
+
+
+
 ## 0.7.1 (2026-05-02)
 
 
