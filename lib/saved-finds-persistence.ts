@@ -6,6 +6,11 @@ export type KeyValueStorage = {
   setItem: (key: string, value: string) => Promise<void>;
 };
 
+export type PersistedStoreController = {
+  hydrate: () => Promise<void>;
+  flush: () => Promise<void>;
+};
+
 const STORAGE_KEY = 'rockid.savedFinds.v1';
 
 /**
@@ -68,6 +73,32 @@ export async function loadSavedFinds(storage: KeyValueStorage): Promise<SavedFin
  */
 export async function persistSavedFinds(storage: KeyValueStorage, savedFinds: SavedFind[]): Promise<void> {
   await storage.setItem(STORAGE_KEY, JSON.stringify(savedFinds));
+}
+
+/**
+ * Wires an existing in-memory saved-find store to hydrate from, and persist to, the provided storage.
+ * @param input - Store and storage dependencies.
+ * @returns A controller exposing hydrate() and flush() for deterministic tests.
+ */
+export function createPersistedSavedFindStore(input: {
+  store: SavedFindStore;
+  storage: KeyValueStorage;
+}): PersistedStoreController {
+  let lastWrite: Promise<void> = Promise.resolve();
+  let hasHydrated = false;
+
+  return {
+    async hydrate() {
+      if (hasHydrated) return;
+      const persisted = await loadSavedFinds(input.storage);
+      persisted.forEach((find) => input.store.save(find));
+      hasHydrated = true;
+    },
+    async flush() {
+      lastWrite = persistSavedFinds(input.storage, input.store.getSnapshot().savedFinds);
+      await lastWrite;
+    },
+  };
 }
 
 function createSavedFindStoreWithInitialState(initial: SavedFind[]): SavedFindStore {
