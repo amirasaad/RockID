@@ -1,12 +1,16 @@
 import { Link } from 'expo-router';
 import { StyleSheet, Text } from 'react-native';
 
-import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { Chip } from '@/components/Chip';
+import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette } from '@/constants/theme';
-import { recentFinds } from '@/lib/mock-data';
+import { createCollectionViewModel } from '@/lib/collection-view-model';
+import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function CollectionScreen() {
+  const { savedFinds } = useSavedFinds();
+  const viewModel = createCollectionViewModel(savedFinds);
+
   return (
     <Screen title="Collection" subtitle="Saved samples, quick filters, and room to grow into sync later.">
       <SectionTitle>Filters</SectionTitle>
@@ -19,15 +23,23 @@ export default function CollectionScreen() {
           <Chip label="Metamorphic" />
         </Card>
       </Card>
-      {recentFinds.map((find) => (
-        <Link href={`/saved/${find.id}`} key={find.id} asChild>
-          <Card>
-            <Text style={styles.title}>{find.title}</Text>
-            <Text style={styles.meta}>{find.date}</Text>
-            <Text style={styles.meta}>{find.confidence} confidence</Text>
-          </Card>
-        </Link>
-      ))}
+
+      {viewModel.kind === 'empty' ? (
+        <Card>
+          <Text style={styles.emptyTitle}>{viewModel.title}</Text>
+          <Text style={styles.meta}>{viewModel.message}</Text>
+        </Card>
+      ) : (
+        viewModel.items.map((find) => (
+          <Link href={`/saved/${find.id}`} key={find.id} asChild>
+            <Card>
+              <Text style={styles.title}>{find.title}</Text>
+              <Text style={styles.meta}>{find.savedAtLabel}</Text>
+              <Text style={styles.meta}>{find.confidenceLabel}</Text>
+            </Card>
+          </Link>
+        ))
+      )}
     </Screen>
   );
 }
@@ -36,6 +48,11 @@ const styles = StyleSheet.create({
   search: {
     color: palette.muted,
     fontSize: 15,
+  },
+  emptyTitle: {
+    color: palette.ink,
+    fontSize: 18,
+    fontWeight: '800',
   },
   title: {
     color: palette.ink,

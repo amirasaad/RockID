@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import { palette } from '@/constants/theme';
 import { IdentificationSessionProvider } from '@/lib/identification-session-context';
+import { SavedFindsProvider } from '@/lib/saved-finds-context';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -29,9 +30,10 @@ const navigationTheme = {
 export default function RootLayout() {
   return (
     <IdentificationSessionProvider>
-      <ThemeProvider value={navigationTheme}>
-        <StatusBar style="dark" />
-        <Stack
+      <SavedFindsProvider>
+        <ThemeProvider value={navigationTheme}>
+          <StatusBar style="dark" />
+          <Stack
           screenOptions={{
             headerShadowVisible: false,
             headerStyle: { backgroundColor: palette.background },
@@ -53,8 +55,9 @@ export default function RootLayout() {
               headerRight: () => <FontAwesome name="compass" size={18} color={palette.accent} />,
             }}
           />
-        </Stack>
-      </ThemeProvider>
+          </Stack>
+        </ThemeProvider>
+      </SavedFindsProvider>
     </IdentificationSessionProvider>
   );
 }
