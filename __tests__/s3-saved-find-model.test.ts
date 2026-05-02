@@ -62,5 +62,6 @@ describe('S3 saved find model', () => {
       topMatch: analysis.topMatch,
       matches: analysis.matches,
     });
+    expect(savedFind.matches).not.toBe(analysis.matches);
   });
 });

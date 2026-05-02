@@ -14,7 +14,7 @@ export type SavedFind = {
   matches: RockMatch[];
 };
 
-type CreateSavedFindInput = {
+export type CreateSavedFindInput = {
   session: IdentificationSession;
   analysis: MockAnalysisResult;
   savedAt?: number;
@@ -22,7 +22,7 @@ type CreateSavedFindInput = {
 
 export function createSavedFind({ session, analysis, savedAt = Date.now() }: CreateSavedFindInput): SavedFind {
   return {
-    id: `find-${session.id}`,
+    id: createSavedFindId(session.id),
     sessionId: session.id,
     imageUri: analysis.imageUri ?? session.selectedPhoto?.uri,
     title: analysis.topMatch.name,
@@ -30,6 +30,10 @@ export function createSavedFind({ session, analysis, savedAt = Date.now() }: Cre
     notes: session.observations?.notes ?? '',
     savedAt,
     topMatch: analysis.topMatch,
-    matches: analysis.matches,
+    matches: [...analysis.matches],
   };
+}
+
+function createSavedFindId(sessionId: string): string {
+  return `find-${sessionId}`;
 }
