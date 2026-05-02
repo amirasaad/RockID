@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.9.0 (2026-05-02)
+
+
+### ✅ Tests
+
+* **feedback**: Mark result feedback as acceptance c18616c
+
+
+### ✨ Features
+
+* **feedback**: Describe result usefulness acceptance f2f0a6f
+* **feedback**: Record result usefulness feedback b4826af
+* **feedback**: Test-pass core flow usefulness feedback 5ea4457
+* **feedback**: Test-pass result usefulness prompt deb60ab
+
+
+### 📝 Documentation
+
+* **agile**: Close sprint 8 tracking with QA evidence b605397
+* **agile**: Plan sprint 8 field testing 1404999
+
+
+
+
+
 ## 0.8.2 (2026-05-02)
 
 
