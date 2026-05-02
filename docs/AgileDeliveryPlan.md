@@ -170,12 +170,47 @@ Manual QA log (`Sprint 2`):
 Sprint goal:
 Make saved finds persistent enough for repeated local use.
 
-Candidate stories:
+Stories:
 
-- Define saved-find data model.
-- Save current mock result with image URI, timestamp, notes, and confidence.
-- Replace static collection entries with saved records.
-- Add empty, loading, and missing-image states.
+| ID | Story | Acceptance Criteria | Priority |
+| --- | --- | --- | --- |
+| `S3-1` | As the team, we can model a saved find from the current identification result. | A saved-find factory creates a typed record with image URI, timestamp, notes, confidence, top match, and matches from session + analysis data. | Must |
+| `S3-2` | As a user, I can save the current mock result so I can revisit it later in the session. | Save action stores the current analysis result with image URI, timestamp, notes, and confidence. | Must |
+| `S3-3` | As a user, I can see saved finds in my collection. | Collection screen reads saved records instead of static entries and handles empty state. | Must |
+| `S3-4` | As a user, I can recover gracefully when a saved find image is missing. | Saved records render a useful missing-image state without crashing. | Should |
+
+## **Sprint 3 Tracking**
+
+Story status snapshot:
+
+| Story | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| `S3-1` | `Done` | [lib/saved-finds.ts](<../lib/saved-finds.ts>) and [__tests__/s3-saved-find-model.test.ts](<../__tests__/s3-saved-find-model.test.ts>) | Saved-find model maps session + analysis into a typed record; matches array is cloned |
+| `S3-2` | `Not Started` | Pending | Next Sprint 3 candidate |
+| `S3-3` | `Not Started` | Pending | Depends on save flow |
+| `S3-4` | `Not Started` | Pending | Depends on collection rendering |
+
+Definition of done checkpoint (`S3-1`):
+
+| DoD Criterion | Current State |
+| --- | --- |
+| User-facing flow works in app | `N/A for model-only slice` - no UI behavior added |
+| Edge states handled | `Yes` - saved match list is cloned from analysis data |
+| `pnpm run typecheck` passes | `Yes` |
+| Relevant tests pass | `Yes` - `pnpm test` passes |
+| Manual validation documented | `N/A for model-only slice`; covered by unit test |
+| MVP version remains in `v0.x.y` | `Yes` |
+| Dependency changes justified and locked | `N/A` - no dependency changes |
+| No MVP requirement conflicts | `Yes` |
+
+Manual QA log (`S3-1`):
+
+- Date: 2026-05-02
+- Scope: `S3-1` saved-find data model
+- Validation type: Automated unit test and typecheck; no manual device-only behavior added
+- `pnpm run typecheck`: `Pass`
+- `pnpm test`: `Pass`
+- Notes / follow-up fixes: None
 
 ## **Sprint 4: MVP Hardening**
 
@@ -200,4 +235,4 @@ Candidate stories:
 
 ## **Current Next Action**
 
-Sprint 2 is complete. Next candidate: start Sprint 3 with the saved-find data model as the first red-green-refactor slice.
+Continue Sprint 3 with `S3-2`: save the current mock result into an in-memory saved-find store using ATDD/TDD.
