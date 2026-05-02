@@ -52,14 +52,14 @@ Track these during manual testing and future instrumentation:
 
 | DoD Criterion | Current State |
 | --- | --- |
-| Feedback prompt works on result screen | `Pending` |
-| Feedback state is typed and covered by test | `Pending` |
-| Result save flow still works | `Pending` |
-| `pnpm run typecheck` passes | `Pending` |
-| Relevant tests pass | `Pending` |
-| Manual validation documented | `Pending` |
-| MVP version remains in `v0.x.y` | `Pending` |
-| No MVP requirement conflicts | `Pending` |
+| Feedback prompt works on result screen | `Yes` |
+| Feedback state is typed and covered by test | `Yes` |
+| Result save flow still works | `Yes` |
+| `pnpm run typecheck` passes | `Yes` |
+| Relevant tests pass | `Yes` |
+| Manual validation documented | `Yes` |
+| MVP version remains in `v0.x.y` | `Yes` |
+| No MVP requirement conflicts | `Yes` |
 
 ## **Manual QA Plan**
 
@@ -82,6 +82,15 @@ Story status snapshot:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S8-1` | `In Progress` | [s8-result-feedback.acceptance.test.ts](<../../../__tests__/s8-result-feedback.acceptance.test.ts>) | Red acceptance test committed first |
-| `S8-2` | `Ready` | This sprint plan | Success signals defined |
-| `S8-3` | `Ready` | TBD | Red/green/refactor required |
+| `S8-1` | `Done` | [s8-result-feedback.acceptance.test.ts](<../../../__tests__/s8-result-feedback.acceptance.test.ts>), [core-flow.spec.ts](<../../../e2e/core-flow.spec.ts>) | Feedback prompt and thank-you state validated on web and iPhone |
+| `S8-2` | `Done` | This sprint plan | Success signals defined and used in QA framing |
+| `S8-3` | `Done` | [s8-result-feedback.acceptance.test.ts](<../../../__tests__/s8-result-feedback.acceptance.test.ts>), [result-feedback.ts](<../../../lib/result-feedback.ts>), [result-feedback-context.tsx](<../../../lib/result-feedback-context.tsx>) | Red, green, refactor completed |
+
+
+Manual QA log (`S8-1`):
+
+- Date: 2026-05-02
+- Scope: Result usefulness prompt (`Useful`/`Not useful`) and save flow continuity
+- Platforms: Web, iPhone
+- Validation: Submitted result feedback and confirmed thank-you state; saved result after feedback and reopened saved detail
+- Automated evidence: [s8-result-feedback.acceptance.test.ts](<../../../__tests__/s8-result-feedback.acceptance.test.ts>), [s8-result-feedback-context.test.ts](<../../../__tests__/s8-result-feedback-context.test.ts>), [core-flow.spec.ts](<../../../e2e/core-flow.spec.ts>)
