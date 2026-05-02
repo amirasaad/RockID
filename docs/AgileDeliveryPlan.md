@@ -363,6 +363,16 @@ Story status snapshot:
 | `S5-1` | `In Progress` | [lib/saved-finds-context.tsx](<../lib/saved-finds-context.tsx>), [lib/saved-finds-persistence.ts](<../lib/saved-finds-persistence.ts>), and [__tests__/s5-saved-finds-context-persistence.test.ts](<../__tests__/s5-saved-finds-context-persistence.test.ts>) | Persistence module exists and SavedFindsProvider hydrates/persists via AsyncStorage; next: add on-device restart QA notes and ensure Collection reflects persisted state after a real restart |
 | `S5-2` | `Not Started` | N/A | Depends on persistence + delete UX |
 
+Manual QA log (`Sprint 5`):
+
+- Date: 2026-05-02
+- Scope: `S5-1` saved finds persistence across app restart
+- Device/OS: TBD
+- Tester: TBD
+- Steps: Save a result → force quit app → reopen → confirm `Collection` still shows saved find → open saved find detail
+- Result: TBD
+- Notes / follow-up fixes: TBD
+
 ## **Backlog Prioritization Rules**
 
 - Prefer vertical slices over isolated infrastructure.
