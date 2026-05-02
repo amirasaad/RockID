@@ -35,6 +35,12 @@ Still mocked or future scope:
 
 The project expects Node `>=23 <24`, as defined in `package.json`.
 
+## Versioning
+
+Current MVP build version: `v0.2.0`.
+
+Keep the app in the `v0.x.y` line throughout MVP. Use minor bumps for sprint-level or user-visible milestone progress, patch bumps for fixes/docs/tooling inside the current MVP milestone, and reserve `v1.0.0` for the explicit MVP release decision after the definition of done is met.
+
 ## Getting Started
 
 Install dependencies:

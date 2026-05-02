@@ -9,6 +9,7 @@ Driver handoff and day-to-day engineering execution standards live in [NextDrive
 - Cadence: 1-week sprints during MVP discovery and buildout.
 - Sprint goal format: one user-visible outcome per sprint.
 - Release strategy: ship vertical slices that can be demoed in the app.
+- Versioning strategy: stay in `v0.x.y` during MVP; use minor bumps for sprint-level progress and patch bumps for fixes/docs/tooling.
 - Backlog owner: product/engineering pair, using the PRD and roadmap as source material.
 - Technical quality gate: every sprint should end with typecheck passing and a short demo path verified manually.
 
@@ -40,6 +41,7 @@ A story is done when:
 - Edge states from the story are handled.
 - `pnpm run typecheck` passes.
 - Manual validation steps are documented in the sprint notes.
+- Any version bump is intentional and keeps MVP in the `v0.x.y` line.
 - Any new dependency is justified in `package.json` and reflected in `pnpm-lock.yaml`.
 - The implementation avoids conflicting with the MVP requirements in [Screen-By-ScreenRequirements.md](<Screen-By-ScreenRequirements.md>).
 
@@ -87,6 +89,7 @@ Definition of done checkpoint:
 | Edge states handled | `Yes` |
 | `pnpm run typecheck` passes | `Yes` |
 | Manual validation documented | `Yes` |
+| MVP version remains in `v0.x.y` | `Yes` |
 | Dependency changes justified and locked | `Yes` |
 | No MVP requirement conflicts | `Yes` |
 

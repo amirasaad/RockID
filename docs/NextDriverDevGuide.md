@@ -11,6 +11,7 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
   - Refactor: improve readability while tests stay green.
 - Keep docs and code aligned in the same PR when behavior changes.
 - Merge to `main` only when story DoD criteria are met.
+- Keep product/app versions in `v0.x.y` throughout MVP.
 
 ## **Branch Workflow**
 
@@ -44,6 +45,7 @@ Before merge, verify all of the following:
 - Relevant tests pass.
 - Manual validation notes are captured in sprint tracking.
 - Dependency changes are justified and locked (`package.json` and `pnpm-lock.yaml`).
+- Version changes are intentional, stay in `v0.x.y` during MVP, and update `package.json` plus `app.json` together.
 - No conflict with [Screen-By-ScreenRequirements.md](<Screen-By-ScreenRequirements.md>).
 
 ## **Stash And Context Handoff**
@@ -61,6 +63,7 @@ Before merge, verify all of the following:
 
 - Use `pnpm`.
 - Use global Node `23.x` (enforced via `package.json` `engines`).
+- Current MVP build version is tracked in `package.json`, `app.json`, and [../README.md](<../README.md>).
 - Start Expo with:
   - `pnpm exec expo start --lan`
 - If iOS Simulator fails, continue validation on physical iPhone via Expo Go and capture simulator issues separately.
