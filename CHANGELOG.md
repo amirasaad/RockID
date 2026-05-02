@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.8.1 (2026-05-02)
+
+
+### 🎫 Chores
+
+* **deps**: Align worklets with Expo SDK d3810d7
+
+
+### 📝 Documentation
+
+* **agile**: Start S7 Expo compatibility c935e22
+
+
+
+
+
 # 0.8.0 (2026-05-02)
 
 
