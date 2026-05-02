@@ -1,5 +1,5 @@
-import { Link } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
@@ -7,12 +7,37 @@ import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
+import { saveIdentificationResult } from '@/lib/saved-finds-actions';
+import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function ResultsScreen() {
   const { session } = useIdentificationSession();
+  const { saveFind } = useSavedFinds();
   const analysis = analyzeIdentificationSession(session);
   const { topMatch, matches } = analysis;
   const alternatives = matches.slice(1);
+
+  function handleSaveResult() {
+    if (!session) {
+      Alert.alert('No result to save', 'Capture or upload a photo before saving a result.');
+      return;
+    }
+
+    const savedFind = saveIdentificationResult({
+      session,
+      analysis,
+      saveFind,
+    });
+
+    router.replace({
+      pathname: '/saved/[id]',
+      params: { id: savedFind.id },
+    });
+  }
+
+  function handleRetake() {
+    router.replace('/capture-tips');
+  }
 
   return (
     <Screen title="Results" subtitle="This is mocked data, but the screen structure follows the MVP output contract from the spec.">
@@ -64,12 +89,8 @@ export default function ResultsScreen() {
         <Text style={styles.bodyText}>{analysis.nextCheck}</Text>
       </Card>
 
-      <Link href="/saved/granite-trail" asChild>
-        <ActionButton label="Save Result" onPress={() => undefined} />
-      </Link>
-      <Link href="/capture-tips" asChild>
-        <ActionButton label="Retake" variant="secondary" onPress={() => undefined} />
-      </Link>
+      <ActionButton label="Save Result" onPress={handleSaveResult} />
+      <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
     </Screen>
   );
 }

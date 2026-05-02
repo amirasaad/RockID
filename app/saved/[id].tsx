@@ -9,11 +9,12 @@ import { createSavedFindDetailViewModel } from '@/lib/saved-find-detail-view-mod
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function SavedFindScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id: rawId } = useLocalSearchParams<{ id?: string | string[] }>();
   const { savedFinds } = useSavedFinds();
+  const id = Array.isArray(rawId) ? rawId[0] : rawId;
   const savedFind = savedFinds.find((find) => find.id === id);
 
-  if (!savedFind) {
+  if (!id || !savedFind) {
     return (
       <Screen title="Saved Find" subtitle="This saved find could not be loaded.">
         <Card>

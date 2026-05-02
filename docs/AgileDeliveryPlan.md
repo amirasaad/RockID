@@ -246,7 +246,10 @@ Manual QA log (`S3-2`):
 - Validation type: Automated unit test and typecheck; UI save action not added yet
 - `pnpm run typecheck`: `Pass`
 - `pnpm test`: `Pass`
-- Notes / follow-up fixes: None
+- Notes / follow-up fixes:
+  - QA: Save Result navigation previously opened a missing saved find ("This saved find could not be loaded") because the button did not persist to the store before routing.
+  - QA: Navigation after saving felt broken (hardcoded route id, no saved record).
+  - Fix: Wire `Save Result` to write a `SavedFind` into the store and navigate to the saved id; add acceptance coverage for save action.
 
 Definition of done checkpoint (`S3-3`):
 
