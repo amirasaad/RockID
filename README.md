@@ -37,7 +37,7 @@ The project expects Node `>=23 <24`, as defined in `package.json`.
 
 ## Versioning
 
-Current MVP build version: `v0.2.0`.
+Current MVP build version: `v0.4.0`.
 
 Keep the app in the `v0.x.y` line throughout MVP. Use Commitizen for conventional gitmoji commits, then use the bump scripts to derive versions from that history. Minor bumps represent sprint-level or user-visible milestone progress, patch bumps represent fixes/docs/tooling inside the current MVP milestone, and `v1.0.0` is reserved for the explicit MVP release decision after the definition of done is met.
 
@@ -55,6 +55,8 @@ pnpm bump:minor
 ```
 
 The bump tooling updates `package.json` and `app.json` together through `.versionrc.cjs`.
+
+Merges into `main` run `pnpm bump` automatically via git hooks. If bumping fails, the merge is reverted locally.
 
 ## Getting Started
 

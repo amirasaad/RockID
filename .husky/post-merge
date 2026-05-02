@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+set -e
+
+branch="$(git branch --show-current 2>/dev/null || true)"
+if [ "$branch" != "main" ]; then
+  exit 0
+fi
+
+case "${GIT_REFLOG_ACTION-}" in
+  pull*)
+    exit 0
+    ;;
+esac
+
+git_dir="$(git rev-parse --git-dir)"
+premerge_head_file="$git_dir/husky-premerge-head"
+
+if [ ! -f "$premerge_head_file" ]; then
+  exit 0
+fi
+
+premerge_head="$(cat "$premerge_head_file")"
+rm -f "$premerge_head_file"
+
+tags_before="$(git tag)"
+
+if pnpm -s bump; then
+  exit 0
+fi
+
+tags_after="$(git tag)"
+for tag in $tags_after; do
+  printf '%s\n' "$tags_before" | grep -qx "$tag" && continue
+  git tag -d "$tag" >/dev/null 2>&1 || true
+done
+
+git reset --hard "$premerge_head"
+exit 1
+

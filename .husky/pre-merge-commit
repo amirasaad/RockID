@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+set -e
+
+branch="$(git branch --show-current 2>/dev/null || true)"
+if [ "$branch" != "main" ]; then
+  exit 0
+fi
+
+git_dir="$(git rev-parse --git-dir)"
+git rev-parse HEAD > "$git_dir/husky-premerge-head"
+
