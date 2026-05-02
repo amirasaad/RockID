@@ -5,6 +5,40 @@ import { createSavedFindStore } from './saved-finds';
 import type { KeyValueStorage, PersistedStoreController } from './saved-finds-persistence';
 import { createPersistedSavedFindStore } from './saved-finds-persistence';
 
+type AsyncStorageLike = {
+  getItem: (key: string) => Promise<string | null>;
+  setItem: (key: string, value: string) => Promise<void>;
+};
+
+async function resolveKeyValueStorage(): Promise<KeyValueStorage> {
+  const asyncStorage = await resolveAsyncStorage();
+  if (!asyncStorage) return createNoopStorage();
+  return {
+    getItem: asyncStorage.getItem,
+    setItem: asyncStorage.setItem,
+  };
+}
+
+async function resolveAsyncStorage(): Promise<AsyncStorageLike | null> {
+  try {
+    const module = await import('@react-native-async-storage/async-storage');
+    return module.default;
+  } catch {
+    return null;
+  }
+}
+
+function createNoopStorage(): KeyValueStorage {
+  return {
+    async getItem() {
+      return null;
+    },
+    async setItem() {
+      return;
+    },
+  };
+}
+
 type SavedFindsContextValue = {
   savedFinds: SavedFind[];
   saveFind: (savedFind: SavedFind) => SavedFind;
@@ -40,30 +74,7 @@ export function SavedFindsProvider(props: { children: React.ReactNode }) {
 
   useEffect(() => {
     void (async () => {
-      let asyncStorage: { getItem: (key: string) => Promise<string | null>; setItem: (key: string, value: string) => Promise<void> } | null =
-        null;
-
-      try {
-        const module = await import('@react-native-async-storage/async-storage');
-        asyncStorage = module.default;
-      } catch {
-        asyncStorage = null;
-      }
-
-      const storage: KeyValueStorage = asyncStorage
-        ? {
-            getItem: asyncStorage.getItem,
-            setItem: asyncStorage.setItem,
-          }
-        : {
-            async getItem() {
-              return null;
-            },
-            async setItem() {
-              return;
-            },
-          };
-
+      const storage = await resolveKeyValueStorage();
       const persisted = createPersistedSavedFindStore({ store, storage });
       controller.current = persisted;
       await persisted.hydrate();
