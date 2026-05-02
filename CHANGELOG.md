@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.10.0 (2026-05-02)
+
+
+### ♻ Code Refactoring
+
+* **results**: Extract clarity and action render helpers 55f3aa4
+
+
+### ✅ Tests
+
+* **results**: Test-pass low-confidence clarity variant f6a7306
+
+
+### ✨ Features
+
+* **results**: Add failing acceptance test for low-confidence clarity 1fa66e7
+
+
+### 📝 Documentation
+
+* **agile**: Close sprint 9 with web and iphone QA evidence 523401e
+* **agile**: Open sprint 9 results clarity tracking 0ac80e4
+
+
+
+
+
 # 0.9.0 (2026-05-02)
 
 
