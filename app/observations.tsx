@@ -1,11 +1,12 @@
 import { Link } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Chip } from '@/components/Chip';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette, spacing } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 
 const colorOptions = ['Light', 'Dark', 'Red', 'Green', 'Mixed'];
@@ -18,6 +19,10 @@ export default function ObservationsScreen() {
   const [selectedGrain, setSelectedGrain] = useState<string>('Coarse');
   const [notes, setNotes] = useState('Coarse grains with light feldspar and darker minerals.');
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>(['Visible Crystals']);
+
+  useEffect(() => {
+    track('observations_viewed');
+  }, []);
 
   function toggleFeature(feature: string) {
     setSelectedFeatures((current) =>
@@ -88,6 +93,7 @@ export default function ObservationsScreen() {
         <ActionButton
           label="Analyze Rock"
           onPress={() => {
+            track('observations_submitted');
             setObservations({
               color: selectedColor,
               grainSize: selectedGrain,

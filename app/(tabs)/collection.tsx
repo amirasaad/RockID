@@ -1,16 +1,22 @@
 import { Link } from 'expo-router';
+import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Chip } from '@/components/Chip';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { createCollectionViewModel } from '@/lib/collection-view-model';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function CollectionScreen() {
   const { savedFinds } = useSavedFinds();
   const viewModel = createCollectionViewModel(savedFinds);
+
+  useEffect(() => {
+    track('collection_viewed');
+  }, []);
 
   return (
     <Screen title="Collection" subtitle="Saved samples, quick filters, and room to grow into sync later.">

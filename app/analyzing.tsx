@@ -4,14 +4,18 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 
 export default function AnalyzingScreen() {
   const { session } = useIdentificationSession();
 
   useEffect(() => {
+    track('analysis_started');
+
     const timer = setTimeout(() => {
       startTransition(() => {
+        track('analysis_completed');
         router.replace('/results');
       });
     }, 1400);

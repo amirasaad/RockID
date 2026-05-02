@@ -6,6 +6,7 @@ import { ActionButton } from '@/components/Buttons';
 import { Card, Screen } from '@/components/Layout';
 import { DetailRow } from '@/components/Row';
 import { palette } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { evaluateImageQuality } from '@/lib/image-quality';
 
@@ -30,6 +31,10 @@ export default function ReviewScreen() {
     });
   }, [height, imageUri, session?.selectedPhoto, setSelectedPhoto, source, width]);
 
+  React.useEffect(() => {
+    track('image_review_viewed');
+  }, []);
+
   const selectedPhoto = session?.selectedPhoto;
   const hasSelectedImage = typeof selectedPhoto?.uri === 'string' && selectedPhoto.uri.length > 0;
   const sourceLabel = selectedPhoto?.source === 'upload' ? 'uploaded' : 'captured';
@@ -53,10 +58,10 @@ export default function ReviewScreen() {
         <Text style={styles.tip}>{quality.tip}</Text>
       </Card>
       <Link href="/capture-tips" asChild>
-        <ActionButton label="Retake" variant="secondary" onPress={() => undefined} />
+        <ActionButton label="Retake" variant="secondary" onPress={() => track('image_review_retake')} />
       </Link>
       <Link href="/observations" asChild>
-        <ActionButton label="Use Photo" onPress={() => undefined} />
+        <ActionButton label="Use Photo" onPress={() => track('image_review_use_photo')} />
       </Link>
     </Screen>
   );

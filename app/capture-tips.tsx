@@ -6,6 +6,7 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen } from '@/components/Layout';
 import { palette } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { selectRockPhotoFromCamera } from '@/lib/photo-input';
 
@@ -19,7 +20,13 @@ const tips = [
 export default function CaptureTipsScreen() {
   const { startSession } = useIdentificationSession();
 
+  React.useEffect(() => {
+    track('capture_tips_viewed');
+  }, []);
+
   async function handleOpenCamera() {
+    track('capture_tips_open_camera');
+
     const result = await selectRockPhotoFromCamera({
       requestCameraPermission: ImagePicker.requestCameraPermissionsAsync,
       launchCamera: async (options) => {

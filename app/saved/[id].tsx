@@ -1,10 +1,12 @@
 import { useLocalSearchParams } from 'expo-router';
+import { useEffect } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { DetailRow } from '@/components/Row';
 import { palette } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { createSavedFindDetailViewModel } from '@/lib/saved-find-detail-view-model';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
@@ -13,6 +15,11 @@ export default function SavedFindScreen() {
   const { savedFinds } = useSavedFinds();
   const id = Array.isArray(rawId) ? rawId[0] : rawId;
   const savedFind = savedFinds.find((find) => find.id === id);
+
+  useEffect(() => {
+    if (!id || !savedFind) return;
+    track('saved_find_viewed', { id });
+  }, [id, savedFind]);
 
   if (!id || !savedFind) {
     return (

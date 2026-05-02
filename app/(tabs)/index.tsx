@@ -7,6 +7,7 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette, spacing } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { recentFinds } from '@/lib/mock-data';
 import { selectRockPhotoFromLibrary } from '@/lib/photo-input';
@@ -14,7 +15,13 @@ import { selectRockPhotoFromLibrary } from '@/lib/photo-input';
 export default function IdentifyScreen() {
   const { startSession } = useIdentificationSession();
 
+  React.useEffect(() => {
+    track('home_viewed');
+  }, []);
+
   async function handleUploadPhoto() {
+    track('upload_photo_tapped');
+
     const result = await selectRockPhotoFromLibrary({
       requestMediaLibraryPermission: ImagePicker.requestMediaLibraryPermissionsAsync,
       launchImageLibrary: async (options) => {
@@ -63,7 +70,13 @@ export default function IdentifyScreen() {
           <FontAwesome name="diamond" size={28} color={palette.accent} />
         </View>
         <Link href="/capture-tips" asChild>
-          <ActionButton label="Take Photo" onPress={() => undefined} />
+          <ActionButton
+            label="Take Photo"
+            onPress={() => {
+              track('take_photo_tapped');
+              track('capture_tips_opened');
+            }}
+          />
         </Link>
         <ActionButton label="Upload Photo" variant="secondary" onPress={handleUploadPhoto} />
       </Card>
