@@ -25,3 +25,7 @@ yarn-error.*
 
 # macOS
 .DS_Store
+
+# Playwright
+playwright-report/
+test-results/

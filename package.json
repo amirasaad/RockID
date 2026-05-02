@@ -16,6 +16,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:unit": "vitest run __tests__/photo-input.test.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install",
     "bump": "commit-and-tag-version",
     "bump:dry": "commit-and-tag-version --dry-run",
     "bump:patch": "commit-and-tag-version --release-as patch",
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
+    "@playwright/test": "^1.59.1",
     "@types/react": "~19.1.0",
     "commit-and-tag-version": "^12.7.1",
     "commitizen": "^4.3.1",
