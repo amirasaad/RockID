@@ -24,16 +24,16 @@ Planning date:
 | Low-confidence analytics events emitted | `Yes` |
 | `pnpm run typecheck` passes | `Yes` |
 | Relevant tests pass | `Yes` |
-| Manual validation documented | `Pending` |
+| Manual validation documented | `Yes` |
 | No MVP requirement conflicts | `Yes` |
 
 ## **Sprint 9 Tracking**
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S9-1` | `In Progress` | [low-confidence-results.spec.ts](<../../../e2e/low-confidence-results.spec.ts>), [results.tsx](<../../../app/results.tsx>) | Low-confidence variant implemented; manual web/iPhone QA pending |
-| `S9-2` | `In Progress` | [analytics.ts](<../../../lib/analytics.ts>), [s4-analytics.acceptance.test.ts](<../../../__tests__/s4-analytics.acceptance.test.ts>) | New analytics events typed and tested |
-| `S9-3` | `In Progress` | [results-clarity.ts](<../../../lib/results-clarity.ts>), [s9-results-clarity.test.ts](<../../../__tests__/s9-results-clarity.test.ts>) | Confidence variant helper covered by unit tests |
+| `S9-1` | `Done` | [low-confidence-results.spec.ts](<../../../e2e/low-confidence-results.spec.ts>), [results.tsx](<../../../app/results.tsx>) | Low-confidence variant validated on web and iPhone |
+| `S9-2` | `Done` | [analytics.ts](<../../../lib/analytics.ts>), [s4-analytics.acceptance.test.ts](<../../../__tests__/s4-analytics.acceptance.test.ts>) | Low-confidence analytics events emitted and validated |
+| `S9-3` | `Done` | [results-clarity.ts](<../../../lib/results-clarity.ts>), [s9-results-clarity.test.ts](<../../../__tests__/s9-results-clarity.test.ts>) | Confidence variant helper covered by unit tests |
 
 ## **Manual QA Plan**
 
@@ -41,3 +41,12 @@ Planning date:
 - Verify `Add Another Photo` navigates to capture tips on web.
 - Verify save and feedback controls remain available in low-confidence state.
 - Repeat checks on iPhone before marking `S9-1` done.
+
+
+Manual QA log (`S9-1`):
+
+- Date: 2026-05-02
+- Scope: Low-confidence Results clarity, add-photo route, save/feedback availability
+- Platforms: Web, iPhone
+- Validation: Low-confidence banner and trust copy visible, `Add Another Photo` routes to capture tips, save and feedback paths remain available
+- Automated evidence: [low-confidence-results.spec.ts](<../../../e2e/low-confidence-results.spec.ts>), [core-flow.spec.ts](<../../../e2e/core-flow.spec.ts>), [s9-results-clarity.test.ts](<../../../__tests__/s9-results-clarity.test.ts>)
