@@ -7,7 +7,9 @@ test('low-confidence results emphasize uncertainty and route Add Another Photo t
 
   await expect(page.getByText(/low confidence/i)).toBeVisible();
   await expect(page.getByText(/from one photo/i)).toBeVisible();
-  await expect(page.getByText(/add another photo/i)).toBeVisible();
+  await expect(page.getByText(/add another photo/i)).toHaveCount(2);
+  await expect(page.getByText(/before saving/i)).toBeVisible();
+  await expect(page.getByText('Add Another Photo', { exact: true })).toBeVisible();
 
   await expect(page.getByText('Useful', { exact: true })).toBeVisible();
   await expect(page.getByText('Save Result', { exact: true })).toBeVisible();

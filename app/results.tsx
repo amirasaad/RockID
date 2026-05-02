@@ -16,7 +16,8 @@ import { saveIdentificationResult } from '@/lib/saved-finds-actions';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
 const LOW_CONFIDENCE_TITLE = 'Low confidence';
-const LOW_CONFIDENCE_MESSAGE = 'One photo may not be enough. Add another photo to improve confidence before saving.';
+const LOW_CONFIDENCE_MESSAGE =
+  'Results from one photo can be uncertain. Add another photo to improve confidence before saving.';
 
 export default function ResultsScreen() {
   const { session } = useIdentificationSession();
@@ -114,7 +115,7 @@ export default function ResultsScreen() {
   }
 
   return (
-    <Screen title="Results" subtitle="This is mocked data, but the screen structure follows the MVP output contract from the spec.">
+    <Screen title="Results" subtitle="Here's what we found from your photo.">
       {isLowConfidence ? (
         <Card>
           <View style={styles.lowConfidenceBanner}>
