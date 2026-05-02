@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.8.2 (2026-05-02)
+
+
+### 🎫 Chores
+
+* **ios**: Sync worklets pod lockfile 1442c7f
+
+
+### 📝 Documentation
+
+* **agile**: Reorganize delivery workspace 8d666fd
+
+
+
+
+
 ## 0.8.1 (2026-05-02)
 
 
