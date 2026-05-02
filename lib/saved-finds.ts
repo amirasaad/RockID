@@ -56,7 +56,8 @@ export function createSavedFindStore(): SavedFindStore {
 
   return {
     save(savedFind) {
-      savedFinds = [savedFind, ...savedFinds].sort(compareSavedAtDescending);
+      const otherSavedFinds = savedFinds.filter((existingFind) => existingFind.id !== savedFind.id);
+      savedFinds = [savedFind, ...otherSavedFinds].sort(compareSavedAtDescending);
       return savedFind;
     },
     getSnapshot() {

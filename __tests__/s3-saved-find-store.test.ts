@@ -16,6 +16,19 @@ describe('S3 saved find store', () => {
       savedFinds: [newerFind, olderFind],
     });
   });
+
+  it('replaces an existing saved find with the same id', () => {
+    const store = createSavedFindStore();
+    const originalFind = savedFind({ id: 'same-find', savedAt: 100 });
+    const updatedFind = { ...originalFind, notes: 'Updated field note.', savedAt: 200 };
+
+    store.save(originalFind);
+    store.save(updatedFind);
+
+    expect(store.getSnapshot()).toEqual({
+      savedFinds: [updatedFind],
+    });
+  });
 });
 
 function savedFind(overrides: Pick<SavedFind, 'id' | 'savedAt'>): SavedFind {
