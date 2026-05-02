@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.7.0 (2026-05-02)
+
+
+### ✅ Tests
+
+* **learn**: Add failing topic route model 27c91e9
+
+
+### ✨ Features
+
+* **learn**: Add topic detail route ade77db
+
+
+
+
+
 # 0.6.0 (2026-05-02)
 
 
