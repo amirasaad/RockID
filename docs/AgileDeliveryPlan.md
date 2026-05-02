@@ -187,8 +187,8 @@ Story status snapshot:
 | --- | --- | --- | --- |
 | `S3-1` | `Done` | [lib/saved-finds.ts](<../lib/saved-finds.ts>) and [__tests__/s3-saved-find-model.test.ts](<../__tests__/s3-saved-find-model.test.ts>) | Saved-find model maps session + analysis into a typed record; matches array is cloned |
 | `S3-2` | `Done` | [lib/saved-finds.ts](<../lib/saved-finds.ts>) and [__tests__/s3-saved-find-store.test.ts](<../__tests__/s3-saved-find-store.test.ts>) | In-memory store saves records newest-first and replaces duplicate saves by id |
-| `S3-3` | `Not Started` | Pending | Depends on save flow |
-| `S3-4` | `Not Started` | Pending | Depends on collection rendering |
+| `S3-3` | `Done` | [app/(tabs)/collection.tsx](<../app/(tabs)/collection.tsx>), [lib/collection-view-model.ts](<../lib/collection-view-model.ts>), and [__tests__/s3-collection-thumbnail.acceptance.test.ts](<../__tests__/s3-collection-thumbnail.acceptance.test.ts>) | Collection reads saved finds from in-memory store, shows empty state, and renders a thumbnail placeholder when image is missing |
+| `S3-4` | `In Progress` | Pending | Add saved-find detail missing-image state and verify no crashes |
 
 Definition of done checkpoint (`Sprint 3`):
 
@@ -247,6 +247,19 @@ Manual QA log (`S3-2`):
 - `pnpm run typecheck`: `Pass`
 - `pnpm test`: `Pass`
 - Notes / follow-up fixes: None
+
+Definition of done checkpoint (`S3-3`):
+
+| DoD Criterion | Current State |
+| --- | --- |
+| User-facing flow works in app | `Yes` - collection reads from saved-find store and renders rows |
+| Edge states handled | `Yes` - empty state and missing-image placeholder covered |
+| `pnpm run typecheck` passes | `Yes` |
+| Relevant tests pass | `Yes` - `pnpm test` passes |
+| Manual validation documented | `N/A for in-memory list behavior`; covered by acceptance test |
+| MVP version remains in `v0.x.y` | `Yes` |
+| Dependency changes justified and locked | `N/A` - no dependency changes |
+| No MVP requirement conflicts | `Yes` |
 
 ## **Sprint 4: MVP Hardening**
 
