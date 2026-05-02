@@ -282,13 +282,21 @@ Definition of done checkpoint (`S3-4`):
 Sprint goal:
 Prepare the prototype for first field-style testing.
 
-Candidate stories:
+Stories:
 
-- Add basic image quality hints.
-- Add analytics event wrapper stubs.
-- Add beginner rock content pages for the MVP rock set.
-- Run accessibility pass on buttons, image previews, and confidence labels.
-- Create a manual QA checklist for MVP demo flow.
+| ID | Story | Acceptance Criteria | Priority |
+| --- | --- | --- | --- |
+| `S4-1` | As a user, I can see basic image quality hints before analysis so I know whether to retake the photo. | Review screen derives `Sharpness`, `Lighting`, and `Framing` labels from available photo metadata; missing photo shows `Unknown` labels; a single actionable tip is shown. | Must |
+| `S4-2` | As the team, we can stub analytics event tracking so we can wire product metrics without committing to a vendor. | A small analytics wrapper exists; it is no-op by default and testable via an injected sink; event names align with Screen-By-Screen requirements. | Should |
+
+## **Sprint 4 Tracking**
+
+Story status snapshot:
+
+| Story | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| `S4-1` | `Done` | [app/review.tsx](<../app/review.tsx>), [lib/image-quality.ts](<../lib/image-quality.ts>), and [__tests__/s4-image-quality.test.ts](<../__tests__/s4-image-quality.test.ts>) | Review now shows basic quality hints and a single tip using local metadata only |
+| `S4-2` | `Not Started` | N/A | Next up: add an analytics wrapper stub via ATDD |
 
 ## **Backlog Prioritization Rules**
 
@@ -300,4 +308,4 @@ Candidate stories:
 
 ## **Current Next Action**
 
-Continue Sprint 3 with `S3-3`: wire the collection screen to read saved records and show an empty state using ATDD/TDD.
+Start Sprint 4 with `S4-2`: add an analytics tracking wrapper stub using ATDD/TDD.
