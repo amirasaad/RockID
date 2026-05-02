@@ -58,6 +58,9 @@ A story is done when:
 
 ## **Sprint 1: Real Photo Input**
 
+<details>
+<summary>Sprint 1 details</summary>
+
 Sprint goal:
 Replace mocked capture/upload with real device image input and pass the selected image through the review flow.
 
@@ -118,7 +121,12 @@ Out of scope for Sprint 1:
 - Persistent saved finds.
 - Custom live camera overlay.
 
+</details>
+
 ## **Sprint 2: Result And Session State**
+
+<details>
+<summary>Sprint 2 details</summary>
 
 Sprint goal:
 Carry the selected image and observation data into a single in-app identification session.
@@ -165,7 +173,12 @@ Manual QA log (`Sprint 2`):
 - `pnpm test`: `Pass`
 - Notes / follow-up fixes: None
 
+</details>
+
 ## **Sprint 3: Saved Finds**
+
+<details>
+<summary>Sprint 3 details</summary>
 
 Sprint goal:
 Make saved finds persistent enough for repeated local use.
@@ -277,7 +290,12 @@ Definition of done checkpoint (`S3-4`):
 | Dependency changes justified and locked | `N/A` - no dependency changes |
 | No MVP requirement conflicts | `Yes` |
 
+</details>
+
 ## **Sprint 4: MVP Hardening**
+
+<details>
+<summary>Sprint 4 details</summary>
 
 Sprint goal:
 Prepare the prototype for first field-style testing.
@@ -317,6 +335,8 @@ Action items:
 - Default to red → green → refactor for each change, even for “small” fixes.
 - Prefer unit tests for pure logic (view models, actions, mapping functions) before wiring UI.
 - Add a proper E2E smoke path for the core flow (Identify → Review → Observations → Results → Save → Collection → Saved Detail).
+
+</details>
 
 ## **Sprint 5: Saved Finds Persistence**
 
