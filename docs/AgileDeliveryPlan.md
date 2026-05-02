@@ -360,7 +360,7 @@ Story status snapshot:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S5-1` | `In Progress` | [lib/saved-finds-persistence.ts](<../lib/saved-finds-persistence.ts>) and [__tests__/s5-saved-finds-persistence.acceptance.test.ts](<../__tests__/s5-saved-finds-persistence.acceptance.test.ts>) | Persistence module + acceptance coverage in place; next: wire persistence into SavedFindsProvider using AsyncStorage |
+| `S5-1` | `In Progress` | [lib/saved-finds-context.tsx](<../lib/saved-finds-context.tsx>), [lib/saved-finds-persistence.ts](<../lib/saved-finds-persistence.ts>), and [__tests__/s5-saved-finds-context-persistence.test.ts](<../__tests__/s5-saved-finds-context-persistence.test.ts>) | Persistence module exists and SavedFindsProvider hydrates/persists via AsyncStorage; next: add on-device restart QA notes and ensure Collection reflects persisted state after a real restart |
 | `S5-2` | `Not Started` | N/A | Depends on persistence + delete UX |
 
 ## **Backlog Prioritization Rules**
