@@ -7,6 +7,7 @@ import { Card, Screen } from '@/components/Layout';
 import { DetailRow } from '@/components/Row';
 import { palette } from '@/constants/theme';
 import { useIdentificationSession } from '@/lib/identification-session-context';
+import { evaluateImageQuality } from '@/lib/image-quality';
 
 export default function ReviewScreen() {
   const { session, setSelectedPhoto } = useIdentificationSession();
@@ -32,6 +33,7 @@ export default function ReviewScreen() {
   const selectedPhoto = session?.selectedPhoto;
   const hasSelectedImage = typeof selectedPhoto?.uri === 'string' && selectedPhoto.uri.length > 0;
   const sourceLabel = selectedPhoto?.source === 'upload' ? 'uploaded' : 'captured';
+  const quality = evaluateImageQuality(selectedPhoto);
 
   return (
     <Screen
@@ -45,10 +47,10 @@ export default function ReviewScreen() {
             <Text style={styles.previewText}>Rock preview</Text>
           )}
         </View>
-        <DetailRow label="Sharpness" value="Good" />
-        <DetailRow label="Lighting" value="Fair" />
-        <DetailRow label="Framing" value="Good" />
-        <Text style={styles.tip}>Tip: brighter light may improve accuracy.</Text>
+        <DetailRow label="Sharpness" value={quality.sharpness} />
+        <DetailRow label="Lighting" value={quality.lighting} />
+        <DetailRow label="Framing" value={quality.framing} />
+        <Text style={styles.tip}>{quality.tip}</Text>
       </Card>
       <Link href="/capture-tips" asChild>
         <ActionButton label="Retake" variant="secondary" onPress={() => undefined} />
