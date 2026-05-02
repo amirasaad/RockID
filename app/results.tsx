@@ -1,4 +1,5 @@
 import { router } from 'expo-router';
+import { useEffect, useRef } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
@@ -10,6 +11,7 @@ import { useIdentificationSession } from '@/lib/identification-session-context';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
 import { type ResultFeedbackChoice } from '@/lib/result-feedback';
 import { useResultFeedback } from '@/lib/result-feedback-context';
+import { isLowConfidenceVariant } from '@/lib/results-clarity';
 import { saveIdentificationResult } from '@/lib/saved-finds-actions';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
@@ -21,6 +23,19 @@ export default function ResultsScreen() {
   const { topMatch, matches } = analysis;
   const alternatives = matches.slice(1);
   const resultFeedback = getFeedbackForSession(analysis.sessionId);
+  const isLowConfidence = isLowConfidenceVariant(topMatch.confidence);
+  const lastTrackedLowConfidenceSessionRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!isLowConfidence) return;
+    if (lastTrackedLowConfidenceSessionRef.current === analysis.sessionId) return;
+
+    track('low_confidence_result_viewed', {
+      sessionId: analysis.sessionId,
+      topMatch: topMatch.name,
+    });
+    lastTrackedLowConfidenceSessionRef.current = analysis.sessionId;
+  }, [analysis.sessionId, isLowConfidence, topMatch.name]);
 
   function handleSaveResult() {
     if (!session) {
@@ -44,6 +59,14 @@ export default function ResultsScreen() {
     router.replace('/capture-tips');
   }
 
+  function handleAddAnotherPhoto() {
+    track('low_confidence_add_photo_tapped', {
+      sessionId: analysis.sessionId,
+      topMatch: topMatch.name,
+    });
+    router.replace('/capture-tips');
+  }
+
   function handleResultFeedback(choice: ResultFeedbackChoice) {
     saveFeedback({ sessionId: analysis.sessionId, choice });
     track('result_feedback_submitted', {
@@ -54,6 +77,17 @@ export default function ResultsScreen() {
 
   return (
     <Screen title="Results" subtitle="This is mocked data, but the screen structure follows the MVP output contract from the spec.">
+      {isLowConfidence ? (
+        <Card>
+          <View style={styles.lowConfidenceBanner}>
+            <Text style={styles.lowConfidenceTitle}>Low confidence</Text>
+            <Text style={styles.bodyText}>
+              One photo may not be enough. Add another photo to improve confidence before saving.
+            </Text>
+          </View>
+        </Card>
+      ) : null}
+
       <Card>
         <View style={styles.thumbnailRow}>
           <PhotoThumbnail
@@ -81,11 +115,6 @@ export default function ResultsScreen() {
       </Card>
 
       <Card>
-        <SectionTitle>Why this match</SectionTitle>
-        <Text style={styles.bodyText}>{analysis.reasoning}</Text>
-      </Card>
-
-      <Card>
         <SectionTitle>Other likely matches</SectionTitle>
         {alternatives.map((match) => (
           <View key={match.name} style={styles.matchRow}>
@@ -96,8 +125,13 @@ export default function ResultsScreen() {
       </Card>
 
       <Card>
-        <SectionTitle>Check next</SectionTitle>
+        <SectionTitle>What to check next</SectionTitle>
         <Text style={styles.bodyText}>{analysis.nextCheck}</Text>
+      </Card>
+
+      <Card>
+        <SectionTitle>Why this match</SectionTitle>
+        <Text style={styles.bodyText}>{analysis.reasoning}</Text>
       </Card>
 
       <Card>
@@ -124,8 +158,18 @@ export default function ResultsScreen() {
         )}
       </Card>
 
-      <ActionButton label="Save Result" onPress={handleSaveResult} />
-      <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
+      {isLowConfidence ? (
+        <>
+          <ActionButton label="Add Another Photo" onPress={handleAddAnotherPhoto} />
+          <ActionButton label="Save Result" variant="secondary" onPress={handleSaveResult} />
+          <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
+        </>
+      ) : (
+        <>
+          <ActionButton label="Save Result" onPress={handleSaveResult} />
+          <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
+        </>
+      )}
     </Screen>
   );
 }
@@ -220,5 +264,18 @@ const styles = StyleSheet.create({
     color: palette.ink,
     fontSize: 15,
     fontWeight: '700',
+  },
+  lowConfidenceBanner: {
+    backgroundColor: '#fff4e5',
+    borderColor: '#f8d7a8',
+    borderRadius: 14,
+    borderWidth: 1,
+    gap: 6,
+    padding: 12,
+  },
+  lowConfidenceTitle: {
+    color: '#8b4a00',
+    fontSize: 16,
+    fontWeight: '800',
   },
 });

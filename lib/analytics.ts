@@ -27,7 +27,9 @@ export type AnalyticsEvent =
   | 'learn_search_used'
   | 'saved_find_viewed'
   | 'saved_find_reanalyze_tapped'
-  | 'result_feedback_submitted';
+  | 'result_feedback_submitted'
+  | 'low_confidence_result_viewed'
+  | 'low_confidence_add_photo_tapped';
 
 export type AnalyticsProperties = Record<string, unknown>;
 
