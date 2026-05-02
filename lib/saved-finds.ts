@@ -37,3 +37,30 @@ export function createSavedFind({ session, analysis, savedAt = Date.now() }: Cre
 function createSavedFindId(sessionId: string): string {
   return `find-${sessionId}`;
 }
+
+export type SavedFindSnapshot = {
+  savedFinds: SavedFind[];
+};
+
+export type SavedFindStore = {
+  save: (savedFind: SavedFind) => SavedFind;
+  getSnapshot: () => SavedFindSnapshot;
+};
+
+function compareSavedAtDescending(first: SavedFind, second: SavedFind): number {
+  return second.savedAt - first.savedAt;
+}
+
+export function createSavedFindStore(): SavedFindStore {
+  let savedFinds: SavedFind[] = [];
+
+  return {
+    save(savedFind) {
+      savedFinds = [savedFind, ...savedFinds].sort(compareSavedAtDescending);
+      return savedFind;
+    },
+    getSnapshot() {
+      return { savedFinds: [...savedFinds] };
+    },
+  };
+}
