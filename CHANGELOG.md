@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.8.0 (2026-05-02)
+
+
+### ♻ Code Refactoring
+
+* **home**: Extract recent finds limit constant b0f7651
+
+
+### ✅ Tests
+
+* **e2e**: Stabilize saved detail assertion bdf9f84
+
+
+### ✨ Features
+
+* **home**: Add failing acceptance test for recent finds eea2ac7
+* **home**: Add failing tie-break acceptance test b86c2c4
+* **home**: Deterministic recent-find tie ordering 86b6323
+* **home**: Test-pass recent finds 0b4177d
+
+
+### 🎫 Chores
+
+* **ios**: Sync pods for async storage 7c5237f
+
+
+### 📝 Documentation
+
+* **agile**: Record Sprint 6 manual QA fd750e4
+* **agile**: Track Sprint 6 recent finds e101551
+* **s5**: Record iPhone QA + mark S5-1 done a7ffbe1
+* **workflow**: Feat for ATDD acceptance tests 8b75ac5
+
+
+
+
+
 ## 0.7.5 (2026-05-02)
 
 
