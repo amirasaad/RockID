@@ -13,6 +13,9 @@ test('core flow: review → observations → results → save', async ({ page })
   await page.waitForURL('**/results');
   await expect(page.getByRole('heading', { name: 'Results' })).toBeVisible();
 
+  await page.getByText('Useful', { exact: true }).click();
+  await expect(page.getByText('Thanks for the feedback. You marked this result as useful.', { exact: true })).toBeVisible();
+
   await page.getByText('Save Result', { exact: true }).click();
   await page.waitForURL('**/saved/**');
   await expect(page.getByRole('heading', { name: 'Saved Find' })).toBeVisible();
