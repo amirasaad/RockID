@@ -22,6 +22,7 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 5 | Saved Finds Persistence | [Open](<sprints/Sprint-05-saved-finds-persistence.md>) |
 | Sprint 6 | Home Recent Finds | [Open](<sprints/Sprint-06-home-recent-finds.md>) |
 | Sprint 7 | Expo Compatibility Maintenance | [Open](<sprints/Sprint-07-expo-compatibility-maintenance.md>) |
+| Sprint 8 | Field-Test Readiness | [Open](<sprints/Sprint-08-field-test-readiness.md>) |
 
 ## **Update Rules**
 

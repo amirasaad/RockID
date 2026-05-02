@@ -59,7 +59,8 @@ A story is done when:
 | Sprint 5 | Saved Finds Persistence | [Sprint-05](<agile/sprints/Sprint-05-saved-finds-persistence.md>) |
 | Sprint 6 | Home Recent Finds | [Sprint-06](<agile/sprints/Sprint-06-home-recent-finds.md>) |
 | Sprint 7 | Expo Compatibility Maintenance | [Sprint-07](<agile/sprints/Sprint-07-expo-compatibility-maintenance.md>) |
+| Sprint 8 | Field-Test Readiness | [Sprint-08](<agile/sprints/Sprint-08-field-test-readiness.md>) |
 
 ## **Current Next Action**
 
-Pick the Sprint 8 story from [agile/EpicMilestones.md](<agile/EpicMilestones.md>), move it to Ready in [Kanban.md](<Kanban.md>), then start with a failing acceptance test.
+Start `S8-1` from [agile/sprints/Sprint-08-field-test-readiness.md](<agile/sprints/Sprint-08-field-test-readiness.md>) with a failing acceptance or unit test, then move it through red, green, and refactor.
