@@ -11,12 +11,14 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'pnpm -s web -- --port 19006 --non-interactive',
+    command: 'pnpm -s web -- --port 19006',
     url: 'http://localhost:19006',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
     env: {
       EXPO_NO_TELEMETRY: '1',
+      EXPO_HOME: `${process.cwd()}/.expo-home`,
+      HOME: `${process.cwd()}/.pw-home`,
     },
   },
   projects: [

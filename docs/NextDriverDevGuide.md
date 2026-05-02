@@ -32,6 +32,8 @@ Preferred merge path (fast-forward, local):
 
 What happens on merge:
 
+- On `main`, the repo runs `pnpm test:e2e` automatically via the local git `post-merge` hook.
+- If `pnpm test:e2e` fails, the hook resets `main` back to the pre-merge commit and exits non-zero (treat this as a failed merge).
 - On `main`, the repo runs `pnpm bump` automatically via the local git `post-merge` hook.
 - If `pnpm bump` fails, the hook resets `main` back to the pre-merge commit and exits non-zero (treat this as a failed merge).
 

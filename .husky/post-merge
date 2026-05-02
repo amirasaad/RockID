@@ -29,6 +29,11 @@ fi
 
 tags_before="$(git tag)"
 
+if ! pnpm -s test:e2e; then
+  git reset --hard "$premerge_head"
+  exit 1
+fi
+
 if pnpm -s bump; then
   exit 0
 fi

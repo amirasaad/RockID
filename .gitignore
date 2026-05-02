@@ -3,6 +3,8 @@ node_modules/
 
 # Expo
 .expo/
+.expo-home/
+.pw-home/
 dist/
 web-build/
 expo-env.d.ts
