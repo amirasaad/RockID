@@ -49,8 +49,8 @@ describe('S2 mock analysis acceptance', () => {
         height: 900,
       },
       observations: {
-        color: undefined,
-        grainSize: undefined,
+        color: '',
+        grainSize: '',
         features: [],
         notes: '',
       },

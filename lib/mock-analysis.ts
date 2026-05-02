@@ -32,8 +32,29 @@ const basaltMatches: RockMatch[] = [
   },
 ];
 
+const lowConfidenceMatches: RockMatch[] = [
+  {
+    name: 'Unclear rock sample',
+    category: 'Needs more evidence',
+    confidence: 'Low',
+    score: 38,
+  },
+  {
+    name: 'Granite',
+    category: 'Igneous intrusive',
+    confidence: 'Low',
+    score: 34,
+  },
+  {
+    name: 'Basalt',
+    category: 'Igneous volcanic',
+    confidence: 'Low',
+    score: 28,
+  },
+];
+
 export function analyzeIdentificationSession(session: IdentificationSession | null): MockAnalysisResult {
-  const matches = shouldUseBasaltFixture(session?.observations) ? basaltMatches : topMatches;
+  const matches = selectMockMatches(session?.observations);
   const [topMatch] = matches;
 
   return {
@@ -44,6 +65,22 @@ export function analyzeIdentificationSession(session: IdentificationSession | nu
     reasoning: reasoningFor(topMatch.name),
     nextCheck: nextCheckFor(topMatch.name),
   };
+}
+
+function selectMockMatches(observations?: RockObservations): RockMatch[] {
+  if (hasWeakEvidence(observations)) {
+    return lowConfidenceMatches;
+  }
+
+  if (shouldUseBasaltFixture(observations)) {
+    return basaltMatches;
+  }
+
+  return topMatches;
+}
+
+function hasWeakEvidence(observations?: RockObservations): boolean {
+  return !observations?.color && !observations?.grainSize && !observations?.features.length && !observations?.notes.trim();
 }
 
 function shouldUseBasaltFixture(observations?: RockObservations): boolean {
@@ -59,12 +96,20 @@ function reasoningFor(rockName: string): string {
     return 'Dark color, fine grain, and vesicles point toward a volcanic rock such as basalt.';
   }
 
+  if (rockName === 'Unclear rock sample') {
+    return 'There is not enough evidence from the photo and observations to suggest a confident rock match yet.';
+  }
+
   return 'Coarse interlocking grains, visible feldspar and quartz, and a massive texture all point toward granite.';
 }
 
 function nextCheckFor(rockName: string): string {
   if (rockName === 'Basalt') {
     return 'Check whether the vesicles are rounded and whether the sample lacks visible quartz crystals.';
+  }
+
+  if (rockName === 'Unclear rock sample') {
+    return 'Try again: add a clearer photo, color, grain size, or visible features before trusting the match.';
   }
 
   return 'Look for foliation or mineral banding to rule out granitic gneiss.';
