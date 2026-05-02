@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.4.1 (2026-05-02)
+
+
+### 🎫 Chores
+
+* **release**: Auto bump on merge 56bf56e
+
+
+### 🐛 Bug Fixes
+
+* **husky**: Bump on ff merges 4ddbbe9
+* **saved**: Persist and navigate on save result 7956c4c
+
+
+
+
+
 # 0.4.0 (2026-05-02)
 
 
