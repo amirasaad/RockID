@@ -186,7 +186,7 @@ Story status snapshot:
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S3-1` | `Done` | [lib/saved-finds.ts](<../lib/saved-finds.ts>) and [__tests__/s3-saved-find-model.test.ts](<../__tests__/s3-saved-find-model.test.ts>) | Saved-find model maps session + analysis into a typed record; matches array is cloned |
-| `S3-2` | `Not Started` | Pending | Next Sprint 3 candidate |
+| `S3-2` | `Done` | [lib/saved-finds.ts](<../lib/saved-finds.ts>) and [__tests__/s3-saved-find-store.test.ts](<../__tests__/s3-saved-find-store.test.ts>) | In-memory store saves records newest-first and replaces duplicate saves by id |
 | `S3-3` | `Not Started` | Pending | Depends on save flow |
 | `S3-4` | `Not Started` | Pending | Depends on collection rendering |
 
@@ -208,6 +208,28 @@ Manual QA log (`S3-1`):
 - Date: 2026-05-02
 - Scope: `S3-1` saved-find data model
 - Validation type: Automated unit test and typecheck; no manual device-only behavior added
+- `pnpm run typecheck`: `Pass`
+- `pnpm test`: `Pass`
+- Notes / follow-up fixes: None
+
+Definition of done checkpoint (`S3-2`):
+
+| DoD Criterion | Current State |
+| --- | --- |
+| User-facing flow works in app | `N/A for store-only slice` - UI wiring starts in `S3-3` |
+| Edge states handled | `Yes` - duplicate saves replace existing saved finds by id |
+| `pnpm run typecheck` passes | `Yes` |
+| Relevant tests pass | `Yes` - `pnpm test` passes |
+| Manual validation documented | `N/A for store-only slice`; covered by unit test |
+| MVP version remains in `v0.x.y` | `Yes` |
+| Dependency changes justified and locked | `N/A` - no dependency changes |
+| No MVP requirement conflicts | `Yes` |
+
+Manual QA log (`S3-2`):
+
+- Date: 2026-05-02
+- Scope: `S3-2` in-memory saved-find store
+- Validation type: Automated unit test and typecheck; UI save action not added yet
 - `pnpm run typecheck`: `Pass`
 - `pnpm test`: `Pass`
 - Notes / follow-up fixes: None
@@ -235,4 +257,4 @@ Candidate stories:
 
 ## **Current Next Action**
 
-Continue Sprint 3 with `S3-2`: save the current mock result into an in-memory saved-find store using ATDD/TDD.
+Continue Sprint 3 with `S3-3`: wire the collection screen to read saved records and show an empty state using ATDD/TDD.
