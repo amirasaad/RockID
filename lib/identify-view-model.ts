@@ -25,6 +25,8 @@ export type IdentifyRecentFindsPopulatedViewModel = {
 
 export type IdentifyRecentFindsViewModel = IdentifyRecentFindsEmptyViewModel | IdentifyRecentFindsPopulatedViewModel;
 
+const RECENT_FINDS_LIMIT = 3;
+
 const savedDateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   day: 'numeric',
@@ -44,7 +46,7 @@ export function createIdentifyRecentFindsViewModel(savedFinds: SavedFind[]): Ide
 
   return {
     kind: 'populated',
-    items: [...savedFinds].sort(compareSavedAtDescending).slice(0, 3).map(toRecentFindItem),
+    items: [...savedFinds].sort(compareSavedAtDescending).slice(0, RECENT_FINDS_LIMIT).map(toRecentFindItem),
   };
 }
 
