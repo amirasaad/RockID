@@ -26,7 +26,8 @@ export type AnalyticsEvent =
   | 'learn_topic_opened'
   | 'learn_search_used'
   | 'saved_find_viewed'
-  | 'saved_find_reanalyze_tapped';
+  | 'saved_find_reanalyze_tapped'
+  | 'result_feedback_submitted';
 
 export type AnalyticsProperties = Record<string, unknown>;
 

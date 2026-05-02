@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import { palette } from '@/constants/theme';
 import { IdentificationSessionProvider } from '@/lib/identification-session-context';
+import { ResultFeedbackProvider } from '@/lib/result-feedback-context';
 import { SavedFindsProvider } from '@/lib/saved-finds-context';
 
 export { ErrorBoundary } from 'expo-router';
@@ -31,6 +32,7 @@ export default function RootLayout() {
   return (
     <IdentificationSessionProvider>
       <SavedFindsProvider>
+        <ResultFeedbackProvider>
         <ThemeProvider value={navigationTheme}>
           <StatusBar style="dark" />
           <Stack
@@ -57,6 +59,7 @@ export default function RootLayout() {
           />
           </Stack>
         </ThemeProvider>
+        </ResultFeedbackProvider>
       </SavedFindsProvider>
     </IdentificationSessionProvider>
   );

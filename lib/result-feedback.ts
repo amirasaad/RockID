@@ -48,3 +48,10 @@ export function createResultFeedbackStore(initialFeedback: ResultFeedback[] = []
     },
   };
 }
+
+export function findResultFeedbackBySession(input: {
+  sessionId: string;
+  feedback: ResultFeedback[];
+}): ResultFeedback | null {
+  return input.feedback.find((item) => item.sessionId === input.sessionId) ?? null;
+}

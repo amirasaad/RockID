@@ -1,21 +1,26 @@
 import { router } from 'expo-router';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
+import { track } from '@/lib/analytics';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
+import { type ResultFeedbackChoice } from '@/lib/result-feedback';
+import { useResultFeedback } from '@/lib/result-feedback-context';
 import { saveIdentificationResult } from '@/lib/saved-finds-actions';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function ResultsScreen() {
   const { session } = useIdentificationSession();
   const { saveFind } = useSavedFinds();
+  const { getFeedbackForSession, saveFeedback } = useResultFeedback();
   const analysis = analyzeIdentificationSession(session);
   const { topMatch, matches } = analysis;
   const alternatives = matches.slice(1);
+  const resultFeedback = getFeedbackForSession(analysis.sessionId);
 
   function handleSaveResult() {
     if (!session) {
@@ -37,6 +42,14 @@ export default function ResultsScreen() {
 
   function handleRetake() {
     router.replace('/capture-tips');
+  }
+
+  function handleResultFeedback(choice: ResultFeedbackChoice) {
+    saveFeedback({ sessionId: analysis.sessionId, choice });
+    track('result_feedback_submitted', {
+      sessionId: analysis.sessionId,
+      choice,
+    });
   }
 
   return (
@@ -69,9 +82,7 @@ export default function ResultsScreen() {
 
       <Card>
         <SectionTitle>Why this match</SectionTitle>
-        <Text style={styles.bodyText}>
-          {analysis.reasoning}
-        </Text>
+        <Text style={styles.bodyText}>{analysis.reasoning}</Text>
       </Card>
 
       <Card>
@@ -87,6 +98,30 @@ export default function ResultsScreen() {
       <Card>
         <SectionTitle>Check next</SectionTitle>
         <Text style={styles.bodyText}>{analysis.nextCheck}</Text>
+      </Card>
+
+      <Card>
+        <SectionTitle>Was this result useful?</SectionTitle>
+        {resultFeedback ? (
+          <Text style={styles.bodyText}>
+            Thanks for the feedback. You marked this result as {resultFeedback.choice === 'useful' ? 'useful' : 'not useful'}.
+          </Text>
+        ) : (
+          <View style={styles.feedbackButtons}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => handleResultFeedback('useful')}
+              style={({ pressed }) => [styles.feedbackButton, pressed && styles.feedbackButtonPressed]}>
+              <Text style={styles.feedbackButtonLabel}>Useful</Text>
+            </Pressable>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => handleResultFeedback('not_useful')}
+              style={({ pressed }) => [styles.feedbackButton, pressed && styles.feedbackButtonPressed]}>
+              <Text style={styles.feedbackButtonLabel}>Not useful</Text>
+            </Pressable>
+          </View>
+        )}
       </Card>
 
       <ActionButton label="Save Result" onPress={handleSaveResult} />
@@ -162,6 +197,28 @@ const styles = StyleSheet.create({
   score: {
     color: palette.ink,
     fontSize: 14,
+    fontWeight: '700',
+  },
+  feedbackButtons: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  feedbackButton: {
+    alignItems: 'center',
+    backgroundColor: palette.surface,
+    borderColor: palette.border,
+    borderRadius: 14,
+    borderWidth: 1,
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+  feedbackButtonPressed: {
+    opacity: 0.86,
+  },
+  feedbackButtonLabel: {
+    color: palette.ink,
+    fontSize: 15,
     fontWeight: '700',
   },
 });
