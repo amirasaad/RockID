@@ -361,7 +361,7 @@ Story status snapshot:
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S5-1` | `In Progress` | [lib/saved-finds-context.tsx](<../lib/saved-finds-context.tsx>), [lib/saved-finds-persistence.ts](<../lib/saved-finds-persistence.ts>), and [__tests__/s5-saved-finds-context-persistence.test.ts](<../__tests__/s5-saved-finds-context-persistence.test.ts>) | Persistence module exists and SavedFindsProvider hydrates/persists via AsyncStorage; next: add on-device restart QA notes and ensure Collection reflects persisted state after a real restart |
-| `S5-2` | `Not Started` | N/A | Depends on persistence + delete UX |
+| `S5-2` | `Done` | [app/saved/[id].tsx](<../app/saved/[id].tsx>), [lib/saved-finds.ts](<../lib/saved-finds.ts>), and [__tests__/s3-saved-find-store.test.ts](<../__tests__/s3-saved-find-store.test.ts>) | Saved Find detail includes a delete action; deletion removes the record, updates Collection, and opening a deleted id shows the recovery state |
 
 Manual QA log (`Sprint 5`):
 
@@ -383,4 +383,4 @@ Manual QA log (`Sprint 5`):
 
 ## **Current Next Action**
 
-Start Sprint 5 with `S5-1`: add a failing acceptance test for persistence across app restart, then implement the local storage layer.
+Complete on-device restart QA for `S5-1` and fill in the Sprint 5 manual QA log with device/OS/test result.
