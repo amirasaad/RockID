@@ -300,6 +300,24 @@ Story status snapshot:
 | `S4-2` | `Done` | [lib/analytics.ts](<../lib/analytics.ts>), [__tests__/s4-analytics.acceptance.test.ts](<../__tests__/s4-analytics.acceptance.test.ts>), and [app/(tabs)/index.tsx](<../app/(tabs)/index.tsx>) | Analytics wrapper exists and key screens emit baseline events without binding to a vendor |
 | `S4-3` | `Done` | [app/(tabs)/learn.tsx](<../app/(tabs)/learn.tsx>), [app/(tabs)/learn/[slug].tsx](<../app/(tabs)/learn/[slug].tsx>), and [__tests__/s4-learn-topics.acceptance.test.ts](<../__tests__/s4-learn-topics.acceptance.test.ts>) | Learn topics now navigate into a placeholder detail screen and emit `learn_topic_opened` analytics |
 
+## **Sprint 4 Retro (Mid-Sprint)**
+
+What went well:
+
+- Following ATDD for most changes kept us focused on user-visible outcomes.
+
+What went wrong / needs improvement:
+
+- Poor unit-level TDD discipline: we sometimes implemented first and tested later.
+- Missing the consistent rhythm of test-fail → test-pass (and the narrative in commits).
+- Automated QA coverage is not true end-to-end yet; some navigation/UI issues still require manual discovery.
+
+Action items:
+
+- Default to red → green → refactor for each change, even for “small” fixes.
+- Prefer unit tests for pure logic (view models, actions, mapping functions) before wiring UI.
+- Add a proper E2E smoke path for the core flow (Identify → Review → Observations → Results → Save → Collection → Saved Detail).
+
 ## **Backlog Prioritization Rules**
 
 - Prefer vertical slices over isolated infrastructure.
