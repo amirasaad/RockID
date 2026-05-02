@@ -190,6 +190,20 @@ Story status snapshot:
 | `S3-3` | `Not Started` | Pending | Depends on save flow |
 | `S3-4` | `Not Started` | Pending | Depends on collection rendering |
 
+Definition of done checkpoint (`Sprint 3`):
+
+| DoD Criterion | Required Outcome |
+| --- | --- |
+| User-facing flow works in app | A user can save a result from `Results` and immediately see it in `Collection` |
+| Persistence is sufficient for local use | Saved finds are still available after app restart on the same device |
+| Edge states handled | Empty collection renders a useful state; missing image URI renders a graceful placeholder |
+| Navigation works | Tapping a saved find opens its details route without crashes |
+| `pnpm run typecheck` passes | `Pass` |
+| Relevant tests pass | `pnpm test` passes; acceptance coverage exists for save + list + open |
+| Manual validation documented | On-device QA recorded in this sprint section |
+| Dependency changes justified and locked | Any new storage dependency is justified and captured in `pnpm-lock.yaml` |
+| No MVP requirement conflicts | Saved finds remain clearly local and mocked results remain labeled as mocked |
+
 Definition of done checkpoint (`S3-1`):
 
 | DoD Criterion | Current State |
