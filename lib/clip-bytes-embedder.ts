@@ -58,6 +58,10 @@ export async function embedPhotoUriToVectorConvenient(input: { photoUri: string;
   });
 }
 
+export async function identifyRockPhotoOnDevice(input: { photoUri: string; embeddingDimension: number }): Promise<number[]> {
+  return embedPhotoUriToVectorConvenient({ photoUri: input.photoUri, dimension: input.embeddingDimension });
+}
+
 export function base64ToBytes(base64: string): Uint8Array {
   const normalized = base64.replace(/[\r\n\s]/g, '');
   if (normalized.length === 0) return new Uint8Array();

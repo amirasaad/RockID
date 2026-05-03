@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { embedPhotoUriToVector, embedPhotoUriToVectorConvenient } from '@/lib/clip-bytes-embedder';
+import { embedPhotoUriToVector, embedPhotoUriToVectorConvenient, identifyRockPhotoOnDevice } from '@/lib/clip-bytes-embedder';
 
 describe('S14 photo URI embedder', () => {
   it('embeds a photo URI by reading bytes via an injected dependency', async () => {
@@ -34,6 +34,25 @@ describe('S14 photo URI embedder', () => {
 
     expect(fetchMock).toHaveBeenCalledWith('https://example.com/sample.jpg');
     expect(vector).toHaveLength(4);
+    const norm = Math.sqrt(vector.reduce((sum, value) => sum + value * value, 0));
+    expect(norm).toBeCloseTo(1, 8);
+  });
+
+  it('exposes an identifyRockPhotoOnDevice helper that returns an embedding', async () => {
+    const fetchMock = vi.fn(async () => ({
+      ok: true,
+      status: 200,
+      arrayBuffer: async () => Uint8Array.from([9, 8, 7, 6, 5, 4, 3, 2]).buffer,
+    }));
+
+    vi.stubGlobal('fetch', fetchMock);
+
+    const vector = await identifyRockPhotoOnDevice({
+      photoUri: 'https://example.com/sample.jpg',
+      embeddingDimension: 8,
+    });
+
+    expect(vector).toHaveLength(8);
     const norm = Math.sqrt(vector.reduce((sum, value) => sum + value * value, 0));
     expect(norm).toBeCloseTo(1, 8);
   });
