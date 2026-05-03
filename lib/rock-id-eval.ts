@@ -42,35 +42,44 @@ export type RockIdEvalReport = {
   };
 };
 
+type RockIdEvalResult = {
+  fixture: RockIdEvalFixture;
+  analysis: RockIdAnalyzerResult;
+  top1Correct: boolean;
+  top3Correct: boolean;
+  lowConfidence: boolean;
+};
+
 export function evaluateRockIdentifier(input: {
   fixtures: RockIdEvalFixture[];
   analyze: RockIdAnalyzer;
 }): RockIdEvalReport {
-  const results = input.fixtures.map((fixture) => {
-    const analysis = input.analyze(fixture.session);
-    return {
-      fixture,
-      analysis,
-      top1Correct: analysis.topMatch.name === fixture.expectedLabel,
-      top3Correct: analysis.matches.some((match) => match.name === fixture.expectedLabel),
-      lowConfidence: analysis.topMatch.confidence === 'Low',
-    };
-  });
-
+  const results = input.fixtures.map((fixture) => evaluateFixture(fixture, input.analyze));
   const total = results.length;
+  const nonRockResults = results.filter((result) => result.fixture.expectedKind === 'non-rock');
 
   return {
     total,
-    top1Accuracy: ratio(results.filter((result) => result.top1Correct).length, total),
-    top3Accuracy: ratio(results.filter((result) => result.top3Correct).length, total),
-    lowConfidenceRate: ratio(results.filter((result) => result.lowConfidence).length, total),
-    nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(results),
+    top1Accuracy: ratio(countWhere(results, 'top1Correct'), total),
+    top3Accuracy: ratio(countWhere(results, 'top3Correct'), total),
+    lowConfidenceRate: ratio(countWhere(results, 'lowConfidence'), total),
+    nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(nonRockResults),
     confusionPairs: collectConfusionPairs(results),
-    nonRockConfusions: collectConfusionPairs(
-      results.filter((result) => result.fixture.expectedKind === 'non-rock')
-    ),
+    nonRockConfusions: collectConfusionPairs(nonRockResults),
     perClassAccuracy: calculatePerClassAccuracy(results),
     coverage: calculateCoverage(input.fixtures),
+  };
+}
+
+function evaluateFixture(fixture: RockIdEvalFixture, analyze: RockIdAnalyzer): RockIdEvalResult {
+  const analysis = analyze(fixture.session);
+
+  return {
+    fixture,
+    analysis,
+    top1Correct: analysis.topMatch.name === fixture.expectedLabel,
+    top3Correct: analysis.matches.some((match) => match.name === fixture.expectedLabel),
+    lowConfidence: analysis.topMatch.confidence === 'Low',
   };
 }
 
@@ -79,24 +88,16 @@ function ratio(count: number, total: number): number {
   return count / total;
 }
 
-function calculateNonRockFalsePositiveRate(
-  results: Array<{
-    fixture: RockIdEvalFixture;
-    top1Correct: boolean;
-  }>
-): number {
-  const nonRockResults = results.filter((result) => result.fixture.expectedKind === 'non-rock');
-  const falsePositives = nonRockResults.filter((result) => !result.top1Correct).length;
-  return ratio(falsePositives, nonRockResults.length);
+function countWhere(results: RockIdEvalResult[], key: keyof Pick<RockIdEvalResult, 'top1Correct' | 'top3Correct' | 'lowConfidence'>): number {
+  return results.filter((result) => result[key]).length;
 }
 
-function collectConfusionPairs(
-  results: Array<{
-    fixture: RockIdEvalFixture;
-    analysis: RockIdAnalyzerResult;
-    top1Correct: boolean;
-  }>
-): RockIdConfusionPair[] {
+function calculateNonRockFalsePositiveRate(results: RockIdEvalResult[]): number {
+  const falsePositives = results.filter((result) => !result.top1Correct).length;
+  return ratio(falsePositives, results.length);
+}
+
+function collectConfusionPairs(results: RockIdEvalResult[]): RockIdConfusionPair[] {
   const counts = new Map<string, RockIdConfusionPair>();
 
   for (const result of results) {
@@ -107,32 +108,33 @@ function collectConfusionPairs(
     const key = `${expected}\u0000${predicted}`;
     const existing = counts.get(key);
 
-    if (existing) {
-      existing.count += 1;
-    } else {
-      counts.set(key, { expected, predicted, count: 1 });
-    }
+    counts.set(key, {
+      expected,
+      predicted,
+      count: existing ? existing.count + 1 : 1,
+    });
   }
 
   return [...counts.values()];
 }
 
+function calculatePerClassAccuracy(results: RockIdEvalResult[]): Record<string, RockIdClassAccuracy> {
+  const byClass = groupClassScores(results);
 
-function calculatePerClassAccuracy(
-  results: Array<{
-    fixture: RockIdEvalFixture;
-    top1Correct: boolean;
-    top3Correct: boolean;
-  }>
-): Record<string, RockIdClassAccuracy> {
-  const byClass = new Map<
-    string,
-    {
-      total: number;
-      top1Correct: number;
-      top3Correct: number;
-    }
-  >();
+  return Object.fromEntries(
+    sortedEntries(byClass).map(([expectedLabel, score]) => [
+      expectedLabel,
+      {
+        total: score.total,
+        top1Accuracy: ratio(score.top1Correct, score.total),
+        top3Accuracy: ratio(score.top3Correct, score.total),
+      },
+    ])
+  );
+}
+
+function groupClassScores(results: RockIdEvalResult[]): Map<string, { total: number; top1Correct: number; top3Correct: number }> {
+  const byClass = new Map<string, { total: number; top1Correct: number; top3Correct: number }>();
 
   for (const result of results) {
     const expectedLabel = result.fixture.expectedLabel;
@@ -149,18 +151,7 @@ function calculatePerClassAccuracy(
     byClass.set(expectedLabel, current);
   }
 
-  return Object.fromEntries(
-    [...byClass.entries()]
-      .sort(([left], [right]) => left.localeCompare(right))
-      .map(([expectedLabel, score]) => [
-        expectedLabel,
-        {
-          total: score.total,
-          top1Accuracy: ratio(score.top1Correct, score.total),
-          top3Accuracy: ratio(score.top3Correct, score.total),
-        },
-      ])
-  );
+  return byClass;
 }
 
 function calculateCoverage(fixtures: RockIdEvalFixture[]): RockIdEvalReport['coverage'] {
@@ -176,7 +167,11 @@ function calculateCoverage(fixtures: RockIdEvalFixture[]): RockIdEvalReport['cov
   }
 
   return {
-    classes: Object.fromEntries([...classes.entries()].sort(([left], [right]) => left.localeCompare(right))),
+    classes: Object.fromEntries(sortedEntries(classes)),
     kinds,
   };
+}
+
+function sortedEntries<Value>(map: Map<string, Value>): Array<[string, Value]> {
+  return [...map.entries()].sort(([left], [right]) => left.localeCompare(right));
 }
