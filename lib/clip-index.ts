@@ -17,6 +17,20 @@ export type ClipIndex = {
 };
 
 /**
+ * Converts a validated CLIP index into the minimal vector index shape used by kNN retrieval.
+ * @param index - Validated CLIP index.
+ * @returns Vector index items.
+ */
+export function toVectorIndexItems(index: ClipIndex) {
+  return index.items.map((item) => ({
+    id: item.id,
+    label: item.label,
+    kind: item.kind,
+    embedding: item.embedding,
+  }));
+}
+
+/**
  * Loads a CLIP index artifact from disk and validates its shape.
  * @param relativePath - Path relative to the repository root.
  * @returns Parsed and validated CLIP index.
@@ -162,4 +176,3 @@ function asKind(value: unknown): ClipIndexItem['kind'] {
   }
   throw new Error("Clip index item kind must be 'rock' or 'non-rock'.");
 }
-

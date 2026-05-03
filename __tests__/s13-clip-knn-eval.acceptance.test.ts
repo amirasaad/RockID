@@ -1,31 +1,28 @@
 import { describe, expect, it } from 'vitest';
 
 import type { IdentificationSession } from '@/lib/identification-session';
-import { createClipKnnAnalyzer, normalizeVector, type VectorIndexItem } from '@/lib/clip-knn';
+import { createClipKnnAnalyzer, normalizeVector } from '@/lib/clip-knn';
+import { loadClipIndexFromFile, toVectorIndexItems } from '@/lib/clip-index';
 import { evaluateRockIdentifier, type RockIdEvalFixture } from '@/lib/rock-id-eval';
 
 describe('S13 CLIP kNN eval acceptance', () => {
-  it('evaluates a CLIP kNN analyzer through the existing eval report contract', () => {
-    const index: VectorIndexItem[] = [
-      item('basalt-1', 'Basalt', 'rock', oneHot(20, 1)),
-      item('granite-1', 'Granite', 'rock', oneHot(20, 0)),
-      item('slag-1', 'Slag', 'non-rock', oneHot(20, 2)),
-      item('obsidian-1', 'Obsidian', 'rock', oneHot(20, 3)),
-    ];
+  it('evaluates a CLIP kNN analyzer through the existing eval report contract', async () => {
+    const clipIndex = await loadClipIndexFromFile('data/clip/demo-index.json');
+    const index = toVectorIndexItems(clipIndex);
 
     const analyzer = createClipKnnAnalyzer({
       index,
       topK: 3,
       embed: (session) => {
         if (session.id.includes('weak-evidence')) {
-          return normalizeVector(Array.from({ length: 20 }, () => 1));
+          return normalizeVector(Array.from({ length: clipIndex.embeddingDimension }, () => 1));
         }
 
-        if (session.id.includes('granite')) return normalizeVector(oneHot(20, 0));
-        if (session.id.includes('basalt')) return normalizeVector(oneHot(20, 1));
-        if (session.id.includes('slag')) return normalizeVector(oneHot(20, 2));
+        if (session.id.includes('granite')) return normalizeVector(oneHot(clipIndex.embeddingDimension, 0));
+        if (session.id.includes('basalt')) return normalizeVector(oneHot(clipIndex.embeddingDimension, 1));
+        if (session.id.includes('slag')) return normalizeVector(oneHot(clipIndex.embeddingDimension, 2));
 
-        return normalizeVector(oneHot(20, 3));
+        return normalizeVector(oneHot(clipIndex.embeddingDimension, 3));
       },
     });
 
@@ -52,15 +49,6 @@ describe('S13 CLIP kNN eval acceptance', () => {
 
 function oneHot(dimension: number, index: number): number[] {
   return Array.from({ length: dimension }, (_, position) => (position === index ? 1 : 0));
-}
-
-function item(id: string, label: string, kind: VectorIndexItem['kind'], embedding: number[]): VectorIndexItem {
-  return {
-    id,
-    label,
-    kind,
-    embedding: normalizeVector(embedding),
-  };
 }
 
 function fixture(input: {
@@ -95,4 +83,3 @@ function session(input: { id: string; uri: string }): IdentificationSession {
     updatedAt: 1,
   };
 }
-

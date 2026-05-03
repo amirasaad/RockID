@@ -155,7 +155,7 @@ function calculateConfidence(matches: RankedVectorIndexItem[], possibleNonRock: 
 
   if (top >= 0.35 && margin >= 0.08) {
     confidence = 'High';
-  } else if (top >= 0.25) {
+  } else if (top >= 0.25 && margin >= 0.02) {
     confidence = 'Medium';
   }
 
