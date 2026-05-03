@@ -24,6 +24,8 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 7 | Expo Compatibility Maintenance | [Open](<sprints/Sprint-07-expo-compatibility-maintenance.md>) |
 | Sprint 8 | Field-Test Readiness | [Open](<sprints/Sprint-08-field-test-readiness.md>) |
 | Sprint 9 | Results Clarity (Low-Confidence First) | [Open](<sprints/Sprint-09-results-clarity.md>) |
+| Sprint 10 | Market Offer Messaging | [Open](<sprints/Sprint-10-market-offer.md>) |
+| Sprint 11 | Rock ID Reality Check | [Open](<sprints/Sprint-11-rock-id-reality-check.md>) |
 
 ## **Update Rules**
 

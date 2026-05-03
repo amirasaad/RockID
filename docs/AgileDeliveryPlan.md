@@ -61,7 +61,9 @@ A story is done when:
 | Sprint 7 | Expo Compatibility Maintenance | [Sprint-07](<agile/sprints/Sprint-07-expo-compatibility-maintenance.md>) |
 | Sprint 8 | Field-Test Readiness | [Sprint-08](<agile/sprints/Sprint-08-field-test-readiness.md>) |
 | Sprint 9 | Results Clarity (Low-Confidence First) | [Sprint-09](<agile/sprints/Sprint-09-results-clarity.md>) |
+| Sprint 10 | Market Offer Messaging | [Sprint-10](<agile/sprints/Sprint-10-market-offer.md>) |
+| Sprint 11 | Rock ID Reality Check | [Sprint-11](<agile/sprints/Sprint-11-rock-id-reality-check.md>) |
 
 ## **Current Next Action**
 
-Advance `S9-1` in [agile/sprints/Sprint-09-results-clarity.md](<agile/sprints/Sprint-09-results-clarity.md>) by completing manual web + iPhone QA, then move story status to `Done`.
+Start `S11-1` from [agile/sprints/Sprint-11-rock-id-reality-check.md](<agile/sprints/Sprint-11-rock-id-reality-check.md>) with a failing non-UI acceptance test for the rock-ID eval contract.
