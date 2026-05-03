@@ -18,6 +18,7 @@
     "test:unit": "vitest run __tests__/photo-input.test.ts",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install",
+    "clip:index:demo": "node scripts/generate-clip-index.mjs --manifest data/clip/demo-manifest.json --out data/clip/demo-index.json",
     "bump": "commit-and-tag-version",
     "bump:dry": "commit-and-tag-version --dry-run",
     "bump:patch": "commit-and-tag-version --release-as patch",

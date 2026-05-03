@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { loadClipIndexFromFile } from '@/lib/clip-index';
+import { loadClipIndexFromFile } from '@/lib/clip-index-node';
 
 describe('S13 clip index', () => {
   it('loads the demo CLIP index artifact and validates dimensions', async () => {

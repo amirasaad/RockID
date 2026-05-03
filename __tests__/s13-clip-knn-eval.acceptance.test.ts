@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import type { IdentificationSession } from '@/lib/identification-session';
 import { createClipKnnAnalyzer, normalizeVector } from '@/lib/clip-knn';
-import { loadClipIndexFromFile, toVectorIndexItems } from '@/lib/clip-index';
+import { toVectorIndexItems } from '@/lib/clip-index';
+import { loadClipIndexFromFile } from '@/lib/clip-index-node';
 import { evaluateRockIdentifier, type RockIdEvalFixture } from '@/lib/rock-id-eval';
 
 describe('S13 CLIP kNN eval acceptance', () => {

@@ -8,17 +8,7 @@
       "kind": "rock",
       "group": "starter-mvp",
       "source": "synthetic-demo",
-      "license": "internal-demo",
-      "embedding": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "license": "internal-demo"
     },
     {
       "id": "demo-basalt-1",
@@ -26,17 +16,7 @@
       "kind": "rock",
       "group": "starter-mvp",
       "source": "synthetic-demo",
-      "license": "internal-demo",
-      "embedding": [
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "license": "internal-demo"
     },
     {
       "id": "demo-slag-1",
@@ -44,17 +24,7 @@
       "kind": "non-rock",
       "group": "starter-non-rock",
       "source": "synthetic-demo",
-      "license": "internal-demo",
-      "embedding": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "license": "internal-demo"
     },
     {
       "id": "demo-obsidian-1",
@@ -62,17 +32,8 @@
       "kind": "rock",
       "group": "starter-mvp",
       "source": "synthetic-demo",
-      "license": "internal-demo",
-      "embedding": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "license": "internal-demo"
     }
   ]
 }
+

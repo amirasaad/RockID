@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import type { IdentificationSession } from '@/lib/identification-session';
 import { createClipKnnAnalyzer, normalizeVector } from '@/lib/clip-knn';
-import { loadClipIndexFromFile, toVectorIndexItems } from '@/lib/clip-index';
+import { toVectorIndexItems } from '@/lib/clip-index';
+import { loadClipIndexFromFile } from '@/lib/clip-index-node';
 
 describe('S13 index-backed retrieval acceptance', () => {
   it('retrieves top-3 matches from the demo index and sets confidence bands', async () => {
