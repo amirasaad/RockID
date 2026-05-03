@@ -63,6 +63,15 @@ export function analyzeIdentificationSession(session: IdentificationSession | nu
   };
 }
 
+/**
+ * Async wrapper for the current analysis implementation.
+ * @param session - Current identification session (or null).
+ * @returns Analysis result as a promise.
+ */
+export async function analyzeIdentificationSessionAsync(session: IdentificationSession | null): Promise<MockAnalysisResult> {
+  return analyzeIdentificationSession(session);
+}
+
 function selectMockMatches(observations?: RockObservations): RockMatch[] {
   if (hasWeakEvidence(observations)) {
     return lowConfidenceMatches;
