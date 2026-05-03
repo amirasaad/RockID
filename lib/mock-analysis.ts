@@ -1,6 +1,8 @@
 import type { IdentificationAnalysis, IdentificationSession, RockObservations } from './identification-session';
 import type { RockMatch } from './mock-data';
 import { topMatches } from './mock-data';
+import { createClipKnnAnalyzerAsync, normalizeVector, type VectorIndexItem } from './clip-knn';
+import { identifyRockPhotoOnDevice } from './clip-bytes-embedder';
 
 export type MockAnalysisResult = IdentificationAnalysis;
 
@@ -49,6 +51,25 @@ const lowConfidenceMatches: RockMatch[] = [
   },
 ];
 
+const photoIndex: VectorIndexItem[] = [
+  { id: 'photo-granite-1', label: 'Granite', kind: 'rock', embedding: normalizeVector([1, 0, 0, 0, 0, 0, 0, 0]) },
+  { id: 'photo-basalt-1', label: 'Basalt', kind: 'rock', embedding: normalizeVector([0, 1, 0, 0, 0, 0, 0, 0]) },
+  { id: 'photo-slag-1', label: 'Slag', kind: 'non-rock', embedding: normalizeVector([0, 0, 1, 0, 0, 0, 0, 0]) },
+  { id: 'photo-obsidian-1', label: 'Obsidian', kind: 'rock', embedding: normalizeVector([0, 0, 0, 1, 0, 0, 0, 0]) },
+];
+
+const photoAnalyzer = createClipKnnAnalyzerAsync({
+  index: photoIndex,
+  topK: 3,
+  embed: async (session) => {
+    const photoUri = session.selectedPhoto?.uri;
+    if (!photoUri) {
+      throw new Error('Photo URI is required for photo-based analysis.');
+    }
+    return identifyRockPhotoOnDevice({ photoUri, embeddingDimension: 8 });
+  },
+});
+
 export function analyzeIdentificationSession(session: IdentificationSession | null): MockAnalysisResult {
   const matches = selectMockMatches(session?.observations);
   const [topMatch] = matches;
@@ -69,7 +90,26 @@ export function analyzeIdentificationSession(session: IdentificationSession | nu
  * @returns Analysis result as a promise.
  */
 export async function analyzeIdentificationSessionAsync(session: IdentificationSession | null): Promise<MockAnalysisResult> {
-  return analyzeIdentificationSession(session);
+  const photoUri = session?.selectedPhoto?.uri;
+  if (!photoUri) return analyzeIdentificationSession(session);
+
+  if (hasWeakEvidence(session?.observations)) {
+    return analyzeIdentificationSession(session);
+  }
+
+  try {
+    const analysis = await photoAnalyzer(session);
+    return {
+      sessionId: session.id,
+      imageUri: photoUri,
+      matches: analysis.matches,
+      topMatch: analysis.topMatch,
+      reasoning: 'Photo embedding similarity match using a placeholder on-device embedder.',
+      nextCheck: 'If results look wrong, add another close-up photo and confirm grain size, color, and any visible crystals.',
+    };
+  } catch {
+    return analyzeIdentificationSession(session);
+  }
 }
 
 function selectMockMatches(observations?: RockObservations): RockMatch[] {
