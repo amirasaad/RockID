@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.15.1 (2026-05-03)
+
+
+### ✅ Tests
+
+* **eval**: Compare clip knn analyzer via eval e6cd734
+
+
+
+
+
 # 0.15.0 (2026-05-03)
 
 
