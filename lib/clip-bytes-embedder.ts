@@ -21,3 +21,13 @@ export function embedBytesToVector(input: Uint8Array | number[], dimension: numb
   return normalizeVector(buckets);
 }
 
+export type ReadPhotoBytesFn = (photoUri: string) => Promise<Uint8Array>;
+
+export async function embedPhotoUriToVector(input: {
+  photoUri: string;
+  dimension: number;
+  readBytes: ReadPhotoBytesFn;
+}): Promise<number[]> {
+  const bytes = await input.readBytes(input.photoUri);
+  return embedBytesToVector(bytes, input.dimension);
+}
