@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.12.0 (2026-05-03)
+
+
+### ✅ Tests
+
+* **eval**: Test-pass rock id eval contract 4d063c2
+
+
+### ✨ Features
+
+* **eval**: Add failing acceptance test for rock id reality check d6688ce
+
+
+### 📝 Documentation
+
+* **agile**: Close sprint 11 reality check findings 46597de
+
+
+
+
+
 # 0.11.0 (2026-05-03)
 
 
