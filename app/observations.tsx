@@ -15,10 +15,10 @@ const featureOptions = ['Layered', 'Glassy', 'Vesicles', 'Banding', 'Visible Cry
 
 export default function ObservationsScreen() {
   const { setObservations } = useIdentificationSession();
-  const [selectedColor, setSelectedColor] = useState<string>('Mixed');
-  const [selectedGrain, setSelectedGrain] = useState<string>('Coarse');
-  const [notes, setNotes] = useState('Coarse grains with light feldspar and darker minerals.');
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>(['Visible Crystals']);
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [selectedGrain, setSelectedGrain] = useState<string>('');
+  const [notes, setNotes] = useState('');
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
 
   useEffect(() => {
     track('observations_viewed');
