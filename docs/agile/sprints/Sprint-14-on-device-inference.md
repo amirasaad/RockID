@@ -40,8 +40,15 @@ Expo Go cannot load arbitrary third-party native libraries. A development build 
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S14-1` | `Planned` | This sprint plan | Dev build enables native inference libs |
+| `S14-1` | `In Progress` | `expo-dev-client` added + iOS pods synced | `expo run:ios --device` build succeeds but CLI attach may fail with `devicectl Error: null`; dev client works when opening the app manually and deep-linking to Metro in LAN mode |
 | `S14-2` | `Planned` | This sprint plan | Produces embedding output for retrieval |
 | `S14-3` | `Planned` | This sprint plan | Failures are safe and debuggable |
 | `S14-4` | `Planned` | This sprint plan | Record device observations |
 
+Manual QA notes:
+
+- Metro LAN deep link example: `com.anonymous.rock-id://expo-development-client/?url=http%3A%2F%2F192.168.100.36%3A8083`
+- Device discovery can show “No development servers found” on some networks; manual URL/deeplink works reliably.
+- Current identification behavior is still observation-driven (mock engine):
+  - Pre-filled observations caused “Granite” for unrelated photos.
+  - After removing defaults, blank observations yield a low-confidence/uncertain result unless the user provides details.
