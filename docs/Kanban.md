@@ -3,7 +3,7 @@
 Update policy:
 
 - Treat this board as the live what-is-next view for product, engineering, QA, and stakeholder handoff.
-- Update after each merge to `main` and after each sprint planning / demo.
+- Update after each story merge into a `sprint/*` branch, after each merge to `main`, and after each sprint planning / demo.
 - Keep completed details in sprint files under [agile/sprints](<agile/sprints>).
 - Workflow note: prefer story branches merged into a `sprint/*` base branch, then merge the sprint branch into `main` at DoD.
 
