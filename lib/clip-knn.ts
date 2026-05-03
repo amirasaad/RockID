@@ -24,6 +24,7 @@ export type ClipKnnRetrievalResult = {
 };
 
 export type ClipKnnAnalyzer = (session: IdentificationSession) => { matches: RockMatch[]; topMatch: RockMatch };
+export type ClipKnnAnalyzerAsync = (session: IdentificationSession) => Promise<{ matches: RockMatch[]; topMatch: RockMatch }>;
 
 /**
  * Normalizes a vector to unit length (L2 norm = 1).
@@ -122,6 +123,35 @@ export function createClipKnnAnalyzer(input: {
     }
 
     const queryEmbedding = input.embed(session);
+    const retrieval = retrieveByCosine({ queryEmbedding, items: input.index, topK: input.topK });
+
+    const matches = retrieval.matches.map((match, index) => ({
+      name: match.item.label,
+      category: match.item.kind === 'non-rock' ? 'Non-rock look-alike' : 'Rock',
+      confidence: index === 0 ? retrieval.confidence : 'Low',
+      score: similarityToPercent(match.score),
+    }));
+
+    const topMatch = matches[0];
+    if (!topMatch) {
+      throw new Error('CLIP kNN retrieval returned no matches.');
+    }
+
+    return { matches, topMatch };
+  };
+}
+
+export function createClipKnnAnalyzerAsync(input: {
+  embed: (session: IdentificationSession) => Promise<Vector>;
+  index: VectorIndexItem[];
+  topK: number;
+}): ClipKnnAnalyzerAsync {
+  return async (session) => {
+    if (input.index.length === 0) {
+      throw new Error('CLIP kNN index must not be empty.');
+    }
+
+    const queryEmbedding = await input.embed(session);
     const retrieval = retrieveByCosine({ queryEmbedding, items: input.index, topK: input.topK });
 
     const matches = retrieval.matches.map((match, index) => ({
