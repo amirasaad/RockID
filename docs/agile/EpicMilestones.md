@@ -14,7 +14,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `E6: Learning Content` | Users can browse beginner learning topics | `Done` | [Sprint 4](<sprints/Sprint-04-mvp-hardening.md>) | Replace placeholder content with richer topic pages |
 | `E7: Platform Readiness` | Dependencies and local app runtime stay compatible | `In Progress` | [Sprint 7](<sprints/Sprint-07-expo-compatibility-maintenance.md>) | Continue resolving Expo/runtime warnings as they surface |
 | `E8: Field-Test Learning` | MVP field testing produces actionable usefulness and trust signals | `Done` | [Sprint 8](<sprints/Sprint-08-field-test-readiness.md>), [Sprint 9](<sprints/Sprint-09-results-clarity.md>) | Gather trends from feedback to choose Sprint 10 focus |
-| `E9: Identification Engine Reality` | The team can measure whether rock identification works before integrating a real model | `Ready` | [Sprint 11](<sprints/Sprint-11-rock-id-reality-check.md>) | Start eval harness with labeled fixture and provisional thresholds |
+| `E9: Identification Engine Reality` | The team can measure whether rock identification works before integrating a real model | `Done` | [Sprint 11](<sprints/Sprint-11-rock-id-reality-check.md>) | Use findings to harden non-rock detection and expand the labeled fixture |
 
 ## **Milestone Health**
 
@@ -26,7 +26,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `Compatibility hygiene` | `In Progress` | Worklets warning resolved; keep watching Expo checks. |
 | `Field-test readiness` | `Done` | Result usefulness feedback shipped; validated on web and iPhone with e2e coverage. |
 | `Low-confidence clarity` | `Done` | Low-confidence-first Results variant validated on web and iPhone, with passing e2e and unit coverage. |
-| `Rock-ID reality check` | `Ready` | Sprint 11 selected to measure top-1, top-3, uncertainty, non-rock false positives, and confusion pairs. |
+| `Rock-ID reality check` | `Done` | Starter eval reports top-1/top-3 accuracy, uncertainty, non-rock false positives, and confusion pairs. |
 
 ## **Epic Update Rules**
 

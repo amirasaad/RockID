@@ -42,14 +42,14 @@ Start red with a non-UI acceptance test that describes the evaluation contract:
 
 | DoD Criterion | Current State |
 | --- | --- |
-| Labeled eval fixture exists | `Pending` |
-| Eval runner/module reports required metrics | `Pending` |
-| Current mock analyzer can be evaluated through the same contract | `Pending` |
-| Reality-check thresholds documented | `Pending` |
-| Results identify at least one next technical move | `Pending` |
-| `pnpm run typecheck` passes | `Pending` |
-| Relevant tests pass | `Pending` |
-| No MVP requirement conflicts | `Pending` |
+| Labeled eval fixture exists | `Yes` |
+| Eval runner/module reports required metrics | `Yes` |
+| Current mock analyzer can be evaluated through the same contract | `Yes` |
+| Reality-check thresholds documented | `Yes` |
+| Results identify at least one next technical move | `Yes` |
+| `pnpm run typecheck` passes | `Yes` |
+| Relevant tests pass | `Yes` |
+| No MVP requirement conflicts | `Yes` |
 
 ## **Manual QA / Review Plan**
 
@@ -71,7 +71,28 @@ Story status snapshot:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S11-1` | `Ready` | TBD | Start with failing acceptance test |
-| `S11-2` | `Ready` | This sprint plan | Thresholds are provisional until dataset grows |
-| `S11-3` | `Ready` | TBD | Keep analyzer contract reusable for future backend/model |
-| `S11-4` | `Ready` | TBD | Closeout should name the next technical move |
+| `S11-1` | `Done` | [s11-rock-id-eval.acceptance.test.ts](<../../../__tests__/s11-rock-id-eval.acceptance.test.ts>) | Eval fixture and required metrics are covered by acceptance test |
+| `S11-2` | `Done` | This sprint plan | Thresholds are provisional until dataset grows |
+| `S11-3` | `Done` | [rock-id-eval.ts](<../../../lib/rock-id-eval.ts>) | Mock analyzer is evaluated through a reusable analyzer contract |
+| `S11-4` | `Done` | Reality-check result below | Next technical move is non-rock detection hardening plus a larger labeled fixture |
+
+
+## **Reality-Check Result**
+
+Starter fixture result:
+
+| Metric | Result | Read |
+| --- | --- | --- |
+| `top1Accuracy` | `0.50` | Too weak to claim the engine works |
+| `top3Accuracy` | `1.00` | Promising but inflated by the tiny fixture |
+| `lowConfidenceRate` | `0.25` | Current mock admits uncertainty only for weak evidence |
+| `nonRockFalsePositiveRate` | `1.00` | Critical trust failure for the included slag look-alike |
+
+Confusion pairs found:
+
+- Expected `Granite`, predicted `Unclear rock sample`
+- Expected `Dark Slag`, predicted `Basalt`
+
+Next technical move:
+
+- Build Sprint 12 around non-rock detection hardening and a larger labeled eval fixture before integrating any real model endpoint.
