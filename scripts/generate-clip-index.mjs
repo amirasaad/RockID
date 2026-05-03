@@ -21,18 +21,25 @@ function parseArgs(argv) {
   }
 
   if (!args.manifest || !args.out) {
-    throw new Error('Usage: node scripts/generate-clip-index.mjs --manifest <path> --out <path>');
+    throw new Error(
+      'Usage: node scripts/generate-clip-index.mjs --manifest <path> --out <path> [--embedder demo|bytes]'
+    );
   }
 
-  return /** @type {{ manifest: string; out: string }} */ ({ manifest: args.manifest, out: args.out });
+  return /** @type {{ manifest: string; out: string; embedder: string }} */ ({
+    manifest: args.manifest,
+    out: args.out,
+    embedder: args.embedder ?? 'demo',
+  });
 }
 
 /**
  * Generates a CLIP index payload from a manifest payload, using deterministic demo embeddings.
- * @param {{ version: 1; embeddingDimension: number; items: Array<{ id: string; label: string; kind: 'rock'|'non-rock'; group: string; source: string; license: string }> }} manifest
+ * @param {{ version: 1; embeddingDimension: number; items: Array<{ id: string; label: string; kind: 'rock'|'non-rock'; group: string; source: string; license: string; imagePath?: string }> }} manifest
+ * @param {'demo'|'bytes'} embedder
  * @returns {{ version: 1; embeddingDimension: number; items: Array<{ id: string; label: string; kind: 'rock'|'non-rock'; group: string; source: string; license: string; embedding: number[] }> }}
  */
-function generateIndexFromManifest(manifest) {
+async function generateIndexFromManifest(manifest, embedder) {
   assertIsObject(manifest, 'Manifest must be an object.');
   if (manifest.version !== 1) throw new Error('Manifest version must be 1.');
 
@@ -41,12 +48,13 @@ function generateIndexFromManifest(manifest) {
     throw new Error('Manifest items must be a non-empty array.');
   }
 
-  const items = manifest.items.map((item) => {
+  const items = [];
+  for (const item of manifest.items) {
     assertIsObject(item, 'Manifest item must be an object.');
     const label = assertNonEmptyString(item.label, 'Manifest item label must be a non-empty string.');
-    const embedding = normalizeVector(oneHot(dimension, positionForLabel(label, dimension)));
+    const embedding = await embedItem(item, label, dimension, embedder);
 
-    return {
+    items.push({
       id: assertNonEmptyString(item.id, 'Manifest item id must be a non-empty string.'),
       label,
       kind: assertKind(item.kind),
@@ -54,14 +62,51 @@ function generateIndexFromManifest(manifest) {
       source: assertNonEmptyString(item.source, 'Manifest item source must be a non-empty string.'),
       license: assertNonEmptyString(item.license, 'Manifest item license must be a non-empty string.'),
       embedding,
-    };
-  });
+    });
+  }
 
   return {
     version: 1,
     embeddingDimension: dimension,
     items,
   };
+}
+
+/**
+ * Embeds a manifest item using a selected embedder mode.
+ * @param {any} item
+ * @param {string} label
+ * @param {number} dimension
+ * @param {'demo'|'bytes'} embedder
+ * @returns {Promise<number[]>}
+ */
+async function embedItem(item, label, dimension, embedder) {
+  if (embedder === 'demo') {
+    return normalizeVector(oneHot(dimension, positionForLabel(label, dimension)));
+  }
+
+  if (embedder === 'bytes') {
+    const imagePath = assertNonEmptyString(item.imagePath, 'Manifest item imagePath is required for embedder=bytes.');
+    const bytes = await readFile(imagePath);
+    return embedBytes(bytes, dimension);
+  }
+
+  throw new Error(`Unknown embedder: ${embedder}`);
+}
+
+/**
+ * Embeds raw bytes into a normalized vector.
+ * @param {Uint8Array} bytes
+ * @param {number} dimension
+ * @returns {number[]}
+ */
+function embedBytes(bytes, dimension) {
+  const buckets = Array.from({ length: dimension }, () => 0);
+  for (let i = 0; i < bytes.length; i += 1) {
+    buckets[i % dimension] += bytes[i] ?? 0;
+  }
+
+  return normalizeVector(buckets);
 }
 
 /**
@@ -184,11 +229,13 @@ function assertKind(value) {
   throw new Error("Manifest item kind must be 'rock' or 'non-rock'.");
 }
 
-const { manifest, out } = parseArgs(process.argv.slice(2));
+const { manifest, out, embedder } = parseArgs(process.argv.slice(2));
 
 const manifestRaw = await readFile(manifest, 'utf8');
 const manifestJson = JSON.parse(manifestRaw);
-const clipIndex = generateIndexFromManifest(manifestJson);
+/** @type {'demo'|'bytes'} */
+const embedderMode = embedder === 'bytes' ? 'bytes' : 'demo';
+const clipIndex = await generateIndexFromManifest(manifestJson, embedderMode);
 validateIndex(clipIndex);
 
 await writeFile(out, JSON.stringify(clipIndex, null, 2) + '\n', 'utf8');

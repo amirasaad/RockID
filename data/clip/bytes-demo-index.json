@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "embeddingDimension": 8,
+  "items": [
+    {
+      "id": "bytes-demo-1",
+      "label": "Bytes Demo",
+      "kind": "rock",
+      "group": "fixture",
+      "source": "local-bytes",
+      "license": "internal-demo",
+      "embedding": [
+        0.36670762027823034,
+        0.3238155803932108,
+        0.41075890448446667,
+        0.4115317340319445,
+        0.3415906599852009,
+        0.35279668842362943,
+        0.3299982167730334,
+        0.2693310972960238
+      ]
+    }
+  ]
+}

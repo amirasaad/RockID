@@ -1,0 +1,2 @@
+This is a tiny, license-safe byte fixture for embedding pipeline smoke tests.
+

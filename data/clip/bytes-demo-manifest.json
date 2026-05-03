@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "embeddingDimension": 8,
+  "items": [
+    {
+      "id": "bytes-demo-1",
+      "label": "Bytes Demo",
+      "kind": "rock",
+      "group": "fixture",
+      "source": "local-bytes",
+      "license": "internal-demo",
+      "imagePath": "data/clip/bytes-demo.txt"
+    }
+  ]
+}
+
