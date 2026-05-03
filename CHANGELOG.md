@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.11.0 (2026-05-03)
+
+
+### ✅ Tests
+
+* **e2e**: Define market offer acceptance 885ba87
+
+
+### ✨ Features
+
+* **capture**: Reinforce tips messaging 2807a47
+* **home**: Add market offer messaging a588c36
+* **results**: Clarify trust and remove mock disclaimer b6e74a9
+
+
+### 📝 Documentation
+
+* **agile**: Plan sprint 11 rock id reality check 1355d44
+* **sprint**: Add sprint 10 plan for market offer messaging a1b2150
+
+
+
+
+
 # 0.10.0 (2026-05-02)
 
 
