@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "embeddingDimension": 8,
+  "items": [
+    {
+      "id": "demo-granite-1",
+      "label": "Granite",
+      "kind": "rock",
+      "group": "starter-mvp",
+      "source": "synthetic-demo",
+      "license": "internal-demo",
+      "embedding": [1, 0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "id": "demo-basalt-1",
+      "label": "Basalt",
+      "kind": "rock",
+      "group": "starter-mvp",
+      "source": "synthetic-demo",
+      "license": "internal-demo",
+      "embedding": [0, 1, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "id": "demo-slag-1",
+      "label": "Slag",
+      "kind": "non-rock",
+      "group": "starter-non-rock",
+      "source": "synthetic-demo",
+      "license": "internal-demo",
+      "embedding": [0, 0, 1, 0, 0, 0, 0, 0]
+    },
+    {
+      "id": "demo-obsidian-1",
+      "label": "Obsidian",
+      "kind": "rock",
+      "group": "starter-mvp",
+      "source": "synthetic-demo",
+      "license": "internal-demo",
+      "embedding": [0, 0, 0, 1, 0, 0, 0, 0]
+    }
+  ]
+}
+

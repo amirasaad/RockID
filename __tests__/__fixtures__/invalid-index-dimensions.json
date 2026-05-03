@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "embeddingDimension": 3,
+  "items": [
+    {
+      "id": "bad-1",
+      "label": "Granite",
+      "kind": "rock",
+      "group": "fixture",
+      "source": "fixture",
+      "license": "fixture",
+      "embedding": [1, 0, 0]
+    },
+    {
+      "id": "bad-2",
+      "label": "Basalt",
+      "kind": "rock",
+      "group": "fixture",
+      "source": "fixture",
+      "license": "fixture",
+      "embedding": [0, 1]
+    }
+  ]
+}
+
