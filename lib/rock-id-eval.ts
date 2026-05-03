@@ -78,7 +78,7 @@ function evaluateFixture(fixture: RockIdEvalFixture, analyze: RockIdAnalyzer): R
     fixture,
     analysis,
     top1Correct: analysis.topMatch.name === fixture.expectedLabel,
-    top3Correct: analysis.matches.some((match) => match.name === fixture.expectedLabel),
+    top3Correct: analysis.matches.slice(0, 3).some((match) => match.name === fixture.expectedLabel),
     lowConfidence: analysis.topMatch.confidence === 'Low',
   };
 }

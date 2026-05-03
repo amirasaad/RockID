@@ -75,7 +75,70 @@ describe('S11 rock-ID eval acceptance', () => {
       ],
     }));
   });
+
+  it('treats top3Accuracy as membership in the first 3 ranked matches', () => {
+    const fixtures: RockIdEvalFixture[] = [
+      fixture({
+        id: 'in-top3-not-top1',
+        expectedLabel: 'Expected',
+        observations: {
+          color: 'Dark',
+          grainSize: 'Fine',
+          features: [],
+          notes: 'Synthetic test case.',
+        },
+      }),
+      fixture({
+        id: 'rank-4-should-not-count',
+        expectedLabel: 'Expected',
+        observations: {
+          color: 'Dark',
+          grainSize: 'Fine',
+          features: [],
+          notes: 'Synthetic test case.',
+        },
+      }),
+    ];
+
+    const report = evaluateRockIdentifier({
+      fixtures,
+      analyze: (session) => {
+        if (session.id.includes('in-top3-not-top1')) {
+          const matches = [
+            match('Other 1', 90),
+            match('Other 2', 80),
+            match('Expected', 70),
+            match('Other 3', 60),
+          ];
+
+          return { matches, topMatch: matches[0] };
+        }
+
+        const matches = [
+          match('Other 1', 90),
+          match('Other 2', 80),
+          match('Other 3', 70),
+          match('Expected', 60),
+          match('Other 4', 50),
+        ];
+
+        return { matches, topMatch: matches[0] };
+      },
+    });
+
+    expect(report.top1Accuracy).toBe(0);
+    expect(report.top3Accuracy).toBe(0.5);
+  });
 });
+
+function match(name: string, score: number) {
+  return {
+    name,
+    category: 'Synthetic',
+    confidence: 'Medium' as const,
+    score,
+  };
+}
 
 function fixture(input: {
   id: string;
