@@ -12,6 +12,13 @@ case "${GIT_REFLOG_ACTION-}" in
     ;;
 esac
 
+merged_branch=""
+case "${GIT_REFLOG_ACTION-}" in
+  merge\ *)
+    merged_branch="${GIT_REFLOG_ACTION#merge }"
+    ;;
+esac
+
 git_dir="$(git rev-parse --git-dir)"
 premerge_head_file="$git_dir/husky-premerge-head"
 
@@ -34,9 +41,16 @@ if ! pnpm -s test:e2e; then
   exit 1
 fi
 
-if pnpm -s bump; then
-  exit 0
-fi
+case "$merged_branch" in
+  sprint/*|sprint-*)
+    if pnpm -s bump; then
+      exit 0
+    fi
+    ;;
+  *)
+    exit 0
+    ;;
+esac
 
 tags_after="$(git tag)"
 for tag in $tags_after; do
