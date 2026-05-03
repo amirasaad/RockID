@@ -45,6 +45,10 @@ if ! pnpm -s test:e2e; then
   exit 1
 fi
 
+if [ "$branch" != "main" ]; then
+  exit 0
+fi
+
 if [ "$branch" = "main" ]; then
   case "$merged_branch" in
     sprint/*|sprint-*)
