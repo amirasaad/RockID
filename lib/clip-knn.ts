@@ -1,3 +1,6 @@
+import type { IdentificationSession } from './identification-session';
+import type { RockMatch } from './mock-data';
+
 export type Vector = number[];
 
 export type VectorIndexItem = {
@@ -19,6 +22,8 @@ export type ClipKnnRetrievalResult = {
   confidence: ClipKnnConfidence;
   possibleNonRock: boolean;
 };
+
+export type ClipKnnAnalyzer = (session: IdentificationSession) => { matches: RockMatch[]; topMatch: RockMatch };
 
 /**
  * Normalizes a vector to unit length (L2 norm = 1).
@@ -100,6 +105,41 @@ export function retrieveByCosine(input: {
   };
 }
 
+/**
+ * Creates an analyzer that uses a CLIP-style embedding function plus cosine kNN retrieval
+ * and adapts the output into the existing app/eval match shape.
+ * @param input - Embedder and reference index inputs.
+ * @returns Analyzer function that can be used in eval and later wired into the app.
+ */
+export function createClipKnnAnalyzer(input: {
+  embed: (session: IdentificationSession) => Vector;
+  index: VectorIndexItem[];
+  topK: number;
+}): ClipKnnAnalyzer {
+  return (session) => {
+    if (input.index.length === 0) {
+      throw new Error('CLIP kNN index must not be empty.');
+    }
+
+    const queryEmbedding = input.embed(session);
+    const retrieval = retrieveByCosine({ queryEmbedding, items: input.index, topK: input.topK });
+
+    const matches = retrieval.matches.map((match, index) => ({
+      name: match.item.label,
+      category: match.item.kind === 'non-rock' ? 'Non-rock look-alike' : 'Rock',
+      confidence: index === 0 ? retrieval.confidence : 'Low',
+      score: similarityToPercent(match.score),
+    }));
+
+    const topMatch = matches[0];
+    if (!topMatch) {
+      throw new Error('CLIP kNN retrieval returned no matches.');
+    }
+
+    return { matches, topMatch };
+  };
+}
+
 function isPossibleNonRock(matches: RankedVectorIndexItem[]): boolean {
   const nonRockCount = matches.filter((match) => match.item.kind === 'non-rock').length;
   if (nonRockCount >= 2) return true;
@@ -124,6 +164,17 @@ function calculateConfidence(matches: RankedVectorIndexItem[], possibleNonRock: 
   }
 
   return confidence;
+}
+
+/**
+ * Maps cosine similarity [-1, 1] to an integer percentage score [0, 100].
+ * @param similarity - Cosine similarity.
+ * @returns Percent score for UI display.
+ */
+function similarityToPercent(similarity: number): number {
+  const normalized = (similarity + 1) / 2;
+  const clamped = Math.min(1, Math.max(0, normalized));
+  return Math.round(clamped * 100);
 }
 
 /**
