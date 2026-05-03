@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.16.0 (2026-05-03)
+
+
+### ✅ Tests
+
+* **clip**: Add index-backed retrieval acceptance 59af6fd
+* **clip**: Eval uses index artifact 327caf8
+* Accept bytes index-backed retrieval d71d150
+
+
+### ✨ Features
+
+* **clip**: Add index artifact loader 798f7ae
+* **clip**: Add index generator pipeline da1642e
+* Add bytes embedder demo pipeline 10c1fdf
+
+
+### 🎫 Chores
+
+* **husky**: Bump only on sprint merges cc2b371
+
+
+### 🐛 Bug Fixes
+
+* **husky**: Skip bump on sprint branches 3024bf9
+
+
+### 📝 Documentation
+
+* **dev**: Adopt sprint branch release flow 0916d7d
+* **kanban**: Sync sprint 13 next steps 9d14c2d
+
+
+
+
+
 ## 0.15.1 (2026-05-03)
 
 
