@@ -12,6 +12,14 @@ export type RankedVectorIndexItem = {
   score: number;
 };
 
+export type ClipKnnConfidence = 'High' | 'Medium' | 'Low';
+
+export type ClipKnnRetrievalResult = {
+  matches: RankedVectorIndexItem[];
+  confidence: ClipKnnConfidence;
+  possibleNonRock: boolean;
+};
+
 /**
  * Normalizes a vector to unit length (L2 norm = 1).
  * @param vector - Input vector.
@@ -76,6 +84,48 @@ export function rankByCosine(input: {
   return ranked.slice(0, Math.max(0, input.topK));
 }
 
+export function retrieveByCosine(input: {
+  queryEmbedding: Vector;
+  items: VectorIndexItem[];
+  topK: number;
+}): ClipKnnRetrievalResult {
+  const matches = rankByCosine(input);
+  const possibleNonRock = isPossibleNonRock(matches);
+  const confidence = calculateConfidence(matches, possibleNonRock);
+
+  return {
+    matches,
+    confidence,
+    possibleNonRock,
+  };
+}
+
+function isPossibleNonRock(matches: RankedVectorIndexItem[]): boolean {
+  const nonRockCount = matches.filter((match) => match.item.kind === 'non-rock').length;
+  if (nonRockCount >= 2) return true;
+  return matches[0]?.item.kind === 'non-rock';
+}
+
+function calculateConfidence(matches: RankedVectorIndexItem[], possibleNonRock: boolean): ClipKnnConfidence {
+  const top = matches[0]?.score ?? -Infinity;
+  const second = matches[1]?.score ?? -Infinity;
+  const margin = top - second;
+
+  let confidence: ClipKnnConfidence = 'Low';
+
+  if (top >= 0.35 && margin >= 0.08) {
+    confidence = 'High';
+  } else if (top >= 0.25) {
+    confidence = 'Medium';
+  }
+
+  if (possibleNonRock && confidence === 'High') {
+    return 'Medium';
+  }
+
+  return confidence;
+}
+
 /**
  * Computes dot product and validates numeric inputs.
  * @param left - First vector.
@@ -135,4 +185,3 @@ function assertFiniteNumber(value: unknown): number {
 
   return value;
 }
-
