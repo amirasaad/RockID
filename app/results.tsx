@@ -20,10 +20,10 @@ const LOW_CONFIDENCE_MESSAGE =
   'Results from one photo can be uncertain. Add another photo to improve confidence before saving.';
 
 export default function ResultsScreen() {
-  const { session } = useIdentificationSession();
+  const { session, analysis: storedAnalysis } = useIdentificationSession();
   const { saveFind } = useSavedFinds();
   const { getFeedbackForSession, saveFeedback } = useResultFeedback();
-  const analysis = analyzeIdentificationSession(session);
+  const analysis = storedAnalysis ?? analyzeIdentificationSession(session);
   const { topMatch, matches } = analysis;
   const alternatives = matches.slice(1);
   const resultFeedback = getFeedbackForSession(analysis.sessionId);

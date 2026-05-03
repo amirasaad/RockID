@@ -1,3 +1,5 @@
+import type { RockMatch } from './mock-data';
+
 export type PhotoSource = 'upload' | 'camera';
 
 export type SelectedRockPhoto = {
@@ -22,14 +24,25 @@ export type IdentificationSession = {
   updatedAt: number;
 };
 
+export type IdentificationAnalysis = {
+  sessionId: string;
+  imageUri?: string;
+  matches: RockMatch[];
+  topMatch: RockMatch;
+  reasoning: string;
+  nextCheck: string;
+};
+
 export type IdentificationSessionSnapshot = {
   session: IdentificationSession | null;
+  analysis: IdentificationAnalysis | null;
 };
 
 export type IdentificationSessionStore = {
   startSession: (selectedPhoto?: SelectedRockPhoto) => IdentificationSession;
   setSelectedPhoto: (selectedPhoto: SelectedRockPhoto) => IdentificationSession;
   setObservations: (observations: RockObservations) => IdentificationSession;
+  setAnalysis: (analysis: IdentificationAnalysis) => IdentificationAnalysis;
   getSnapshot: () => IdentificationSessionSnapshot;
   reset: () => void;
 };
@@ -40,12 +53,14 @@ export type IdentificationSessionStore = {
  */
 export function createIdentificationSessionStore(): IdentificationSessionStore {
   let session: IdentificationSession | null = null;
+  let analysis: IdentificationAnalysis | null = null;
 
   function touch(next: IdentificationSession): IdentificationSession {
     session = {
       ...next,
       updatedAt: Date.now(),
     };
+    analysis = null;
     return session;
   }
 
@@ -58,6 +73,7 @@ export function createIdentificationSessionStore(): IdentificationSessionStore {
         createdAt: now,
         updatedAt: now,
       };
+      analysis = null;
       return session;
     },
     setSelectedPhoto(selectedPhoto) {
@@ -76,11 +92,16 @@ export function createIdentificationSessionStore(): IdentificationSessionStore {
       };
       return touch({ ...next, observations });
     },
+    setAnalysis(nextAnalysis) {
+      analysis = nextAnalysis;
+      return nextAnalysis;
+    },
     getSnapshot() {
-      return { session };
+      return { session, analysis };
     },
     reset() {
       session = null;
+      analysis = null;
     },
   };
 }
@@ -94,4 +115,3 @@ export function createSessionId(): string {
   if (cryptoUuid) return cryptoUuid;
   return `sess_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
 }
-

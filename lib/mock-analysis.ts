@@ -1,15 +1,8 @@
-import type { IdentificationSession, RockObservations } from './identification-session';
+import type { IdentificationAnalysis, IdentificationSession, RockObservations } from './identification-session';
 import type { RockMatch } from './mock-data';
 import { topMatches } from './mock-data';
 
-export type MockAnalysisResult = {
-  sessionId: string;
-  imageUri?: string;
-  matches: RockMatch[];
-  topMatch: RockMatch;
-  reasoning: string;
-  nextCheck: string;
-};
+export type MockAnalysisResult = IdentificationAnalysis;
 
 const ROCK_BASALT = 'Basalt';
 const ROCK_UNCLEAR_SAMPLE = 'Unclear rock sample';
