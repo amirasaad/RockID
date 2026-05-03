@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.13.0 (2026-05-03)
+
+
+### ♻ Code Refactoring
+
+* **eval**: Clarify dataset report calculation 085c537
+
+
+### ✅ Tests
+
+* **eval**: Pass dataset expansion acceptance ad8c0f0
+
+
+### ✨ Features
+
+* **eval**: Add failing acceptance test for dataset expansion 7dceb92
+
+
+### 🐛 Bug Fixes
+
+* **eval**: Define top3 as first three matches e36e802
+
+
+### 📝 Documentation
+
+* **agile**: Add sprint 12-15 core ID plan 078508c
+
+
+
+
+
 # 0.12.0 (2026-05-03)
 
 
