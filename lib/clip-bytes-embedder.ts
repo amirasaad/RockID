@@ -50,6 +50,14 @@ export async function embedPhotoUriToVector(input: {
   return embedBytesToVector(bytes, input.dimension);
 }
 
+export async function embedPhotoUriToVectorConvenient(input: { photoUri: string; dimension: number }): Promise<number[]> {
+  return embedPhotoUriToVector({
+    photoUri: input.photoUri,
+    dimension: input.dimension,
+    readBytes: async (photoUri) => readPhotoBytes({ photoUri }),
+  });
+}
+
 export function base64ToBytes(base64: string): Uint8Array {
   const normalized = base64.replace(/[\r\n\s]/g, '');
   if (normalized.length === 0) return new Uint8Array();
