@@ -55,7 +55,7 @@ describe('S11 rock-ID eval acceptance', () => {
       analyze: analyzeIdentificationSession,
     });
 
-    expect(report).toEqual({
+    expect(report).toEqual(expect.objectContaining({
       total: 4,
       top1Accuracy: 0.5,
       top3Accuracy: 1,
@@ -73,7 +73,7 @@ describe('S11 rock-ID eval acceptance', () => {
           count: 1,
         },
       ],
-    });
+    }));
   });
 });
 

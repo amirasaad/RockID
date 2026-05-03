@@ -21,6 +21,12 @@ export type RockIdConfusionPair = {
   count: number;
 };
 
+export type RockIdClassAccuracy = {
+  total: number;
+  top1Accuracy: number;
+  top3Accuracy: number;
+};
+
 export type RockIdEvalReport = {
   total: number;
   top1Accuracy: number;
@@ -28,6 +34,12 @@ export type RockIdEvalReport = {
   lowConfidenceRate: number;
   nonRockFalsePositiveRate: number;
   confusionPairs: RockIdConfusionPair[];
+  nonRockConfusions: RockIdConfusionPair[];
+  perClassAccuracy: Record<string, RockIdClassAccuracy>;
+  coverage: {
+    classes: Record<string, number>;
+    kinds: Record<RockIdEvalFixture['expectedKind'], number>;
+  };
 };
 
 export function evaluateRockIdentifier(input: {
@@ -54,6 +66,11 @@ export function evaluateRockIdentifier(input: {
     lowConfidenceRate: ratio(results.filter((result) => result.lowConfidence).length, total),
     nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(results),
     confusionPairs: collectConfusionPairs(results),
+    nonRockConfusions: collectConfusionPairs(
+      results.filter((result) => result.fixture.expectedKind === 'non-rock')
+    ),
+    perClassAccuracy: calculatePerClassAccuracy(results),
+    coverage: calculateCoverage(input.fixtures),
   };
 }
 
@@ -98,4 +115,68 @@ function collectConfusionPairs(
   }
 
   return [...counts.values()];
+}
+
+
+function calculatePerClassAccuracy(
+  results: Array<{
+    fixture: RockIdEvalFixture;
+    top1Correct: boolean;
+    top3Correct: boolean;
+  }>
+): Record<string, RockIdClassAccuracy> {
+  const byClass = new Map<
+    string,
+    {
+      total: number;
+      top1Correct: number;
+      top3Correct: number;
+    }
+  >();
+
+  for (const result of results) {
+    const expectedLabel = result.fixture.expectedLabel;
+    const current = byClass.get(expectedLabel) ?? {
+      total: 0,
+      top1Correct: 0,
+      top3Correct: 0,
+    };
+
+    current.total += 1;
+    if (result.top1Correct) current.top1Correct += 1;
+    if (result.top3Correct) current.top3Correct += 1;
+
+    byClass.set(expectedLabel, current);
+  }
+
+  return Object.fromEntries(
+    [...byClass.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([expectedLabel, score]) => [
+        expectedLabel,
+        {
+          total: score.total,
+          top1Accuracy: ratio(score.top1Correct, score.total),
+          top3Accuracy: ratio(score.top3Correct, score.total),
+        },
+      ])
+  );
+}
+
+function calculateCoverage(fixtures: RockIdEvalFixture[]): RockIdEvalReport['coverage'] {
+  const classes = new Map<string, number>();
+  const kinds: Record<RockIdEvalFixture['expectedKind'], number> = {
+    rock: 0,
+    'non-rock': 0,
+  };
+
+  for (const fixture of fixtures) {
+    classes.set(fixture.expectedLabel, (classes.get(fixture.expectedLabel) ?? 0) + 1);
+    kinds[fixture.expectedKind] += 1;
+  }
+
+  return {
+    classes: Object.fromEntries([...classes.entries()].sort(([left], [right]) => left.localeCompare(right))),
+    kinds,
+  };
 }
