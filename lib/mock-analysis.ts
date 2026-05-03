@@ -93,19 +93,30 @@ export async function analyzeIdentificationSessionAsync(session: IdentificationS
   const photoUri = session?.selectedPhoto?.uri;
   if (!photoUri) return analyzeIdentificationSession(session);
 
-  if (hasWeakEvidence(session?.observations)) {
-    return analyzeIdentificationSession(session);
-  }
-
   try {
     const analysis = await photoAnalyzer(session);
+    const topMatch = analysis.topMatch.confidence === 'Low'
+      ? {
+          name: ROCK_UNCLEAR_SAMPLE,
+          category: 'Needs more evidence',
+          confidence: 'Low' as const,
+          score: analysis.topMatch.score,
+        }
+      : analysis.topMatch;
+
     return {
       sessionId: session.id,
       imageUri: photoUri,
       matches: analysis.matches,
-      topMatch: analysis.topMatch,
-      reasoning: 'Photo embedding similarity match using a placeholder on-device embedder.',
-      nextCheck: 'If results look wrong, add another close-up photo and confirm grain size, color, and any visible crystals.',
+      topMatch,
+      reasoning:
+        analysis.topMatch.confidence === 'Low'
+          ? 'There is not enough evidence from the photo to suggest a confident rock match yet.'
+          : 'Photo embedding similarity match using a placeholder on-device embedder.',
+      nextCheck:
+        analysis.topMatch.confidence === 'Low'
+          ? 'Try again: add a clearer photo, color, grain size, or visible features before trusting the match.'
+          : 'If results look wrong, add another close-up photo and confirm grain size, color, and any visible crystals.',
     };
   } catch {
     return analyzeIdentificationSession(session);

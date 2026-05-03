@@ -21,7 +21,7 @@ describe('S14 photo-based analysis acceptance', () => {
         height: 900,
       },
       observations: {
-        color: 'Light',
+        color: '',
         grainSize: '',
         features: [],
         notes: '',
@@ -36,6 +36,7 @@ describe('S14 photo-based analysis acceptance', () => {
     expect(analysis.matches.length).toBeGreaterThan(0);
     expect(analysis.topMatch).toEqual(analysis.matches[0]);
     expect(['High', 'Medium', 'Low']).toContain(analysis.topMatch.confidence);
+    expect(analysis.topMatch.confidence).not.toBe('Low');
     expect(analysis.reasoning).toContain('embedding');
     expect(typeof analysis.nextCheck).toBe('string');
   });
