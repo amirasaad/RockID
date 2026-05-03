@@ -16,32 +16,43 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
 
 ## **Branch Workflow**
 
+Sprint-based workflow (to avoid version/changelog spam):
+
 1. Start from updated `main`.
-2. Create a feature branch with clear scope, for example:
-   - `feat/s1-camera-capture-atdd`
-3. Keep commits small and narrative, using conventional gitmoji messages.
-4. Rebase or merge from `main` before final verification.
-5. Fast-forward merge to `main` when possible.
+2. Create a sprint base branch:
+   - `sprint/13-core-id`
+3. For each story, create a story branch from the sprint base:
+   - `feat/s13-clip-knn-retrieval`
+4. Merge story branches into the sprint base branch as they complete (fast-forward preferred).
+5. When the sprint DoD is met, merge the sprint base branch back into `main` (fast-forward preferred).
 
 ## **Merge And Continue**
 
 Preferred merge path (fast-forward, local):
 
+Story merge (into sprint base):
+
+1. `git checkout sprint/<sprint-id>`
+2. `git pull --ff-only`
+3. `git merge --ff-only <story-branch>`
+
+Sprint merge (into main, release-worthy):
+
 1. `git checkout main`
 2. `git pull --ff-only`
-3. `git merge --ff-only <your-branch>`
+3. `git merge --ff-only sprint/<sprint-id>`
 
 What happens on merge:
 
-- On `main`, the repo runs `pnpm test:e2e` automatically via the local git `post-merge` hook.
-- If `pnpm test:e2e` fails, the hook resets `main` back to the pre-merge commit and exits non-zero (treat this as a failed merge).
-- On `main`, the repo runs `pnpm bump` automatically via the local git `post-merge` hook.
+- On `main` and `sprint/*`, the repo runs `pnpm test:e2e` automatically via the local git `post-merge` hook.
+- If `pnpm test:e2e` fails, the hook resets the branch back to the pre-merge commit and exits non-zero (treat this as a failed merge).
+- On `main`, the repo runs `pnpm bump` automatically only when merging a `sprint/*` branch.
 - If `pnpm bump` fails, the hook resets `main` back to the pre-merge commit and exits non-zero (treat this as a failed merge).
 
 Continue to the next story:
 
-1. Confirm `main` is clean: `git status`
-2. Start the next branch from `main`: `git checkout -b feat/s4-<story-scope>`
+1. Confirm your sprint base branch is clean: `git status`
+2. Start the next story branch from the sprint base: `git checkout -b feat/s<id>-<story-scope>`
 
 If bump did not run:
 
@@ -99,4 +110,6 @@ Before merge, verify all of the following:
 - Current MVP build version is tracked in `package.json`, `app.json`, and [../README.md](<../README.md>).
 - Start Expo with:
   - `pnpm exec expo start --lan`
-- If iOS Simulator fails, continue validation on physical iPhone via Expo Go and capture simulator issues separately.
+- Expo Go vs development builds:
+  - Expo Go cannot load arbitrary third-party native modules.
+  - Once we add on-device inference (for example `onnxruntime-react-native`), use a custom Expo development build for device testing instead of Expo Go.

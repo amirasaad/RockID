@@ -2,9 +2,13 @@
 set -e
 
 branch="$(git branch --show-current 2>/dev/null || true)"
-if [ "$branch" != "main" ]; then
-  exit 0
-fi
+case "$branch" in
+  main|sprint/*|sprint-*)
+    ;;
+  *)
+    exit 0
+    ;;
+esac
 
 case "${GIT_REFLOG_ACTION-}" in
   pull*)
@@ -41,16 +45,18 @@ if ! pnpm -s test:e2e; then
   exit 1
 fi
 
-case "$merged_branch" in
-  sprint/*|sprint-*)
-    if pnpm -s bump; then
+if [ "$branch" = "main" ]; then
+  case "$merged_branch" in
+    sprint/*|sprint-*)
+      if pnpm -s bump; then
+        exit 0
+      fi
+      ;;
+    *)
       exit 0
-    fi
-    ;;
-  *)
-    exit 0
-    ;;
-esac
+      ;;
+  esac
+fi
 
 tags_after="$(git tag)"
 for tag in $tags_after; do
