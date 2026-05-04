@@ -41,7 +41,7 @@ Expo Go cannot load arbitrary third-party native libraries. A development build 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S14-1` | `In Progress` | `expo-dev-client` added + iOS pods synced | `expo run:ios --device` build succeeds but CLI attach may fail with `devicectl Error: null`; dev client works when opening the app manually and deep-linking to Metro in LAN mode |
-| `S14-2` | `Partial` | [s14-photo-uri-embedder.test.ts](<../../../__tests__/s14-photo-uri-embedder.test.ts>), [s14-photo-based-analysis.acceptance.test.ts](<../../../__tests__/s14-photo-based-analysis.acceptance.test.ts>) | Placeholder byte-based embedder returns normalized vectors; real ONNX encoder still pending |
+| `S14-2` | `Partial` | [s14-photo-uri-embedder.test.ts](<../../../__tests__/s14-photo-uri-embedder.test.ts>), [s14-on-device-image-encoder.test.ts](<../../../__tests__/s14-on-device-image-encoder.test.ts>), [s14-photo-based-analysis.acceptance.test.ts](<../../../__tests__/s14-photo-based-analysis.acceptance.test.ts>) | Placeholder byte-based embedder returns normalized vectors; encoder seam is ready for native ONNX backing; real ONNX encoder still pending |
 | `S14-3` | `Done` | [mock-analysis.ts](<../../../lib/mock-analysis.ts>), [s14-photo-based-analysis.acceptance.test.ts](<../../../__tests__/s14-photo-based-analysis.acceptance.test.ts>) | Photo Preview mode falls back safely; Details mode remains default and does not fetch photo bytes |
 | `S14-4` | `Partial` | [mock-analysis.ts](<../../../lib/mock-analysis.ts>), [analyzing.tsx](<../../../app/analyzing.tsx>) | Async analysis now emits engine/fallback/duration diagnostics; record final latency/memory once real dev-build inference runs |
 
@@ -52,5 +52,6 @@ Manual QA notes:
 - Current identification behavior is mode-driven:
   - Details mode is the default and remains observation-driven.
   - Photo (Preview) mode explicitly exercises the photo-byte embedding path.
+  - On-device encoder seam normalizes native vectors and fails safely when native inference is unavailable.
   - Low-confidence photo output preserves the analyzer contract: `topMatch` equals `matches[0]`.
   - `analysis_completed` includes diagnostics: `engine`, `fallback`, and `durationMs`.
