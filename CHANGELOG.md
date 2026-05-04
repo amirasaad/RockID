@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.19.0 (2026-05-04)
+
+
+### ✨ Features
+
+* **analysis**: Make confidence thresholds explicit faa40d1
+* **analytics**: Add local event log 211e144
+
+
+### 🎫 Chores
+
+* **agile**: Roll Sprint 15 to done 669c445
+
+
+### 📝 Documentation
+
+* **agile**: Start Sprint 16 88746b3
+
+
+
+
+
 # 0.18.0 (2026-05-04)
 
 
