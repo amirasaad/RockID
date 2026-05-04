@@ -2,6 +2,72 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.17.0 (2026-05-04)
+
+
+### ♻ Code Refactoring
+
+* **analysis**: Add on-device encoder seam 3479e70
+
+
+### ⚡ Performance Improvements
+
+* **analysis**: Record inference diagnostics 0b49c5e
+
+
+### ✨ Features
+
+* **analysis**: Select photo encoder 465c1f7
+* **clip**: Add async analyzer factory 2ea9205
+* **clip**: Add convenient photo uri embedder 2d3c821
+* **clip**: Embed photo URI bytes 799d133
+* **s14**: On-device ONNX encoder seam b42d931
+* Add on-device embedding helper a5f2c5d
+* Bootstrap on-device encoder bc8b02d
+* Make analysis async acf6358
+* Onnx image encoder adapter 4f10a2a
+* Onnx-backed on-device encoder 372e868
+* Read photo bytes 4553fd9
+* Store analysis for results 7f5a27c
+* Use photo analysis by default 397b0e8
+* Use photo embedding when evidence exists c5b4679
+
+
+### 🎫 Chores
+
+* **agile**: Roll Sprint 14 to done 70bfe8d
+* **dev**: Log analysis diagnostics 33ee982
+* **docs**: Record s14 device notes 027a8d0
+* **expo**: Add dev client 3ca4491
+* **ios**: Sync pods for expo modules 476dd80
+* **s14**: Bundle SqueezeNet ONNX model ccbc3e7
+* Update kanban for s14 ac78704
+* Update kanban photo analysis 5e271f7
+* Update kanban photo default b1cf7a7
+* Update kanban policy 7abaf38
+* Update kanban s14 embedding eeea031
+* Update kanban s14 progress 57e9a17
+
+
+### 🐛 Bug Fixes
+
+* **analysis**: Gate photo preview mode 47ddd94
+* Remove default observations 8d594f8
+
+
+### 📝 Documentation
+
+* **s14**: Record iOS on-device latency 02711e4
+* **s14**: Widen iOS latency sample 38e1eae
+* Update kanban ef71901
+* Update kanban 54970e8
+* Update kanban d429dac
+* Update kanban e246258
+
+
+
+
+
 # 0.16.0 (2026-05-03)
 
 
