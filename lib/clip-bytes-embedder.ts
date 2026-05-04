@@ -27,16 +27,23 @@ export function embedBytesToVector(input: Uint8Array | number[], dimension: numb
 export type ReadPhotoBytesFn = (photoUri: string) => Promise<Uint8Array>;
 
 export async function readPhotoBytes(input: { photoUri: string }): Promise<Uint8Array> {
-  if (input.photoUri.startsWith('http://') || input.photoUri.startsWith('https://')) {
-    if (typeof fetch !== 'function') {
-      throw new Error('Global fetch() is not available for http(s) photo URIs.');
+  const isWeb = typeof document !== 'undefined';
+
+  if (typeof fetch === 'function') {
+    const isHttp = input.photoUri.startsWith('http://') || input.photoUri.startsWith('https://');
+    const isWebSupported = input.photoUri.startsWith('blob:') || input.photoUri.startsWith('data:');
+    if (isHttp || (isWeb && isWebSupported)) {
+      const response = await fetch(input.photoUri);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch photo bytes (status ${response.status}).`);
+      }
+      const buffer = await response.arrayBuffer();
+      return new Uint8Array(buffer);
     }
-    const response = await fetch(input.photoUri);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch photo bytes (status ${response.status}).`);
-    }
-    const buffer = await response.arrayBuffer();
-    return new Uint8Array(buffer);
+  }
+
+  if (isWeb) {
+    throw new Error(`Cannot read local photo bytes on web for URI: ${input.photoUri}`);
   }
 
   const FileSystem = await import('expo-file-system');
