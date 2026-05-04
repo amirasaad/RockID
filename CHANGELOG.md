@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.18.0 (2026-05-04)
+
+
+### ✨ Features
+
+* **analysis**: Add analyzer selection flag c48ca60
+
+
+### 🐛 Bug Fixes
+
+* **analysis**: Read EXPO_PUBLIC analyzer flag c123377
+* **clip**: Avoid expo-file-system on web 3752b9a
+
+
+### 📝 Documentation
+
+* **s15**: Record iOS real-engine log 291d5da
+
+
+
+
+
 # 0.17.0 (2026-05-04)
 
 
