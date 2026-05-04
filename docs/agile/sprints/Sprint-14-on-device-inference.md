@@ -43,7 +43,7 @@ Expo Go cannot load arbitrary third-party native libraries. A development build 
 | `S14-1` | `In Progress` | `expo-dev-client` added + iOS pods synced | `expo run:ios --device` build succeeds but CLI attach may fail with `devicectl Error: null`; dev client works when opening the app manually and deep-linking to Metro in LAN mode |
 | `S14-2` | `Done` | [s14-photo-uri-embedder.test.ts](<../../../__tests__/s14-photo-uri-embedder.test.ts>), [s14-native-onnx-wiring.test.ts](<../../../__tests__/s14-native-onnx-wiring.test.ts>), [s14-on-device-image-encoder.test.ts](<../../../__tests__/s14-on-device-image-encoder.test.ts>), [s14-photo-based-analysis.acceptance.test.ts](<../../../__tests__/s14-photo-based-analysis.acceptance.test.ts>) | iOS dev build runs an ONNX model on-device via a native session factory; current smoke model is `SqueezeNet.onnx` (temporary stand-in until MobileCLIP export lands). Photo mode uses `photoOnDeviceEncoder` when available and falls back safely to bytes preview when unavailable. |
 | `S14-3` | `Done` | [mock-analysis.ts](<../../../lib/mock-analysis.ts>), [s14-photo-based-analysis.acceptance.test.ts](<../../../__tests__/s14-photo-based-analysis.acceptance.test.ts>) | Photo Preview mode falls back safely; Details mode remains default and does not fetch photo bytes |
-| `S14-4` | `Done` | [mock-analysis.ts](<../../../lib/mock-analysis.ts>), [analyzing.tsx](<../../../app/analyzing.tsx>) | iOS simulator (dev client) shows `engine=photoOnDeviceEncoder`, `fallback=false`, `durationMs≈94` from Metro logs (Photo mode, ORT enabled, bundled model). No crash observed. |
+| `S14-4` | `Done` | [mock-analysis.ts](<../../../lib/mock-analysis.ts>), [analyzing.tsx](<../../../app/analyzing.tsx>) | iOS simulator (dev client) shows `engine=photoOnDeviceEncoder`, `fallback=false`, `durationMs≈94–103` from Metro logs (Photo mode, ORT enabled, bundled model). No crash observed. |
 
 Manual QA notes:
 
@@ -59,4 +59,6 @@ Manual QA notes:
   - On-device encoder seam normalizes native vectors and fails safely when native inference is unavailable.
   - Low-confidence photo output preserves the analyzer contract: `topMatch` equals `matches[0]`.
   - `analysis_completed` includes diagnostics: `engine`, `fallback`, and `durationMs`.
-  - Example Metro log line: `rockid.analysis_completed {"durationMs":94,"engine":"photoOnDeviceEncoder","fallback":false,"mode":"photo"}`
+  - Example Metro log lines:
+    - `rockid.analysis_completed {"durationMs":94,"engine":"photoOnDeviceEncoder","fallback":false,"mode":"photo"}`
+    - `rockid.analysis_completed {"durationMs":103,"engine":"photoOnDeviceEncoder","fallback":false,"mode":"photo"}`
