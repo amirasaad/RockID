@@ -30,6 +30,7 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 13 | Embedding Pipeline | [Open](<sprints/Sprint-13-embedding-pipeline.md>) |
 | Sprint 14 | On-Device Inference | [Open](<sprints/Sprint-14-on-device-inference.md>) |
 | Sprint 15 | App Integration (Real Engine) | [Open](<sprints/Sprint-15-app-integration-real-engine.md>) |
+| Sprint 16 | Confidence + Analytics | [Open](<sprints/Sprint-16-confidence-and-analytics.md>) |
 
 ## **Update Rules**
 
