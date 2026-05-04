@@ -4,18 +4,20 @@ import type { IdentificationSession } from '@/lib/identification-session';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
 import type { SavedFind } from '@/lib/saved-finds';
 import { createSavedFindStore } from '@/lib/saved-finds';
-import { saveIdentificationResult } from '@/lib/saved-finds-actions';
+import { saveIdentificationResultAsync } from '@/lib/saved-finds-actions';
 
 describe('S3 save result acceptance', () => {
-  it('saves the current analysis result and returns an id that can be opened in the saved find detail route', () => {
+  it('saves the current analysis result and returns an id that can be opened in the saved find detail route', async () => {
     const store = createSavedFindStore();
     const session = sampleSession();
     const analysis = analyzeIdentificationSession(session);
 
-    const savedFind = saveIdentificationResult({
+    const savedFind = await saveIdentificationResultAsync({
       session,
       analysis,
       saveFind: store.save,
+      savePhotosLocally: true,
+      persistPhotoUri: async ({ photoUri }) => photoUri,
     });
 
     expect(savedFind.id).toBe(`find-${session.id}`);
@@ -42,4 +44,3 @@ function sampleSession(): IdentificationSession {
     updatedAt: 1_777_680_000_000,
   };
 }
-

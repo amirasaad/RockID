@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
@@ -7,12 +7,14 @@ import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
 import { track } from '@/lib/analytics';
+import { useAppSettings } from '@/lib/app-settings-context';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
 import { type ResultFeedbackChoice } from '@/lib/result-feedback';
 import { useResultFeedback } from '@/lib/result-feedback-context';
 import { isLowConfidenceVariant } from '@/lib/results-clarity';
-import { saveIdentificationResult } from '@/lib/saved-finds-actions';
+import { saveIdentificationResultAsync } from '@/lib/saved-finds-actions';
+import { persistSavedPhotoUriAsync } from '@/lib/saved-photo-storage';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
 const LOW_CONFIDENCE_TITLE = 'Low confidence';
@@ -23,6 +25,7 @@ export default function ResultsScreen() {
   const { session, analysis: storedAnalysis } = useIdentificationSession();
   const { saveFind } = useSavedFinds();
   const { getFeedbackForSession, saveFeedback } = useResultFeedback();
+  const { settings } = useAppSettings();
   const analysis = storedAnalysis ?? analyzeIdentificationSession(session);
   const { topMatch, matches } = analysis;
   const alternatives = matches.slice(1);
@@ -33,6 +36,7 @@ export default function ResultsScreen() {
     topMatch: topMatch.name,
   };
   const lastTrackedLowConfidenceSessionRef = useRef<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (!isLowConfidence) return;
@@ -42,22 +46,33 @@ export default function ResultsScreen() {
     lastTrackedLowConfidenceSessionRef.current = analysis.sessionId;
   }, [analysis.sessionId, isLowConfidence, lowConfidenceEventProps]);
 
-  function handleSaveResult() {
+  async function handleSaveResult() {
     if (!session) {
       Alert.alert('No result to save', 'Capture or upload a photo before saving a result.');
       return;
     }
 
-    const savedFind = saveIdentificationResult({
-      session,
-      analysis,
-      saveFind,
-    });
+    if (isSaving) return;
+    setIsSaving(true);
 
-    router.replace({
-      pathname: '/saved/[id]',
-      params: { id: savedFind.id },
-    });
+    try {
+      const savedFind = await saveIdentificationResultAsync({
+        session,
+        analysis,
+        saveFind,
+        savePhotosLocally: settings.savePhotosLocally,
+        persistPhotoUri: persistSavedPhotoUriAsync,
+      });
+
+      router.replace({
+        pathname: '/saved/[id]',
+        params: { id: savedFind.id },
+      });
+    } catch {
+      Alert.alert('Save failed', 'Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
   }
 
   function handleRetake() {
@@ -100,7 +115,11 @@ export default function ResultsScreen() {
       return (
         <>
           <ActionButton label="Add Another Photo" onPress={handleAddAnotherPhoto} />
-          <ActionButton label="Save Result" variant="secondary" onPress={handleSaveResult} />
+          <ActionButton
+            label={isSaving ? 'Saving…' : 'Save Result'}
+            variant="secondary"
+            onPress={() => void handleSaveResult()}
+          />
           <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
         </>
       );
@@ -108,7 +127,7 @@ export default function ResultsScreen() {
 
     return (
       <>
-        <ActionButton label="Save Result" onPress={handleSaveResult} />
+        <ActionButton label={isSaving ? 'Saving…' : 'Save Result'} onPress={() => void handleSaveResult()} />
         <ActionButton label="Retake" variant="secondary" onPress={handleRetake} />
       </>
     );
