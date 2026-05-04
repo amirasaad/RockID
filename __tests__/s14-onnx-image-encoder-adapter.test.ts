@@ -40,4 +40,19 @@ describe('S14 ONNX image encoder adapter', () => {
       OnnxImageEncoderUnavailableError
     );
   });
+
+  it('wraps inference failures in a safe unavailable error', async () => {
+    const encoder = createOnnxImageEncoder({
+      modelUri: 'bundle://models/mobileclip-s0-image.onnx',
+      createSession: async () => ({
+        run: async () => {
+          throw new Error('model not found');
+        },
+      }),
+    });
+
+    await expect(encoder.encodePhotoUri('file:///field/basalt.jpg')).rejects.toBeInstanceOf(
+      OnnxImageEncoderUnavailableError
+    );
+  });
 });

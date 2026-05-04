@@ -1,4 +1,7 @@
 import { normalizeVector } from './clip-knn';
+import { OnDeviceImageEncoderUnavailableError } from './on-device-image-encoder';
+import { getConfiguredOnDeviceImageEncoder } from './on-device-image-encoder-registry';
+import { adaptVectorToDimension } from './vector-dimension';
 
 /**
  * Creates a deterministic embedding vector from raw bytes.
@@ -37,7 +40,8 @@ export async function readPhotoBytes(input: { photoUri: string }): Promise<Uint8
   }
 
   const FileSystem = await import('expo-file-system');
-  const base64 = await FileSystem.readAsStringAsync(input.photoUri, { encoding: 'base64' });
+  const file = new FileSystem.File(input.photoUri);
+  const base64 = await file.base64();
   return base64ToBytes(base64);
 }
 
@@ -59,6 +63,18 @@ export async function embedPhotoUriToVectorConvenient(input: { photoUri: string;
 }
 
 export async function identifyRockPhotoOnDevice(input: { photoUri: string; embeddingDimension: number }): Promise<number[]> {
+  const encoder = getConfiguredOnDeviceImageEncoder();
+  if (encoder) {
+    try {
+      const vector = await encoder.encodePhotoUri(input.photoUri);
+      return adaptVectorToDimension(vector, input.embeddingDimension);
+    } catch (error) {
+      if (!(error instanceof OnDeviceImageEncoderUnavailableError)) {
+        throw error;
+      }
+    }
+  }
+
   return embedPhotoUriToVectorConvenient({ photoUri: input.photoUri, dimension: input.embeddingDimension });
 }
 

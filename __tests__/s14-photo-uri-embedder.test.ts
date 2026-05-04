@@ -1,8 +1,17 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { embedPhotoUriToVector, embedPhotoUriToVectorConvenient, identifyRockPhotoOnDevice } from '@/lib/clip-bytes-embedder';
+import {
+  __resetOnDeviceImageEncoderConfigForTesting,
+  configureNativeOnDeviceImageEncoder,
+} from '@/lib/on-device-image-encoder-registry';
 
 describe('S14 photo URI embedder', () => {
+  afterEach(() => {
+    __resetOnDeviceImageEncoderConfigForTesting();
+    vi.restoreAllMocks();
+  });
+
   it('embeds a photo URI by reading bytes via an injected dependency', async () => {
     const readBytes = vi.fn(async () => Uint8Array.from([1, 2, 3, 4, 5, 6, 7, 8]));
 
@@ -36,6 +45,25 @@ describe('S14 photo URI embedder', () => {
     expect(vector).toHaveLength(4);
     const norm = Math.sqrt(vector.reduce((sum, value) => sum + value * value, 0));
     expect(norm).toBeCloseTo(1, 8);
+  });
+
+  it('prefers a configured on-device encoder over the byte-based embedder', async () => {
+    const encode = vi.fn(async () => [3, 4]);
+    configureNativeOnDeviceImageEncoder({ encode });
+
+    const fetchMock = vi.fn(async () => {
+      throw new Error('fetch() should not be used when an on-device encoder is available.');
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const vector = await identifyRockPhotoOnDevice({
+      photoUri: 'https://example.com/sample.jpg',
+      embeddingDimension: 2,
+    });
+
+    expect(encode).toHaveBeenCalledWith('https://example.com/sample.jpg');
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(vector).toEqual([0.6, 0.8]);
   });
 
   it('exposes an identifyRockPhotoOnDevice helper that returns an embedding', async () => {

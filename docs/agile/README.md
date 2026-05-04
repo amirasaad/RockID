@@ -26,6 +26,10 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 9 | Results Clarity (Low-Confidence First) | [Open](<sprints/Sprint-09-results-clarity.md>) |
 | Sprint 10 | Market Offer Messaging | [Open](<sprints/Sprint-10-market-offer.md>) |
 | Sprint 11 | Rock ID Reality Check | [Open](<sprints/Sprint-11-rock-id-reality-check.md>) |
+| Sprint 12 | Dataset + Eval Expansion | [Open](<sprints/Sprint-12-dataset-eval-expansion.md>) |
+| Sprint 13 | Embedding Pipeline | [Open](<sprints/Sprint-13-embedding-pipeline.md>) |
+| Sprint 14 | On-Device Inference | [Open](<sprints/Sprint-14-on-device-inference.md>) |
+| Sprint 15 | App Integration (Real Engine) | [Open](<sprints/Sprint-15-app-integration-real-engine.md>) |
 
 ## **Update Rules**
 

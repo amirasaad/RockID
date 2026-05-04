@@ -1,6 +1,5 @@
 import 'react-native-reanimated';
 
-import { useEffect } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ThemeProvider, DefaultTheme } from '@react-navigation/native';
 import { Stack } from 'expo-router';
@@ -9,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import { palette } from '@/constants/theme';
 import { IdentificationSessionProvider } from '@/lib/identification-session-context';
 import { bootstrapOnDeviceImageEncoderFromGlobals } from '@/lib/on-device-image-encoder-bootstrap';
+import { tryInstallNativeOnnxSessionFactory } from '@/lib/onnx-native-wiring';
 import { ResultFeedbackProvider } from '@/lib/result-feedback-context';
 import { SavedFindsProvider } from '@/lib/saved-finds-context';
 
@@ -30,11 +30,13 @@ const navigationTheme = {
   },
 };
 
-export default function RootLayout() {
-  useEffect(() => {
-    bootstrapOnDeviceImageEncoderFromGlobals();
-  }, []);
+void tryInstallNativeOnnxSessionFactory({
+  defaultModelUri: 'bundle://models/mobileclip-s0-image.onnx',
+}).finally(() => {
+  bootstrapOnDeviceImageEncoderFromGlobals();
+});
 
+export default function RootLayout() {
   return (
     <IdentificationSessionProvider>
       <SavedFindsProvider>

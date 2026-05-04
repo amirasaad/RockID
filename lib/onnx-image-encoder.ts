@@ -45,7 +45,12 @@ export function createOnnxImageEncoder(input: { modelUri: string; createSession:
   return {
     async encodePhotoUri(photoUri) {
       const session = await getSession();
-      const output = await session.run({ imageUri: photoUri });
+      let output: OnnxSessionRunOutput;
+      try {
+        output = await session.run({ imageUri: photoUri });
+      } catch (error) {
+        throw new OnnxImageEncoderUnavailableError();
+      }
       const raw = output?.image_embedding?.data;
       if (!raw) {
         throw new Error('ONNX image encoder did not return an image_embedding.');
@@ -55,4 +60,3 @@ export function createOnnxImageEncoder(input: { modelUri: string; createSession:
     },
   };
 }
-

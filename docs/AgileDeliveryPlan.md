@@ -66,4 +66,4 @@ A story is done when:
 
 ## **Current Next Action**
 
-Start `S11-1` from [agile/sprints/Sprint-11-rock-id-reality-check.md](<agile/sprints/Sprint-11-rock-id-reality-check.md>) with a failing non-UI acceptance test for the rock-ID eval contract.
+Finish `S14-2` from [agile/sprints/Sprint-14-on-device-inference.md](<agile/sprints/Sprint-14-on-device-inference.md>) by wiring a real ONNX-backed image encoder into `identifyRockPhotoOnDevice` (or equivalent), then record latency/memory notes for `S14-4`.
