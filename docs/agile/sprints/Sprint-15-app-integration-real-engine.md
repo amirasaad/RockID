@@ -45,3 +45,8 @@ We want the app to support a real engine without destabilizing the user experien
 | `S15-2` | `Done` | [core-flow-real-engine.spec.ts](<../../../e2e/core-flow-real-engine.spec.ts>) | Core flow works with the real engine enabled |
 | `S15-3` | `Done` | [clip-knn.ts](<../../../lib/clip-knn.ts>), [s13-clip-knn-retrieval.acceptance.test.ts](<../../../__tests__/s13-clip-knn-retrieval.acceptance.test.ts>), [on-device-clip-knn-analysis.ts](<../../../lib/on-device-clip-knn-analysis.ts>) | Retrieval confidence is conservative when non-rock is plausible; low-confidence messaging remains actionable |
 | `S15-4` | `Done` | [Sprint-11-rock-id-reality-check.md](<Sprint-11-rock-id-reality-check.md>), [s11-rock-id-eval.acceptance.test.ts](<../../../__tests__/s11-rock-id-eval.acceptance.test.ts>), [analyzer-kind.ts](<../../../lib/analyzer-kind.ts>) | Default stays `mock`; flip the default only after eval gates pass (especially non-rock false positives) |
+
+Manual QA notes:
+
+- iOS dev client (Photo mode) with `EXPO_PUBLIC_ROCKID_ANALYZER_KIND=onDeviceClipKnn` reports:
+  - `rockid.analysis_completed {"analyzerKind":"onDeviceClipKnn","engine":"photoOnDeviceEncoder","fallback":false,"durationMs":182,"mode":"photo"}`
