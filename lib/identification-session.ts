@@ -28,7 +28,7 @@ export type IdentificationSession = {
 };
 
 export type IdentificationAnalysisDiagnostics = {
-  engine: 'detailsMock' | 'photoBytesPreview';
+  engine: 'detailsMock' | 'photoBytesPreview' | 'photoOnDeviceEncoder';
   fallback: boolean;
   durationMs: number;
 };

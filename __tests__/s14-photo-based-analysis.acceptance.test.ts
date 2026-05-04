@@ -2,9 +2,14 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type { IdentificationSession } from '@/lib/identification-session';
 import { analyzeIdentificationSessionAsync } from '@/lib/mock-analysis';
+import {
+  __resetOnDeviceImageEncoderConfigForTesting,
+  configureOnnxOnDeviceImageEncoder,
+} from '@/lib/on-device-image-encoder-registry';
 
 describe('S14 photo-based analysis acceptance', () => {
   afterEach(() => {
+    __resetOnDeviceImageEncoderConfigForTesting();
     vi.unstubAllGlobals();
   });
 
@@ -56,6 +61,53 @@ describe('S14 photo-based analysis acceptance', () => {
       expect(analysis.reasoning).toContain('Photo embedding');
     }
     expect(typeof analysis.nextCheck).toBe('string');
+  });
+
+  it('uses a configured on-device encoder instead of fetching photo bytes', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    const run = vi.fn(async () => ({
+      image_embedding: {
+        data: Float32Array.from([3, 4]),
+      },
+    }));
+    const createSession = vi.fn(async () => ({ run }));
+
+    configureOnnxOnDeviceImageEncoder({
+      modelUri: 'bundle://models/mobileclip-s0-image.onnx',
+      createSession,
+    });
+
+    const session: IdentificationSession = {
+      id: 'sess-photo-onnx-1',
+      selectedPhoto: {
+        source: 'upload',
+        uri: 'file:///field/granite.jpg',
+        width: 1200,
+        height: 900,
+      },
+      analysisMode: 'photo',
+      observations: {
+        color: '',
+        grainSize: '',
+        features: [],
+        notes: '',
+      },
+      createdAt: 1,
+      updatedAt: 1,
+    };
+
+    const analysis = await analyzeIdentificationSessionAsync(session);
+
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(createSession).toHaveBeenCalledWith('bundle://models/mobileclip-s0-image.onnx');
+    expect(run).toHaveBeenCalledWith({ imageUri: 'file:///field/granite.jpg' });
+    expect(analysis.diagnostics).toEqual({
+      engine: 'photoOnDeviceEncoder',
+      fallback: false,
+      durationMs: expect.any(Number),
+    });
   });
 
   it('falls back to details analysis when photo preview cannot read bytes', async () => {

@@ -3,8 +3,13 @@ import type { RockMatch } from './mock-data';
 import { topMatches } from './mock-data';
 import { createClipKnnAnalyzerAsync, normalizeVector, type VectorIndexItem } from './clip-knn';
 import { identifyRockPhotoOnDevice } from './clip-bytes-embedder';
+import { OnDeviceImageEncoderUnavailableError } from './on-device-image-encoder';
+import { getConfiguredOnDeviceImageEncoder } from './on-device-image-encoder-registry';
+import { adaptVectorToDimension } from './vector-dimension';
 
 export type MockAnalysisResult = IdentificationAnalysis;
+
+type PhotoAnalysisEngine = 'photoBytesPreview' | 'photoOnDeviceEncoder';
 
 const ROCK_BASALT = 'Basalt';
 const ROCK_UNCLEAR_SAMPLE = 'Unclear rock sample';
@@ -58,17 +63,35 @@ const photoIndex: VectorIndexItem[] = [
   { id: 'photo-obsidian-1', label: 'Obsidian', kind: 'rock', embedding: normalizeVector([0, 0, 0, 1, 0, 0, 0, 0]) },
 ];
 
-const photoAnalyzer = createClipKnnAnalyzerAsync({
-  index: photoIndex,
-  topK: 3,
-  embed: async (session) => {
-    const photoUri = session.selectedPhoto?.uri;
-    if (!photoUri) {
-      throw new Error('Photo URI is required for photo-based analysis.');
+async function embedPhotoSession(input: { session: IdentificationSession; embeddingDimension: number }): Promise<{
+  vector: number[];
+  engine: PhotoAnalysisEngine;
+}> {
+  const photoUri = input.session.selectedPhoto?.uri;
+  if (!photoUri) {
+    throw new Error('Photo URI is required for photo-based analysis.');
+  }
+
+  const encoder = getConfiguredOnDeviceImageEncoder();
+  if (encoder) {
+    try {
+      const rawVector = await encoder.encodePhotoUri(photoUri);
+      return {
+        vector: adaptVectorToDimension(rawVector, input.embeddingDimension),
+        engine: 'photoOnDeviceEncoder',
+      };
+    } catch (error) {
+      if (!(error instanceof OnDeviceImageEncoderUnavailableError)) {
+        throw error;
+      }
     }
-    return identifyRockPhotoOnDevice({ photoUri, embeddingDimension: 8 });
-  },
-});
+  }
+
+  return {
+    vector: await identifyRockPhotoOnDevice({ photoUri, embeddingDimension: input.embeddingDimension }),
+    engine: 'photoBytesPreview',
+  };
+}
 
 export function analyzeIdentificationSession(session: IdentificationSession | null): MockAnalysisResult {
   const matches = selectMockMatches(session?.observations);
@@ -97,6 +120,12 @@ export async function analyzeIdentificationSessionAsync(session: IdentificationS
   if (mode !== 'photo') return withDiagnostics(analyzeIdentificationSession(session), 'detailsMock', false, startedAt);
 
   try {
+    const embedded = await embedPhotoSession({ session, embeddingDimension: 8 });
+    const photoAnalyzer = createClipKnnAnalyzerAsync({
+      index: photoIndex,
+      topK: 3,
+      embed: async () => embedded.vector,
+    });
     const analysis = await photoAnalyzer(session);
 
     return withDiagnostics(
@@ -108,13 +137,15 @@ export async function analyzeIdentificationSessionAsync(session: IdentificationS
         reasoning:
           analysis.topMatch.confidence === 'Low'
             ? 'There is not enough evidence from the photo to suggest a confident rock match yet.'
-            : 'Photo embedding similarity match using a placeholder on-device embedder.',
+            : embedded.engine === 'photoOnDeviceEncoder'
+              ? 'Photo embedding similarity match using an on-device encoder.'
+              : 'Photo embedding similarity match using a placeholder on-device embedder.',
         nextCheck:
           analysis.topMatch.confidence === 'Low'
             ? 'Try again: add a clearer photo, color, grain size, or visible features before trusting the match.'
             : 'If results look wrong, add another close-up photo and confirm grain size, color, and any visible crystals.',
       },
-      'photoBytesPreview',
+      embedded.engine,
       false,
       startedAt
     );
