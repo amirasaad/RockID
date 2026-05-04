@@ -5,10 +5,13 @@ import { StyleSheet, Text } from 'react-native';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { palette } from '@/constants/theme';
 import { track } from '@/lib/analytics';
+import { createLearnTopicSlug } from '@/lib/learn-view-model';
+import { learnTopics } from '@/lib/mock-data';
 
 export default function LearnTopicScreen() {
   const { slug: rawSlug } = useLocalSearchParams<{ slug?: string | string[] }>();
   const slug = Array.isArray(rawSlug) ? rawSlug[0] : rawSlug;
+  const title = learnTopics.find((topic) => createLearnTopicSlug(topic) === slug) ?? (slug ?? 'Topic');
 
   useEffect(() => {
     if (!slug) return;
@@ -16,7 +19,7 @@ export default function LearnTopicScreen() {
   }, [slug]);
 
   return (
-    <Screen title="Learn" subtitle={slug ? `Topic: ${slug}` : 'Topic'}>
+    <Screen title="Learn" subtitle={title}>
       <Card>
         <SectionTitle>Overview</SectionTitle>
         <Text style={styles.body}>

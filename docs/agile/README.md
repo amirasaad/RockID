@@ -32,6 +32,7 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 15 | App Integration (Real Engine) | [Open](<sprints/Sprint-15-app-integration-real-engine.md>) |
 | Sprint 16 | Confidence + Analytics | [Open](<sprints/Sprint-16-confidence-and-analytics.md>) |
 | Sprint 17 | Saved Photos + Settings | [Open](<sprints/Sprint-17-saved-photos-and-settings.md>) |
+| Sprint 18 | Learn Navigation | [Open](<sprints/Sprint-18-learn-navigation-polish.md>) |
 
 ## **Update Rules**
 
