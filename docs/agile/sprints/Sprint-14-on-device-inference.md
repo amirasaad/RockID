@@ -41,14 +41,15 @@ Expo Go cannot load arbitrary third-party native libraries. A development build 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S14-1` | `In Progress` | `expo-dev-client` added + iOS pods synced | `expo run:ios --device` build succeeds but CLI attach may fail with `devicectl Error: null`; dev client works when opening the app manually and deep-linking to Metro in LAN mode |
-| `S14-2` | `Planned` | This sprint plan | Produces embedding output for retrieval |
-| `S14-3` | `Planned` | This sprint plan | Failures are safe and debuggable |
-| `S14-4` | `Planned` | This sprint plan | Record device observations |
+| `S14-2` | `Partial` | [s14-photo-uri-embedder.test.ts](<../../../__tests__/s14-photo-uri-embedder.test.ts>), [s14-photo-based-analysis.acceptance.test.ts](<../../../__tests__/s14-photo-based-analysis.acceptance.test.ts>) | Placeholder byte-based embedder returns normalized vectors; real ONNX encoder still pending |
+| `S14-3` | `Done` | [mock-analysis.ts](<../../../lib/mock-analysis.ts>), [s14-photo-based-analysis.acceptance.test.ts](<../../../__tests__/s14-photo-based-analysis.acceptance.test.ts>) | Photo Preview mode falls back safely; Details mode remains default and does not fetch photo bytes |
+| `S14-4` | `In Progress` | Manual QA notes below | Record final latency/memory once real dev-build inference runs |
 
 Manual QA notes:
 
 - Metro LAN deep link example: `com.anonymous.rock-id://expo-development-client/?url=http%3A%2F%2F192.168.100.36%3A8083`
 - Device discovery can show “No development servers found” on some networks; manual URL/deeplink works reliably.
-- Current identification behavior is still observation-driven (mock engine):
-  - Pre-filled observations caused “Granite” for unrelated photos.
-  - After removing defaults, blank observations yield a low-confidence/uncertain result unless the user provides details.
+- Current identification behavior is mode-driven:
+  - Details mode is the default and remains observation-driven.
+  - Photo (Preview) mode explicitly exercises the photo-byte embedding path.
+  - Low-confidence photo output preserves the analyzer contract: `topMatch` equals `matches[0]`.

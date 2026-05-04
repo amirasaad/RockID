@@ -90,25 +90,19 @@ export function analyzeIdentificationSession(session: IdentificationSession | nu
  * @returns Analysis result as a promise.
  */
 export async function analyzeIdentificationSessionAsync(session: IdentificationSession | null): Promise<MockAnalysisResult> {
+  const mode = session?.analysisMode ?? 'details';
   const photoUri = session?.selectedPhoto?.uri;
   if (!photoUri) return analyzeIdentificationSession(session);
+  if (mode !== 'photo') return analyzeIdentificationSession(session);
 
   try {
     const analysis = await photoAnalyzer(session);
-    const topMatch = analysis.topMatch.confidence === 'Low'
-      ? {
-          name: ROCK_UNCLEAR_SAMPLE,
-          category: 'Needs more evidence',
-          confidence: 'Low' as const,
-          score: analysis.topMatch.score,
-        }
-      : analysis.topMatch;
 
     return {
       sessionId: session.id,
       imageUri: photoUri,
       matches: analysis.matches,
-      topMatch,
+      topMatch: analysis.topMatch,
       reasoning:
         analysis.topMatch.confidence === 'Low'
           ? 'There is not enough evidence from the photo to suggest a confident rock match yet.'

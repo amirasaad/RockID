@@ -1,6 +1,12 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
-import type { IdentificationAnalysis, IdentificationSession, RockObservations, SelectedRockPhoto } from './identification-session';
+import type {
+  IdentificationAnalysis,
+  IdentificationAnalysisMode,
+  IdentificationSession,
+  RockObservations,
+  SelectedRockPhoto,
+} from './identification-session';
 import { createIdentificationSessionStore } from './identification-session';
 
 type IdentificationSessionContextValue = {
@@ -9,6 +15,7 @@ type IdentificationSessionContextValue = {
   startSession: (selectedPhoto: SelectedRockPhoto) => IdentificationSession;
   setSelectedPhoto: (selectedPhoto: SelectedRockPhoto) => IdentificationSession;
   setObservations: (observations: RockObservations) => IdentificationSession;
+  setAnalysisMode: (mode: IdentificationAnalysisMode) => IdentificationSession;
   setAnalysis: (analysis: IdentificationAnalysis) => IdentificationAnalysis;
   resetSession: () => void;
 };
@@ -42,6 +49,12 @@ export function IdentificationSessionProvider(props: { children: React.ReactNode
     },
     setObservations(observations) {
       const next = store.setObservations(observations);
+      setSession(next);
+      setAnalysis(store.getSnapshot().analysis);
+      return next;
+    },
+    setAnalysisMode(mode) {
+      const next = store.setAnalysisMode(mode);
       setSession(next);
       setAnalysis(store.getSnapshot().analysis);
       return next;

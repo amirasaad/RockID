@@ -16,10 +16,13 @@ export type RockObservations = {
   notes: string;
 };
 
+export type IdentificationAnalysisMode = 'details' | 'photo';
+
 export type IdentificationSession = {
   id: string;
   selectedPhoto?: SelectedRockPhoto;
   observations?: RockObservations;
+  analysisMode?: IdentificationAnalysisMode;
   createdAt: number;
   updatedAt: number;
 };
@@ -42,6 +45,7 @@ export type IdentificationSessionStore = {
   startSession: (selectedPhoto?: SelectedRockPhoto) => IdentificationSession;
   setSelectedPhoto: (selectedPhoto: SelectedRockPhoto) => IdentificationSession;
   setObservations: (observations: RockObservations) => IdentificationSession;
+  setAnalysisMode: (mode: IdentificationAnalysisMode) => IdentificationSession;
   setAnalysis: (analysis: IdentificationAnalysis) => IdentificationAnalysis;
   getSnapshot: () => IdentificationSessionSnapshot;
   reset: () => void;
@@ -70,6 +74,7 @@ export function createIdentificationSessionStore(): IdentificationSessionStore {
       session = {
         id: createSessionId(),
         selectedPhoto,
+        analysisMode: 'details',
         createdAt: now,
         updatedAt: now,
       };
@@ -79,6 +84,7 @@ export function createIdentificationSessionStore(): IdentificationSessionStore {
     setSelectedPhoto(selectedPhoto) {
       const next = session ?? {
         id: createSessionId(),
+        analysisMode: 'details',
         createdAt: Date.now(),
         updatedAt: Date.now(),
       };
@@ -87,10 +93,20 @@ export function createIdentificationSessionStore(): IdentificationSessionStore {
     setObservations(observations) {
       const next = session ?? {
         id: createSessionId(),
+        analysisMode: 'details',
         createdAt: Date.now(),
         updatedAt: Date.now(),
       };
       return touch({ ...next, observations });
+    },
+    setAnalysisMode(mode) {
+      const next = session ?? {
+        id: createSessionId(),
+        analysisMode: 'details',
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      };
+      return touch({ ...next, analysisMode: mode });
     },
     setAnalysis(nextAnalysis) {
       analysis = nextAnalysis;

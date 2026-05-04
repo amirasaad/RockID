@@ -15,6 +15,8 @@ export type AnalyticsEvent =
   | 'observations_viewed'
   | 'observations_skipped'
   | 'observations_submitted'
+  | 'analysis_mode_set_details'
+  | 'analysis_mode_set_photo'
   | 'analysis_started'
   | 'analysis_completed'
   | 'analysis_failed'

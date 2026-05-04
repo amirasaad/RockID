@@ -14,11 +14,12 @@ const grainOptions = ['Fine', 'Medium', 'Coarse'];
 const featureOptions = ['Layered', 'Glassy', 'Vesicles', 'Banding', 'Visible Crystals'];
 
 export default function ObservationsScreen() {
-  const { setObservations } = useIdentificationSession();
+  const { session, setAnalysisMode, setObservations } = useIdentificationSession();
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedGrain, setSelectedGrain] = useState<string>('');
   const [notes, setNotes] = useState('');
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const analysisMode = session?.analysisMode ?? 'details';
 
   useEffect(() => {
     track('observations_viewed');
@@ -32,6 +33,30 @@ export default function ObservationsScreen() {
 
   return (
     <Screen title="Add Details" subtitle="These inputs stay local for now, but they mirror the MVP data model from the spec.">
+      <Card>
+        <SectionTitle>Analysis Mode</SectionTitle>
+        <View style={styles.wrap}>
+          <Chip
+            label="Details"
+            selected={analysisMode === 'details'}
+            onPress={() => {
+              setAnalysisMode('details');
+              track('analysis_mode_set_details');
+            }}
+          />
+          <Chip
+            label="Photo (Preview)"
+            selected={analysisMode === 'photo'}
+            onPress={() => {
+              setAnalysisMode('photo');
+              track('analysis_mode_set_photo');
+            }}
+          />
+        </View>
+        <Text style={styles.helper}>
+          Photo mode is a preview. If the match looks wrong, add details before trusting the result.
+        </Text>
+      </Card>
       <Card>
         <SectionTitle>Color</SectionTitle>
         <View style={styles.wrap}>
