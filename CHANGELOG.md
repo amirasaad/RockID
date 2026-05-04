@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.20.0 (2026-05-04)
+
+
+### ✨ Features
+
+* **saved**: Add navigation actions 641e0ec
+* **saved**: Persist photos on save 75f6c26
+* **settings**: Persist save-photos toggle 7d585fe
+
+
+### 🎫 Chores
+
+* **deps**: Add expo-image-manipulator 602e40e
+
+
+
+
+
 # 0.19.0 (2026-05-04)
 
 
