@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import { palette } from '@/constants/theme';
 import { bootstrapAnalyticsLogFromEnv } from '@/lib/analytics-log-bootstrap';
+import { AppSettingsProvider } from '@/lib/app-settings-context';
 import { IdentificationSessionProvider } from '@/lib/identification-session-context';
 import { bootstrapOnDeviceImageEncoderFromGlobals } from '@/lib/on-device-image-encoder-bootstrap';
 import { tryInstallNativeOnnxSessionFactory } from '@/lib/onnx-native-wiring';
@@ -41,37 +42,39 @@ void tryInstallNativeOnnxSessionFactory({
 
 export default function RootLayout() {
   return (
-    <IdentificationSessionProvider>
-      <SavedFindsProvider>
-        <ResultFeedbackProvider>
-          <ThemeProvider value={navigationTheme}>
-            <StatusBar style="dark" />
-            <Stack
-              screenOptions={{
-                headerShadowVisible: false,
-                headerStyle: { backgroundColor: palette.background },
-                headerTintColor: palette.ink,
-                headerTitleStyle: { fontWeight: '700' },
-                contentStyle: { backgroundColor: palette.background },
-              }}>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="capture-tips" options={{ title: 'Before You Snap' }} />
-              <Stack.Screen name="review" options={{ title: 'Review Photo' }} />
-              <Stack.Screen name="observations" options={{ title: 'Add Details' }} />
-              <Stack.Screen name="analyzing" options={{ headerShown: false }} />
-              <Stack.Screen name="results" options={{ title: 'Results' }} />
-              <Stack.Screen name="saved/[id]" options={{ title: 'Saved Find' }} />
-              <Stack.Screen
-                name="+not-found"
-                options={{
-                  title: 'Not Found',
-                  headerRight: () => <FontAwesome name="compass" size={18} color={palette.accent} />,
-                }}
-              />
-            </Stack>
-          </ThemeProvider>
-        </ResultFeedbackProvider>
-      </SavedFindsProvider>
-    </IdentificationSessionProvider>
+    <AppSettingsProvider>
+      <IdentificationSessionProvider>
+        <SavedFindsProvider>
+          <ResultFeedbackProvider>
+            <ThemeProvider value={navigationTheme}>
+              <StatusBar style="dark" />
+              <Stack
+                screenOptions={{
+                  headerShadowVisible: false,
+                  headerStyle: { backgroundColor: palette.background },
+                  headerTintColor: palette.ink,
+                  headerTitleStyle: { fontWeight: '700' },
+                  contentStyle: { backgroundColor: palette.background },
+                }}>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="capture-tips" options={{ title: 'Before You Snap' }} />
+                <Stack.Screen name="review" options={{ title: 'Review Photo' }} />
+                <Stack.Screen name="observations" options={{ title: 'Add Details' }} />
+                <Stack.Screen name="analyzing" options={{ headerShown: false }} />
+                <Stack.Screen name="results" options={{ title: 'Results' }} />
+                <Stack.Screen name="saved/[id]" options={{ title: 'Saved Find' }} />
+                <Stack.Screen
+                  name="+not-found"
+                  options={{
+                    title: 'Not Found',
+                    headerRight: () => <FontAwesome name="compass" size={18} color={palette.accent} />,
+                  }}
+                />
+              </Stack>
+            </ThemeProvider>
+          </ResultFeedbackProvider>
+        </SavedFindsProvider>
+      </IdentificationSessionProvider>
+    </AppSettingsProvider>
   );
 }
