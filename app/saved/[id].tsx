@@ -8,12 +8,14 @@ import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { DetailRow } from '@/components/Row';
 import { palette } from '@/constants/theme';
 import { track } from '@/lib/analytics';
+import { useIdentificationSession } from '@/lib/identification-session-context';
 import { createSavedFindDetailViewModel } from '@/lib/saved-find-detail-view-model';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
 export default function SavedFindScreen() {
   const { id: rawId } = useLocalSearchParams<{ id?: string | string[] }>();
   const { savedFinds, deleteFind } = useSavedFinds();
+  const { resetSession } = useIdentificationSession();
   const id = Array.isArray(rawId) ? rawId[0] : rawId;
   const savedFind = savedFinds.find((find) => find.id === id);
 
@@ -63,6 +65,23 @@ export default function SavedFindScreen() {
 
       <Card>
         <SectionTitle>Actions</SectionTitle>
+        <ActionButton
+          label="Re-analyze"
+          onPress={() => {
+            if (!savedFind.imageUri) {
+              Alert.alert('Photo missing', 'This saved find has no photo to analyze.');
+              return;
+            }
+            track('saved_find_reanalyze_tapped', { id });
+            resetSession();
+            router.replace({
+              pathname: '/review',
+              params: { imageUri: savedFind.imageUri, source: 'upload' },
+            });
+          }}
+        />
+        <ActionButton label="Back to Collection" variant="secondary" onPress={() => router.replace('/collection')} />
+        <ActionButton label="Identify Another" variant="secondary" onPress={() => router.replace('/')} />
         <ActionButton
           label="Delete Saved Find"
           variant="secondary"
