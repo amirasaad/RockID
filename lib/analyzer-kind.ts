@@ -26,8 +26,10 @@ export function __resetAnalyzerKindConfigForTesting(): void {
 }
 
 function readEnvAnalyzerKind(): AnalyzerKind | null {
-  const env = typeof process === 'undefined' ? undefined : process.env;
-  const raw = env?.EXPO_PUBLIC_ROCKID_ANALYZER_KIND ?? env?.EXPO_PUBLIC_ROCKID_ANALYZER;
+  const raw =
+    typeof process !== 'undefined' && process.env
+      ? (process.env.EXPO_PUBLIC_ROCKID_ANALYZER_KIND ?? process.env.EXPO_PUBLIC_ROCKID_ANALYZER)
+      : undefined;
   if (raw === 'mock' || raw === 'onDeviceClipKnn') {
     return raw;
   }
