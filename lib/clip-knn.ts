@@ -1,5 +1,6 @@
 import type { IdentificationSession } from './identification-session';
 import type { RockMatch } from './mock-data';
+import { getDefaultConfidenceThresholds } from './confidence-thresholds';
 
 export type Vector = number[];
 
@@ -182,10 +183,11 @@ function calculateConfidence(matches: RankedVectorIndexItem[], possibleNonRock: 
   const margin = top - second;
 
   let confidence: ClipKnnConfidence = 'Low';
+  const thresholds = getDefaultConfidenceThresholds();
 
-  if (top >= 0.35 && margin >= 0.08) {
+  if (top >= thresholds.high.minTopScore && margin >= thresholds.high.minMargin) {
     confidence = 'High';
-  } else if (top >= 0.25 && margin >= 0.02) {
+  } else if (top >= thresholds.medium.minTopScore && margin >= thresholds.medium.minMargin) {
     confidence = 'Medium';
   }
 
