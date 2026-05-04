@@ -41,6 +41,11 @@ describe('S14 photo-based analysis acceptance', () => {
     expect(fetchMock).toHaveBeenCalledWith('https://example.com/rock.jpg');
     expect(analysis.sessionId).toBe('sess-photo-1');
     expect(analysis.imageUri).toBe('https://example.com/rock.jpg');
+    expect(analysis.diagnostics).toEqual({
+      engine: 'photoBytesPreview',
+      fallback: false,
+      durationMs: expect.any(Number),
+    });
     expect(analysis.matches.length).toBeGreaterThan(0);
     expect(['Granite', 'Basalt', 'Slag', 'Obsidian']).toContain(analysis.matches[0]?.name);
     expect(analysis.topMatch).toEqual(analysis.matches[0]);
@@ -51,6 +56,45 @@ describe('S14 photo-based analysis acceptance', () => {
       expect(analysis.reasoning).toContain('Photo embedding');
     }
     expect(typeof analysis.nextCheck).toBe('string');
+  });
+
+  it('falls back to details analysis when photo preview cannot read bytes', async () => {
+    const fetchMock = vi.fn(async () => ({
+      ok: false,
+      status: 404,
+      arrayBuffer: async () => new ArrayBuffer(0),
+    }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const session: IdentificationSession = {
+      id: 'sess-photo-fallback',
+      selectedPhoto: {
+        source: 'upload',
+        uri: 'https://example.com/missing.jpg',
+        width: 1200,
+        height: 900,
+      },
+      analysisMode: 'photo',
+      observations: {
+        color: 'Dark',
+        grainSize: 'Fine',
+        features: ['Vesicles'],
+        notes: 'Fallback should still use field details.',
+      },
+      createdAt: 1,
+      updatedAt: 1,
+    };
+
+    const analysis = await analyzeIdentificationSessionAsync(session);
+
+    expect(fetchMock).toHaveBeenCalledWith('https://example.com/missing.jpg');
+    expect(analysis.diagnostics).toEqual({
+      engine: 'detailsMock',
+      fallback: true,
+      durationMs: expect.any(Number),
+    });
+    expect(analysis.topMatch.name).toBe('Basalt');
+    expect(analysis.topMatch).toEqual(analysis.matches[0]);
   });
 
   it('keeps selected photos in details mode unless photo preview is selected', async () => {
@@ -78,6 +122,11 @@ describe('S14 photo-based analysis acceptance', () => {
     const analysis = await analyzeIdentificationSessionAsync(session);
 
     expect(fetchMock).not.toHaveBeenCalled();
+    expect(analysis.diagnostics).toEqual({
+      engine: 'detailsMock',
+      fallback: false,
+      durationMs: expect.any(Number),
+    });
     expect(analysis.topMatch.name).toBe('Basalt');
     expect(analysis.topMatch).toEqual(analysis.matches[0]);
     expect(analysis.reasoning).toContain('vesicles');

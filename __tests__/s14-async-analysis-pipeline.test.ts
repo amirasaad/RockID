@@ -4,7 +4,14 @@ import { analyzeIdentificationSession, analyzeIdentificationSessionAsync } from 
 
 describe('S14 async analysis pipeline', () => {
   it('exposes an async analysis helper that matches the sync implementation', async () => {
-    expect(await analyzeIdentificationSessionAsync(null)).toEqual(analyzeIdentificationSession(null));
+    const analysis = await analyzeIdentificationSessionAsync(null);
+
+    expect(analysis).toEqual(expect.objectContaining(analyzeIdentificationSession(null)));
+    expect(analysis.diagnostics).toEqual({
+      engine: 'detailsMock',
+      fallback: false,
+      durationMs: expect.any(Number),
+    });
   });
 });
 

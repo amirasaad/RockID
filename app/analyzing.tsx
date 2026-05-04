@@ -19,7 +19,7 @@ export default function AnalyzingScreen() {
         .then((analysis) => {
           startTransition(() => {
             setAnalysis(analysis);
-            track('analysis_completed');
+            track('analysis_completed', analysis.diagnostics);
             router.replace('/results');
           });
         })

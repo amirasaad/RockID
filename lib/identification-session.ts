@@ -27,6 +27,12 @@ export type IdentificationSession = {
   updatedAt: number;
 };
 
+export type IdentificationAnalysisDiagnostics = {
+  engine: 'detailsMock' | 'photoBytesPreview';
+  fallback: boolean;
+  durationMs: number;
+};
+
 export type IdentificationAnalysis = {
   sessionId: string;
   imageUri?: string;
@@ -34,6 +40,7 @@ export type IdentificationAnalysis = {
   topMatch: RockMatch;
   reasoning: string;
   nextCheck: string;
+  diagnostics?: IdentificationAnalysisDiagnostics;
 };
 
 export type IdentificationSessionSnapshot = {

@@ -90,31 +90,53 @@ export function analyzeIdentificationSession(session: IdentificationSession | nu
  * @returns Analysis result as a promise.
  */
 export async function analyzeIdentificationSessionAsync(session: IdentificationSession | null): Promise<MockAnalysisResult> {
+  const startedAt = Date.now();
   const mode = session?.analysisMode ?? 'details';
   const photoUri = session?.selectedPhoto?.uri;
-  if (!photoUri) return analyzeIdentificationSession(session);
-  if (mode !== 'photo') return analyzeIdentificationSession(session);
+  if (!photoUri) return withDiagnostics(analyzeIdentificationSession(session), 'detailsMock', false, startedAt);
+  if (mode !== 'photo') return withDiagnostics(analyzeIdentificationSession(session), 'detailsMock', false, startedAt);
 
   try {
     const analysis = await photoAnalyzer(session);
 
-    return {
-      sessionId: session.id,
-      imageUri: photoUri,
-      matches: analysis.matches,
-      topMatch: analysis.topMatch,
-      reasoning:
-        analysis.topMatch.confidence === 'Low'
-          ? 'There is not enough evidence from the photo to suggest a confident rock match yet.'
-          : 'Photo embedding similarity match using a placeholder on-device embedder.',
-      nextCheck:
-        analysis.topMatch.confidence === 'Low'
-          ? 'Try again: add a clearer photo, color, grain size, or visible features before trusting the match.'
-          : 'If results look wrong, add another close-up photo and confirm grain size, color, and any visible crystals.',
-    };
+    return withDiagnostics(
+      {
+        sessionId: session.id,
+        imageUri: photoUri,
+        matches: analysis.matches,
+        topMatch: analysis.topMatch,
+        reasoning:
+          analysis.topMatch.confidence === 'Low'
+            ? 'There is not enough evidence from the photo to suggest a confident rock match yet.'
+            : 'Photo embedding similarity match using a placeholder on-device embedder.',
+        nextCheck:
+          analysis.topMatch.confidence === 'Low'
+            ? 'Try again: add a clearer photo, color, grain size, or visible features before trusting the match.'
+            : 'If results look wrong, add another close-up photo and confirm grain size, color, and any visible crystals.',
+      },
+      'photoBytesPreview',
+      false,
+      startedAt
+    );
   } catch {
-    return analyzeIdentificationSession(session);
+    return withDiagnostics(analyzeIdentificationSession(session), 'detailsMock', true, startedAt);
   }
+}
+
+function withDiagnostics(
+  analysis: MockAnalysisResult,
+  engine: NonNullable<MockAnalysisResult['diagnostics']>['engine'],
+  fallback: boolean,
+  startedAt: number
+): MockAnalysisResult {
+  return {
+    ...analysis,
+    diagnostics: {
+      engine,
+      fallback,
+      durationMs: Math.max(0, Date.now() - startedAt),
+    },
+  };
 }
 
 function selectMockMatches(observations?: RockObservations): RockMatch[] {
