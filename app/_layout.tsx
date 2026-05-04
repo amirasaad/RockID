@@ -6,6 +6,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 import { palette } from '@/constants/theme';
+import { bootstrapAnalyticsLogFromEnv } from '@/lib/analytics-log-bootstrap';
 import { IdentificationSessionProvider } from '@/lib/identification-session-context';
 import { bootstrapOnDeviceImageEncoderFromGlobals } from '@/lib/on-device-image-encoder-bootstrap';
 import { tryInstallNativeOnnxSessionFactory } from '@/lib/onnx-native-wiring';
@@ -29,6 +30,8 @@ const navigationTheme = {
     border: palette.border,
   },
 };
+
+void bootstrapAnalyticsLogFromEnv();
 
 void tryInstallNativeOnnxSessionFactory({
   defaultModelUri: 'bundle://SqueezeNet.onnx',

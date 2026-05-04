@@ -38,6 +38,7 @@ export type AnalyticsProperties = Record<string, unknown>;
 export type AnalyticsSink = (event: AnalyticsEvent, properties?: AnalyticsProperties) => void;
 
 let sink: AnalyticsSink | null = null;
+let logSink: AnalyticsSink | null = null;
 
 /**
  * Tracks an analytics event through the configured sink (no-op by default).
@@ -46,6 +47,7 @@ let sink: AnalyticsSink | null = null;
  */
 export function track(event: AnalyticsEvent, properties?: AnalyticsProperties): void {
   sink?.(event, properties);
+  logSink?.(event, properties);
 }
 
 /**
@@ -54,4 +56,8 @@ export function track(event: AnalyticsEvent, properties?: AnalyticsProperties): 
  */
 export function __setAnalyticsSinkForTesting(nextSink: AnalyticsSink | null): void {
   sink = nextSink;
+}
+
+export function configureAnalyticsLogSink(nextSink: AnalyticsSink | null): void {
+  logSink = nextSink;
 }
