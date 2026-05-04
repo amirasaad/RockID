@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:unit": "vitest run __tests__/photo-input.test.ts",
-    "test:e2e": "playwright test",
+    "test:e2e": "node -e \"require('fs').mkdirSync('playwright-report',{recursive:true})\" && playwright test",
     "test:e2e:install": "playwright install",
     "clip:index:demo": "node scripts/generate-clip-index.mjs --manifest data/clip/demo-manifest.json --out data/clip/demo-index.json",
     "clip:index:bytes": "node scripts/generate-clip-index.mjs --manifest data/clip/bytes-demo-manifest.json --out data/clip/bytes-demo-index.json --embedder bytes",

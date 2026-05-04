@@ -5,30 +5,36 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
 import { track } from '@/lib/analytics';
-import { analyzeIdentificationSessionAsync } from '@/lib/mock-analysis';
+import { getConfiguredAnalyzerKind } from '@/lib/analyzer-kind';
+import { analyzeIdentificationSessionWithConfiguredAnalyzerAsync } from '@/lib/configured-analysis';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 
 export default function AnalyzingScreen() {
   const { session, setAnalysis } = useIdentificationSession();
 
   useEffect(() => {
-    track('analysis_started');
+    const analyzerKind = getConfiguredAnalyzerKind();
+    track('analysis_started', { analyzerKind });
 
     const timer = setTimeout(() => {
-      void analyzeIdentificationSessionAsync(session)
+      void analyzeIdentificationSessionWithConfiguredAnalyzerAsync(session)
         .then((analysis) => {
           if (__DEV__) {
-            console.log('rockid.analysis_completed', { mode: session?.analysisMode, ...analysis.diagnostics });
+            console.log('rockid.analysis_completed', { analyzerKind, mode: session?.analysisMode, ...analysis.diagnostics });
           }
           startTransition(() => {
             setAnalysis(analysis);
-            track('analysis_completed', analysis.diagnostics);
+            track('analysis_completed', { analyzerKind, ...analysis.diagnostics });
             router.replace('/results');
           });
         })
         .catch((err) => {
           if (__DEV__) {
-            console.warn('rockid.analysis_failed', { mode: session?.analysisMode, message: err instanceof Error ? err.message : String(err) });
+            console.warn('rockid.analysis_failed', {
+              analyzerKind,
+              mode: session?.analysisMode,
+              message: err instanceof Error ? err.message : String(err),
+            });
           }
           track('analysis_failed');
           router.replace('/results');

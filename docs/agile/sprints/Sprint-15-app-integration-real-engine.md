@@ -41,8 +41,7 @@ We want the app to support a real engine without destabilizing the user experien
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S15-1` | `Planned` | This sprint plan | Flag controls analyzer selection |
-| `S15-2` | `Planned` | This sprint plan | E2E stability required |
-| `S15-3` | `Planned` | This sprint plan | Trust-first behavior |
-| `S15-4` | `Planned` | This sprint plan | Eval is the gate |
-
+| `S15-1` | `Done` | [configured-analysis.ts](<../../../lib/configured-analysis.ts>), [analyzer-kind.ts](<../../../lib/analyzer-kind.ts>), [on-device-clip-knn-analysis.ts](<../../../lib/on-device-clip-knn-analysis.ts>), [s15-analyzer-flag.test.ts](<../../../__tests__/s15-analyzer-flag.test.ts>) | Set `EXPO_PUBLIC_ROCKID_ANALYZER_KIND=onDeviceClipKnn` (or `globalThis.__ROCKID_ANALYZER_KIND__`) to enable; default remains `mock` until eval gates are met |
+| `S15-2` | `Done` | [core-flow-real-engine.spec.ts](<../../../e2e/core-flow-real-engine.spec.ts>) | Core flow works with the real engine enabled |
+| `S15-3` | `Done` | [clip-knn.ts](<../../../lib/clip-knn.ts>), [s13-clip-knn-retrieval.acceptance.test.ts](<../../../__tests__/s13-clip-knn-retrieval.acceptance.test.ts>), [on-device-clip-knn-analysis.ts](<../../../lib/on-device-clip-knn-analysis.ts>) | Retrieval confidence is conservative when non-rock is plausible; low-confidence messaging remains actionable |
+| `S15-4` | `Done` | [Sprint-11-rock-id-reality-check.md](<Sprint-11-rock-id-reality-check.md>), [s11-rock-id-eval.acceptance.test.ts](<../../../__tests__/s11-rock-id-eval.acceptance.test.ts>), [analyzer-kind.ts](<../../../lib/analyzer-kind.ts>) | Default stays `mock`; flip the default only after eval gates pass (especially non-rock false positives) |
