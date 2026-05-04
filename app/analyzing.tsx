@@ -17,13 +17,19 @@ export default function AnalyzingScreen() {
     const timer = setTimeout(() => {
       void analyzeIdentificationSessionAsync(session)
         .then((analysis) => {
+          if (__DEV__) {
+            console.log('rockid.analysis_completed', { mode: session?.analysisMode, ...analysis.diagnostics });
+          }
           startTransition(() => {
             setAnalysis(analysis);
             track('analysis_completed', analysis.diagnostics);
             router.replace('/results');
           });
         })
-        .catch(() => {
+        .catch((err) => {
+          if (__DEV__) {
+            console.warn('rockid.analysis_failed', { mode: session?.analysisMode, message: err instanceof Error ? err.message : String(err) });
+          }
           track('analysis_failed');
           router.replace('/results');
         });
