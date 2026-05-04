@@ -49,7 +49,7 @@ Manual QA notes:
 
 - WIP context: `git stash push -m "wip/s14-onnx-native-encoder"`
 - Native ONNX seam: app boot attempts to install a native session factory from `NativeModules.RockIdOnnxImageEncoder.runImageEncoder(modelUri, { imageUri })` and then configures the registry via global bootstrap.
-- Model URI: default is `bundle://models/mobileclip-s0-image.onnx` but can be overridden by setting `globalThis.__ROCKID_ONNX_MODEL_URI__` before bootstrap.
+- Model URI: default is `bundle://SqueezeNet.onnx` (bundled for on-device smoke testing) but can be overridden by setting `globalThis.__ROCKID_ONNX_MODEL_URI__` before bootstrap.
 - Optional native dependency: set `ROCKID_ENABLE_ONNX_RUNTIME=1` and run `pod install` to include the `onnxruntime-objc` pod for iOS builds.
 - ORT execution: when `onnxruntime-objc` is present and the model exists in the app bundle, the native module runs ORT inference with image preprocessing (224x224 RGB float tensor) and returns the first output tensor (or `image_embedding` when present).
 - Metro LAN deep link example: `com.anonymous.rock-id://expo-development-client/?url=http%3A%2F%2F192.168.100.36%3A8083`

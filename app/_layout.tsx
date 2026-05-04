@@ -31,7 +31,7 @@ const navigationTheme = {
 };
 
 void tryInstallNativeOnnxSessionFactory({
-  defaultModelUri: 'bundle://models/mobileclip-s0-image.onnx',
+  defaultModelUri: 'bundle://SqueezeNet.onnx',
 }).finally(() => {
   bootstrapOnDeviceImageEncoderFromGlobals();
 });

@@ -10,6 +10,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		17E45FEA7DD063D4E7AAA914 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9818F070CC18896439A151 /* ExpoModulesProvider.swift */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		F18B8F7B2E0F3A1A00C8B6A1 /* SqueezeNet.onnx in Resources */ = {isa = PBXBuildFile; fileRef = F18B8F7A2E0F3A1A00C8B6A1 /* SqueezeNet.onnx */; };
 		985E1220CCFBA49A08714099 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1468BA001A7E459478AE8D03 /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
@@ -32,6 +33,7 @@
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = RockID/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* RockID-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RockID-Bridging-Header.h"; path = "RockID/RockID-Bridging-Header.h"; sourceTree = "<group>"; };
 		F18B8F6D2E0E1A9E00C8B6A1 /* RockIdOnnxImageEncoder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = RockIdOnnxImageEncoder.mm; path = RockID/RockIdOnnxImageEncoder.mm; sourceTree = "<group>"; };
+		F18B8F7A2E0F3A1A00C8B6A1 /* SqueezeNet.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; name = SqueezeNet.onnx; path = RockID/SqueezeNet.onnx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 			children = (
 				F11748412D0307B40044C1D9 /* AppDelegate.swift */,
 				F18B8F6D2E0E1A9E00C8B6A1 /* RockIdOnnxImageEncoder.mm */,
+				F18B8F7A2E0F3A1A00C8B6A1 /* SqueezeNet.onnx */,
 				F11748442D0722820044C1D9 /* RockID-Bridging-Header.h */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -199,6 +202,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
+				F18B8F7B2E0F3A1A00C8B6A1 /* SqueezeNet.onnx in Resources */,
 				985E1220CCFBA49A08714099 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
