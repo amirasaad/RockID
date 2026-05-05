@@ -59,6 +59,12 @@ The core product promise is still rock identification. Sprint 23 returns to the 
 - If Results copy changes, validate web and iPhone paths for low-confidence clarity.
 - Do not flip the default analyzer during Sprint 23 unless all quality gates pass.
 
+## **QA Evidence**
+
+| Check | Result |
+| --- | --- |
+| Web smoke | `Passed`: user-tested |
+
 ## **Next Technical Move**
 
 - Merge `sprint/23-detection-quality-gates` into `main` via fast-forward.
