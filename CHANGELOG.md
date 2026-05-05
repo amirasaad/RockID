@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.22.0 (2026-05-05)
+
+
+### ✨ Features
+
+* **collection**: Add search and filters e64a181
+
+
+### 🎫 Chores
+
+* **git**: Ignore Trae artifacts 2a54969
+* **ios**: Sync pods 8bb12df
+
+
+### 📝 Documentation
+
+* **agile**: Add sprint 19 tracking 6103403
+* **agile**: Update delivery plan 191bac4
+* **agile**: Update epics and board 8751d9c
+* **release**: Record sprint 20 gate 6cc2c55
+
+
+
+
+
 # 0.21.0 (2026-05-04)
 
 
