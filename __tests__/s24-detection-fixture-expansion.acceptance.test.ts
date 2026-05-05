@@ -61,10 +61,10 @@ describe('S24 detection fixture expansion', () => {
       Slag: 2,
     });
 
-    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Coal', predicted: 'Unclear rock sample', count: 3 });
-    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Asphalt', predicted: 'Unclear rock sample', count: 2 });
-    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Glass', predicted: 'Unclear rock sample', count: 2 });
-    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Slag', predicted: 'Unclear rock sample', count: 2 });
+    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Coal', predicted: 'Unclear rock sample', count: 3, sampleIds: ['non-rock-coal-a', 'non-rock-coal-ambiguous-a', 'non-rock-coal-b'] });
+    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Asphalt', predicted: 'Unclear rock sample', count: 2, sampleIds: ['non-rock-asphalt-a', 'non-rock-asphalt-b'] });
+    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Glass', predicted: 'Unclear rock sample', count: 2, sampleIds: ['non-rock-glass-a', 'non-rock-glass-b'] });
+    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Slag', predicted: 'Unclear rock sample', count: 2, sampleIds: ['non-rock-slag-a', 'non-rock-slag-b'] });
     expect(onDeviceReport.nonRockFalsePositiveRate).toBeLessThanOrEqual(mockReport.nonRockFalsePositiveRate);
     expect(onDeviceReport.lowConfidenceRate).toBeGreaterThanOrEqual(0.1);
     expect(onDeviceReport.nonRockFalsePositiveRate).toBe(0);
