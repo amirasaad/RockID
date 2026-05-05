@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.25.0 (2026-05-05)
+
+
+### ✅ Tests
+
+* **analysis**: Cover multi non-rock guardrails 8260f02
+* **eval**: Baseline glass non-rock confusions 15ffd62
+* **eval**: Baseline non-rock confusions 05996f8
+* **eval**: Baseline on-device non-rock confusions 5c2fa3e
+* **eval**: Baseline on-device non-rock fp a4fea72
+* **eval**: Baseline on-device top1 c530974
+* **eval**: Baseline on-device top3 f71922a
+* **eval**: Baseline s24 per-class 9ad4e2d
+* **eval**: Baseline slag non-rock confusions b7f9618
+* **eval**: Cap on-device low confidence 0120f34
+* **eval**: Tighten s24 fixture coverage 2474963
+
+
+### ✨ Features
+
+* **analysis**: Add asphalt non-rock look-alike 23abf1b
+* **analysis**: Add coal non-rock look-alike f67b687
+* **analysis**: Add glass non-rock look-alike 3f71156
+* **analysis**: Improve ambiguous retrieval ranking 97b60db
+* **eval**: Add ambiguous basalt fixture c91b23a
+* **eval**: Add ambiguous non-rock fixture 323ac0d
+* **eval**: Expand detection fixtures batch 1 e27b83f
+
+
+
+
+
 # 0.24.0 (2026-05-05)
 
 
