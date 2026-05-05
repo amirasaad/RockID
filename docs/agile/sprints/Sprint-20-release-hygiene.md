@@ -20,7 +20,7 @@ Planning date:
 | --- | --- | --- | --- |
 | `S20-1` | `Done` | `.trae/s20-native-artifacts.md` | Android/native artifacts are deferred and stashed as `wip/s20-defer-android-native-artifacts` |
 | `S20-2` | `Done` | This sprint file | `pnpm run typecheck`, `pnpm test`, and `pnpm test:e2e` passed on 2026-05-05 |
-| `S20-3` | `In Progress` | Release bump pending | Target release is `v0.22.0` |
+| `S20-3` | `Done` | `v0.22.0` tag | Released Sprint 19 collection search/filter as MVP minor version |
 
 ## **Release Gate Evidence**
 
@@ -37,5 +37,5 @@ Planning date:
 
 ## **Next Technical Move**
 
-- Complete `v0.22.0` bump.
+- Merge `sprint/20-release-hygiene` to `main` via fast-forward.
 - Plan Sprint 21 as MVP usability polish from a fresh `sprint/*` branch.

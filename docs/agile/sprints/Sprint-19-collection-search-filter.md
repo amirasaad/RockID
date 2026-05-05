@@ -35,7 +35,7 @@ The MVP loop has durable saved finds, but a growing field collection becomes har
 | Empty-search state is clear | `Yes` |
 | Relevant unit tests exist | `Yes` |
 | Main contains the sprint work | `Yes` |
-| Release bump/tag completed | `Ready for v0.22.0 bump` |
+| Release bump/tag completed | `Yes: v0.22.0` |
 
 ## **Manual QA Notes**
 
@@ -50,5 +50,5 @@ The MVP loop has durable saved finds, but a growing field collection becomes har
 
 ## **Next Technical Move**
 
-- Release Sprint 19 as `v0.22.0`.
-- Then plan Sprint 20 from the current product priority instead of leaving Collection polish in backlog.
+- Sprint 19 released as `v0.22.0`.
+- Then plan Sprint 21 MVP usability polish from the current product priority.

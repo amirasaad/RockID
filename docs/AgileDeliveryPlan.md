@@ -76,4 +76,4 @@ A story is done when:
 
 ## **Current Next Action**
 
-Complete the `v0.22.0` release from Sprint 20, then plan Sprint 21 MVP usability polish from [Kanban.md](<Kanban.md>) on a fresh `sprint/*` branch.
+Plan Sprint 21 MVP usability polish from [Kanban.md](<Kanban.md>) on a fresh `sprint/*` branch.
