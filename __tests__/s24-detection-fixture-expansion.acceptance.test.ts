@@ -67,6 +67,7 @@ describe('S24 detection fixture expansion', () => {
     expect(onDeviceReport.nonRockFalsePositiveRate).toBeLessThanOrEqual(mockReport.nonRockFalsePositiveRate);
     expect(onDeviceReport.lowConfidenceRate).toBeGreaterThanOrEqual(0.1);
     expect(onDeviceReport.nonRockFalsePositiveRate).toBe(0);
+    expect(onDeviceReport.top1Accuracy).toBeGreaterThanOrEqual(0.6);
     expect(onDeviceReport.nonRockConfusions).toEqual([]);
     expect(onDeviceReport.top3Accuracy).toBeGreaterThanOrEqual(0.8);
     expect(onDeviceReport.confusionPairs).toEqual(expect.any(Array));
