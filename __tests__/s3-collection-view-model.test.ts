@@ -11,6 +11,7 @@ describe('S3 collection view model', () => {
       kind: 'empty',
       title: 'No saved rocks yet',
       message: 'Save an identification result to build your field collection.',
+      action: { kind: 'identify', label: 'Identify a rock' },
       items: [],
     });
   });
@@ -27,6 +28,7 @@ describe('S3 collection view model', () => {
         {
           id: 'newer-find',
           title: 'Basalt',
+          categoryLabel: 'Igneous',
           confidenceLabel: 'High confidence',
           savedAtLabel: 'Saved May 2, 2026',
           imageUri: 'file:///field/newer-find.jpg',
@@ -35,6 +37,7 @@ describe('S3 collection view model', () => {
         {
           id: 'older-find',
           title: 'Granite',
+          categoryLabel: 'Igneous',
           confidenceLabel: 'Medium confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: 'file:///field/older-find.jpg',

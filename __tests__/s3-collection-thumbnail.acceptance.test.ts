@@ -16,6 +16,7 @@ describe('S3-3 collection acceptance', () => {
         {
           id: 'with-image',
           title: 'Granite',
+          categoryLabel: 'Igneous intrusive',
           confidenceLabel: 'Medium confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: 'file:///field/with-image.jpg',
@@ -24,6 +25,7 @@ describe('S3-3 collection acceptance', () => {
         {
           id: 'missing-image',
           title: 'Granite',
+          categoryLabel: 'Igneous intrusive',
           confidenceLabel: 'Medium confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: undefined,
@@ -52,4 +54,3 @@ function savedFind(overrides: Pick<SavedFind, 'id' | 'imageUri' | 'savedAt'>): S
     matches: [],
   };
 }
-
