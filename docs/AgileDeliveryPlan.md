@@ -76,7 +76,8 @@ A story is done when:
 | Sprint 21 | MVP Usability Polish | [Sprint-21](<agile/sprints/Sprint-21-mvp-usability-polish.md>) |
 | Sprint 22 | Process + Android + Detection Prep | [Sprint-22](<agile/sprints/Sprint-22-process-android-detection-prep.md>) |
 | Sprint 23 | Detection Quality Gates | [Sprint-23](<agile/sprints/Sprint-23-detection-quality-gates.md>) |
+| Sprint 24 | Detection Fixture Expansion | [Sprint-24](<agile/sprints/Sprint-24-detection-fixture-expansion.md>) |
 
 ## **Current Next Action**
 
-Sprint 23 is merged; plan the next sprint by extending detection fixtures and improving the on-device analyzer against the eval gates, with [Kanban.md](<Kanban.md>) reflecting current state.
+Start Sprint 24 by expanding detection fixtures and improving on-device analyzer metrics against the eval gates, with [Kanban.md](<Kanban.md>) reflecting current state.

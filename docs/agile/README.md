@@ -38,6 +38,7 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 21 | MVP Usability Polish | [Open](<sprints/Sprint-21-mvp-usability-polish.md>) |
 | Sprint 22 | Process + Android + Detection Prep | [Open](<sprints/Sprint-22-process-android-detection-prep.md>) |
 | Sprint 23 | Detection Quality Gates | [Open](<sprints/Sprint-23-detection-quality-gates.md>) |
+| Sprint 24 | Detection Fixture Expansion | [Open](<sprints/Sprint-24-detection-fixture-expansion.md>) |
 
 ## **Update Rules**
 
