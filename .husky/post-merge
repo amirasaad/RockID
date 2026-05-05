@@ -37,9 +37,11 @@ if ! pnpm -s test:e2e; then
 fi
 
 if [ "$branch" = "main" ] && [ "${ROCKID_SKIP_AUTO_BUMP-}" != "1" ]; then
-  if ! pnpm -s bump; then
-    git reset --hard "$premerge_head"
-    exit 1
+  if node scripts/should-auto-bump.mjs; then
+    if ! pnpm -s bump; then
+      git reset --hard "$premerge_head"
+      exit 1
+    fi
   fi
 fi
 
