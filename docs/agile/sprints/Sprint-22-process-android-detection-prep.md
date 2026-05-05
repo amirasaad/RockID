@@ -69,3 +69,9 @@ Sprint 19-21 shipped useful MVP polish through `v0.23.0`, but the retro exposed 
 - Android smoke is required only when local Android tooling is available.
 - Android status: `adb devices` works with permissions but currently reports no attached devices/emulators; `pnpm android` smoke is pending until a target device/emulator is available.
 - Web e2e smoke passed through Playwright; iPhone/manual Android smoke should be recorded with `✅ qa(...)` when performed.
+
+## **QA Evidence**
+
+| Check | Result |
+| --- | --- |
+| Web e2e smoke | `Passed`: `pnpm test:e2e` |
