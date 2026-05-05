@@ -14,8 +14,13 @@ export type EmptyCollectionViewModel = {
   kind: 'empty';
   title: string;
   message: string;
+  action: EmptyCollectionAction;
   items: CollectionItemViewModel[];
 };
+
+export type EmptyCollectionAction =
+  | { kind: 'identify'; label: string }
+  | { kind: 'reset'; label: string };
 
 export type PopulatedCollectionViewModel = {
   kind: 'populated';
@@ -48,6 +53,7 @@ export function createCollectionViewModel(
       kind: 'empty',
       title: 'No saved rocks yet',
       message: 'Save an identification result to build your field collection.',
+      action: { kind: 'identify', label: 'Identify a rock' },
       items: [],
     };
   }
@@ -58,6 +64,7 @@ export function createCollectionViewModel(
       kind: 'empty',
       title: 'No results found',
       message: 'Try a different search or filter.',
+      action: { kind: 'reset', label: 'Reset filters' },
       items: [],
     };
   }

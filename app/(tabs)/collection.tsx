@@ -86,6 +86,23 @@ export default function CollectionScreen() {
         <Card>
           <Text style={styles.emptyTitle}>{viewModel.title}</Text>
           <Text style={styles.meta}>{viewModel.message}</Text>
+          <View style={styles.emptyActions}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => {
+                if (viewModel.action.kind === 'reset') {
+                  setQuery('');
+                  setFilter('All');
+                  return;
+                }
+
+                router.push('/');
+              }}
+              style={styles.actionButton}
+            >
+              <Text style={styles.actionLabel}>{viewModel.action.label}</Text>
+            </Pressable>
+          </View>
         </Card>
       ) : (
         viewModel.items.map((find) => (
@@ -140,6 +157,10 @@ const styles = StyleSheet.create({
   resetRow: {
     alignItems: 'flex-start',
     marginTop: 10,
+  },
+  emptyActions: {
+    alignItems: 'flex-start',
+    marginTop: 12,
   },
   actionButton: {
     backgroundColor: palette.surface,
