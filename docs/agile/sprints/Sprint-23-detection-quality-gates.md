@@ -39,8 +39,22 @@ The core product promise is still rock identification. Sprint 23 returns to the 
 | Default analyzer decision is documented | `Planned` |
 | Relevant tests pass | `Planned` |
 
+## **Sprint 23 Tracking**
+
+| Story | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| `S23-1` | `Planned` | This sprint plan | Start by creating harder fixtures and a repeatable comparison report |
+| `S23-2` | `Planned` | This sprint plan | Add non-rock guardrails only after fixtures show the failure modes |
+| `S23-3` | `Planned` | This sprint plan | Prefer conservative confidence + guidance for ambiguous inputs |
+| `S23-4` | `Planned` | This sprint plan | Do not change defaults without passing quality gates |
+
 ## **Manual QA Notes**
 
 - Sprint 23 is primarily non-UI unless analyzer output changes visible Results behavior.
 - If Results copy changes, validate web and iPhone paths for low-confidence clarity.
 - Do not flip the default analyzer during Sprint 23 unless all quality gates pass.
+
+## **Next Technical Move**
+
+- Create a fresh `sprint/23-*` branch from `main`.
+- Start with `S23-1` on a `🧪 test-fail(...)` commit that establishes the eval fixture + reporting contract.

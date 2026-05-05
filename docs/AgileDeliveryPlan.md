@@ -79,4 +79,4 @@ A story is done when:
 
 ## **Current Next Action**
 
-Execute Sprint 22 process, Android, and detection-prep work using [Sprint-22](<agile/sprints/Sprint-22-process-android-detection-prep.md>) as the source of truth, with [Kanban.md](<Kanban.md>) reflecting current state.
+Execute Sprint 23 detection quality work using [Sprint-23](<agile/sprints/Sprint-23-detection-quality-gates.md>) as the source of truth, with [Kanban.md](<Kanban.md>) reflecting current state.
