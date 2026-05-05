@@ -66,8 +66,11 @@
   },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-conventional-commit-gitmoji"
+      "path": "./scripts/rockid-commitizen.cjs"
     }
   },
-  "private": true
+  "private": true,
+  "commit-and-tag-version": {
+    "releaseCommitMessageFormat": "🔖 bump(release): {{currentTag}}"
+  }
 }

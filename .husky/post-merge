@@ -16,13 +16,6 @@ case "${GIT_REFLOG_ACTION-}" in
     ;;
 esac
 
-merged_branch=""
-case "${GIT_REFLOG_ACTION-}" in
-  merge\ *)
-    merged_branch="${GIT_REFLOG_ACTION#merge }"
-    ;;
-esac
-
 git_dir="$(git rev-parse --git-dir)"
 premerge_head_file="$git_dir/husky-premerge-head"
 
@@ -38,35 +31,9 @@ if [ -z "$premerge_head" ]; then
   exit 0
 fi
 
-tags_before="$(git tag)"
-
 if ! pnpm -s test:e2e; then
   git reset --hard "$premerge_head"
   exit 1
 fi
 
-if [ "$branch" != "main" ]; then
-  exit 0
-fi
-
-if [ "$branch" = "main" ]; then
-  case "$merged_branch" in
-    sprint/*|sprint-*)
-      if pnpm -s bump; then
-        exit 0
-      fi
-      ;;
-    *)
-      exit 0
-      ;;
-  esac
-fi
-
-tags_after="$(git tag)"
-for tag in $tags_after; do
-  printf '%s\n' "$tags_before" | grep -qx "$tag" && continue
-  git tag -d "$tag" >/dev/null 2>&1 || true
-done
-
-git reset --hard "$premerge_head"
-exit 1
+exit 0

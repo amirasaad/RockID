@@ -74,7 +74,9 @@ A story is done when:
 | Sprint 19 | Collection Search And Filters | [Sprint-19](<agile/sprints/Sprint-19-collection-search-filter.md>) |
 | Sprint 20 | Release Hygiene | [Sprint-20](<agile/sprints/Sprint-20-release-hygiene.md>) |
 | Sprint 21 | MVP Usability Polish | [Sprint-21](<agile/sprints/Sprint-21-mvp-usability-polish.md>) |
+| Sprint 22 | Process + Android + Detection Prep | [Sprint-22](<agile/sprints/Sprint-22-process-android-detection-prep.md>) |
+| Sprint 23 | Detection Quality Gates | [Sprint-23](<agile/sprints/Sprint-23-detection-quality-gates.md>) |
 
 ## **Current Next Action**
 
-Execute Sprint 21 MVP usability polish using [Sprint-21](<agile/sprints/Sprint-21-mvp-usability-polish.md>) as the source of truth, with [Kanban.md](<Kanban.md>) reflecting current state.
+Execute Sprint 22 process, Android, and detection-prep work using [Sprint-22](<agile/sprints/Sprint-22-process-android-detection-prep.md>) as the source of truth, with [Kanban.md](<Kanban.md>) reflecting current state.

@@ -23,7 +23,8 @@
         "backgroundColor": "#f4efe7"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.rockid"
     },
     "web": {
       "bundler": "metro",

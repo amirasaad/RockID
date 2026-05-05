@@ -9,7 +9,7 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
   - Red: add or update a failing acceptance/unit test.
   - Green: implement the smallest change to pass.
   - Refactor: improve readability while tests stay green.
-- For acceptance tests that define a user-visible story (ATDD), use the `feat` commit type so release bump tooling can “see” feature work even when the first commit is test-only.
+- For red ATDD/TDD commits, use `🧪 test-fail(scope): ...`; reserve `✨ feat(scope): ...` for the user-facing implementation commit.
 - Keep docs and code aligned in the same PR when behavior changes.
 - Merge to `main` only when story DoD criteria are met.
 - Keep product/app versions in `v0.x.y` throughout MVP. Use `pnpm bump:dry` to preview, then `pnpm bump:patch` or `pnpm bump:minor` only when release criteria are met.
@@ -46,19 +46,19 @@ What happens on merge:
 
 - On `main` and `sprint/*`, the repo runs `pnpm test:e2e` automatically via the local git `post-merge` hook.
 - If `pnpm test:e2e` fails, the hook resets the branch back to the pre-merge commit and exits non-zero (treat this as a failed merge).
-- On `main`, the repo runs `pnpm bump` automatically only when merging a `sprint/*` branch.
-- If `pnpm bump` fails, the hook resets `main` back to the pre-merge commit and exits non-zero (treat this as a failed merge).
+- The repo does not auto-bump on merge; release bumps are explicit after sprint DoD.
+- Run `pnpm bump:dry`, choose `pnpm bump:patch` or `pnpm bump:minor`, and confirm the generated release commit uses `🔖 bump(release): v0.x.y`.
 
 Continue to the next story:
 
 1. Confirm your sprint base branch is clean: `git status`
 2. Start the next story branch from the sprint base: `git checkout -b feat/s<id>-<story-scope>`
 
-If bump did not run:
+Release bump reminder:
 
 - Confirm hooks are installed: run `pnpm prepare` once after cloning.
 - Confirm hooks path: `git config core.hooksPath` should be `.husky/_`.
-- Note: hooks only run locally; merges done on GitHub will not trigger local bump automation.
+- Hooks only run local validation; they do not publish, push tags, or cut a hosted release.
 
 ## **Story Execution Loop**
 
@@ -73,11 +73,18 @@ If bump did not run:
 6. Update the relevant sprint file in [agile/sprints](<agile/sprints>) and [agile/EpicMilestones.md](<agile/EpicMilestones.md>) when status changes.
 7. Commit.
 
-Commit message conventions (ATDD):
+Commit message conventions (RockID rhythm):
 
-- Failing acceptance test (red): `🧪 feat(scope): add failing acceptance test for <story>`
-- Passing implementation (green): `✅ feat(scope): test-pass <story>`
-- Unit-only tests (non-story plumbing): keep `🧪 test(...)` / `✅ test(...)`
+- Red ATDD/TDD: `🧪 test-fail(scope): cover <story behavior>`
+- Green feature implementation: `✨ feat(scope): add <user-visible behavior>`
+- Passing or maintenance tests: `🧪 test(scope): update expectations`
+- Refactor: `📦 refactor(scope): simplify <code shape>`
+- Agile tracking: `📋 agile(s22): move story to review`
+- Manual QA evidence: `✅ qa(s22): record web and iphone smoke`
+- Version bump: `🔖 bump(release): v0.x.y`
+- Tooling/config: `🔧 config(commit): update commit rhythm`
+
+Use `pnpm run commit` to open the local RockID Commitizen prompt.
 
 ## **Definition Of Done Gate**
 

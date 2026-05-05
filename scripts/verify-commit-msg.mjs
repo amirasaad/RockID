@@ -1,5 +1,25 @@
 import { readFile } from 'node:fs/promises';
 
+const SUPPORTED_TYPES_BY_EMOJI = new Map([
+  ['feat', '✨'],
+  ['fix', '🐛'],
+  ['docs', '📝'],
+  ['style', '🎨'],
+  ['refactor', '📦'],
+  ['perf', '🚀'],
+  ['test', '🧪'],
+  ['build', '👷'],
+  ['ci', '♻️'],
+  ['chore', '✏️'],
+  ['revert', '⏪'],
+  ['test-fail', '🧪'],
+  ['agile', '📋'],
+  ['bump', '🔖'],
+  ['qa', '✅'],
+  ['spike', '🧐'],
+  ['config', '🔧'],
+]);
+
 /**
  * Reads a commit message file and returns the first non-empty line.
  * @param {string} commitMsgFilePath - Path to the commit message file provided by git.
@@ -36,13 +56,68 @@ function assertGitmojiPrefix(header) {
   }
 }
 
+/**
+ * Parses a conventional gitmoji header.
+ * @param {string} header
+ * @returns {{ emoji: string, type: string, scope?: string, subject: string }}
+ */
+function parseHeader(header) {
+  const match = header.match(/^(\S+)\s+([\w-]+)(?:\(([^)]+)\))?!?:\s+(.+)$/u);
+  if (!match) {
+    throw new Error('Commit message must follow "<emoji> <type>(<scope>): <subject>", e.g. "✨ feat(results): add CTA".');
+  }
+
+  return {
+    emoji: stripVariationSelector(match[1]),
+    type: match[2],
+    scope: match[3],
+    subject: match[4],
+  };
+}
+
+/**
+ * Validates the RockID commit rhythm type and emoji pairing.
+ * @param {string} header
+ */
+function assertSupportedTypeEmojiPair(header) {
+  const { emoji, type } = parseHeader(header);
+  const expectedEmoji = SUPPORTED_TYPES_BY_EMOJI.get(type);
+
+  if (emoji === '🔖' && type !== 'bump') {
+    throw new Error('release bump must use bump.');
+  }
+
+  if (!expectedEmoji) {
+    throw new Error(`Commit type "${type}" is not supported by the RockID commit rhythm.`);
+  }
+
+  if (stripVariationSelector(expectedEmoji) !== emoji) {
+    throw new Error(`Commit type "${type}" must use ${expectedEmoji}.`);
+  }
+}
+
+/**
+ * Normalizes emoji strings that may include a variation selector.
+ * @param {string} emoji
+ * @returns {string}
+ */
+function stripVariationSelector(emoji) {
+  return emoji.replace(/\uFE0F/g, '');
+}
+
 const commitMsgFilePath = process.argv[2];
 if (!commitMsgFilePath) {
   process.stderr.write('Missing commit message file path argument.\n');
   process.exit(2);
 }
 
-const header = await readHeaderLine(commitMsgFilePath);
-if (header && !shouldSkip(header)) {
-  assertGitmojiPrefix(header);
+try {
+  const header = await readHeaderLine(commitMsgFilePath);
+  if (header && !shouldSkip(header)) {
+    assertGitmojiPrefix(header);
+    assertSupportedTypeEmojiPair(header);
+  }
+} catch (error) {
+  process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
+  process.exit(1);
 }
