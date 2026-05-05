@@ -14,6 +14,7 @@ export type RockIdAnalyzerResult = {
 };
 
 export type RockIdAnalyzer = (session: IdentificationSession) => RockIdAnalyzerResult;
+export type RockIdAnalyzerAsync = (session: IdentificationSession) => Promise<RockIdAnalyzerResult>;
 
 export type RockIdConfusionPair = {
   expected: string;
@@ -71,8 +72,41 @@ export function evaluateRockIdentifier(input: {
   };
 }
 
+export async function evaluateRockIdentifierAsync(input: {
+  fixtures: RockIdEvalFixture[];
+  analyze: RockIdAnalyzerAsync;
+}): Promise<RockIdEvalReport> {
+  const results = await Promise.all(input.fixtures.map((fixture) => evaluateFixtureAsync(fixture, input.analyze)));
+  const total = results.length;
+  const nonRockResults = results.filter((result) => result.fixture.expectedKind === 'non-rock');
+
+  return {
+    total,
+    top1Accuracy: ratio(countWhere(results, 'top1Correct'), total),
+    top3Accuracy: ratio(countWhere(results, 'top3Correct'), total),
+    lowConfidenceRate: ratio(countWhere(results, 'lowConfidence'), total),
+    nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(nonRockResults),
+    confusionPairs: collectConfusionPairs(results),
+    nonRockConfusions: collectConfusionPairs(nonRockResults),
+    perClassAccuracy: calculatePerClassAccuracy(results),
+    coverage: calculateCoverage(input.fixtures),
+  };
+}
+
 function evaluateFixture(fixture: RockIdEvalFixture, analyze: RockIdAnalyzer): RockIdEvalResult {
   const analysis = analyze(fixture.session);
+
+  return {
+    fixture,
+    analysis,
+    top1Correct: analysis.topMatch.name === fixture.expectedLabel,
+    top3Correct: analysis.matches.slice(0, 3).some((match) => match.name === fixture.expectedLabel),
+    lowConfidence: analysis.topMatch.confidence === 'Low',
+  };
+}
+
+async function evaluateFixtureAsync(fixture: RockIdEvalFixture, analyze: RockIdAnalyzerAsync): Promise<RockIdEvalResult> {
+  const analysis = await analyze(fixture.session);
 
   return {
     fixture,

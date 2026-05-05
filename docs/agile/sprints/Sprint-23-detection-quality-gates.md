@@ -43,7 +43,7 @@ The core product promise is still rock identification. Sprint 23 returns to the 
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S23-1` | `Planned` | This sprint plan | Start by creating harder fixtures and a repeatable comparison report |
+| `S23-1` | `Done` | [detection-quality-fixtures.ts](<../../../data/eval/detection-quality-fixtures.ts>), [s23-detection-quality-gates.acceptance.test.ts](<../../../__tests__/s23-detection-quality-gates.acceptance.test.ts>), [rock-id-eval.ts](<../../../lib/rock-id-eval.ts>) | Adds harder fixtures and a mock vs on-device comparison report through the eval contract |
 | `S23-2` | `Planned` | This sprint plan | Add non-rock guardrails only after fixtures show the failure modes |
 | `S23-3` | `Planned` | This sprint plan | Prefer conservative confidence + guidance for ambiguous inputs |
 | `S23-4` | `Planned` | This sprint plan | Do not change defaults without passing quality gates |
