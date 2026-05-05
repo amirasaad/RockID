@@ -39,9 +39,9 @@ Sprint 24 expanded fixtures and improved on-device analyzer metrics against synt
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S25-1` | `In Progress` | [field-qa-fixtures.ts](<../../../data/eval/field-qa-fixtures.ts>) | Start by curating the smallest “trust set” that still includes rocks + non-rock confusers |
-| `S25-2` | `In Progress` | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | Repeatable run now covers both the healthy baseline and a seeded regression summary with confusion sample ids |
-| `S25-3` | `In Progress` | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | Assert analysis uses the same photo URI that the session provides |
+| `S25-1` | `Done` | [field-qa-fixtures.ts](<../../../data/eval/field-qa-fixtures.ts>) | Curated "trust set" with 3 rocks + 4 non-rock confusers, all labeled with capture notes |
+| `S25-2` | `Done` | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | Repeatable run covers healthy baseline and seeded regression summary with confusion sample ids |
+| `S25-3` | `Done` | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | Asserts analysis uses the same photo URI that the session provides |
 
 ## **Manual QA Notes**
 
@@ -52,10 +52,10 @@ Sprint 24 expanded fixtures and improved on-device analyzer metrics against synt
 
 | Area | Scenario | Evidence | Status |
 | --- | --- | --- | --- |
-| Static quality | TypeScript compile gate | `pnpm run typecheck` | `Planned` |
-| Unit/regression | Full Vitest suite | `pnpm test` | `Planned` |
+| Static quality | TypeScript compile gate | `pnpm run typecheck` | `Pass` |
+| Unit/regression | Full Vitest suite | `pnpm test` | `Pass (S25-specific)` |
 | Web smoke | Core web flows including real-engine e2e | `pnpm test:e2e` | `Planned` |
-| Field QA run | Repeatable summary run over curated field set | Link to output / test snapshot | `Planned` |
+| Field QA run | Repeatable summary run over curated field set | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | `Pass` |
 
 ## **Release Closeout**
 
