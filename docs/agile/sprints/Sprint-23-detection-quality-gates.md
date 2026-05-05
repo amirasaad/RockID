@@ -61,5 +61,5 @@ The core product promise is still rock identification. Sprint 23 returns to the 
 
 ## **Next Technical Move**
 
-- Create a fresh `sprint/23-*` branch from `main`.
-- Start with `S23-1` on a `🧪 test-fail(...)` commit that establishes the eval fixture + reporting contract.
+- Merge `sprint/23-detection-quality-gates` into `main` via fast-forward.
+- Keep the default analyzer unchanged unless a later sprint expands fixtures and improves metrics against the baseline.
