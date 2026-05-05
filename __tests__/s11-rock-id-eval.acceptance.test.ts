@@ -66,11 +66,13 @@ describe('S11 rock-ID eval acceptance', () => {
           expected: 'Granite',
           predicted: 'Unclear rock sample',
           count: 1,
+          sampleIds: ['weak-evidence'],
         },
         {
           expected: 'Dark Slag',
           predicted: 'Basalt',
           count: 1,
+          sampleIds: ['slag-lookalike'],
         },
       ],
     }));

@@ -20,6 +20,7 @@ export type RockIdConfusionPair = {
   expected: string;
   predicted: string;
   count: number;
+  sampleIds: string[];
 };
 
 export type RockIdClassAccuracy = {
@@ -146,10 +147,14 @@ function collectConfusionPairs(results: RockIdEvalResult[]): RockIdConfusionPair
       expected,
       predicted,
       count: existing ? existing.count + 1 : 1,
+      sampleIds: existing ? [...existing.sampleIds, result.fixture.id] : [result.fixture.id],
     });
   }
 
-  return [...counts.values()];
+  return [...counts.values()].map((pair) => ({
+    ...pair,
+    sampleIds: [...pair.sampleIds].sort((left, right) => left.localeCompare(right)),
+  }));
 }
 
 function calculatePerClassAccuracy(results: RockIdEvalResult[]): Record<string, RockIdClassAccuracy> {

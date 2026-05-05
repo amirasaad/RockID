@@ -49,6 +49,7 @@ describe('S12 dataset eval expansion acceptance', () => {
       expected: 'Slag',
       predicted: 'Basalt',
       count: 1,
+      sampleIds: ['slag-bubbly-dark'],
     });
   });
 });
