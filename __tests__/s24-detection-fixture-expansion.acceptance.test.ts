@@ -40,6 +40,23 @@ describe('S24 detection fixture expansion', () => {
     expect(mockReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 6 });
     expect(onDeviceReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 6 });
 
+    expect(mockReport.coverage.classes).toEqual({
+      Asphalt: 2,
+      Basalt: 2,
+      Glass: 2,
+      Granite: 5,
+      Obsidian: 2,
+      Slag: 2,
+    });
+    expect(onDeviceReport.coverage.classes).toEqual({
+      Asphalt: 2,
+      Basalt: 2,
+      Glass: 2,
+      Granite: 5,
+      Obsidian: 2,
+      Slag: 2,
+    });
+
     expect(onDeviceReport.nonRockFalsePositiveRate).toBeLessThanOrEqual(mockReport.nonRockFalsePositiveRate);
     expect(onDeviceReport.lowConfidenceRate).toBeGreaterThanOrEqual(0.1);
     expect(onDeviceReport.confusionPairs).toEqual(expect.any(Array));
