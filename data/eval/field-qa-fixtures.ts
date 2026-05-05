@@ -51,6 +51,48 @@ export const fieldQaEvalFixtures: RockIdEvalFixture[] = [
     features: ['Dull Luster'],
     notes: 'Field photo: black fragment with dull luster and low visible grain.',
   }),
+  nonRock('field-non-rock-concrete-a', 'Concrete', {
+    color: 'Gray',
+    grainSize: 'Fine',
+    features: ['Uniform Texture', 'Visible Aggregate'],
+    notes: 'Field photo: gray human-made material with visible aggregate particles.',
+  }),
+  nonRock('field-non-rock-brick-a', 'Brick', {
+    color: 'Red',
+    grainSize: 'Fine',
+    features: ['Porous Surface', 'Regular Shape'],
+    notes: 'Field photo: reddish fired clay material with porous surface.',
+  }),
+  nonRock('field-non-rock-plastic-a', 'Plastic', {
+    color: 'Various',
+    grainSize: 'Smooth',
+    features: ['Shiny Surface', 'Lightweight'],
+    notes: 'Field photo: synthetic material with unnatural shine and color.',
+  }),
+  rock('field-rock-granite-poor-light', 'Granite', {
+    color: 'Light',
+    grainSize: 'Coarse',
+    features: ['Visible Crystals'],
+    notes: 'Field photo: granite sample in poor lighting conditions, shadows obscure crystal detail.',
+  }),
+  rock('field-rock-basalt-partial-frame', 'Basalt', {
+    color: 'Dark',
+    grainSize: 'Fine',
+    features: ['Vesicles'],
+    notes: 'Field photo: basalt sample partially out of frame, only 60% visible.',
+  }),
+  rock('field-rock-obsidian-blurry', 'Obsidian', {
+    color: 'Dark',
+    grainSize: 'Glassy',
+    features: ['Sharp Edges', 'Conchoidal Fracture'],
+    notes: 'Field photo: obsidian sample with motion blur, taken while moving.',
+  }),
+  rock('field-rock-mixed-materials', 'Granite', {
+    color: 'Light',
+    grainSize: 'Coarse',
+    features: ['Visible Crystals', 'Mixed Context'],
+    notes: 'Field photo: granite on asphalt surface, mixed materials in frame.',
+  }),
 ];
 
 function rock(id: string, expectedLabel: string, observations: RockObservations): RockIdEvalFixture {

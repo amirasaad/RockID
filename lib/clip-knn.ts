@@ -181,7 +181,21 @@ function kindPriority(kind: VectorIndexItem['kind']): number {
 function isPossibleNonRock(matches: RankedVectorIndexItem[]): boolean {
   const nonRockCount = matches.filter((match) => match.item.kind === 'non-rock').length;
   if (nonRockCount >= 2) return true;
-  return matches[0]?.item.kind === 'non-rock';
+
+  const topMatch = matches[0];
+  if (!topMatch) return false;
+
+  if (topMatch.item.kind === 'non-rock') return true;
+
+  if (nonRockCount === 1 && matches.length >= 2) {
+    const topScore = topMatch.score;
+    const nonRockMatch = matches.find((m) => m.item.kind === 'non-rock');
+    if (nonRockMatch && topScore - nonRockMatch.score < 0.2) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function calculateConfidence(matches: RankedVectorIndexItem[], possibleNonRock: boolean): ClipKnnConfidence {

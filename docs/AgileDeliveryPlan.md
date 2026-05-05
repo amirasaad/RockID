@@ -78,7 +78,8 @@ A story is done when:
 | Sprint 23 | Detection Quality Gates | [Sprint-23](<agile/sprints/Sprint-23-detection-quality-gates.md>) |
 | Sprint 24 | Detection Fixture Expansion | [Sprint-24](<agile/sprints/Sprint-24-detection-fixture-expansion.md>) |
 | Sprint 25 | Dataset And Field QA | [Sprint-25](<agile/sprints/Sprint-25-dataset-and-field-qa.md>) |
+| Sprint 26 | Real Engine Confidence Hardening | [Sprint-26](<agile/sprints/Sprint-26-confidence-hardening.md>) |
 
 ## **Current Next Action**
 
-Kick off Sprint 25 by curating a small labeled field-photo set and wiring up a repeatable “field QA” run, using [Kanban.md](<Kanban.md>) as the source of truth for ready/in-progress work.
+Calibrate confidence thresholds and harden non-rock detection using Sprint 25 field QA data before enabling the real engine by default. Track progress in [Kanban.md](<Kanban.md>).
