@@ -31,3 +31,6 @@ yarn-error.*
 # Playwright
 playwright-report/
 test-results/
+
+# Trae
+.trae/
