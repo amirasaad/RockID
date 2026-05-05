@@ -212,6 +212,10 @@ PODS:
   - ExpoHead (6.0.23):
     - ExpoModulesCore
     - RNScreens
+  - ExpoImageManipulator (14.0.8):
+    - EXImageLoader
+    - ExpoModulesCore
+    - SDWebImageWebPCoder
   - ExpoImagePicker (17.0.11):
     - ExpoModulesCore
   - ExpoKeepAwake (15.0.8):
@@ -251,11 +255,18 @@ PODS:
   - hermes-engine (0.81.5):
     - hermes-engine/Pre-built (= 0.81.5)
   - hermes-engine/Pre-built (0.81.5)
-  - onnxruntime-c (1.25.1)
-  - onnxruntime-objc (1.25.1):
-    - onnxruntime-objc/Core (= 1.25.1)
-  - onnxruntime-objc/Core (1.25.1):
-    - onnxruntime-c (= 1.25.1)
+  - libwebp (1.5.0):
+    - libwebp/demux (= 1.5.0)
+    - libwebp/mux (= 1.5.0)
+    - libwebp/sharpyuv (= 1.5.0)
+    - libwebp/webp (= 1.5.0)
+  - libwebp/demux (1.5.0):
+    - libwebp/webp
+  - libwebp/mux (1.5.0):
+    - libwebp/demux
+  - libwebp/sharpyuv (1.5.0)
+  - libwebp/webp (1.5.0):
+    - libwebp/sharpyuv
   - RCTDeprecation (0.81.5)
   - RCTRequired (0.81.5)
   - RCTTypeSafety (0.81.5):
@@ -2168,6 +2179,10 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - SDWebImage/Core (5.21.7)
+  - SDWebImageWebPCoder (0.15.0):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.17)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2184,6 +2199,7 @@ DEPENDENCIES:
   - "ExpoFileSystem (from `../node_modules/.pnpm/expo-file-system@19.0.22_expo@54.0.34_react-native@0.81.5_@babel+core@7.29.0_@react-nat_692e32f2a1b1680eccc92501bb584670/node_modules/expo-file-system/ios`)"
   - "ExpoFont (from `../node_modules/.pnpm/expo-font@14.0.11_expo@54.0.34_react-native@0.81.5_@babel+core@7.29.0_@react-native+met_ea1d39d6be85d1893bda6564f96c614e/node_modules/expo-font/ios`)"
   - "ExpoHead (from `../node_modules/.pnpm/expo-router@6.0.23_e18b521ead1af5b91ac75691244a05cf/node_modules/expo-router/ios`)"
+  - "ExpoImageManipulator (from `../node_modules/.pnpm/expo-image-manipulator@14.0.8_expo@54.0.34/node_modules/expo-image-manipulator/ios`)"
   - "ExpoImagePicker (from `../node_modules/.pnpm/expo-image-picker@17.0.11_expo@54.0.34/node_modules/expo-image-picker/ios`)"
   - "ExpoKeepAwake (from `../node_modules/.pnpm/expo-keep-awake@15.0.8_expo@54.0.34_react@19.1.0/node_modules/expo-keep-awake/ios`)"
   - "ExpoLinking (from `../node_modules/.pnpm/expo-linking@8.0.12_expo@54.0.34_react-native@0.81.5_@babel+core@7.29.0_@react-native+m_27784f77ac114a9c41d0d50bb51adb27/node_modules/expo-linking/ios`)"
@@ -2193,7 +2209,6 @@ DEPENDENCIES:
   - "EXUpdatesInterface (from `../node_modules/.pnpm/expo-updates-interface@2.0.0_expo@54.0.34/node_modules/expo-updates-interface/ios`)"
   - "FBLazyVector (from `../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/Libraries/FBLazyVector`)"
   - "hermes-engine (from `../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)"
-  - onnxruntime-objc
   - "RCTDeprecation (from `../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)"
   - "RCTRequired (from `../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/Libraries/Required`)"
   - "RCTTypeSafety (from `../node_modules/.pnpm/react-native@0.81.5_@babel+core@7.29.0_@react-native+metro-config@0.85.2_@babel+core@7._a0df58fc1fe96c31423c9b72cceb7fec/node_modules/react-native/Libraries/TypeSafety`)"
@@ -2268,8 +2283,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - onnxruntime-c
-    - onnxruntime-objc
+    - libwebp
+    - SDWebImage
+    - SDWebImageWebPCoder
 
 EXTERNAL SOURCES:
   EXConstants:
@@ -2298,6 +2314,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/.pnpm/expo-font@14.0.11_expo@54.0.34_react-native@0.81.5_@babel+core@7.29.0_@react-native+met_ea1d39d6be85d1893bda6564f96c614e/node_modules/expo-font/ios"
   ExpoHead:
     :path: "../node_modules/.pnpm/expo-router@6.0.23_e18b521ead1af5b91ac75691244a05cf/node_modules/expo-router/ios"
+  ExpoImageManipulator:
+    :path: "../node_modules/.pnpm/expo-image-manipulator@14.0.8_expo@54.0.34/node_modules/expo-image-manipulator/ios"
   ExpoImagePicker:
     :path: "../node_modules/.pnpm/expo-image-picker@17.0.11_expo@54.0.34/node_modules/expo-image-picker/ios"
   ExpoKeepAwake:
@@ -2472,6 +2490,7 @@ SPEC CHECKSUMS:
   ExpoFileSystem: dc2c00cc568d432efc36ea1d994c25050909d23d
   ExpoFont: c625dbd97ed57e9089b172b2a7bb99003d074664
   ExpoHead: 3f6ed6cbda48f13bcaddae98f8e5dc525dcfb34f
+  ExpoImageManipulator: 099b82d913588b3984253f186b84b129792cf2e3
   ExpoImagePicker: 5d49cb62c78c86ee7945e10338210e69b9266064
   ExpoKeepAwake: 44bf6715bc1d2ddb17afe19d927cd039cda123f0
   ExpoLinking: 4f1fc07ec4b3c10d60ec91617db973575104ec7e
@@ -2481,8 +2500,7 @@ SPEC CHECKSUMS:
   EXUpdatesInterface: 1436757deb0d574b84bba063bd024c315e0ec08b
   FBLazyVector: e95a291ad2dadb88e42b06e0c5fb8262de53ec12
   hermes-engine: 9f4dfe93326146a1c99eb535b1cb0b857a3cd172
-  onnxruntime-c: 932c8d7de1dbf38048d33f153203c3168d445283
-  onnxruntime-objc: 7385498e220fad38b2a0cb7757263c168a59834b
+  libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   RCTDeprecation: 943572d4be82d480a48f4884f670135ae30bf990
   RCTRequired: 8f3cfc90cc25cf6e420ddb3e7caaaabc57df6043
   RCTTypeSafety: 16a4144ca3f959583ab019b57d5633df10b5e97c
@@ -2552,6 +2570,8 @@ SPEC CHECKSUMS:
   RNReanimated: 7f4479cf723f65e38964e5cb99228321869b1b37
   RNScreens: dd61bc3a3e6f6901ad833efa411917d44827cf51
   RNWorklets: 1b136dc93fcbfa7810478ef5c15e44607642632b
+  SDWebImage: e9fc87c1aab89a8ab1bbd74eba378c6f53be8abf
+  SDWebImageWebPCoder: 0e06e365080397465cc73a7a9b472d8a3bd0f377
   Yoga: 5934998fbeaef7845dbf698f698518695ab4cd1a
 
 PODFILE CHECKSUM: 643030266accad1e80105a60f7acfaab27aa0de3
