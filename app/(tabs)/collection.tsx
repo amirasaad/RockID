@@ -80,6 +80,7 @@ export default function CollectionScreen() {
                 <PhotoThumbnail uri={find.imageUri} size={72} borderRadius={18} fallbackText="No photo" fallbackFontSize={12} />
                 <View style={styles.textCol}>
                   <Text style={styles.title}>{find.title}</Text>
+                  <Text style={styles.meta}>{find.categoryLabel}</Text>
                   <Text style={styles.meta}>{find.savedAtLabel}</Text>
                   <Text style={styles.meta}>{find.confidenceLabel}</Text>
                 </View>

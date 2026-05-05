@@ -3,6 +3,7 @@ import type { SavedFind } from './saved-finds';
 export type CollectionItemViewModel = {
   id: string;
   title: string;
+  categoryLabel: string;
   confidenceLabel: string;
   savedAtLabel: string;
   imageUri?: string;
@@ -81,6 +82,7 @@ function toCollectionItem(savedFind: SavedFind): CollectionItemViewModel {
   return {
     id: savedFind.id,
     title: savedFind.title,
+    categoryLabel: savedFind.topMatch.category,
     confidenceLabel: `${savedFind.confidence} confidence`,
     savedAtLabel: `Saved ${savedDateFormatter.format(new Date(savedFind.savedAt))}`,
     imageUri: savedFind.imageUri,

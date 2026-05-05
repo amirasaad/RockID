@@ -32,7 +32,7 @@ Rock ID now has the core MVP loop: identify → review results → save finds �
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S21-1` | `Planned` | This sprint plan | Improve list-row information density without overwhelming the UI |
+| `S21-1` | `Done` | [collection.tsx](<../../../app/(tabs)/collection.tsx>), [collection-view-model.ts](<../../../lib/collection-view-model.ts>), [s19-collection-search-filter.test.ts](<../../../__tests__/s19-collection-search-filter.test.ts>) | Collection list rows show a readable category hint |
 | `S21-2` | `Planned` | This sprint plan | Reset is explicit and does not require manual backspacing/tapping chips |
 | `S21-3` | `Planned` | This sprint plan | Empty states feel like guided UX, not a dead end |
 

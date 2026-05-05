@@ -15,6 +15,7 @@ describe('S19 collection search + filter', () => {
         {
           id: 'basalt',
           title: 'Basalt sample',
+          categoryLabel: 'Igneous extrusive',
           confidenceLabel: 'Medium confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: undefined,
@@ -29,6 +30,7 @@ describe('S19 collection search + filter', () => {
         {
           id: 'shale',
           title: 'Field note',
+          categoryLabel: 'Sedimentary',
           confidenceLabel: 'Medium confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: undefined,
@@ -64,6 +66,7 @@ describe('S19 collection search + filter', () => {
         {
           id: 'igneous-low',
           title: 'Granite',
+          categoryLabel: 'Igneous intrusive',
           confidenceLabel: 'Low confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: undefined,
@@ -78,6 +81,7 @@ describe('S19 collection search + filter', () => {
         {
           id: 'igneous-low',
           title: 'Granite',
+          categoryLabel: 'Igneous intrusive',
           confidenceLabel: 'Low confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: undefined,
@@ -86,6 +90,7 @@ describe('S19 collection search + filter', () => {
         {
           id: 'sedimentary-low',
           title: 'Granite',
+          categoryLabel: 'Sedimentary',
           confidenceLabel: 'Low confidence',
           savedAtLabel: 'Saved Jan 1, 1970',
           imageUri: undefined,
