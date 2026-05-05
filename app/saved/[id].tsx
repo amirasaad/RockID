@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text } from 'react-native';
+import { Alert, Platform, StyleSheet, Text } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
@@ -102,6 +102,15 @@ export default function SavedFindScreen() {
           label="Delete Saved Find"
           variant="secondary"
           onPress={() => {
+            if (Platform.OS === 'web') {
+              const confirmed = globalThis.confirm?.('Delete saved find?\n\nThis cannot be undone.') ?? false;
+              if (!confirmed) return;
+              track('saved_find_deleted', { id });
+              deleteFind(id);
+              setWasDeleted(true);
+              return;
+            }
+
             Alert.alert('Delete saved find?', 'This cannot be undone.', [
               { text: 'Cancel', style: 'cancel' },
               {
