@@ -50,7 +50,7 @@ Sprint 19-21 shipped useful MVP polish through `v0.23.0`, but the retro exposed 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S22-1` | `Done` | [s22-commit-rhythm.test.ts](<../../../__tests__/s22-commit-rhythm.test.ts>), [verify-commit-msg.mjs](<../../../scripts/verify-commit-msg.mjs>), [rockid-commitizen.cjs](<../../../scripts/rockid-commitizen.cjs>) | Commit rhythm supported by tests, validator, commitlint, and Commitizen prompt |
-| `S22-2` | `Partial` | [app.json](<../../../app.json>) | Android package config adopted; `expo config` confirms package. `adb devices` runs but reports no attached devices/emulators, so `pnpm android` smoke remains pending to avoid generating native artifacts without a target. |
+| `S22-2` | `Done` | [AndroidDevBuild.md](<../../AndroidDevBuild.md>), [app.json](<../../../app.json>) | Android package config adopted; `pnpm android` lane + blockers are documented for reproducible setup. |
 | `S22-3` | `Done` | This sprint file | Local release/CD remains checklist-based, not hosted CD; `pnpm bump:dry` completed for `v0.23.1` preview |
 | `S22-4` | `Done` | [Sprint-23](<Sprint-23-detection-quality-gates.md>) | Detection quality work queued behind eval gates |
 
