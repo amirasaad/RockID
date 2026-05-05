@@ -20,7 +20,8 @@ Driver handoff and day-to-day engineering execution standards live in [NextDrive
 - Release strategy: ship vertical slices that can be demoed in the app.
 - Versioning strategy: stay in `v0.x.y` during MVP; use Commitizen-shaped history plus `pnpm bump:dry`, `pnpm bump:patch`, or `pnpm bump:minor` for tracked release bumps.
 - Backlog owner: product/engineering pair, using the PRD and roadmap as source material.
-- Technical quality gate: every sprint should end with typecheck passing and a short demo path verified manually when user-facing behavior changes.
+- Technical quality gate: every sprint should end with typecheck passing, relevant tests passing (including e2e when it touches core flow), and a short demo path verified manually when user-facing behavior changes.
+- Git integration: prefer fast-forward merges (no merge commits). Rebase story branches onto the sprint branch, then fast-forward the sprint branch into `main`.
 
 ## **Working Agreement**
 
@@ -63,7 +64,14 @@ A story is done when:
 | Sprint 9 | Results Clarity (Low-Confidence First) | [Sprint-09](<agile/sprints/Sprint-09-results-clarity.md>) |
 | Sprint 10 | Market Offer Messaging | [Sprint-10](<agile/sprints/Sprint-10-market-offer.md>) |
 | Sprint 11 | Rock ID Reality Check | [Sprint-11](<agile/sprints/Sprint-11-rock-id-reality-check.md>) |
+| Sprint 12 | Dataset + Eval Expansion | [Sprint-12](<agile/sprints/Sprint-12-dataset-eval-expansion.md>) |
+| Sprint 13 | Embedding Pipeline | [Sprint-13](<agile/sprints/Sprint-13-embedding-pipeline.md>) |
+| Sprint 14 | On-Device Inference | [Sprint-14](<agile/sprints/Sprint-14-on-device-inference.md>) |
+| Sprint 15 | App Integration (Real Engine) | [Sprint-15](<agile/sprints/Sprint-15-app-integration-real-engine.md>) |
+| Sprint 16 | Confidence + Analytics | [Sprint-16](<agile/sprints/Sprint-16-confidence-and-analytics.md>) |
+| Sprint 17 | Saved Photos + Settings | [Sprint-17](<agile/sprints/Sprint-17-saved-photos-and-settings.md>) |
+| Sprint 18 | Learn Navigation Polish | [Sprint-18](<agile/sprints/Sprint-18-learn-navigation-polish.md>) |
 
 ## **Current Next Action**
 
-Finish `S14-2` from [agile/sprints/Sprint-14-on-device-inference.md](<agile/sprints/Sprint-14-on-device-inference.md>) by wiring a real ONNX-backed image encoder into `identifyRockPhotoOnDevice` (or equivalent), then record latency/memory notes for `S14-4`.
+Finish Sprint 18 ([agile/sprints/Sprint-18-learn-navigation-polish.md](<agile/sprints/Sprint-18-learn-navigation-polish.md>)) per [Kanban.md](<Kanban.md>), then merge the sprint branch into `main` via fast-forward after typecheck/tests/e2e. Next backlog candidate: Collection search/filter polish.
