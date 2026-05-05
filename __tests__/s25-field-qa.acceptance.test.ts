@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { fieldQaEvalFixtures } from '@/data/eval/field-qa-fixtures';
 import { analyzeIdentificationSessionWithOnDeviceClipKnnAsync } from '@/lib/on-device-clip-knn-analysis';
 import { configureNativeOnDeviceImageEncoder, __resetOnDeviceImageEncoderConfigForTesting } from '@/lib/on-device-image-encoder-registry';
-import { evaluateRockIdentifierAsync } from '@/lib/rock-id-eval';
+import { evaluateRockIdentifierAsync, formatRockIdEvalSummary } from '@/lib/rock-id-eval';
 
 describe('S25 dataset and field QA acceptance', () => {
   afterEach(() => {
@@ -36,6 +36,15 @@ describe('S25 dataset and field QA acceptance', () => {
     expect(report.top1Accuracy).toBe(1);
     expect(report.top3Accuracy).toBe(1);
     expect(report.lowConfidenceRate).toBeCloseTo(1 / 7, 6);
+
+    const summary = formatRockIdEvalSummary(report);
+    expect(summary).toContain('Total: 7');
+    expect(summary).toContain('Top-1: 100.0%');
+    expect(summary).toContain('Top-3: 100.0%');
+    expect(summary).toContain('Low confidence: 14.3%');
+    expect(summary).toContain('Non-rock false positives: 0.0%');
+    expect(summary).toContain('Top confusions:\n- None');
+    expect(summary).toContain('Non-rock confusions:\n- None');
 
     const analyses = await Promise.all(
       fieldQaEvalFixtures.map(async (fixture) => ({
