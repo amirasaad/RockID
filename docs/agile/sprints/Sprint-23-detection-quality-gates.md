@@ -33,11 +33,11 @@ The core product promise is still rock identification. Sprint 23 returns to the 
 
 | DoD Criterion | Target State |
 | --- | --- |
-| Harder eval fixtures exist | `Planned` |
-| Analyzer comparison report exists | `Planned` |
-| Non-rock confidence guardrails are tested | `Planned` |
-| Default analyzer decision is documented | `Planned` |
-| Relevant tests pass | `Planned` |
+| Harder eval fixtures exist | `Yes` |
+| Analyzer comparison report exists | `Yes` |
+| Non-rock confidence guardrails are tested | `Yes` |
+| Default analyzer decision is documented | `Yes` |
+| Relevant tests pass | `Yes` |
 
 ## **Sprint 23 Tracking**
 
@@ -46,7 +46,12 @@ The core product promise is still rock identification. Sprint 23 returns to the 
 | `S23-1` | `Done` | [detection-quality-fixtures.ts](<../../../data/eval/detection-quality-fixtures.ts>), [s23-detection-quality-gates.acceptance.test.ts](<../../../__tests__/s23-detection-quality-gates.acceptance.test.ts>), [rock-id-eval.ts](<../../../lib/rock-id-eval.ts>) | Adds harder fixtures and a mock vs on-device comparison report through the eval contract |
 | `S23-2` | `Done` | [s23-non-rock-guardrails.test.ts](<../../../__tests__/s23-non-rock-guardrails.test.ts>), [on-device-clip-knn-analysis.ts](<../../../lib/on-device-clip-knn-analysis.ts>) | Non-rock top matches are treated as look-alikes and avoid high-confidence messaging |
 | `S23-3` | `Done` | [s23-ambiguous-low-confidence.test.ts](<../../../__tests__/s23-ambiguous-low-confidence.test.ts>), [on-device-clip-knn-analysis.ts](<../../../lib/on-device-clip-knn-analysis.ts>) | Ambiguous evidence returns `Low` confidence with next-step guidance |
-| `S23-4` | `Planned` | This sprint plan | Do not change defaults without passing quality gates |
+| `S23-4` | `Done` | [analyzer-kind.ts](<../../../lib/analyzer-kind.ts>), [configured-analysis.ts](<../../../lib/configured-analysis.ts>) | Default analyzer remains `mock` unless explicitly overridden by config |
+
+## **Default Analyzer Decision**
+
+- Default analyzer stays `mock`.
+- On-device analyzer remains opt-in via configuration.
 
 ## **Manual QA Notes**
 
