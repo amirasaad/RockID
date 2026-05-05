@@ -74,4 +74,4 @@ A story is done when:
 
 ## **Current Next Action**
 
-Finish Sprint 18 ([agile/sprints/Sprint-18-learn-navigation-polish.md](<agile/sprints/Sprint-18-learn-navigation-polish.md>)) per [Kanban.md](<Kanban.md>), then merge the sprint branch into `main` via fast-forward after typecheck/tests/e2e. Next backlog candidate: Collection search/filter polish.
+Pick the next sprint from [Kanban.md](<Kanban.md>) and execute it on a `sprint/*` branch, then merge into `main` via fast-forward after typecheck/tests/e2e. Current backlog candidate: Collection search/filter polish.
