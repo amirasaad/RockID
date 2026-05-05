@@ -45,5 +45,6 @@ Rock ID now has the core MVP loop: identify → review results → save finds �
 
 ## **Next Technical Move**
 
-- Create a fresh `sprint/21-mvp-usability-polish` branch from `main`.
-- Implement stories on short-lived story branches, then fast-forward the sprint branch into `main` at DoD.
+- Merge `sprint/21-mvp-usability-polish` into `main` via fast-forward.
+- Release Sprint 21 as `v0.23.0`.
+- Plan Sprint 22 from the live board on a fresh `sprint/*` branch.
