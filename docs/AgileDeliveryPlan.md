@@ -81,4 +81,4 @@ A story is done when:
 
 ## **Current Next Action**
 
-Sprint 24 is complete (merged to `main` and released). Next: plan and kick off Sprint 25 using [Kanban.md](<Kanban.md>) as the source of truth for ready/in-progress work.
+Kick off Sprint 25 by curating a small labeled field-photo set and wiring up a repeatable “field QA” run, using [Kanban.md](<Kanban.md>) as the source of truth for ready/in-progress work.
