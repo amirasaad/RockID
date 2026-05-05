@@ -65,11 +65,13 @@ export function formatRockIdEvalSummary(
     maxConfusions?: number;
     maxNonRockConfusions?: number;
     maxLowConfidenceSamples?: number;
+    maxSamplesPerConfusion?: number;
   }
 ): string {
   const maxConfusions = options?.maxConfusions ?? 10;
   const maxNonRockConfusions = options?.maxNonRockConfusions ?? 10;
   const maxLowConfidenceSamples = options?.maxLowConfidenceSamples ?? 10;
+  const maxSamplesPerConfusion = options?.maxSamplesPerConfusion ?? 10;
 
   const lines: string[] = [];
   lines.push(`Total: ${report.total}`);
@@ -80,10 +82,10 @@ export function formatRockIdEvalSummary(
   lines.push(`Non-rock false positives: ${formatPercent(report.nonRockFalsePositiveRate)}`);
 
   lines.push('Top confusions:');
-  lines.push(...formatConfusionLines(report.confusionPairs, maxConfusions));
+  lines.push(...formatConfusionLines(report.confusionPairs, maxConfusions, maxSamplesPerConfusion));
 
   lines.push('Non-rock confusions:');
-  lines.push(...formatConfusionLines(report.nonRockConfusions, maxNonRockConfusions));
+  lines.push(...formatConfusionLines(report.nonRockConfusions, maxNonRockConfusions, maxSamplesPerConfusion));
 
   return lines.join('\n');
 }
@@ -274,9 +276,10 @@ function formatPercent(ratioValue: number): string {
  * Formats confusion pairs into a stable bullet list, sorted by count descending and label ascending.
  * @param pairs - Confusion pair list.
  * @param maxPairs - Maximum number of pairs to include.
+ * @param maxSamplesPerPair - Maximum number of sample ids to show per pair.
  * @returns Bullet lines, or a single "- None" line when empty.
  */
-function formatConfusionLines(pairs: RockIdConfusionPair[], maxPairs: number): string[] {
+function formatConfusionLines(pairs: RockIdConfusionPair[], maxPairs: number, maxSamplesPerPair: number): string[] {
   if (pairs.length === 0) return ['- None'];
 
   const sorted = [...pairs].sort((left, right) => {
@@ -288,7 +291,7 @@ function formatConfusionLines(pairs: RockIdConfusionPair[], maxPairs: number): s
   });
 
   return sorted.slice(0, Math.max(0, maxPairs)).map((pair) => {
-    const samples = pair.sampleIds.length > 0 ? ` [${pair.sampleIds.join(', ')}]` : '';
+    const samples = pair.sampleIds.length > 0 ? ` [${formatSampleList(pair.sampleIds, maxSamplesPerPair)}]` : '';
     return `- ${pair.expected} → ${pair.predicted} (${pair.count})${samples}`;
   });
 }

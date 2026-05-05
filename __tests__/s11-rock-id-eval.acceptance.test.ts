@@ -221,9 +221,10 @@ describe('S11 rock-ID eval acceptance', () => {
       maxConfusions: 2,
       maxNonRockConfusions: 1,
       maxLowConfidenceSamples: 1,
+      maxSamplesPerConfusion: 2,
     });
 
-    expect(summary).toContain('Glass → Granite (3) [glass-a, glass-b, glass-c]');
+    expect(summary).toContain('Glass → Granite (3) [glass-a, glass-b ... (+1 more)]');
     expect(summary).toContain('Asphalt → Basalt (2) [asphalt-a, asphalt-b]');
     expect(summary).not.toContain('Coal → Granite (1) [coal-a]');
     expect(summary).toContain('Low-confidence samples: weak-evidence-a ... (+1 more)');
