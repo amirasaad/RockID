@@ -66,9 +66,11 @@ describe('S24 detection fixture expansion', () => {
     expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Slag', predicted: 'Unclear rock sample', count: 2 });
     expect(onDeviceReport.nonRockFalsePositiveRate).toBeLessThanOrEqual(mockReport.nonRockFalsePositiveRate);
     expect(onDeviceReport.lowConfidenceRate).toBeGreaterThanOrEqual(0.1);
+    expect(onDeviceReport.nonRockFalsePositiveRate).toBe(0);
     expect(onDeviceReport.confusionPairs).toEqual(expect.any(Array));
   });
 });
+
 
 function oneHot(dimension: number, index: number): number[] {
   return Array.from({ length: dimension }, (_, position) => (position === index ? 1 : 0));
