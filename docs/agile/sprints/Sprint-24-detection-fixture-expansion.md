@@ -34,7 +34,7 @@ Sprint 23 added the first set of detection quality gates and guardrails, but the
 | Expanded eval fixtures exist | `Yes` |
 | Analyzer comparison report exists | `Yes` |
 | Non-rock confidence guardrails remain green | `Yes` |
-| Relevant tests pass | `Yes: typecheck, full Vitest, and Playwright e2e` |
+| Relevant tests pass | `Yes: typecheck, full Vitest, Playwright e2e, and post-merge e2e` |
 
 ## **Sprint 24 Tracking**
 
@@ -64,4 +64,10 @@ Sprint 23 added the first set of detection quality gates and guardrails, but the
 
 ## **Next Technical Move**
 
-- Commit the QA matrix update, then prepare sprint merge/release closeout if approved.
+- Sprint 24 merged to `main` and released as `v0.25.0`. Next sprint should continue detection quality with real-photo dataset quality and trusted field-image QA.
+
+## **Release Closeout**
+
+- Merged to `main` via fast-forward on 2026-05-05.
+- Post-merge `pnpm test:e2e` passed: 4 Playwright specs.
+- Released as `v0.25.0` with `pnpm bump:minor`.
