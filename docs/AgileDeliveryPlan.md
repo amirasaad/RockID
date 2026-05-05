@@ -77,6 +77,7 @@ A story is done when:
 | Sprint 22 | Process + Android + Detection Prep | [Sprint-22](<agile/sprints/Sprint-22-process-android-detection-prep.md>) |
 | Sprint 23 | Detection Quality Gates | [Sprint-23](<agile/sprints/Sprint-23-detection-quality-gates.md>) |
 | Sprint 24 | Detection Fixture Expansion | [Sprint-24](<agile/sprints/Sprint-24-detection-fixture-expansion.md>) |
+| Sprint 25 | Dataset And Field QA | [Sprint-25](<agile/sprints/Sprint-25-dataset-and-field-qa.md>) |
 
 ## **Current Next Action**
 
