@@ -34,15 +34,15 @@ Sprint 23 added the first set of detection quality gates and guardrails, but the
 | Expanded eval fixtures exist | `Yes` |
 | Analyzer comparison report exists | `Yes` |
 | Non-rock confidence guardrails remain green | `Yes` |
-| Relevant tests pass | `Yes` |
+| Relevant tests pass | `Yes: typecheck, full Vitest, and Playwright e2e` |
 
 ## **Sprint 24 Tracking**
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S24-1` | `Done` | [detection-fixture-expansion-fixtures.ts](<../../../data/eval/detection-fixture-expansion-fixtures.ts>), [s24-detection-fixture-expansion.acceptance.test.ts](<../../../__tests__/s24-detection-fixture-expansion.acceptance.test.ts>) | Expands fixtures with additional samples and validates reproducible eval reports for mock vs on-device analyzer |
-| `S24-2` | `Todo` |  |  |
-| `S24-3` | `Todo` |  |  |
+| `S24-2` | `Done` | [clip-knn.ts](<../../../lib/clip-knn.ts>), [s13-clip-knn.test.ts](<../../../__tests__/s13-clip-knn.test.ts>), [s24-detection-fixture-expansion.acceptance.test.ts](<../../../__tests__/s24-detection-fixture-expansion.acceptance.test.ts>) | Natural-rock tie-break improves ambiguous top-3 accuracy to the Sprint 24 gate while keeping non-rock false positives at `0` |
+| `S24-3` | `Done` | [s24-detection-fixture-expansion.acceptance.test.ts](<../../../__tests__/s24-detection-fixture-expansion.acceptance.test.ts>) | Reasoning: exact non-rock scores still win; only score ties prefer natural-rock candidates before deterministic item id |
 
 ## **Manual QA Notes**
 
@@ -52,8 +52,8 @@ Sprint 23 added the first set of detection quality gates and guardrails, but the
 
 | Check | Result |
 | --- | --- |
-| Web smoke | `Not run` |
+| Web smoke | `Pass: Playwright e2e 4 specs` |
 
 ## **Next Technical Move**
 
-- Add more non-rock look-alikes and ambiguous samples, then tighten the eval report assertions to reflect the new baseline.
+- Review Sprint 24 changes, then commit and prepare sprint merge/release closeout if approved.

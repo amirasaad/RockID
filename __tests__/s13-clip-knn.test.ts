@@ -30,16 +30,17 @@ describe('S13 CLIP kNN foundation', () => {
     expect(ranked[0].score).toBeCloseTo(1, 8);
   });
 
-  it('breaks ties deterministically by item id', () => {
+  it('breaks ties by natural-rock candidates before deterministic item id', () => {
     const query = normalizeVector([1, 0]);
     const items: VectorIndexItem[] = [
-      { id: 'b', label: 'Basalt', kind: 'rock', embedding: normalizeVector([1, 0]) },
-      { id: 'a', label: 'Andesite', kind: 'rock', embedding: normalizeVector([1, 0]) },
+      { id: 'slag', label: 'Slag', kind: 'non-rock', embedding: normalizeVector([1, 0]) },
+      { id: 'basalt', label: 'Basalt', kind: 'rock', embedding: normalizeVector([1, 0]) },
+      { id: 'andesite', label: 'Andesite', kind: 'rock', embedding: normalizeVector([1, 0]) },
     ];
 
-    const ranked = rankByCosine({ queryEmbedding: query, items, topK: 2 });
+    const ranked = rankByCosine({ queryEmbedding: query, items, topK: 3 });
 
-    expect(ranked.map((candidate) => candidate.item.id)).toEqual(['a', 'b']);
+    expect(ranked.map((candidate) => candidate.item.id)).toEqual(['andesite', 'basalt', 'slag']);
     expect(ranked[0].score).toBeCloseTo(1, 8);
   });
 

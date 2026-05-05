@@ -83,7 +83,10 @@ export function rankByCosine(input: {
 
   ranked.sort((left, right) => {
     const byScore = right.score - left.score;
-    if (byScore !== 0) return byScore;
+    if (Math.abs(byScore) > Number.EPSILON) return byScore;
+
+    const byKind = kindPriority(left.item.kind) - kindPriority(right.item.kind);
+    if (byKind !== 0) return byKind;
 
     return left.item.id.localeCompare(right.item.id);
   });
@@ -169,6 +172,10 @@ export function createClipKnnAnalyzerAsync(input: {
 
     return { matches, topMatch };
   };
+}
+
+function kindPriority(kind: VectorIndexItem['kind']): number {
+  return kind === 'rock' ? 0 : 1;
 }
 
 function isPossibleNonRock(matches: RankedVectorIndexItem[]): boolean {
