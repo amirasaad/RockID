@@ -24,6 +24,7 @@ describe('S24 detection fixture expansion', () => {
         if (photoUri.includes('non-rock-slag')) return oneHot(8, 2);
         if (photoUri.includes('non-rock-glass')) return oneHot(8, 4);
         if (photoUri.includes('non-rock-asphalt')) return oneHot(8, 5);
+        if (photoUri.includes('non-rock-coal-ambiguous')) return ambiguousNearTie(8, 6, 5);
         if (photoUri.includes('non-rock-coal')) return oneHot(8, 6);
         if (photoUri.includes('rock-obsidian')) return oneHot(8, 3);
         return Array.from({ length: 8 }, () => 1);
@@ -38,13 +39,13 @@ describe('S24 detection fixture expansion', () => {
     expect(mockReport.total).toBe(detectionFixtureExpansionEvalFixtures.length);
     expect(onDeviceReport.total).toBe(detectionFixtureExpansionEvalFixtures.length);
 
-    expect(mockReport.coverage.kinds).toEqual({ rock: 10, 'non-rock': 8 });
-    expect(onDeviceReport.coverage.kinds).toEqual({ rock: 10, 'non-rock': 8 });
+    expect(mockReport.coverage.kinds).toEqual({ rock: 10, 'non-rock': 9 });
+    expect(onDeviceReport.coverage.kinds).toEqual({ rock: 10, 'non-rock': 9 });
 
     expect(mockReport.coverage.classes).toEqual({
       Asphalt: 2,
       Basalt: 3,
-      Coal: 2,
+      Coal: 3,
       Glass: 2,
       Granite: 5,
       Obsidian: 2,
@@ -53,14 +54,14 @@ describe('S24 detection fixture expansion', () => {
     expect(onDeviceReport.coverage.classes).toEqual({
       Asphalt: 2,
       Basalt: 3,
-      Coal: 2,
+      Coal: 3,
       Glass: 2,
       Granite: 5,
       Obsidian: 2,
       Slag: 2,
     });
 
-    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Coal', predicted: 'Unclear rock sample', count: 2 });
+    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Coal', predicted: 'Unclear rock sample', count: 3 });
     expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Asphalt', predicted: 'Unclear rock sample', count: 2 });
     expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Glass', predicted: 'Unclear rock sample', count: 2 });
     expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Slag', predicted: 'Unclear rock sample', count: 2 });
@@ -89,4 +90,12 @@ describe('S24 detection fixture expansion', () => {
 
 function oneHot(dimension: number, index: number): number[] {
   return Array.from({ length: dimension }, (_, position) => (position === index ? 1 : 0));
+}
+
+function ambiguousNearTie(dimension: number, primaryIndex: number, secondaryIndex: number): number[] {
+  return Array.from({ length: dimension }, (_, position) => {
+    if (position === primaryIndex) return 1;
+    if (position === secondaryIndex) return 0.99;
+    return 0;
+  });
 }

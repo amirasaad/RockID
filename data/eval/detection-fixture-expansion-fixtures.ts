@@ -16,6 +16,7 @@ export const detectionFixtureExpansionEvalFixtures: RockIdEvalFixture[] = [
   fixture({ id: 'non-rock-asphalt-b', expectedLabel: 'Asphalt', expectedKind: 'non-rock' }),
   fixture({ id: 'non-rock-coal-a', expectedLabel: 'Coal', expectedKind: 'non-rock' }),
   fixture({ id: 'non-rock-coal-b', expectedLabel: 'Coal', expectedKind: 'non-rock' }),
+  fixture({ id: 'non-rock-coal-ambiguous-a', expectedLabel: 'Coal', expectedKind: 'non-rock' }),
   fixture({ id: 'ambiguous-weak-evidence-a', expectedLabel: 'Granite' }),
   fixture({ id: 'ambiguous-weak-evidence-b', expectedLabel: 'Granite' }),
   fixture({ id: 'ambiguous-weak-evidence-c', expectedLabel: 'Granite' }),
