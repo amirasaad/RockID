@@ -23,6 +23,7 @@ describe('S24 detection fixture expansion', () => {
         if (photoUri.includes('rock-basalt')) return oneHot(8, 1);
         if (photoUri.includes('non-rock-slag')) return oneHot(8, 2);
         if (photoUri.includes('non-rock-glass')) return oneHot(8, 4);
+        if (photoUri.includes('non-rock-asphalt')) return oneHot(8, 5);
         if (photoUri.includes('rock-obsidian')) return oneHot(8, 3);
         return Array.from({ length: 8 }, () => 1);
       },
@@ -36,8 +37,8 @@ describe('S24 detection fixture expansion', () => {
     expect(mockReport.total).toBe(detectionFixtureExpansionEvalFixtures.length);
     expect(onDeviceReport.total).toBe(detectionFixtureExpansionEvalFixtures.length);
 
-    expect(mockReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 4 });
-    expect(onDeviceReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 4 });
+    expect(mockReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 6 });
+    expect(onDeviceReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 6 });
 
     expect(onDeviceReport.nonRockFalsePositiveRate).toBeLessThanOrEqual(mockReport.nonRockFalsePositiveRate);
     expect(onDeviceReport.lowConfidenceRate).toBeGreaterThanOrEqual(0.1);

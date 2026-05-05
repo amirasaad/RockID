@@ -17,6 +17,7 @@ const photoIndex: VectorIndexItem[] = [
   { id: 'photo-slag-1', label: 'Slag', kind: 'non-rock', embedding: normalizeVector([0, 0, 1, 0, 0, 0, 0, 0]) },
   { id: 'photo-obsidian-1', label: 'Obsidian', kind: 'rock', embedding: normalizeVector([0, 0, 0, 1, 0, 0, 0, 0]) },
   { id: 'photo-glass-1', label: 'Glass', kind: 'non-rock', embedding: normalizeVector([0, 0, 0, 0, 1, 0, 0, 0]) },
+  { id: 'photo-asphalt-1', label: 'Asphalt', kind: 'non-rock', embedding: normalizeVector([0, 0, 0, 0, 0, 1, 0, 0]) },
 ];
 
 async function embedPhotoSession(input: { session: IdentificationSession }): Promise<{ vector: number[]; engine: PhotoAnalysisEngine }> {
