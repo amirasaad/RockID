@@ -20,6 +20,7 @@ export default function CollectionScreen() {
   const [filter, setFilter] = useState<CollectionFilterChip>('All');
   const viewModel = useMemo(() => createCollectionViewModel(savedFinds, { query, filter }), [savedFinds, query, filter]);
   const lastTrackedRef = useRef<{ queryLength: number; filter: CollectionFilterChip } | null>(null);
+  const isDefaultFilters = query.trim().length === 0 && filter === 'All';
 
   useEffect(() => {
     track('collection_viewed');
@@ -44,20 +45,41 @@ export default function CollectionScreen() {
     <Screen title="Collection" subtitle="Saved samples, quick filters, and room to grow into sync later.">
       <SectionTitle>Filters</SectionTitle>
       <Card>
-        <TextInput
-          value={query}
-          onChangeText={setQuery}
-          placeholder="Search saved finds"
-          placeholderTextColor={palette.muted}
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.searchInput}
-        />
+        <View style={styles.searchRow}>
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            placeholder="Search saved finds"
+            placeholderTextColor={palette.muted}
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.searchInput}
+          />
+          {query.trim().length > 0 ? (
+            <Pressable accessibilityRole="button" onPress={() => setQuery('')} style={styles.actionButton}>
+              <Text style={styles.actionLabel}>Clear</Text>
+            </Pressable>
+          ) : null}
+        </View>
         <View style={styles.chips}>
           {(['All', 'Igneous', 'Sedimentary', 'Metamorphic', 'Low confidence'] as const).map((chip) => (
             <Chip key={chip} label={chip} selected={filter === chip} onPress={() => setFilter(chip)} />
           ))}
         </View>
+        {!isDefaultFilters ? (
+          <View style={styles.resetRow}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => {
+                setQuery('');
+                setFilter('All');
+              }}
+              style={styles.actionButton}
+            >
+              <Text style={styles.actionLabel}>Reset</Text>
+            </Pressable>
+          </View>
+        ) : null}
       </Card>
 
       {viewModel.kind === 'empty' ? (
@@ -94,12 +116,18 @@ export default function CollectionScreen() {
 }
 
 const styles = StyleSheet.create({
+  searchRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+  },
   searchInput: {
     backgroundColor: palette.background,
     borderColor: palette.border,
     borderRadius: 16,
     borderWidth: 1,
     color: palette.ink,
+    flex: 1,
     fontSize: 15,
     paddingHorizontal: 14,
     paddingVertical: 12,
@@ -108,6 +136,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 10,
+  },
+  resetRow: {
+    alignItems: 'flex-start',
+    marginTop: 10,
+  },
+  actionButton: {
+    backgroundColor: palette.surface,
+    borderColor: palette.border,
+    borderRadius: 14,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  actionLabel: {
+    color: palette.ink,
+    fontSize: 14,
+    fontWeight: '700',
   },
   row: {
     alignItems: 'center',
