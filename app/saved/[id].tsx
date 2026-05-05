@@ -102,9 +102,18 @@ export default function SavedFindScreen() {
           label="Delete Saved Find"
           variant="secondary"
           onPress={() => {
-            track('saved_find_deleted', { id });
-            deleteFind(id);
-            setWasDeleted(true);
+            Alert.alert('Delete saved find?', 'This cannot be undone.', [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Delete',
+                style: 'destructive',
+                onPress: () => {
+                  track('saved_find_deleted', { id });
+                  deleteFind(id);
+                  setWasDeleted(true);
+                },
+              },
+            ]);
           }}
         />
       </Card>
