@@ -80,4 +80,4 @@ A story is done when:
 
 ## **Current Next Action**
 
-Start Sprint 24 by expanding detection fixtures and improving on-device analyzer metrics against the eval gates, with [Kanban.md](<Kanban.md>) reflecting current state.
+Sprint 24 is complete (merged to `main` and released). Next: plan and kick off Sprint 25 using [Kanban.md](<Kanban.md>) as the source of truth for ready/in-progress work.
