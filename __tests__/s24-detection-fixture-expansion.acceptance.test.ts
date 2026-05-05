@@ -61,6 +61,7 @@ describe('S24 detection fixture expansion', () => {
     });
 
     expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Coal', predicted: 'Unclear rock sample', count: 2 });
+    expect(mockReport.nonRockConfusions).toContainEqual({ expected: 'Asphalt', predicted: 'Unclear rock sample', count: 2 });
     expect(onDeviceReport.nonRockFalsePositiveRate).toBeLessThanOrEqual(mockReport.nonRockFalsePositiveRate);
     expect(onDeviceReport.lowConfidenceRate).toBeGreaterThanOrEqual(0.1);
     expect(onDeviceReport.confusionPairs).toEqual(expect.any(Array));
