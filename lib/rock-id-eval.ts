@@ -75,6 +75,8 @@ export function formatRockIdEvalSummary(
 
   const lines: string[] = [];
   lines.push(`Total: ${report.total}`);
+  lines.push(`Coverage kinds: rock=${report.coverage.kinds.rock}, non-rock=${report.coverage.kinds['non-rock']}`);
+  lines.push(`Coverage classes: ${formatCoverageClasses(report.coverage.classes)}`);
   lines.push(`Top-1: ${formatPercent(report.top1Accuracy)}`);
   lines.push(`Top-3: ${formatPercent(report.top3Accuracy)}`);
   lines.push(`Low confidence: ${formatPercent(report.lowConfidenceRate)}`);
@@ -310,4 +312,15 @@ function formatSampleList(sampleIds: string[], maxSampleIds: number): string {
   }
 
   return `${capped.join(', ')} ... (+${sampleIds.length - capped.length} more)`;
+}
+
+/**
+ * Formats class coverage counts as a stable comma-separated list.
+ * @param classes - Coverage map keyed by expected label.
+ * @returns Readable class summary, or "None" when empty.
+ */
+function formatCoverageClasses(classes: Record<string, number>): string {
+  const entries = Object.entries(classes).sort(([left], [right]) => left.localeCompare(right));
+  if (entries.length === 0) return 'None';
+  return entries.map(([label, count]) => `${label}=${count}`).join(', ');
 }

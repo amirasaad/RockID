@@ -40,6 +40,8 @@ describe('S25 dataset and field QA acceptance', () => {
 
     const summary = formatRockIdEvalSummary(report);
     expect(summary).toContain('Total: 7');
+    expect(summary).toContain('Coverage kinds: rock=3, non-rock=4');
+    expect(summary).toContain('Coverage classes: Asphalt=1, Basalt=1, Coal=1, Glass=1, Granite=2, Slag=1');
     expect(summary).toContain('Top-1: 100.0%');
     expect(summary).toContain('Top-3: 100.0%');
     expect(summary).toContain('Low confidence: 14.3%');
