@@ -199,7 +199,7 @@ describe('S11 rock-ID eval acceptance', () => {
       top1Accuracy: 4 / 7,
       top3Accuracy: 1,
       lowConfidenceRate: 1 / 7,
-      lowConfidenceSampleIds: ['weak-evidence-a'],
+      lowConfidenceSampleIds: ['weak-evidence-a', 'weak-evidence-b'],
       nonRockFalsePositiveRate: 0.5,
       confusionPairs: [
         { expected: 'Coal', predicted: 'Granite', count: 1, sampleIds: ['coal-a'] },
@@ -220,11 +220,13 @@ describe('S11 rock-ID eval acceptance', () => {
     const summary = formatRockIdEvalSummary(report, {
       maxConfusions: 2,
       maxNonRockConfusions: 1,
+      maxLowConfidenceSamples: 1,
     });
 
     expect(summary).toContain('Glass → Granite (3) [glass-a, glass-b, glass-c]');
     expect(summary).toContain('Asphalt → Basalt (2) [asphalt-a, asphalt-b]');
     expect(summary).not.toContain('Coal → Granite (1) [coal-a]');
+    expect(summary).toContain('Low-confidence samples: weak-evidence-a ... (+1 more)');
     expect(summary).toContain('Non-rock confusions:\n- Asphalt → Basalt (2) [asphalt-a, asphalt-b]');
   });
 });

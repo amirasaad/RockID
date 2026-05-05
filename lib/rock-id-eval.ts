@@ -64,17 +64,19 @@ export function formatRockIdEvalSummary(
   options?: {
     maxConfusions?: number;
     maxNonRockConfusions?: number;
+    maxLowConfidenceSamples?: number;
   }
 ): string {
   const maxConfusions = options?.maxConfusions ?? 10;
   const maxNonRockConfusions = options?.maxNonRockConfusions ?? 10;
+  const maxLowConfidenceSamples = options?.maxLowConfidenceSamples ?? 10;
 
   const lines: string[] = [];
   lines.push(`Total: ${report.total}`);
   lines.push(`Top-1: ${formatPercent(report.top1Accuracy)}`);
   lines.push(`Top-3: ${formatPercent(report.top3Accuracy)}`);
   lines.push(`Low confidence: ${formatPercent(report.lowConfidenceRate)}`);
-  lines.push(`Low-confidence samples: ${formatSampleList(report.lowConfidenceSampleIds)}`);
+  lines.push(`Low-confidence samples: ${formatSampleList(report.lowConfidenceSampleIds, maxLowConfidenceSamples)}`);
   lines.push(`Non-rock false positives: ${formatPercent(report.nonRockFalsePositiveRate)}`);
 
   lines.push('Top confusions:');
@@ -294,9 +296,15 @@ function formatConfusionLines(pairs: RockIdConfusionPair[], maxPairs: number): s
 /**
  * Formats a stable sample-id list for summary output.
  * @param sampleIds - Sample ids to print.
+ * @param maxSampleIds - Maximum number of ids to include before truncating.
  * @returns "None" when empty, otherwise a comma-separated list.
  */
-function formatSampleList(sampleIds: string[]): string {
+function formatSampleList(sampleIds: string[], maxSampleIds: number): string {
   if (sampleIds.length === 0) return 'None';
-  return sampleIds.join(', ');
+  const capped = sampleIds.slice(0, Math.max(0, maxSampleIds));
+  if (sampleIds.length <= capped.length) {
+    return capped.join(', ');
+  }
+
+  return `${capped.join(', ')} ... (+${sampleIds.length - capped.length} more)`;
 }
