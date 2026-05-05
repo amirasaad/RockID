@@ -21,6 +21,12 @@ export const fieldQaEvalFixtures: RockIdEvalFixture[] = [
     features: ['Vesicles'],
     notes: 'Field photo: dark fine-grained sample with vesicles.',
   }),
+  rock('field-rock-ambiguous-a', 'Granite', {
+    color: '',
+    grainSize: '',
+    features: [],
+    notes: 'Field photo: intentionally ambiguous sample to track low-confidence behavior.',
+  }),
   nonRock('field-non-rock-glass-a', 'Glass', {
     color: 'Clear',
     grainSize: 'Glassy',

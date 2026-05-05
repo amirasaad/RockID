@@ -15,6 +15,7 @@ describe('S25 dataset and field QA acceptance', () => {
       encode: async (photoUri) => {
         if (photoUri.includes('field-rock-granite')) return oneHot(8, 0);
         if (photoUri.includes('field-rock-basalt')) return oneHot(8, 1);
+        if (photoUri.includes('field-rock-ambiguous')) return lowConfidenceGraniteBias(8);
         if (photoUri.includes('field-non-rock-slag')) return oneHot(8, 2);
         if (photoUri.includes('field-non-rock-glass')) return oneHot(8, 4);
         if (photoUri.includes('field-non-rock-asphalt')) return oneHot(8, 5);
@@ -28,13 +29,13 @@ describe('S25 dataset and field QA acceptance', () => {
       analyze: async (session) => analyzeIdentificationSessionWithOnDeviceClipKnnAsync(session),
     });
 
-    expect(report.total).toBe(6);
-    expect(report.coverage.kinds).toEqual({ rock: 2, 'non-rock': 4 });
+    expect(report.total).toBe(7);
+    expect(report.coverage.kinds).toEqual({ rock: 3, 'non-rock': 4 });
     expect(report.nonRockFalsePositiveRate).toBe(0);
     expect(report.nonRockConfusions).toEqual([]);
-    expect(report.lowConfidenceRate).toBe(0);
     expect(report.top1Accuracy).toBe(1);
     expect(report.top3Accuracy).toBe(1);
+    expect(report.lowConfidenceRate).toBeCloseTo(1 / 7, 6);
 
     const nonRockAnalyses = await Promise.all(
       fieldQaEvalFixtures
@@ -43,9 +44,20 @@ describe('S25 dataset and field QA acceptance', () => {
     );
 
     expect(nonRockAnalyses.map((analysis) => analysis.topMatch.confidence)).toEqual(['Medium', 'Medium', 'Medium', 'Medium']);
+
+    const ambiguous = fieldQaEvalFixtures.find((fixture) => fixture.id.includes('field-rock-ambiguous'));
+    expect(ambiguous).toBeDefined();
+    if (ambiguous) {
+      const analysis = await analyzeIdentificationSessionWithOnDeviceClipKnnAsync(ambiguous.session);
+      expect(analysis.topMatch.confidence).toBe('Low');
+    }
   });
 });
 
 function oneHot(dimension: number, index: number): number[] {
   return Array.from({ length: dimension }, (_, i) => (i === index ? 1 : 0));
+}
+
+function lowConfidenceGraniteBias(dimension: number): number[] {
+  return Array.from({ length: dimension }, (_, i) => (i === 0 ? 1.01 : 1));
 }
