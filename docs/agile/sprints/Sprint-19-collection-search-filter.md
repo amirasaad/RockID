@@ -35,7 +35,7 @@ The MVP loop has durable saved finds, but a growing field collection becomes har
 | Empty-search state is clear | `Yes` |
 | Relevant unit tests exist | `Yes` |
 | Main contains the sprint work | `Yes` |
-| Release bump/tag completed | `Pending` |
+| Release bump/tag completed | `Ready for v0.22.0 bump` |
 
 ## **Manual QA Notes**
 
@@ -43,8 +43,12 @@ The MVP loop has durable saved finds, but a growing field collection becomes har
 - Search by a title fragment, rock name, and category.
 - Tap each chip and confirm the list narrows without losing saved-find navigation.
 - Confirm no-match copy says to try another search or filter.
+- Release gate completed on 2026-05-05:
+  - `pnpm run typecheck` passed
+  - `pnpm test` passed: 48 files, 97 tests
+  - `pnpm test:e2e` passed: 4 Playwright tests
 
 ## **Next Technical Move**
 
-- Decide whether to release a post-`v0.21.0` patch/minor for Sprint 19.
+- Release Sprint 19 as `v0.22.0`.
 - Then plan Sprint 20 from the current product priority instead of leaving Collection polish in backlog.

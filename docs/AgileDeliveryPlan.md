@@ -72,7 +72,8 @@ A story is done when:
 | Sprint 17 | Saved Photos + Settings | [Sprint-17](<agile/sprints/Sprint-17-saved-photos-and-settings.md>) |
 | Sprint 18 | Learn Navigation Polish | [Sprint-18](<agile/sprints/Sprint-18-learn-navigation-polish.md>) |
 | Sprint 19 | Collection Search And Filters | [Sprint-19](<agile/sprints/Sprint-19-collection-search-filter.md>) |
+| Sprint 20 | Release Hygiene | [Sprint-20](<agile/sprints/Sprint-20-release-hygiene.md>) |
 
 ## **Current Next Action**
 
-Sprint 19 collection search/filter is on `main`; complete release decision and QA notes, then plan Sprint 20 from [Kanban.md](<Kanban.md>) on a fresh `sprint/*` branch.
+Complete the `v0.22.0` release from Sprint 20, then plan Sprint 21 MVP usability polish from [Kanban.md](<Kanban.md>) on a fresh `sprint/*` branch.
