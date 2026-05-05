@@ -75,3 +75,8 @@ Sprint 19-21 shipped useful MVP polish through `v0.23.0`, but the retro exposed 
 | Check | Result |
 | --- | --- |
 | Web e2e smoke | `Passed`: `pnpm test:e2e` |
+
+## **Next Technical Move**
+
+- Merge `sprint/22-process-android-detection-prep` into `main` via fast-forward.
+- Start Sprint 23 from a fresh `sprint/23-*` branch with eval-first scope.
