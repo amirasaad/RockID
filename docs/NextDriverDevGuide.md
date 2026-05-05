@@ -9,7 +9,7 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
   - Red: add or update a failing acceptance/unit test.
   - Green: implement the smallest change to pass.
   - Refactor: improve readability while tests stay green.
-- For red ATDD/TDD commits, use `🧪 test-fail(scope): ...`; reserve `✨ feat(scope): ...` for the user-facing implementation commit.
+- For red ATDD/TDD commits, use `❌ test-fail(scope): ...`; use `✅ test-pass(scope): ...` for the first green commit after red; reserve `✨ feat(scope): ...` for user-facing behavior changes.
 - Keep docs and code aligned in the same PR when behavior changes.
 - Merge to `main` only when story DoD criteria are met.
 - Keep product/app versions in `v0.x.y` throughout MVP. Use `pnpm bump:dry` to preview, then `pnpm bump:patch` or `pnpm bump:minor` only when release criteria are met.
@@ -75,7 +75,8 @@ Release bump reminder:
 
 Commit message conventions (RockID rhythm):
 
-- Red ATDD/TDD: `🧪 test-fail(scope): cover <story behavior>`
+- Red ATDD/TDD: `❌ test-fail(scope): cover <story behavior>`
+- Green after red: `✅ test-pass(scope): make tests pass`
 - Green feature implementation: `✨ feat(scope): add <user-visible behavior>`
 - Passing or maintenance tests: `🧪 test(scope): update expectations`
 - Refactor: `📦 refactor(scope): simplify <code shape>`
