@@ -107,6 +107,17 @@ describe('S19 collection search + filter', () => {
       kind: 'empty',
       title: 'No results found',
       message: 'Try a different search or filter.',
+      action: { kind: 'reset', label: 'Reset filters' },
+      items: [],
+    });
+  });
+
+  it('returns a first-run empty state when there are no saved finds', () => {
+    expect(createCollectionViewModel([], { query: '', filter: 'All' })).toEqual({
+      kind: 'empty',
+      title: 'No saved rocks yet',
+      message: 'Save an identification result to build your field collection.',
+      action: { kind: 'identify', label: 'Identify a rock' },
       items: [],
     });
   });
