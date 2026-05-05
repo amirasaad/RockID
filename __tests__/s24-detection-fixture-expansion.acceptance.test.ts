@@ -38,12 +38,12 @@ describe('S24 detection fixture expansion', () => {
     expect(mockReport.total).toBe(detectionFixtureExpansionEvalFixtures.length);
     expect(onDeviceReport.total).toBe(detectionFixtureExpansionEvalFixtures.length);
 
-    expect(mockReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 8 });
-    expect(onDeviceReport.coverage.kinds).toEqual({ rock: 9, 'non-rock': 8 });
+    expect(mockReport.coverage.kinds).toEqual({ rock: 10, 'non-rock': 8 });
+    expect(onDeviceReport.coverage.kinds).toEqual({ rock: 10, 'non-rock': 8 });
 
     expect(mockReport.coverage.classes).toEqual({
       Asphalt: 2,
-      Basalt: 2,
+      Basalt: 3,
       Coal: 2,
       Glass: 2,
       Granite: 5,
@@ -52,7 +52,7 @@ describe('S24 detection fixture expansion', () => {
     });
     expect(onDeviceReport.coverage.classes).toEqual({
       Asphalt: 2,
-      Basalt: 2,
+      Basalt: 3,
       Coal: 2,
       Glass: 2,
       Granite: 5,
@@ -77,7 +77,9 @@ describe('S24 detection fixture expansion', () => {
     expect(onDeviceReport.perClassAccuracy.Granite.top1Accuracy).toBeCloseTo(0.4, 6);
     expect(onDeviceReport.perClassAccuracy.Granite.top3Accuracy).toBeCloseTo(0.4, 6);
 
-    expect(onDeviceReport.perClassAccuracy.Basalt).toEqual({ total: 2, top1Accuracy: 1, top3Accuracy: 1 });
+    expect(onDeviceReport.perClassAccuracy.Basalt.total).toBe(3);
+    expect(onDeviceReport.perClassAccuracy.Basalt.top1Accuracy).toBeCloseTo(2 / 3, 6);
+    expect(onDeviceReport.perClassAccuracy.Basalt.top3Accuracy).toBe(1);
     expect(onDeviceReport.perClassAccuracy.Obsidian).toEqual({ total: 2, top1Accuracy: 1, top3Accuracy: 1 });
   });
 });

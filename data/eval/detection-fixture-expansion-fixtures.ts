@@ -19,6 +19,7 @@ export const detectionFixtureExpansionEvalFixtures: RockIdEvalFixture[] = [
   fixture({ id: 'ambiguous-weak-evidence-a', expectedLabel: 'Granite' }),
   fixture({ id: 'ambiguous-weak-evidence-b', expectedLabel: 'Granite' }),
   fixture({ id: 'ambiguous-weak-evidence-c', expectedLabel: 'Granite' }),
+  fixture({ id: 'ambiguous-weak-evidence-basalt-a', expectedLabel: 'Basalt' }),
 ];
 
 function fixture(input: { id: string; expectedLabel: string; expectedKind?: RockIdEvalFixture['expectedKind'] }): RockIdEvalFixture {
