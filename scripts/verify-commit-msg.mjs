@@ -12,10 +12,11 @@ const SUPPORTED_TYPES_BY_EMOJI = new Map([
   ['ci', '♻️'],
   ['chore', '✏️'],
   ['revert', '⏪'],
-  ['test-fail', '🧪'],
+  ['test-fail', '❌'],
+  ['test-pass', '✅'],
   ['agile', '📋'],
   ['bump', '🔖'],
-  ['qa', '✅'],
+  ['qa', '🔍'],
   ['spike', '🧐'],
   ['config', '🔧'],
 ]);

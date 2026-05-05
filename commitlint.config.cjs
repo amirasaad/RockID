@@ -11,6 +11,7 @@ const rockIdTypes = [
   'chore',
   'revert',
   'test-fail',
+  'test-pass',
   'agile',
   'bump',
   'qa',

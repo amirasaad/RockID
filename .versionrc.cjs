@@ -5,8 +5,9 @@ const expoAppVersion = {
 
 module.exports = {
   preset: require.resolve('conventional-changelog-gitmoji-config'),
+  presetConfig: require('./changelog.config.js'),
   tagPrefix: 'v',
-  releaseCommitMessageFormat: '🔖 chore(release): v{{currentTag}}',
+  releaseCommitMessageFormat: '🔖 bump(release): {{currentTag}}',
   packageFiles: [
     { filename: 'package.json', type: 'json' },
     expoAppVersion,
