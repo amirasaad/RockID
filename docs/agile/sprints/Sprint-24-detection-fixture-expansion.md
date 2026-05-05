@@ -48,12 +48,20 @@ Sprint 23 added the first set of detection quality gates and guardrails, but the
 
 - If Results messaging changes (confidence labels, next checks), validate web and iPhone paths for clarity.
 
-## **QA Evidence**
+## **QA Matrix**
 
-| Check | Result |
-| --- | --- |
-| Web smoke | `Pass: Playwright e2e 4 specs` |
+| Area | Scenario | Evidence | Status |
+| --- | --- | --- | --- |
+| Static quality | TypeScript compile gate | `pnpm run typecheck` | `Pass` |
+| Unit/regression | Full Vitest suite | `pnpm test`: 54 files / 117 tests | `Pass` |
+| Retrieval ranking | Exact score ties prefer natural-rock candidates before deterministic item id | [s13-clip-knn.test.ts](<../../../__tests__/s13-clip-knn.test.ts>) | `Pass` |
+| Eval gate | Expanded S24 fixture report reaches top-3 gate `>= 0.9` | [s24-detection-fixture-expansion.acceptance.test.ts](<../../../__tests__/s24-detection-fixture-expansion.acceptance.test.ts>) | `Pass` |
+| Non-rock safety | Non-rock false positives remain `0` on curated fixtures | [s24-detection-fixture-expansion.acceptance.test.ts](<../../../__tests__/s24-detection-fixture-expansion.acceptance.test.ts>) | `Pass` |
+| Web smoke | Core web flows including real-engine e2e remain stable | `pnpm test:e2e`: 4 Playwright specs | `Pass` |
+| iPhone simulator smoke | Low-confidence Results screen remains readable and preserves action hierarchy | User-provided simulator screenshot on 2026-05-05 | `Pass with note` |
+| Trust visual check | Session thumbnail should match the captured field evidence | Screenshot used a flower/landscape photo while producing a rock result; likely simulator input, not a binding bug because Results reads `session.selectedPhoto.uri` | `Follow-up QA note` |
+| Android smoke | Manual Android dev-build validation | Android build lane is outside Sprint 24 scope | `Not run` |
 
 ## **Next Technical Move**
 
-- Review Sprint 24 changes, then commit and prepare sprint merge/release closeout if approved.
+- Commit the QA matrix update, then prepare sprint merge/release closeout if approved.
