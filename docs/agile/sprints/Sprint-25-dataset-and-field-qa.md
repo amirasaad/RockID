@@ -40,7 +40,7 @@ Sprint 24 expanded fixtures and improved on-device analyzer metrics against synt
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S25-1` | `In Progress` | [field-qa-fixtures.ts](<../../../data/eval/field-qa-fixtures.ts>) | Start by curating the smallest “trust set” that still includes rocks + non-rock confusers |
-| `S25-2` | `In Progress` | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | First cut: run the curated set through the on-device analyzer with a reproducible encoder stub |
+| `S25-2` | `In Progress` | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | Repeatable run now covers both the healthy baseline and a seeded regression summary with confusion sample ids |
 | `S25-3` | `In Progress` | [s25-field-qa.acceptance.test.ts](<../../../__tests__/s25-field-qa.acceptance.test.ts>) | Assert analysis uses the same photo URI that the session provides |
 
 ## **Manual QA Notes**

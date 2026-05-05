@@ -76,6 +76,39 @@ describe('S25 dataset and field QA acceptance', () => {
       expect(analysis.topMatch.confidence).toBe('Low');
     }
   });
+
+  it('surfaces top confusions and sample ids in the field QA summary when a regression appears', async () => {
+    configureNativeOnDeviceImageEncoder({
+      encode: async (photoUri) => {
+        if (photoUri.includes('field-rock-granite')) return oneHot(8, 0);
+        if (photoUri.includes('field-rock-basalt')) return oneHot(8, 1);
+        if (photoUri.includes('field-rock-ambiguous')) return lowConfidenceGraniteBias(8);
+        if (photoUri.includes('field-non-rock-slag')) return oneHot(8, 2);
+        if (photoUri.includes('field-non-rock-glass')) return oneHot(8, 4);
+        if (photoUri.includes('field-non-rock-asphalt')) return oneHot(8, 5);
+        if (photoUri.includes('field-non-rock-coal')) return oneHot(8, 0);
+        return Array.from({ length: 8 }, () => 1);
+      },
+    });
+
+    const report = await evaluateRockIdentifierAsync({
+      fixtures: fieldQaEvalFixtures,
+      analyze: async (session) => analyzeIdentificationSessionWithOnDeviceClipKnnAsync(session),
+    });
+
+    expect(report.nonRockFalsePositiveRate).toBeCloseTo(0.25, 6);
+    expect(report.nonRockConfusions).toContainEqual({
+      expected: 'Coal',
+      predicted: 'Granite',
+      count: 1,
+      sampleIds: ['field-non-rock-coal-a'],
+    });
+
+    const summary = formatRockIdEvalSummary(report);
+    expect(summary).toContain('Non-rock false positives: 25.0%');
+    expect(summary).toContain('Coal → Granite (1) [field-non-rock-coal-a]');
+    expect(summary).toContain('Non-rock confusions:');
+  });
 });
 
 function oneHot(dimension: number, index: number): number[] {
