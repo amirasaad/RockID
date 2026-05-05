@@ -31,16 +31,16 @@ Sprint 23 added the first set of detection quality gates and guardrails, but the
 
 | DoD Criterion | Target State |
 | --- | --- |
-| Expanded eval fixtures exist | `No` |
-| Analyzer comparison report exists | `No` |
-| Non-rock confidence guardrails remain green | `No` |
-| Relevant tests pass | `No` |
+| Expanded eval fixtures exist | `Yes` |
+| Analyzer comparison report exists | `Yes` |
+| Non-rock confidence guardrails remain green | `Yes` |
+| Relevant tests pass | `Yes` |
 
 ## **Sprint 24 Tracking**
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S24-1` | `Todo` |  |  |
+| `S24-1` | `Done` | [detection-fixture-expansion-fixtures.ts](<../../../data/eval/detection-fixture-expansion-fixtures.ts>), [s24-detection-fixture-expansion.acceptance.test.ts](<../../../__tests__/s24-detection-fixture-expansion.acceptance.test.ts>) | Expands fixtures with additional samples and validates reproducible eval reports for mock vs on-device analyzer |
 | `S24-2` | `Todo` |  |  |
 | `S24-3` | `Todo` |  |  |
 
@@ -56,4 +56,4 @@ Sprint 23 added the first set of detection quality gates and guardrails, but the
 
 ## **Next Technical Move**
 
-- Add the first expanded fixture batch and update the eval report acceptance test to snapshot the new baseline.
+- Add more non-rock look-alikes and ambiguous samples, then tighten the eval report assertions to reflect the new baseline.
