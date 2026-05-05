@@ -1,34 +1,63 @@
-import { Link } from 'expo-router';
-import { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Chip } from '@/components/Chip';
 import { Card, Screen, SectionTitle } from '@/components/Layout';
 import { PhotoThumbnail } from '@/components/PhotoThumbnail';
 import { palette } from '@/constants/theme';
 import { track } from '@/lib/analytics';
-import { createCollectionViewModel } from '@/lib/collection-view-model';
+import { type CollectionFilterChip, createCollectionViewModel } from '@/lib/collection-view-model';
 import { useSavedFinds } from '@/lib/saved-finds-context';
 
+/**
+ * Renders the saved-find Collection screen with local search and chip filters.
+ */
 export default function CollectionScreen() {
+  const router = useRouter();
   const { savedFinds } = useSavedFinds();
-  const viewModel = createCollectionViewModel(savedFinds);
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState<CollectionFilterChip>('All');
+  const viewModel = useMemo(() => createCollectionViewModel(savedFinds, { query, filter }), [savedFinds, query, filter]);
+  const lastTrackedRef = useRef<{ queryLength: number; filter: CollectionFilterChip } | null>(null);
 
   useEffect(() => {
     track('collection_viewed');
   }, []);
 
+  useEffect(() => {
+    const queryLength = query.trim().length;
+    const shouldTrack = queryLength > 0 || filter !== 'All';
+    if (!shouldTrack) {
+      lastTrackedRef.current = null;
+      return;
+    }
+
+    const previous = lastTrackedRef.current;
+    if (previous && previous.queryLength === queryLength && previous.filter === filter) return;
+
+    lastTrackedRef.current = { queryLength, filter };
+    track('collection_search_used', { queryLength, filter });
+  }, [query, filter]);
+
   return (
     <Screen title="Collection" subtitle="Saved samples, quick filters, and room to grow into sync later.">
       <SectionTitle>Filters</SectionTitle>
       <Card>
-        <Text style={styles.search}>Search saved finds</Text>
-        <Card>
-          <Chip label="All" selected />
-          <Chip label="Igneous" />
-          <Chip label="Sedimentary" />
-          <Chip label="Metamorphic" />
-        </Card>
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          placeholder="Search saved finds"
+          placeholderTextColor={palette.muted}
+          autoCapitalize="none"
+          autoCorrect={false}
+          style={styles.searchInput}
+        />
+        <View style={styles.chips}>
+          {(['All', 'Igneous', 'Sedimentary', 'Metamorphic', 'Low confidence'] as const).map((chip) => (
+            <Chip key={chip} label={chip} selected={filter === chip} onPress={() => setFilter(chip)} />
+          ))}
+        </View>
       </Card>
 
       {viewModel.kind === 'empty' ? (
@@ -38,7 +67,14 @@ export default function CollectionScreen() {
         </Card>
       ) : (
         viewModel.items.map((find) => (
-          <Link href={`/saved/${find.id}`} key={find.id} asChild>
+          <Pressable
+            key={find.id}
+            accessibilityRole="button"
+            onPress={() => {
+              track('collection_item_opened');
+              router.push(`/saved/${find.id}`);
+            }}
+          >
             <Card>
               <View style={styles.row}>
                 <PhotoThumbnail uri={find.imageUri} size={72} borderRadius={18} fallbackText="No photo" fallbackFontSize={12} />
@@ -49,7 +85,7 @@ export default function CollectionScreen() {
                 </View>
               </View>
             </Card>
-          </Link>
+          </Pressable>
         ))
       )}
     </Screen>
@@ -57,9 +93,20 @@ export default function CollectionScreen() {
 }
 
 const styles = StyleSheet.create({
-  search: {
-    color: palette.muted,
+  searchInput: {
+    backgroundColor: palette.background,
+    borderColor: palette.border,
+    borderRadius: 16,
+    borderWidth: 1,
+    color: palette.ink,
     fontSize: 15,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+  },
+  chips: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
   },
   row: {
     alignItems: 'center',
