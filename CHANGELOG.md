@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.24.0 (2026-05-05)
+
+
+### ✨ Features
+
+* **analysis**: Add ambiguous low-confidence guard de7379d
+* **analysis**: Add non-rock guardrails 88d1257
+* **eval**: Add detection quality fixture + report f9bbd59
+
+
+### 📝 Documentation
+
+* **agile**: Close sprint 23 72c42c7
+
+
+
+
+
 ## 0.23.1 (2026-05-05)
 
 
