@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { IdentificationSession } from '@/lib/identification-session';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
-import { evaluateRockIdentifier, formatRockIdEvalSummary, type RockIdEvalFixture } from '@/lib/rock-id-eval';
+import { evaluateRockIdentifier, formatRockIdEvalSummary, type RockIdEvalFixture, type RockIdEvalReport } from '@/lib/rock-id-eval';
 
 describe('S11 rock-ID eval acceptance', () => {
   it('reports reusable reality-check metrics for the current analyzer', () => {
@@ -189,6 +189,40 @@ describe('S11 rock-ID eval acceptance', () => {
     expect(summary).toContain('Granite → Unclear rock sample (1) [weak-evidence]');
     expect(summary).toContain('Dark Slag → Basalt (1) [slag-lookalike]');
     expect(summary).toContain('Non-rock confusions:');
+  });
+
+  it('formats only the top confusion entries when limits are provided', () => {
+    const report: RockIdEvalReport = {
+      total: 7,
+      top1Accuracy: 4 / 7,
+      top3Accuracy: 1,
+      lowConfidenceRate: 1 / 7,
+      nonRockFalsePositiveRate: 0.5,
+      confusionPairs: [
+        { expected: 'Coal', predicted: 'Granite', count: 1, sampleIds: ['coal-a'] },
+        { expected: 'Glass', predicted: 'Granite', count: 3, sampleIds: ['glass-a', 'glass-b', 'glass-c'] },
+        { expected: 'Asphalt', predicted: 'Basalt', count: 2, sampleIds: ['asphalt-a', 'asphalt-b'] },
+      ],
+      nonRockConfusions: [
+        { expected: 'Coal', predicted: 'Granite', count: 1, sampleIds: ['coal-a'] },
+        { expected: 'Asphalt', predicted: 'Basalt', count: 2, sampleIds: ['asphalt-a', 'asphalt-b'] },
+      ],
+      perClassAccuracy: {},
+      coverage: {
+        classes: {},
+        kinds: { rock: 3, 'non-rock': 4 },
+      },
+    };
+
+    const summary = formatRockIdEvalSummary(report, {
+      maxConfusions: 2,
+      maxNonRockConfusions: 1,
+    });
+
+    expect(summary).toContain('Glass → Granite (3) [glass-a, glass-b, glass-c]');
+    expect(summary).toContain('Asphalt → Basalt (2) [asphalt-a, asphalt-b]');
+    expect(summary).not.toContain('Coal → Granite (1) [coal-a]');
+    expect(summary).toContain('Non-rock confusions:\n- Asphalt → Basalt (2) [asphalt-a, asphalt-b]');
   });
 });
 
