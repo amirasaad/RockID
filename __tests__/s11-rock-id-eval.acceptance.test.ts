@@ -60,6 +60,7 @@ describe('S11 rock-ID eval acceptance', () => {
       top1Accuracy: 0.5,
       top3Accuracy: 1,
       lowConfidenceRate: 0.25,
+      lowConfidenceSampleIds: ['weak-evidence'],
       nonRockFalsePositiveRate: 1,
       confusionPairs: [
         {
@@ -186,6 +187,7 @@ describe('S11 rock-ID eval acceptance', () => {
 
     expect(summary).toContain('Total: 4');
     expect(summary).toContain('Top confusions:');
+    expect(summary).toContain('Low-confidence samples: weak-evidence');
     expect(summary).toContain('Granite → Unclear rock sample (1) [weak-evidence]');
     expect(summary).toContain('Dark Slag → Basalt (1) [slag-lookalike]');
     expect(summary).toContain('Non-rock confusions:');
@@ -197,6 +199,7 @@ describe('S11 rock-ID eval acceptance', () => {
       top1Accuracy: 4 / 7,
       top3Accuracy: 1,
       lowConfidenceRate: 1 / 7,
+      lowConfidenceSampleIds: ['weak-evidence-a'],
       nonRockFalsePositiveRate: 0.5,
       confusionPairs: [
         { expected: 'Coal', predicted: 'Granite', count: 1, sampleIds: ['coal-a'] },

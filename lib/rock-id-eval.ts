@@ -34,6 +34,7 @@ export type RockIdEvalReport = {
   top1Accuracy: number;
   top3Accuracy: number;
   lowConfidenceRate: number;
+  lowConfidenceSampleIds: string[];
   nonRockFalsePositiveRate: number;
   confusionPairs: RockIdConfusionPair[];
   nonRockConfusions: RockIdConfusionPair[];
@@ -73,6 +74,7 @@ export function formatRockIdEvalSummary(
   lines.push(`Top-1: ${formatPercent(report.top1Accuracy)}`);
   lines.push(`Top-3: ${formatPercent(report.top3Accuracy)}`);
   lines.push(`Low confidence: ${formatPercent(report.lowConfidenceRate)}`);
+  lines.push(`Low-confidence samples: ${formatSampleList(report.lowConfidenceSampleIds)}`);
   lines.push(`Non-rock false positives: ${formatPercent(report.nonRockFalsePositiveRate)}`);
 
   lines.push('Top confusions:');
@@ -97,6 +99,7 @@ export function evaluateRockIdentifier(input: {
     top1Accuracy: ratio(countWhere(results, 'top1Correct'), total),
     top3Accuracy: ratio(countWhere(results, 'top3Correct'), total),
     lowConfidenceRate: ratio(countWhere(results, 'lowConfidence'), total),
+    lowConfidenceSampleIds: collectLowConfidenceSampleIds(results),
     nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(nonRockResults),
     confusionPairs: collectConfusionPairs(results),
     nonRockConfusions: collectConfusionPairs(nonRockResults),
@@ -118,6 +121,7 @@ export async function evaluateRockIdentifierAsync(input: {
     top1Accuracy: ratio(countWhere(results, 'top1Correct'), total),
     top3Accuracy: ratio(countWhere(results, 'top3Correct'), total),
     lowConfidenceRate: ratio(countWhere(results, 'lowConfidence'), total),
+    lowConfidenceSampleIds: collectLowConfidenceSampleIds(results),
     nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(nonRockResults),
     confusionPairs: collectConfusionPairs(results),
     nonRockConfusions: collectConfusionPairs(nonRockResults),
@@ -162,6 +166,13 @@ function countWhere(results: RockIdEvalResult[], key: keyof Pick<RockIdEvalResul
 function calculateNonRockFalsePositiveRate(results: RockIdEvalResult[]): number {
   const falsePositives = results.filter((result) => !result.top1Correct).length;
   return ratio(falsePositives, results.length);
+}
+
+function collectLowConfidenceSampleIds(results: RockIdEvalResult[]): string[] {
+  return results
+    .filter((result) => result.lowConfidence)
+    .map((result) => result.fixture.id)
+    .sort((left, right) => left.localeCompare(right));
 }
 
 function collectConfusionPairs(results: RockIdEvalResult[]): RockIdConfusionPair[] {
@@ -278,4 +289,14 @@ function formatConfusionLines(pairs: RockIdConfusionPair[], maxPairs: number): s
     const samples = pair.sampleIds.length > 0 ? ` [${pair.sampleIds.join(', ')}]` : '';
     return `- ${pair.expected} → ${pair.predicted} (${pair.count})${samples}`;
   });
+}
+
+/**
+ * Formats a stable sample-id list for summary output.
+ * @param sampleIds - Sample ids to print.
+ * @returns "None" when empty, otherwise a comma-separated list.
+ */
+function formatSampleList(sampleIds: string[]): string {
+  if (sampleIds.length === 0) return 'None';
+  return sampleIds.join(', ');
 }

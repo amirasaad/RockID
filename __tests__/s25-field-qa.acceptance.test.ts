@@ -36,12 +36,14 @@ describe('S25 dataset and field QA acceptance', () => {
     expect(report.top1Accuracy).toBe(1);
     expect(report.top3Accuracy).toBe(1);
     expect(report.lowConfidenceRate).toBeCloseTo(1 / 7, 6);
+    expect(report.lowConfidenceSampleIds).toEqual(['field-rock-ambiguous-a']);
 
     const summary = formatRockIdEvalSummary(report);
     expect(summary).toContain('Total: 7');
     expect(summary).toContain('Top-1: 100.0%');
     expect(summary).toContain('Top-3: 100.0%');
     expect(summary).toContain('Low confidence: 14.3%');
+    expect(summary).toContain('Low-confidence samples: field-rock-ambiguous-a');
     expect(summary).toContain('Non-rock false positives: 0.0%');
     expect(summary).toContain('Top confusions:\n- None');
     expect(summary).toContain('Non-rock confusions:\n- None');
