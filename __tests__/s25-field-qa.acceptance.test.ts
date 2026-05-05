@@ -37,6 +37,21 @@ describe('S25 dataset and field QA acceptance', () => {
     expect(report.top3Accuracy).toBe(1);
     expect(report.lowConfidenceRate).toBeCloseTo(1 / 7, 6);
 
+    const analyses = await Promise.all(
+      fieldQaEvalFixtures.map(async (fixture) => ({
+        fixture,
+        analysis: await analyzeIdentificationSessionWithOnDeviceClipKnnAsync(fixture.session),
+      }))
+    );
+    for (const { fixture, analysis } of analyses) {
+      expect(analysis.sessionId).toBe(fixture.session.id);
+      const photo = fixture.session.selectedPhoto;
+      expect(photo).toBeDefined();
+      if (photo) {
+        expect(analysis.imageUri).toBe(photo.uri);
+      }
+    }
+
     const nonRockAnalyses = await Promise.all(
       fieldQaEvalFixtures
         .filter((fixture) => fixture.expectedKind === 'non-rock')
