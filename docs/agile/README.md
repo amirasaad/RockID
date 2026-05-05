@@ -33,6 +33,7 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 16 | Confidence + Analytics | [Open](<sprints/Sprint-16-confidence-and-analytics.md>) |
 | Sprint 17 | Saved Photos + Settings | [Open](<sprints/Sprint-17-saved-photos-and-settings.md>) |
 | Sprint 18 | Learn Navigation | [Open](<sprints/Sprint-18-learn-navigation-polish.md>) |
+| Sprint 19 | Collection Search And Filters | [Open](<sprints/Sprint-19-collection-search-filter.md>) |
 
 ## **Update Rules**
 

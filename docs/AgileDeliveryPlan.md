@@ -71,7 +71,8 @@ A story is done when:
 | Sprint 16 | Confidence + Analytics | [Sprint-16](<agile/sprints/Sprint-16-confidence-and-analytics.md>) |
 | Sprint 17 | Saved Photos + Settings | [Sprint-17](<agile/sprints/Sprint-17-saved-photos-and-settings.md>) |
 | Sprint 18 | Learn Navigation Polish | [Sprint-18](<agile/sprints/Sprint-18-learn-navigation-polish.md>) |
+| Sprint 19 | Collection Search And Filters | [Sprint-19](<agile/sprints/Sprint-19-collection-search-filter.md>) |
 
 ## **Current Next Action**
 
-Pick the next sprint from [Kanban.md](<Kanban.md>) and execute it on a `sprint/*` branch, then merge into `main` via fast-forward after typecheck/tests/e2e. Current backlog candidate: Collection search/filter polish.
+Sprint 19 collection search/filter is on `main`; complete release decision and QA notes, then plan Sprint 20 from [Kanban.md](<Kanban.md>) on a fresh `sprint/*` branch.
