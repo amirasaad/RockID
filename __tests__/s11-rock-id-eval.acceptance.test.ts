@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { IdentificationSession } from '@/lib/identification-session';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
-import { evaluateRockIdentifier, type RockIdEvalFixture } from '@/lib/rock-id-eval';
+import { evaluateRockIdentifier, formatRockIdEvalSummary, type RockIdEvalFixture } from '@/lib/rock-id-eval';
 
 describe('S11 rock-ID eval acceptance', () => {
   it('reports reusable reality-check metrics for the current analyzer', () => {
@@ -130,6 +130,65 @@ describe('S11 rock-ID eval acceptance', () => {
 
     expect(report.top1Accuracy).toBe(0);
     expect(report.top3Accuracy).toBe(0.5);
+  });
+
+  it('formats a summary that includes confusion sample ids', () => {
+    const fixtures: RockIdEvalFixture[] = [
+      fixture({
+        id: 'granite-default',
+        expectedLabel: 'Granite',
+        observations: {
+          color: 'Light',
+          grainSize: 'Coarse',
+          features: ['Visible Crystals'],
+          notes: 'Coarse light sample with visible crystals.',
+        },
+      }),
+      fixture({
+        id: 'basalt-vesicular',
+        expectedLabel: 'Basalt',
+        observations: {
+          color: 'Dark',
+          grainSize: 'Fine',
+          features: ['Vesicles'],
+          notes: 'Dark fine-grained rock with rounded holes.',
+        },
+      }),
+      fixture({
+        id: 'weak-evidence',
+        expectedLabel: 'Granite',
+        observations: {
+          color: '',
+          grainSize: '',
+          features: [],
+          notes: '',
+        },
+      }),
+      fixture({
+        id: 'slag-lookalike',
+        expectedLabel: 'Dark Slag',
+        expectedKind: 'non-rock',
+        observations: {
+          color: 'Dark',
+          grainSize: 'Fine',
+          features: ['Vesicles'],
+          notes: 'Very dark bubbly material found near a rail bed.',
+        },
+      }),
+    ];
+
+    const report = evaluateRockIdentifier({
+      fixtures,
+      analyze: analyzeIdentificationSession,
+    });
+
+    const summary = formatRockIdEvalSummary(report);
+
+    expect(summary).toContain('Total: 4');
+    expect(summary).toContain('Top confusions:');
+    expect(summary).toContain('Granite → Unclear rock sample (1) [weak-evidence]');
+    expect(summary).toContain('Dark Slag → Basalt (1) [slag-lookalike]');
+    expect(summary).toContain('Non-rock confusions:');
   });
 });
 

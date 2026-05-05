@@ -52,6 +52,38 @@ type RockIdEvalResult = {
   lowConfidence: boolean;
 };
 
+/**
+ * Formats an eval report into a stable, human-readable summary string for QA logs.
+ * @param report - Report returned by evaluateRockIdentifier / evaluateRockIdentifierAsync.
+ * @param options - Formatting options.
+ * @returns Multi-line summary with headline metrics and top confusions (including fixture ids).
+ */
+export function formatRockIdEvalSummary(
+  report: RockIdEvalReport,
+  options?: {
+    maxConfusions?: number;
+    maxNonRockConfusions?: number;
+  }
+): string {
+  const maxConfusions = options?.maxConfusions ?? 10;
+  const maxNonRockConfusions = options?.maxNonRockConfusions ?? 10;
+
+  const lines: string[] = [];
+  lines.push(`Total: ${report.total}`);
+  lines.push(`Top-1: ${formatPercent(report.top1Accuracy)}`);
+  lines.push(`Top-3: ${formatPercent(report.top3Accuracy)}`);
+  lines.push(`Low confidence: ${formatPercent(report.lowConfidenceRate)}`);
+  lines.push(`Non-rock false positives: ${formatPercent(report.nonRockFalsePositiveRate)}`);
+
+  lines.push('Top confusions:');
+  lines.push(...formatConfusionLines(report.confusionPairs, maxConfusions));
+
+  lines.push('Non-rock confusions:');
+  lines.push(...formatConfusionLines(report.nonRockConfusions, maxNonRockConfusions));
+
+  return lines.join('\n');
+}
+
 export function evaluateRockIdentifier(input: {
   fixtures: RockIdEvalFixture[];
   analyze: RockIdAnalyzer;
@@ -213,4 +245,37 @@ function calculateCoverage(fixtures: RockIdEvalFixture[]): RockIdEvalReport['cov
 
 function sortedEntries<Value>(map: Map<string, Value>): Array<[string, Value]> {
   return [...map.entries()].sort(([left], [right]) => left.localeCompare(right));
+}
+
+/**
+ * Formats a ratio in [0, 1] as a percentage string with one decimal place.
+ * @param ratioValue - Ratio in [0, 1].
+ * @returns Percent string, e.g. "25.0%".
+ */
+function formatPercent(ratioValue: number): string {
+  const clamped = Math.min(1, Math.max(0, ratioValue));
+  return `${(clamped * 100).toFixed(1)}%`;
+}
+
+/**
+ * Formats confusion pairs into a stable bullet list, sorted by count descending and label ascending.
+ * @param pairs - Confusion pair list.
+ * @param maxPairs - Maximum number of pairs to include.
+ * @returns Bullet lines, or a single "- None" line when empty.
+ */
+function formatConfusionLines(pairs: RockIdConfusionPair[], maxPairs: number): string[] {
+  if (pairs.length === 0) return ['- None'];
+
+  const sorted = [...pairs].sort((left, right) => {
+    const byCount = right.count - left.count;
+    if (byCount !== 0) return byCount;
+    const byExpected = left.expected.localeCompare(right.expected);
+    if (byExpected !== 0) return byExpected;
+    return left.predicted.localeCompare(right.predicted);
+  });
+
+  return sorted.slice(0, Math.max(0, maxPairs)).map((pair) => {
+    const samples = pair.sampleIds.length > 0 ? ` [${pair.sampleIds.join(', ')}]` : '';
+    return `- ${pair.expected} → ${pair.predicted} (${pair.count})${samples}`;
+  });
 }
