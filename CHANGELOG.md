@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.26.0 (2026-05-05)
+
+
+### ✨ Features
+
+* **eval**: Add report summary 96906b1
+* **eval**: Cap confusion sample lists 8bb195f
+* **eval**: Cap summary sample lists 4aca12a
+* **eval**: Include confusion sample ids ef6e2a7
+* **eval**: Summarize coverage 262e44b
+* **eval**: Track low-confidence samples 07c492d
+
+
+
+
+
 # 0.25.0 (2026-05-05)
 
 
