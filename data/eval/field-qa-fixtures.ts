@@ -33,6 +33,18 @@ export const fieldQaEvalFixtures: RockIdEvalFixture[] = [
     features: ['Vesicles'],
     notes: 'Field photo: bubbly dark human-made material.',
   }),
+  nonRock('field-non-rock-asphalt-a', 'Asphalt', {
+    color: 'Black',
+    grainSize: 'Fine',
+    features: ['Uniform Texture'],
+    notes: 'Field photo: black uniform surface typical of asphalt.',
+  }),
+  nonRock('field-non-rock-coal-a', 'Coal', {
+    color: 'Black',
+    grainSize: 'Fine',
+    features: ['Dull Luster'],
+    notes: 'Field photo: black fragment with dull luster and low visible grain.',
+  }),
 ];
 
 function rock(id: string, expectedLabel: string, observations: RockObservations): RockIdEvalFixture {

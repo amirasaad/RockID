@@ -17,6 +17,8 @@ describe('S25 dataset and field QA acceptance', () => {
         if (photoUri.includes('field-rock-basalt')) return oneHot(8, 1);
         if (photoUri.includes('field-non-rock-slag')) return oneHot(8, 2);
         if (photoUri.includes('field-non-rock-glass')) return oneHot(8, 4);
+        if (photoUri.includes('field-non-rock-asphalt')) return oneHot(8, 5);
+        if (photoUri.includes('field-non-rock-coal')) return oneHot(8, 6);
         return Array.from({ length: 8 }, () => 1);
       },
     });
@@ -26,8 +28,8 @@ describe('S25 dataset and field QA acceptance', () => {
       analyze: async (session) => analyzeIdentificationSessionWithOnDeviceClipKnnAsync(session),
     });
 
-    expect(report.total).toBe(4);
-    expect(report.coverage.kinds).toEqual({ rock: 2, 'non-rock': 2 });
+    expect(report.total).toBe(6);
+    expect(report.coverage.kinds).toEqual({ rock: 2, 'non-rock': 4 });
     expect(report.nonRockFalsePositiveRate).toBe(0);
     expect(report.nonRockConfusions).toEqual([]);
     expect(report.lowConfidenceRate).toBe(0);
@@ -40,7 +42,7 @@ describe('S25 dataset and field QA acceptance', () => {
         .map(async (fixture) => analyzeIdentificationSessionWithOnDeviceClipKnnAsync(fixture.session))
     );
 
-    expect(nonRockAnalyses.map((analysis) => analysis.topMatch.confidence)).toEqual(['Medium', 'Medium']);
+    expect(nonRockAnalyses.map((analysis) => analysis.topMatch.confidence)).toEqual(['Medium', 'Medium', 'Medium', 'Medium']);
   });
 });
 
