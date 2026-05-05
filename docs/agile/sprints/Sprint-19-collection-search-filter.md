@@ -51,4 +51,4 @@ The MVP loop has durable saved finds, but a growing field collection becomes har
 ## **Next Technical Move**
 
 - Sprint 19 released as `v0.22.0`.
-- Then plan Sprint 21 MVP usability polish from the current product priority.
+- Execute Sprint 21 MVP usability polish using [Sprint-21](<Sprint-21-mvp-usability-polish.md>) as the sprint source of truth.

@@ -38,4 +38,4 @@ Planning date:
 ## **Next Technical Move**
 
 - Merge `sprint/20-release-hygiene` to `main` via fast-forward.
-- Plan Sprint 21 as MVP usability polish from a fresh `sprint/*` branch.
+- Execute Sprint 21 MVP usability polish using [Sprint-21](<Sprint-21-mvp-usability-polish.md>) as the sprint source of truth.

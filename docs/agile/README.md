@@ -35,6 +35,7 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 18 | Learn Navigation | [Open](<sprints/Sprint-18-learn-navigation-polish.md>) |
 | Sprint 19 | Collection Search And Filters | [Open](<sprints/Sprint-19-collection-search-filter.md>) |
 | Sprint 20 | Release Hygiene | [Open](<sprints/Sprint-20-release-hygiene.md>) |
+| Sprint 21 | MVP Usability Polish | [Open](<sprints/Sprint-21-mvp-usability-polish.md>) |
 
 ## **Update Rules**
 

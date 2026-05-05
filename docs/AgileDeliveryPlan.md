@@ -73,7 +73,8 @@ A story is done when:
 | Sprint 18 | Learn Navigation Polish | [Sprint-18](<agile/sprints/Sprint-18-learn-navigation-polish.md>) |
 | Sprint 19 | Collection Search And Filters | [Sprint-19](<agile/sprints/Sprint-19-collection-search-filter.md>) |
 | Sprint 20 | Release Hygiene | [Sprint-20](<agile/sprints/Sprint-20-release-hygiene.md>) |
+| Sprint 21 | MVP Usability Polish | [Sprint-21](<agile/sprints/Sprint-21-mvp-usability-polish.md>) |
 
 ## **Current Next Action**
 
-Plan Sprint 21 MVP usability polish from [Kanban.md](<Kanban.md>) on a fresh `sprint/*` branch.
+Execute Sprint 21 MVP usability polish using [Sprint-21](<agile/sprints/Sprint-21-mvp-usability-polish.md>) as the source of truth, with [Kanban.md](<Kanban.md>) reflecting current state.
