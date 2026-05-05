@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text } from 'react-native';
 
 import { ActionButton } from '@/components/Buttons';
@@ -18,11 +18,27 @@ export default function SavedFindScreen() {
   const { resetSession } = useIdentificationSession();
   const id = Array.isArray(rawId) ? rawId[0] : rawId;
   const savedFind = savedFinds.find((find) => find.id === id);
+  const [wasDeleted, setWasDeleted] = useState(false);
 
   useEffect(() => {
     if (!id || !savedFind) return;
     track('saved_find_viewed', { id });
   }, [id, savedFind]);
+
+  if (wasDeleted) {
+    return (
+      <Screen title="Saved Find" subtitle="Deleted">
+        <Card>
+          <Text style={styles.body}>This saved find was deleted.</Text>
+        </Card>
+        <Card>
+          <SectionTitle>Next</SectionTitle>
+          <ActionButton label="Back to Collection" variant="secondary" onPress={() => router.replace('/collection')} />
+          <ActionButton label="Identify Another" variant="secondary" onPress={() => router.replace('/')} />
+        </Card>
+      </Screen>
+    );
+  }
 
   if (!id || !savedFind) {
     return (
@@ -86,17 +102,9 @@ export default function SavedFindScreen() {
           label="Delete Saved Find"
           variant="secondary"
           onPress={() => {
-            Alert.alert('Delete saved find?', 'This cannot be undone.', [
-              { text: 'Cancel', style: 'cancel' },
-              {
-                text: 'Delete',
-                style: 'destructive',
-                onPress: () => {
-                  deleteFind(id);
-                  router.replace('/collection');
-                },
-              },
-            ]);
+            track('saved_find_deleted', { id });
+            deleteFind(id);
+            setWasDeleted(true);
           }}
         />
       </Card>
