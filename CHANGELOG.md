@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.23.0 (2026-05-05)
+
+
+### ✅ Tests
+
+* **collection**: Update view model expectations 9ea4051
+
+
+### ✨ Features
+
+* **collection**: Add clear and reset controls 4b4eea9
+* **collection**: Add failing empty-state action tests 886a7c3
+* **collection**: Add recovery actions to empty states 7bb4510
+* **collection**: Show category hint in collection rows 99f2fa2
+* **saved-find**: Confirm before delete 4f45a35
+* **saved-find**: Delete without confirm or redirect f6a912a
+
+
+### 🐛 Bug Fixes
+
+* **saved-find**: Show delete confirmation on web 568b557
+
+
+### 📝 Documentation
+
+* **agile**: Plan sprint 21 da65041
+* **kanban**: Move sprint 21 to review 908b382
+* **release**: Close sprint 20 1363233
+
+
+
+
+
 # 0.22.0 (2026-05-05)
 
 
