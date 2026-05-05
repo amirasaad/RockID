@@ -79,4 +79,4 @@ A story is done when:
 
 ## **Current Next Action**
 
-Execute Sprint 23 detection quality work using [Sprint-23](<agile/sprints/Sprint-23-detection-quality-gates.md>) as the source of truth, with [Kanban.md](<Kanban.md>) reflecting current state.
+Sprint 23 is merged; plan the next sprint by extending detection fixtures and improving the on-device analyzer against the eval gates, with [Kanban.md](<Kanban.md>) reflecting current state.

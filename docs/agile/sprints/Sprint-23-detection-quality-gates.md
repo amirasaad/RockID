@@ -67,5 +67,5 @@ The core product promise is still rock identification. Sprint 23 returns to the 
 
 ## **Next Technical Move**
 
-- Merge `sprint/23-detection-quality-gates` into `main` via fast-forward.
-- Keep the default analyzer unchanged unless a later sprint expands fixtures and improves metrics against the baseline.
+- Sprint 23 is merged into `main`.
+- Plan the next detection sprint by expanding fixtures, improving on-device analyzer metrics against the baseline, and re-evaluating whether a default analyzer change is warranted.
