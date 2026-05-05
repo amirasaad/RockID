@@ -62,22 +62,30 @@ export async function analyzeIdentificationSessionWithOnDeviceClipKnnAsync(
 
     const analysis = await analyzer(session);
     const topConfidence = analysis.topMatch.confidence;
+    const isNonRockTopMatch = analysis.topMatch.category === 'Non-rock look-alike';
+    const guardedConfidence = isNonRockTopMatch && topConfidence === 'High' ? 'Medium' : topConfidence;
 
     return withDiagnostics(
       {
         sessionId: session.id,
         imageUri: photoUri,
-        matches: analysis.matches,
-        topMatch: analysis.topMatch,
+        matches: analysis.matches.map((match, index) =>
+          isNonRockTopMatch && index === 0 && match.confidence === 'High' ? { ...match, confidence: 'Medium' } : match
+        ),
+        topMatch: isNonRockTopMatch && analysis.topMatch.confidence === 'High' ? { ...analysis.topMatch, confidence: 'Medium' } : analysis.topMatch,
         reasoning:
-          topConfidence === 'Low'
+          guardedConfidence === 'Low'
             ? 'There is not enough evidence from the photo to suggest a confident rock match yet.'
+            : isNonRockTopMatch
+              ? 'The photo looks closer to a non-rock look-alike than a natural rock.'
             : embedded.engine === 'photoOnDeviceEncoder'
               ? 'Photo embedding similarity match using an on-device encoder.'
               : 'Photo embedding similarity match using a byte-based placeholder embedder.',
         nextCheck:
-          topConfidence === 'Low'
+          guardedConfidence === 'Low'
             ? 'Try again: add a clearer photo, color, grain size, or visible features before trusting the match.'
+            : isNonRockTopMatch
+              ? 'Double-check for glassy texture, metallic sheen, bubbles, or uniform melt features that suggest slag or another human-made material.'
             : 'If results look wrong, add another close-up photo and confirm grain size, color, and any visible crystals.',
       },
       embedded.engine,
@@ -104,4 +112,3 @@ function withDiagnostics(
     },
   };
 }
-
