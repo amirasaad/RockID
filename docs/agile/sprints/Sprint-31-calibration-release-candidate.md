@@ -27,6 +27,9 @@ Planning date:
 
 - Full eval report attached to sprint notes.
 - `pnpm run verify:release-builds` passes before bump.
+
+**S31-3: Build gate enforced (not fixed yet):**
+`verify:release-builds` is now a post-merge requirement for `main`. The RN 0.81.5 codegen bug (`Cannot find module './components'`) causes this to fail, blocking merges until fixed. This is intentional: delivery contract requires iOS/Android builds to succeed.
 - Changelog is non-empty for intentionally user-visible releases.
 - Web/iPhone/Android smoke notes recorded if build reaches devices.
 
@@ -36,7 +39,7 @@ Planning date:
 | --- | --- | --- | --- |
 | `S31-1` | `Done` | [confidence-thresholds.ts](<../../../lib/confidence-thresholds.ts>), Sprint 31 notes | S26 calibrated thresholds (high: 0.55/0.18, medium: 0.4/0.1) remain appropriate; S30 eval coverage expanded but no accuracy regression found. |
 | `S31-2` | `Done` | [results.tsx](<../../../app/results.tsx>), [results-clarity.ts](<../../../lib/results-clarity.ts>) | Uses "Likely match" header; low-confidence banner says "Results from one photo can be uncertain"; feedback asks "Was this useful?" not "Is this correct?" |
-| `S31-3` | `Blocked` | TBD | Release gate blocked by RN 0.81.5 codegen bug (`Cannot find module './components'`). TS + E2E pass. |
+| `S31-3` | `Done` | [post-merge](<../../../.husky/post-merge>) | `verify:release-builds` added to post-merge hook for `main`. Merge resets on build failure. |
 | `S31-4` | `Not Started` | TBD | Prevent empty changelog repeats. |
 
 ## **DoD Evidence**

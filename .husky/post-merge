@@ -45,6 +45,13 @@ if [ "$branch" = "main" ] && [ "${ROCKID_SKIP_AUTO_BUMP-}" != "1" ]; then
   fi
 fi
 
+if [ "$branch" = "main" ]; then
+  if ! pnpm -s verify:release-builds; then
+    git reset --hard "$premerge_head"
+    exit 1
+  fi
+fi
+
 node scripts/auto-delete-merged-branches.mjs HEAD || true
 
 exit 0
