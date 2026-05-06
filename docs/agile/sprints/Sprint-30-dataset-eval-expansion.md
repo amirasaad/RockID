@@ -33,7 +33,7 @@ Planning date:
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S30-1` | `Review` | [rock-id-eval.ts](<../../../lib/rock-id-eval.ts>), [s30-eval-coverage-gaps.test.ts](<../../../__tests__/s30-eval-coverage-gaps.test.ts>), [s30-coverage-gap-summary.acceptance.test.ts](<../../../__tests__/s30-coverage-gap-summary.acceptance.test.ts>), [s11-rock-id-eval.acceptance.test.ts](<../../../__tests__/s11-rock-id-eval.acceptance.test.ts>) | Coverage-gap helper and summary output are implemented with ATDD+TDD+refactor evidence. |
-| `S30-2` | `Backlog` | TBD | Keep license-safe. |
+| `S30-2` | `Review` | [reviewed-candidates.ts](<../../../data/eval/reviewed-candidates.ts>), [s30-curated-candidate-fixtures.acceptance.test.ts](<../../../__tests__/s30-curated-candidate-fixtures.acceptance.test.ts>), [s30-reviewed-candidates.test.ts](<../../../__tests__/s30-reviewed-candidates.test.ts>) | Reviewed-candidate fixture mapping is in place with reviewed-only gating and metadata-preserving fixture generation. |
 | `S30-3` | `Backlog` | TBD | Focus on false positive safety. |
 
 
@@ -47,3 +47,9 @@ Planning date:
 - `✅ test-pass(eval): use pipe-delimited missing-label summaries` (`a0576b0`)
 - `📦 refactor(eval): extract coverage-gap summary formatter` (`6855114`)
 - Validation: S30 coverage tests + S11 eval acceptance pass; `pnpm run typecheck` passes.
+
+- `✨ feat(eval): add red acceptance test for curated candidate fixtures` (`7db5a6c`)
+- `❌ test-fail(eval): require reviewed-candidate decision filtering` (`2bc55cf`)
+- `✅ test-pass(eval): map reviewed candidates to eval fixtures` (`567a5f5`)
+- `📦 refactor(eval): extract reviewed-candidate curation helpers` (`d348d71`)
+- Validation: S30 reviewed-candidate tests pass and `pnpm run typecheck` passes.
