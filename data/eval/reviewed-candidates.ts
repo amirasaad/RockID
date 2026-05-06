@@ -6,6 +6,8 @@ const REVIEWABLE_DECISIONS: ReadonlySet<ReviewedDecision> = new Set(['fixture_ad
 const DEFAULT_PHOTO_WIDTH = 1200;
 const DEFAULT_PHOTO_HEIGHT = 900;
 const DEFAULT_TIMESTAMP = 1;
+const PROVENANCE_SOURCE_TAG = 'source';
+const PROVENANCE_LICENSE_TAG = 'license';
 
 export type ReviewedEvalCandidate = {
   id: string;
@@ -67,12 +69,11 @@ function toEvalFixture(candidate: ReviewedEvalCandidate): RockIdEvalFixture {
   };
 }
 
-
 function withProvenanceTags(input: { notes: string; source: string; license: string }): string {
   const source = input.source.trim();
   const license = input.license.trim();
   const base = input.notes.trim();
-  const provenance = `[source:${source}] [license:${license}]`;
+  const provenance = `[${PROVENANCE_SOURCE_TAG}:${source}] [${PROVENANCE_LICENSE_TAG}:${license}]`;
 
   return base ? `${base} ${provenance}` : provenance;
 }
