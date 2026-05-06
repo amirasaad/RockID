@@ -18,7 +18,7 @@ This doc records the current “known-good” path to run Android locally for Ro
 
 ## **What `pnpm android` Does**
 
-- Runs Expo’s Android dev-build lane through `scripts/run-android-with-jdk.mjs`, which sets `JAVA_HOME` to JDK 17 before invoking `expo run:android`.
+- Runs Expo’s Android dev-build lane through `scripts/run-android-with-jdk.mjs`, which sets `JAVA_HOME` to a verified JDK 17 before invoking `expo run:android`.
 - This may generate or update native Android artifacts locally (`android/`), even if those artifacts are not intended to be committed.
 
 ## **Package Identity**
@@ -34,7 +34,7 @@ This doc records the current “known-good” path to run Android locally for Ro
 - Java/Gradle mismatch:
   - Error includes `Unsupported class file major version 69`.
   - Cause: Android build ran with Java 25.
-  - Fix: install JDK 17 or set `ROCKID_ANDROID_JAVA_HOME`/`JAVA_HOME` to JDK 17 before `pnpm android`.
+  - Fix: install JDK 17. The wrapper verifies candidate JDK homes and should ignore a global Java 25 `JAVA_HOME` when a valid JDK 17 is installed. Use `ROCKID_ANDROID_JAVA_HOME` only when it points to a verified JDK 17.
 - Metro cannot resolve `promise/setimmediate/es6-extensions`:
   - Cause: React Native imports the `promise` package through a path that pnpm may not expose from nested package directories.
   - Fix: keep `promise` as a direct dependency and preserve the Metro alias in `metro.config.js`.

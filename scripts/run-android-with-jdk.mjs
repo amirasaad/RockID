@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { delimiter } from 'node:path';
+import { delimiter, join } from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 
 const REQUIRED_JAVA_MAJOR = 17;
@@ -15,22 +15,49 @@ function readJavaMajor(env = process.env) {
   return parseJavaMajor(output);
 }
 
+function readJavaHomeMajor(javaHome) {
+  const javaBinary = join(javaHome, 'bin', process.platform === 'win32' ? 'java.exe' : 'java');
+  if (!existsSync(javaBinary)) return null;
+
+  const result = spawnSync(javaBinary, ['-version'], { encoding: 'utf8' });
+  const output = `${result.stdout ?? ''}${result.stderr ?? ''}`;
+  return parseJavaMajor(output);
+}
+
+function isRequiredJavaHome(javaHome) {
+  return readJavaHomeMajor(javaHome) === REQUIRED_JAVA_MAJOR;
+}
+
+function parseJavaHomeCandidates(rawOutput) {
+  return rawOutput
+    .split(/\r?\n/u)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => line.match(/(?<path>\/.*\/Contents\/Home)$/u)?.groups?.path ?? line)
+    .filter((line) => line.startsWith('/'));
+}
+
 function findMacJavaHome(major) {
   const javaHomeTool = '/usr/libexec/java_home';
   if (process.platform !== 'darwin' || !existsSync(javaHomeTool)) return null;
 
   const result = spawnSync(javaHomeTool, ['-v', String(major)], { encoding: 'utf8' });
-  if (result.status !== 0) return null;
+  const directCandidate = result.stdout.trim();
+  if (result.status === 0 && directCandidate && isRequiredJavaHome(directCandidate)) {
+    return directCandidate;
+  }
 
-  return result.stdout.trim() || null;
+  const listResult = spawnSync(javaHomeTool, ['-V'], { encoding: 'utf8' });
+  const candidates = parseJavaHomeCandidates(`${listResult.stdout ?? ''}${listResult.stderr ?? ''}`);
+  return candidates.find(isRequiredJavaHome) ?? null;
 }
 
 function resolveJavaHome() {
   const override = process.env.ROCKID_ANDROID_JAVA_HOME;
-  if (override) return override;
+  if (override) return isRequiredJavaHome(override) ? override : null;
 
-  const activeMajor = readJavaMajor();
-  if (activeMajor === REQUIRED_JAVA_MAJOR) return process.env.JAVA_HOME ?? null;
+  const currentJavaHome = process.env.JAVA_HOME;
+  if (currentJavaHome && isRequiredJavaHome(currentJavaHome)) return currentJavaHome;
 
   return findMacJavaHome(REQUIRED_JAVA_MAJOR);
 }
