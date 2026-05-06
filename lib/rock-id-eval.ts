@@ -125,7 +125,7 @@ export function formatRockIdEvalSummary(
       requiredNonRockLabels: coverageGapRequiredNonRockLabels,
     });
     lines.push(
-      `Coverage gaps: low=${formatSampleList(coverageGaps.lowCoverageClasses, 10)}, missing non-rock=${formatSampleList(coverageGaps.missingNonRockLabels, 10)}`
+      `Coverage gaps: low=${formatCoverageGapList(coverageGaps.lowCoverageClasses, 10)}, missing non-rock=${formatCoverageGapList(coverageGaps.missingNonRockLabels, 10)}`
     );
   }
 
@@ -365,6 +365,15 @@ function formatSampleList(sampleIds: string[], maxSampleIds: number): string {
  * @param classes - Coverage map keyed by expected label.
  * @returns Readable class summary, or "None" when empty.
  */
+function formatCoverageGapList(values: string[], maxItems: number): string {
+  if (values.length === 0) return 'None';
+  if (values.length <= maxItems) return values.join(' | ');
+
+  const visible = values.slice(0, maxItems).join(' | ');
+  const hiddenCount = values.length - maxItems;
+  return `${visible} ... (+${hiddenCount} more)`;
+}
+
 function formatCoverageClasses(classes: Record<string, number>): string {
   const entries = Object.entries(classes).sort(([left], [right]) => left.localeCompare(right));
   if (entries.length === 0) return 'None';
