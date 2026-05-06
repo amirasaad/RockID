@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.27.0 (2026-05-06)
+
+
+### ✨ Features
+
+* **analysis**: Default to on-device CLIP kNN analyzer 952b634
+
+
+
+
+
 # 0.26.0 (2026-05-05)
 
 
