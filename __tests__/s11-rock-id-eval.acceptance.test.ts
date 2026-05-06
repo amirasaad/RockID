@@ -222,6 +222,8 @@ describe('S11 rock-ID eval acceptance', () => {
       maxNonRockConfusions: 1,
       maxLowConfidenceSamples: 1,
       maxSamplesPerConfusion: 2,
+      coverageGapMinSamplesPerClass: 2,
+      coverageGapRequiredNonRockLabels: ['Coal', 'Asphalt', 'Concrete'],
     });
 
     expect(summary).toContain('Glass → Granite (3) [glass-a, glass-b ... (+1 more)]');
@@ -229,6 +231,7 @@ describe('S11 rock-ID eval acceptance', () => {
     expect(summary).not.toContain('Coal → Granite (1) [coal-a]');
     expect(summary).toContain('Low-confidence samples: weak-evidence-a ... (+1 more)');
     expect(summary).toContain('Non-rock confusions:\n- Asphalt → Basalt (2) [asphalt-a, asphalt-b]');
+    expect(summary).toContain('Coverage gaps: low=None, missing non-rock=Asphalt, Coal, Concrete');
   });
 });
 

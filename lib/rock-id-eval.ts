@@ -98,6 +98,8 @@ export function formatRockIdEvalSummary(
     maxNonRockConfusions?: number;
     maxLowConfidenceSamples?: number;
     maxSamplesPerConfusion?: number;
+    coverageGapMinSamplesPerClass?: number;
+    coverageGapRequiredNonRockLabels?: string[];
   }
 ): string {
   const maxConfusions = options?.maxConfusions ?? 10;
@@ -114,6 +116,18 @@ export function formatRockIdEvalSummary(
   lines.push(`Low confidence: ${formatPercent(report.lowConfidenceRate)}`);
   lines.push(`Low-confidence samples: ${formatSampleList(report.lowConfidenceSampleIds, maxLowConfidenceSamples)}`);
   lines.push(`Non-rock false positives: ${formatPercent(report.nonRockFalsePositiveRate)}`);
+
+  const coverageGapMinSamplesPerClass = options?.coverageGapMinSamplesPerClass;
+  const coverageGapRequiredNonRockLabels = options?.coverageGapRequiredNonRockLabels;
+  if (coverageGapMinSamplesPerClass && coverageGapRequiredNonRockLabels) {
+    const coverageGaps = findCoverageGaps(report, {
+      minSamplesPerClass: coverageGapMinSamplesPerClass,
+      requiredNonRockLabels: coverageGapRequiredNonRockLabels,
+    });
+    lines.push(
+      `Coverage gaps: low=${formatSampleList(coverageGaps.lowCoverageClasses, 10)}, missing non-rock=${formatSampleList(coverageGaps.missingNonRockLabels, 10)}`
+    );
+  }
 
   lines.push('Top confusions:');
   lines.push(...formatConfusionLines(report.confusionPairs, maxConfusions, maxSamplesPerConfusion));
