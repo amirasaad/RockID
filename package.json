@@ -13,6 +13,7 @@
     "ios": "expo run:ios",
     "commit": "cz",
     "prepare": "husky",
+    "postinstall": "node scripts/fix-react-native-codegen.mjs",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -68,12 +69,18 @@
     "conventional-changelog-gitmoji-config": "^1.5.2",
     "cz-conventional-commit-gitmoji": "^1.3.0",
     "husky": "^9.1.7",
+    "patch-package": "^8.0.1",
     "typescript": "~5.9.2",
     "vitest": "^4.1.5"
   },
   "config": {
     "commitizen": {
       "path": "./scripts/rockid-commitizen.cjs"
+    }
+  },
+  "pnpm": {
+    "overrides": {
+      "@react-native/codegen": "0.85.2"
     }
   },
   "private": true,
