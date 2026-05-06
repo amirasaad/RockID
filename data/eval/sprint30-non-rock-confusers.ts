@@ -1,6 +1,15 @@
 import type { IdentificationSession } from '@/lib/identification-session';
 import type { RockIdEvalFixture } from '@/lib/rock-id-eval';
 
+const FALLBACK_CURATION_NOTE = 'Curated non-rock confuser sample for safety eval.';
+const NOTE_BY_FIXTURE_ID: Record<string, string> = {
+  's30-non-rock-concrete-a': 'Gray cement matrix with coarse aggregate fragments.',
+  's30-non-rock-brick-a': 'Reddish fired clay texture with uniform grain.',
+  's30-non-rock-plastic-a': 'Synthetic sheen and molded edges unlike mineral fracture.',
+  's30-non-rock-slag-ambiguous-a': 'Dark bubbly industrial residue with irregular vesicles.',
+  's30-non-rock-glass-ambiguous-a': 'Sharp reflective shard showing conchoidal fracture patterns.',
+};
+
 export const sprint30NonRockConfuserFixtures: RockIdEvalFixture[] = [
   fixture({ id: 's30-non-rock-concrete-a', expectedLabel: 'Concrete' }),
   fixture({ id: 's30-non-rock-brick-a', expectedLabel: 'Brick' }),
@@ -19,15 +28,7 @@ function fixture(input: { id: string; expectedLabel: string }): RockIdEvalFixtur
 }
 
 function notesFor(id: string): string {
-  const noteById: Record<string, string> = {
-    's30-non-rock-concrete-a': 'Gray cement matrix with coarse aggregate fragments.',
-    's30-non-rock-brick-a': 'Reddish fired clay texture with uniform grain.',
-    's30-non-rock-plastic-a': 'Synthetic sheen and molded edges unlike mineral fracture.',
-    's30-non-rock-slag-ambiguous-a': 'Dark bubbly industrial residue with irregular vesicles.',
-    's30-non-rock-glass-ambiguous-a': 'Sharp reflective shard showing conchoidal fracture patterns.',
-  };
-
-  return noteById[id] ?? 'Curated non-rock confuser sample for safety eval.';
+  return NOTE_BY_FIXTURE_ID[id] ?? FALLBACK_CURATION_NOTE;
 }
 
 function session(input: { id: string; uri: string }): IdentificationSession {
