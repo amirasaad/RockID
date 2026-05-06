@@ -45,6 +45,38 @@ export type RockIdEvalReport = {
   };
 };
 
+
+export type RockIdCoverageGaps = {
+  lowCoverageClasses: string[];
+  missingNonRockLabels: string[];
+};
+
+export function findCoverageGaps(
+  report: RockIdEvalReport,
+  options: {
+    minSamplesPerClass: number;
+    requiredNonRockLabels: string[];
+  }
+): RockIdCoverageGaps {
+  const minSamplesPerClass = Math.max(1, options.minSamplesPerClass);
+
+  const lowCoverageClasses = Object.entries(report.coverage.classes)
+    .filter(([, count]) => count < minSamplesPerClass)
+    .map(([label]) => label)
+    .sort((left, right) => left.localeCompare(right));
+
+  const observedLabels = new Set(Object.keys(report.coverage.classes));
+  const missingNonRockLabels = options.requiredNonRockLabels
+    .filter((label) => !observedLabels.has(label))
+    .sort((left, right) => left.localeCompare(right));
+
+  return {
+    lowCoverageClasses,
+    missingNonRockLabels,
+  };
+}
+
+
 type RockIdEvalResult = {
   fixture: RockIdEvalFixture;
   analysis: RockIdAnalyzerResult;
