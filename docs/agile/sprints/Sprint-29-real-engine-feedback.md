@@ -35,7 +35,7 @@ Planning date:
 | --- | --- | --- | --- |
 | `S29-1` | `Review` | [result-feedback.ts](<../../../lib/result-feedback.ts>), [result-feedback-context.tsx](<../../../lib/result-feedback-context.tsx>), [results.tsx](<../../../app/results.tsx>), [s29-real-engine-feedback.acceptance.test.ts](<../../../__tests__/s29-real-engine-feedback.acceptance.test.ts>), [s29-feedback-classification.test.ts](<../../../__tests__/s29-feedback-classification.test.ts>), [s29-feedback-note.acceptance.test.ts](<../../../__tests__/s29-feedback-note.acceptance.test.ts>) | Implemented wrong/uncertain classification with diagnostics context and note normalization; red/green/refactor commits recorded. |
 | `S29-2` | `Review` | [feedback-summary.ts](<../../../lib/feedback-summary.ts>), [s29-feedback-summary.test.ts](<../../../__tests__/s29-feedback-summary.test.ts>) | Local summary view-model implemented with choice/confidence grouping and review candidates sorted newest first. |
-| `S29-3` | `Backlog` | TBD | Sync with dataset policy in Sprint 30. |
+| `S29-3` | `Review` | [Sprint-29-real-engine-feedback.md](<Sprint-29-real-engine-feedback.md>) | Candidate policy is defined below; handoff to Sprint 30 for fixture curation. |
 
 
 ## **DoD Evidence**
@@ -51,3 +51,17 @@ Planning date:
 
 - `❌ test-fail(feedback): add local feedback summary view-model spec` (`a7155c9`)
 - `✅ test-pass(feedback): add local feedback summary view-model` (`29e6f23`)
+- `📋 agile(s29): align s29-2 branch and tracking` (`a59f974`)
+
+
+## **Feedback Candidate Policy**
+
+- Goal: turn local user feedback into reviewable eval candidates, not automatic training data.
+- Candidate include rule: feedback choice is `wrong` or `uncertain` and has analysis context (`topMatch`, `confidence`, diagnostics engine).
+- Candidate priority: `wrong` with `High` or `Medium` confidence first, then `uncertain` with `Low` confidence.
+- Candidate quality requirement: keep entries with meaningful note text when present; blank notes are normalized away and do not block candidacy.
+- Exclude rule: `useful` feedback is not an eval candidate by default.
+- Exclude rule: entries without analysis context are excluded from fixture queue and kept only for local telemetry.
+- Curation gate: a human reviewer must confirm label intent and classify each candidate as `fixture_add`, `fixture_update`, or `no_action`.
+- Data handling: candidate records are local-first and do not imply cloud upload or model training.
+- Sprint 30 handoff: promote only reviewer-approved candidates into curated eval fixtures with explicit source notes.
