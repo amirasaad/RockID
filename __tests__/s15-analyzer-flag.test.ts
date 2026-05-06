@@ -10,7 +10,12 @@ describe('S15 analyzer feature flag', () => {
     vi.restoreAllMocks();
   });
 
-  it('defaults to the mock analyzer', () => {
+  it('defaults to the onDeviceClipKnn analyzer', () => {
+    expect(getConfiguredAnalyzerKind()).toBe('onDeviceClipKnn');
+  });
+
+  it('allows mock as an explicit override via env', () => {
+    vi.stubEnv('EXPO_PUBLIC_ROCKID_ANALYZER_KIND', 'mock');
     expect(getConfiguredAnalyzerKind()).toBe('mock');
   });
 

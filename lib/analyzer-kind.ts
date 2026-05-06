@@ -17,7 +17,7 @@ export function getConfiguredAnalyzerKind(): AnalyzerKind {
 
   if (configuredKind) return configuredKind;
 
-  return 'mock';
+  return 'onDeviceClipKnn';
 }
 
 export function __resetAnalyzerKindConfigForTesting(): void {
