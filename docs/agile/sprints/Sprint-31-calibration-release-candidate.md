@@ -39,7 +39,7 @@ Planning date:
 | --- | --- | --- | --- |
 | `S31-1` | `Done` | [confidence-thresholds.ts](<../../../lib/confidence-thresholds.ts>), Sprint 31 notes | S26 calibrated thresholds (high: 0.55/0.18, medium: 0.4/0.1) remain appropriate; S30 eval coverage expanded but no accuracy regression found. |
 | `S31-2` | `Done` | [results.tsx](<../../../app/results.tsx>), [results-clarity.ts](<../../../lib/results-clarity.ts>) | Uses "Likely match" header; low-confidence banner says "Results from one photo can be uncertain"; feedback asks "Was this useful?" not "Is this correct?" |
-| `S31-3` | `Done` | [post-merge](<../../../.husky/post-merge>) | `verify:release-builds` added to post-merge hook for `main`. Merge resets on build failure. |
+| `S31-3` | `Done` | [post-merge](<../../../.husky/post-merge>), [verify-release-builds.mjs](<../../../scripts/verify-release-builds.mjs>) | `verify:release-builds` added to post-merge hook for `main`. JS bundle exports are required; native builds are optional (require SDK environment). RN 0.81.5 codegen bug fixed via pnpm override to 0.85.2. |
 | `S31-4` | `Not Started` | TBD | Prevent empty changelog repeats. |
 
 ## **DoD Evidence**
@@ -54,7 +54,8 @@ Planning date:
 | --- | --- | --- | --- |
 | Threshold review | S26 thresholds appropriate for S30 coverage | Confidence thresholds unchanged | `Pass` |
 | Uncertainty messaging | Results don't overclaim certainty | `results.tsx` review | `Pass` |
-| Release builds | iOS/Android bundle export | `pnpm run verify:release-builds` | `Blocked (RN 0.81.5 bug)` |
+| Release builds | iOS/Android JS bundle export | `pnpm verify:release-builds` | `Pass` |
+| Native builds | iOS/Android native compilation | Optional (requires SDK) | `N/A (local env)` |
 | TypeScript | Compile gate | `pnpm run typecheck` | `Pass` |
 | Unit tests | All suites | `pnpm test` (74 files, 151 tests) | `Pass` |
 | E2E tests | Core flows | `pnpm test:e2e` (4/4) | `Pass` |
