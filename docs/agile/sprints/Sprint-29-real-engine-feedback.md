@@ -33,6 +33,18 @@ Planning date:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S29-1` | `Backlog` | TBD | Start after Sprint 28 release gate is stable. |
+| `S29-1` | `Review` | [result-feedback.ts](<../../../lib/result-feedback.ts>), [result-feedback-context.tsx](<../../../lib/result-feedback-context.tsx>), [results.tsx](<../../../app/results.tsx>), [s29-real-engine-feedback.acceptance.test.ts](<../../../__tests__/s29-real-engine-feedback.acceptance.test.ts>), [s29-feedback-classification.test.ts](<../../../__tests__/s29-feedback-classification.test.ts>), [s29-feedback-note.acceptance.test.ts](<../../../__tests__/s29-feedback-note.acceptance.test.ts>) | Implemented wrong/uncertain classification with diagnostics context and note normalization; red/green/refactor commits recorded. |
 | `S29-2` | `Backlog` | TBD | Keep local-first. |
 | `S29-3` | `Backlog` | TBD | Sync with dataset policy in Sprint 30. |
+
+
+## **DoD Evidence**
+
+- `❌ test-fail(feedback): capture real-engine feedback context` (`1478e9f`)
+- `✅ test-pass(feedback): persist real-engine feedback context` (`6931f99`)
+- `❌ test-fail(feedback): classify not-useful by confidence` (`cd598f0`)
+- `✅ test-pass(feedback): classify not-useful feedback by confidence` (`e4a7a12`)
+- `📦 refactor(feedback): extract results feedback payload helper` (`d48e02f`)
+- `✨ feat(feedback): add red acceptance test for note normalization` (`5b41fab`)
+- `✅ test-pass(feedback): normalize blank feedback notes` (`5caf545`)
+- Validation: targeted S29/S8 feedback Vitest suite passes and `pnpm run typecheck` passes on this story branch.
