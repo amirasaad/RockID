@@ -43,10 +43,10 @@ Sprint 27 enabled the real engine by default and exposed a stronger release rule
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S28-1` | `Review` | [NextDriverDevGuide.md](<../../NextDriverDevGuide.md>), [AgileDeliveryPlan.md](<../../AgileDeliveryPlan.md>) | Release gate is documented; individual iOS/Android build commands are now green. |
-| `S28-2` | `Review` | [AndroidDevBuild.md](<../../AndroidDevBuild.md>), [run-android-with-jdk.mjs](<../../../scripts/run-android-with-jdk.mjs>), [metro.config.js](<../../../metro.config.js>) | `bundle:android` passes; `build:android` passes after verified JDK 17 selection even when global Java is 25. |
-| `S28-3` | `Review` | iOS build notes below | `bundle:ios` passes; `build:ios` passes on iPhone 16e simulator with one SDWebImage deployment-version warning. |
-| `S28-4` | `Review` | This sprint file | Evidence is captured below; full aggregate gate can run before the next bump. |
+| `S28-1` | `Done` | [NextDriverDevGuide.md](<../../NextDriverDevGuide.md>), [AgileDeliveryPlan.md](<../../AgileDeliveryPlan.md>) | Release gate is documented and aggregate gate passed. |
+| `S28-2` | `Done` | [AndroidDevBuild.md](<../../AndroidDevBuild.md>), [run-android-with-jdk.mjs](<../../../scripts/run-android-with-jdk.mjs>), [metro.config.js](<../../../metro.config.js>) | Android bundle/native build passed in the aggregate release gate. |
+| `S28-3` | `Done` | iOS build notes below | iOS bundle/native build passed in the aggregate release gate; one SDWebImage deployment-version warning remains non-blocking. |
+| `S28-4` | `Done` | This sprint file | Aggregate release-gate evidence is captured below. |
 
 
 ## **Build Evidence**
@@ -59,10 +59,10 @@ Sprint 27 enabled the real engine by default and exposed a stronger release rule
 | `pnpm run build:android` | `Pass` | Built debug APK, installed, and opened on Pixel_10_Pro_XL emulator. | Wrapper now selects verified JDK 17 even when global `JAVA_HOME` points at Java 25. |
 | `node --check scripts/run-android-with-jdk.mjs` | `Pass` | Syntax check passed. | Guards wrapper edits. |
 | `JAVA_HOME=<java-25-home> node scripts/run-android-with-jdk.mjs --help` | `Pass` | Expo Android help displayed. | Regression check for Java 25 global environment. |
+| `pnpm run verify:release-builds` | `Pass` | iOS and Android bundle/native builds succeeded. | Full aggregate release gate passed before the next bump. |
 
 ## **Open Follow-Up**
 
-- Run the aggregate `pnpm run verify:release-builds` once before the next release bump to prove the complete gate in one command.
 - Keep watching the iOS SDWebImage deployment-version warning; it is not blocking the current debug build.
 
 ## **Definition Of Done**
