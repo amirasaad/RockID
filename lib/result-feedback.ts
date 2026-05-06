@@ -1,9 +1,19 @@
-export type ResultFeedbackChoice = 'useful' | 'not_useful';
+import type { IdentificationAnalysisDiagnostics } from './identification-session';
+
+export type ResultFeedbackChoice = 'useful' | 'not_useful' | 'wrong' | 'uncertain';
+
+export type ResultFeedbackAnalysisContext = {
+  topMatch: string;
+  confidence: 'High' | 'Medium' | 'Low';
+  diagnostics: IdentificationAnalysisDiagnostics;
+};
 
 export type ResultFeedback = {
   id: string;
   sessionId: string;
   choice: ResultFeedbackChoice;
+  note?: string;
+  analysisContext?: ResultFeedbackAnalysisContext;
   recordedAt: number;
 };
 
@@ -21,6 +31,8 @@ export type SaveResultFeedbackFn = (feedback: ResultFeedback) => ResultFeedback;
 export function recordResultFeedback(input: {
   sessionId: string;
   choice: ResultFeedbackChoice;
+  note?: string;
+  analysisContext?: ResultFeedbackAnalysisContext;
   saveFeedback: SaveResultFeedbackFn;
   recordedAt?: number;
 }): ResultFeedback {
@@ -28,6 +40,8 @@ export function recordResultFeedback(input: {
     id: `feedback-${input.sessionId}`,
     sessionId: input.sessionId,
     choice: input.choice,
+    note: input.note,
+    analysisContext: input.analysisContext,
     recordedAt: input.recordedAt ?? Date.now(),
   });
 }

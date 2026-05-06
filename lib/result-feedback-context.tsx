@@ -4,18 +4,26 @@ import {
   createResultFeedbackStore,
   findResultFeedbackBySession,
   type ResultFeedback,
+  type ResultFeedbackAnalysisContext,
   type ResultFeedbackChoice,
 } from './result-feedback';
 
+type SaveFeedbackInput = {
+  sessionId: string;
+  choice: ResultFeedbackChoice;
+  note?: string;
+  analysisContext?: ResultFeedbackAnalysisContext;
+};
+
 type ResultFeedbackContextValue = {
-  saveFeedback: (input: { sessionId: string; choice: ResultFeedbackChoice }) => ResultFeedback;
+  saveFeedback: (input: SaveFeedbackInput) => ResultFeedback;
   getFeedbackForSession: (sessionId: string) => ResultFeedback | null;
 };
 
 const ResultFeedbackContext = createContext<ResultFeedbackContextValue | null>(null);
 
 export type ResultFeedbackRepository = {
-  saveFeedback: (input: { sessionId: string; choice: ResultFeedbackChoice; recordedAt?: number }) => ResultFeedback;
+  saveFeedback: (input: SaveFeedbackInput & { recordedAt?: number }) => ResultFeedback;
   getFeedbackForSession: (sessionId: string) => ResultFeedback | null;
   getSnapshot: () => { feedback: ResultFeedback[] };
 };
@@ -29,6 +37,8 @@ export function createResultFeedbackRepository(initialFeedback: ResultFeedback[]
         id: `feedback-${input.sessionId}`,
         sessionId: input.sessionId,
         choice: input.choice,
+        note: input.note,
+        analysisContext: input.analysisContext,
         recordedAt: input.recordedAt ?? Date.now(),
       });
     },
