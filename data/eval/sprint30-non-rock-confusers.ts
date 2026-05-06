@@ -1,13 +1,20 @@
 import type { IdentificationSession } from '@/lib/identification-session';
 import type { RockIdEvalFixture } from '@/lib/rock-id-eval';
 
-const FALLBACK_CURATION_NOTE = 'Curated non-rock confuser sample for safety eval. [source:field-qa] [license:internal-demo]';
+const PROVENANCE_SOURCE = 'field-qa';
+const PROVENANCE_LICENSE = 'internal-demo';
+const FALLBACK_CURATION_NOTE = withProvenance('Curated non-rock confuser sample for safety eval.');
+
+function withProvenance(note: string): string {
+  return `${note} [source:${PROVENANCE_SOURCE}] [license:${PROVENANCE_LICENSE}]`;
+}
+
 const NOTE_BY_FIXTURE_ID: Record<string, string> = {
-  's30-non-rock-concrete-a': 'Gray cement matrix with coarse aggregate fragments. [source:field-qa] [license:internal-demo]' ,
-  's30-non-rock-brick-a': 'Reddish fired clay texture with uniform grain. [source:field-qa] [license:internal-demo]' ,
-  's30-non-rock-plastic-a': 'Synthetic sheen and molded edges unlike mineral fracture. [source:field-qa] [license:internal-demo]' ,
-  's30-non-rock-slag-ambiguous-a': 'Dark bubbly industrial residue with irregular vesicles. [source:field-qa] [license:internal-demo]' ,
-  's30-non-rock-glass-ambiguous-a': 'Sharp reflective shard showing conchoidal fracture patterns. [source:field-qa] [license:internal-demo]' ,
+  's30-non-rock-concrete-a': withProvenance('Gray cement matrix with coarse aggregate fragments.'),
+  's30-non-rock-brick-a': withProvenance('Reddish fired clay texture with uniform grain.'),
+  's30-non-rock-plastic-a': withProvenance('Synthetic sheen and molded edges unlike mineral fracture.'),
+  's30-non-rock-slag-ambiguous-a': withProvenance('Dark bubbly industrial residue with irregular vesicles.'),
+  's30-non-rock-glass-ambiguous-a': withProvenance('Sharp reflective shard showing conchoidal fracture patterns.'),
 };
 
 export const sprint30NonRockConfuserFixtures: RockIdEvalFixture[] = [
