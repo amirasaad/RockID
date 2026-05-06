@@ -89,7 +89,11 @@ function oneHot(dimension: number, index: number): number[] {
 }
 
 function lowConfidenceGraniteBias(dimension: number): number[] {
-  return Array.from({ length: dimension }, (_, i) => (i === 0 ? 1.01 : 1));
+  return Array.from({ length: dimension }, (_, i) => {
+    if (i === 0) return 1;
+    if (i === 1) return 0.99;
+    return 0;
+  });
 }
 
 function mediumConfidenceObsidian(dimension: number): number[] {

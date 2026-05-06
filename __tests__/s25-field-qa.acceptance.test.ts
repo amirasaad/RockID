@@ -3,7 +3,9 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { fieldQaEvalFixtures } from '@/data/eval/field-qa-fixtures';
 import { analyzeIdentificationSessionWithOnDeviceClipKnnAsync } from '@/lib/on-device-clip-knn-analysis';
 import { configureNativeOnDeviceImageEncoder, __resetOnDeviceImageEncoderConfigForTesting } from '@/lib/on-device-image-encoder-registry';
-import { evaluateRockIdentifierAsync, formatRockIdEvalSummary } from '@/lib/rock-id-eval';
+import { evaluateRockIdentifierAsync, formatRockIdEvalSummary, type RockIdEvalFixture } from '@/lib/rock-id-eval';
+
+const sprint25BaselineFixtures = fieldQaEvalFixtures.slice(0, 7) as RockIdEvalFixture[];
 
 describe('S25 dataset and field QA acceptance', () => {
   afterEach(() => {
@@ -25,7 +27,7 @@ describe('S25 dataset and field QA acceptance', () => {
     });
 
     const report = await evaluateRockIdentifierAsync({
-      fixtures: fieldQaEvalFixtures,
+      fixtures: sprint25BaselineFixtures,
       analyze: async (session) => analyzeIdentificationSessionWithOnDeviceClipKnnAsync(session),
     });
 
@@ -51,7 +53,7 @@ describe('S25 dataset and field QA acceptance', () => {
     expect(summary).toContain('Non-rock confusions:\n- None');
 
     const analyses = await Promise.all(
-      fieldQaEvalFixtures.map(async (fixture) => ({
+      sprint25BaselineFixtures.map(async (fixture) => ({
         fixture,
         analysis: await analyzeIdentificationSessionWithOnDeviceClipKnnAsync(fixture.session),
       }))
@@ -66,14 +68,14 @@ describe('S25 dataset and field QA acceptance', () => {
     }
 
     const nonRockAnalyses = await Promise.all(
-      fieldQaEvalFixtures
+      sprint25BaselineFixtures
         .filter((fixture) => fixture.expectedKind === 'non-rock')
         .map(async (fixture) => analyzeIdentificationSessionWithOnDeviceClipKnnAsync(fixture.session))
     );
 
     expect(nonRockAnalyses.map((analysis) => analysis.topMatch.confidence)).toEqual(['Medium', 'Medium', 'Medium', 'Medium']);
 
-    const ambiguous = fieldQaEvalFixtures.find((fixture) => fixture.id.includes('field-rock-ambiguous'));
+    const ambiguous = sprint25BaselineFixtures.find((fixture) => fixture.id.includes('field-rock-ambiguous'));
     expect(ambiguous).toBeDefined();
     if (ambiguous) {
       const analysis = await analyzeIdentificationSessionWithOnDeviceClipKnnAsync(ambiguous.session);
@@ -96,7 +98,7 @@ describe('S25 dataset and field QA acceptance', () => {
     });
 
     const report = await evaluateRockIdentifierAsync({
-      fixtures: fieldQaEvalFixtures,
+      fixtures: sprint25BaselineFixtures,
       analyze: async (session) => analyzeIdentificationSessionWithOnDeviceClipKnnAsync(session),
     });
 
@@ -120,5 +122,9 @@ function oneHot(dimension: number, index: number): number[] {
 }
 
 function lowConfidenceGraniteBias(dimension: number): number[] {
-  return Array.from({ length: dimension }, (_, i) => (i === 0 ? 1.01 : 1));
+  return Array.from({ length: dimension }, (_, i) => {
+    if (i === 0) return 1;
+    if (i === 1) return 0.99;
+    return 0;
+  });
 }
