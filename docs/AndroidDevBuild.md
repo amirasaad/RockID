@@ -46,3 +46,9 @@ This doc records the current “known-good” path to run Android locally for Ro
 
 - Treat generated native artifacts as local-only unless a sprint explicitly adopts them.
 - If Android files must be preserved for investigation, record their state in ignored local notes rather than committing them by default.
+
+## **Release Gate**
+
+- Run `pnpm run verify:release-builds` before any release bump.
+- The gate includes Android JS bundle export and Android native build, plus matching iOS checks.
+- A successful Android native build alone is not enough; Metro bundle export must pass too.

@@ -25,7 +25,12 @@
     "bump:dry": "commit-and-tag-version --dry-run",
     "bump:patch": "commit-and-tag-version --release-as patch",
     "bump:minor": "commit-and-tag-version --release-as minor",
-    "android:expo": "expo run:android"
+    "android:expo": "expo run:android",
+    "bundle:ios": "expo export --platform ios --output-dir /private/tmp/rockid-ios-export",
+    "bundle:android": "expo export --platform android --output-dir /private/tmp/rockid-android-export",
+    "build:ios": "expo run:ios --no-install --no-bundler",
+    "build:android": "node scripts/run-android-with-jdk.mjs --no-install --no-bundler",
+    "verify:release-builds": "node scripts/verify-release-builds.mjs"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

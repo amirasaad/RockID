@@ -13,6 +13,7 @@ This guide is the operating playbook for the next engineering driver on `Rock ID
 - Keep docs and code aligned in the same PR when behavior changes.
 - Merge to `main` only when story DoD criteria are met.
 - Keep product/app versions in `v0.x.y` throughout MVP. Use `pnpm bump:dry` to preview, then `pnpm bump:patch` or `pnpm bump:minor` only when release criteria are met.
+- Before any release bump, `pnpm run verify:release-builds` must pass so both iOS and Android are build-stable.
 
 ## **Branch Workflow**
 
@@ -47,7 +48,7 @@ What happens on merge:
 - On `main` and `sprint/*`, the repo runs `pnpm test:e2e` automatically via the local git `post-merge` hook.
 - If `pnpm test:e2e` fails, the hook resets the branch back to the pre-merge commit and exits non-zero (treat this as a failed merge).
 - The repo does not auto-bump on merge; release bumps are explicit after sprint DoD.
-- Run `pnpm bump:dry`, choose `pnpm bump:patch` or `pnpm bump:minor`, and confirm the generated release commit uses `🔖 bump(release): v0.x.y`.
+- Run `pnpm run verify:release-builds`, then `pnpm bump:dry`; choose `pnpm bump:patch` or `pnpm bump:minor`, and confirm the generated release commit uses `🔖 bump(release): v0.x.y`.
 
 Continue to the next story:
 
@@ -95,6 +96,7 @@ Before merge, verify all of the following:
 - Edge states in acceptance criteria are handled.
 - `pnpm run typecheck` passes.
 - Relevant tests pass.
+- For a release, `pnpm run verify:release-builds` passes, covering iOS/Android JS bundle export plus native builds.
 - Manual validation notes are captured in sprint tracking.
 - Dependency changes are justified and locked (`package.json` and `pnpm-lock.yaml`).
 - Version changes are intentional, stay in `v0.x.y` during MVP, and use the configured bump tooling so `package.json` plus `app.json` update together.
@@ -118,6 +120,9 @@ Before merge, verify all of the following:
 - Current MVP build version is tracked in `package.json`, `app.json`, and [../README.md](<../README.md>).
 - Start Expo with:
   - `pnpm exec expo start --lan`
+- Release build gate:
+  - `pnpm run verify:release-builds`
+  - Runs iOS export, Android export, iOS native build, and Android native build.
 - Expo Go vs development builds:
   - Expo Go cannot load arbitrary third-party native modules.
   - Once we add on-device inference (for example `onnxruntime-react-native`), use a custom Expo development build for device testing instead of Expo Go.

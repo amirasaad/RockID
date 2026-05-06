@@ -21,6 +21,7 @@ Driver handoff and day-to-day engineering execution standards live in [NextDrive
 - Versioning strategy: stay in `v0.x.y` during MVP; use Commitizen-shaped history plus `pnpm bump:dry`, `pnpm bump:patch`, or `pnpm bump:minor` for tracked release bumps.
 - Backlog owner: product/engineering pair, using the PRD and roadmap as source material.
 - Technical quality gate: every sprint should end with typecheck passing, relevant tests passing (including e2e when it touches core flow), and a short demo path verified manually when user-facing behavior changes.
+- Release stability gate: before any release bump, iOS and Android must both pass `pnpm run verify:release-builds`; no release goes out with only one platform build-verified.
 - Git integration: prefer fast-forward merges (no merge commits). Rebase story branches onto the sprint branch, then fast-forward the sprint branch into `main`.
 
 ## **Working Agreement**
@@ -45,7 +46,7 @@ A story is done when:
 - `pnpm run typecheck` passes.
 - Relevant tests pass.
 - Manual validation steps are documented in sprint notes when user-facing behavior changes.
-- Any version bump is intentional and keeps MVP in the `v0.x.y` line.
+- Any version bump is intentional, keeps MVP in the `v0.x.y` line, and follows a passing `pnpm run verify:release-builds`.
 - Any dependency change is justified and reflected in the lockfile.
 - The implementation avoids conflicting with MVP requirements in [Screen-By-ScreenRequirements.md](<Screen-By-ScreenRequirements.md>).
 
