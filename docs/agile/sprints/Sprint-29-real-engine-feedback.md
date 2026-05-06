@@ -34,7 +34,7 @@ Planning date:
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
 | `S29-1` | `Review` | [result-feedback.ts](<../../../lib/result-feedback.ts>), [result-feedback-context.tsx](<../../../lib/result-feedback-context.tsx>), [results.tsx](<../../../app/results.tsx>), [s29-real-engine-feedback.acceptance.test.ts](<../../../__tests__/s29-real-engine-feedback.acceptance.test.ts>), [s29-feedback-classification.test.ts](<../../../__tests__/s29-feedback-classification.test.ts>), [s29-feedback-note.acceptance.test.ts](<../../../__tests__/s29-feedback-note.acceptance.test.ts>) | Implemented wrong/uncertain classification with diagnostics context and note normalization; red/green/refactor commits recorded. |
-| `S29-2` | `Backlog` | TBD | Keep local-first. |
+| `S29-2` | `Review` | [feedback-summary.ts](<../../../lib/feedback-summary.ts>), [s29-feedback-summary.test.ts](<../../../__tests__/s29-feedback-summary.test.ts>) | Local summary view-model implemented with choice/confidence grouping and review candidates sorted newest first. |
 | `S29-3` | `Backlog` | TBD | Sync with dataset policy in Sprint 30. |
 
 
@@ -48,3 +48,6 @@ Planning date:
 - `✨ feat(feedback): add red acceptance test for note normalization` (`5b41fab`)
 - `✅ test-pass(feedback): normalize blank feedback notes` (`5caf545`)
 - Validation: targeted S29/S8 feedback Vitest suite passes and `pnpm run typecheck` passes on this story branch.
+
+- `❌ test-fail(feedback): add local feedback summary view-model spec` (`a7155c9`)
+- `✅ test-pass(feedback): add local feedback summary view-model` (`29e6f23`)
