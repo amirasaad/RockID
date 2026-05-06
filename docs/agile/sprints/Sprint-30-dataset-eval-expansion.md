@@ -22,6 +22,7 @@ Planning date:
 | `S30-2` | As the team, we add curated fixture candidates safely. | New fixtures include source/license/notes and do not use unreviewed user uploads as training data. | Must |
 | `S30-3` | As the team, non-rock confusion risk is harder to miss. | Eval includes additional human-made materials and ambiguous look-alikes. | Must |
 | `S30-4` | As the team, confuser fixtures stay reviewable over time. | Each Sprint 30 non-rock confuser fixture has descriptive curation notes. | Must |
+| `S30-5` | As the team, fixture provenance is explicitly traceable. | Confuser fixture notes include structured source and license tags. | Must |
 
 ## **Quality Gates**
 
@@ -37,6 +38,7 @@ Planning date:
 | `S30-2` | `Review` | [reviewed-candidates.ts](<../../../data/eval/reviewed-candidates.ts>), [s30-curated-candidate-fixtures.acceptance.test.ts](<../../../__tests__/s30-curated-candidate-fixtures.acceptance.test.ts>), [s30-reviewed-candidates.test.ts](<../../../__tests__/s30-reviewed-candidates.test.ts>) | Reviewed-candidate fixture mapping is in place with reviewed-only gating and metadata-preserving fixture generation. |
 | `S30-3` | `Review` | [sprint30-non-rock-confusers.ts](<../../../data/eval/sprint30-non-rock-confusers.ts>), [s30-non-rock-confuser-expansion.acceptance.test.ts](<../../../__tests__/s30-non-rock-confuser-expansion.acceptance.test.ts>), [s30-non-rock-confuser-shape.test.ts](<../../../__tests__/s30-non-rock-confuser-shape.test.ts>) | Non-rock confuser fixture expansion is in place for concrete/brick/plastic/slag/glass safety coverage. |
 | `S30-4` | `Review` | [sprint30-non-rock-confusers.ts](<../../../data/eval/sprint30-non-rock-confusers.ts>), [s30-non-rock-confuser-metadata.acceptance.test.ts](<../../../__tests__/s30-non-rock-confuser-metadata.acceptance.test.ts>), [s30-non-rock-confuser-notes-quality.test.ts](<../../../__tests__/s30-non-rock-confuser-notes-quality.test.ts>) | Curation note requirements are enforced so each confuser fixture retains review context. |
+| `S30-5` | `Review` | [sprint30-non-rock-confusers.ts](<../../../data/eval/sprint30-non-rock-confusers.ts>), [s30-non-rock-confuser-provenance.acceptance.test.ts](<../../../__tests__/s30-non-rock-confuser-provenance.acceptance.test.ts>), [s30-non-rock-confuser-provenance-format.test.ts](<../../../__tests__/s30-non-rock-confuser-provenance-format.test.ts>) | Source and license provenance tags are enforced in non-rock confuser fixture notes. |
 
 
 ## **DoD Evidence**
@@ -66,3 +68,9 @@ Planning date:
 - `✅ test-pass(eval): add curated notes for sprint30 confuser fixtures` (`bf568d7`)
 - `📦 refactor(eval): hoist confuser curation note constants` (`5083472`)
 - Validation: S30 metadata and notes-quality tests pass for non-rock confuser fixtures.
+
+- `✨ feat(eval): add red acceptance test for confuser provenance tags` (`5847e0d`)
+- `❌ test-fail(eval): require bracketed provenance tag format` (`5f97c4f`)
+- `✅ test-pass(eval): add source and license tags to confuser notes` (`22b4de0`)
+- `📦 refactor(eval): centralize confuser provenance tag formatting` (`3af1b1b`)
+- Validation: S30 provenance acceptance/format tests pass and `pnpm run typecheck` passes.
