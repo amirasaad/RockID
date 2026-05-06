@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.29.0 (2026-05-06)
+
+
+### ✨ Features
+
+* **eval**: Add red acceptance test for confuser curation notes 68975df
+* **eval**: Add red acceptance test for confuser provenance tags 5847e0d
+* **eval**: Add red acceptance test for coverage-gap summary a9788cc
+* **eval**: Add red acceptance test for curated candidate fixtures 7db5a6c
+* **eval**: Add red acceptance test for non-rock confuser expansion 6ee840b
+* **eval**: Add red acceptance test for reviewed candidate provenance 8491d09
+
+
+
+
+
 # 0.28.0 (2026-05-06)
 
 
