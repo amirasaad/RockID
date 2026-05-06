@@ -33,9 +33,9 @@ Planning date:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S29-1` | `Review` | [result-feedback.ts](<../../../lib/result-feedback.ts>), [result-feedback-context.tsx](<../../../lib/result-feedback-context.tsx>), [results.tsx](<../../../app/results.tsx>), [s29-real-engine-feedback.acceptance.test.ts](<../../../__tests__/s29-real-engine-feedback.acceptance.test.ts>), [s29-feedback-classification.test.ts](<../../../__tests__/s29-feedback-classification.test.ts>), [s29-feedback-note.acceptance.test.ts](<../../../__tests__/s29-feedback-note.acceptance.test.ts>) | Implemented wrong/uncertain classification with diagnostics context and note normalization; red/green/refactor commits recorded. |
-| `S29-2` | `Review` | [feedback-summary.ts](<../../../lib/feedback-summary.ts>), [s29-feedback-summary.test.ts](<../../../__tests__/s29-feedback-summary.test.ts>) | Local summary view-model implemented with choice/confidence grouping and review candidates sorted newest first. |
-| `S29-3` | `Review` | [Sprint-29-real-engine-feedback.md](<Sprint-29-real-engine-feedback.md>) | Candidate policy is defined below; handoff to Sprint 30 for fixture curation. |
+| `S29-1` | `Done` | [result-feedback.ts](<../../../lib/result-feedback.ts>), [result-feedback-context.tsx](<../../../lib/result-feedback-context.tsx>), [results.tsx](<../../../app/results.tsx>), [s29-real-engine-feedback.acceptance.test.ts](<../../../__tests__/s29-real-engine-feedback.acceptance.test.ts>), [s29-feedback-classification.test.ts](<../../../__tests__/s29-feedback-classification.test.ts>), [s29-feedback-note.acceptance.test.ts](<../../../__tests__/s29-feedback-note.acceptance.test.ts>) | Implemented wrong/uncertain classification with diagnostics context and note normalization; red/green/refactor commits recorded. |
+| `S29-2` | `Done` | [feedback-summary.ts](<../../../lib/feedback-summary.ts>), [s29-feedback-summary.test.ts](<../../../__tests__/s29-feedback-summary.test.ts>) | Local summary view-model implemented with choice/confidence grouping and review candidates sorted newest first. |
+| `S29-3` | `Done` | [Sprint-29-real-engine-feedback.md](<Sprint-29-real-engine-feedback.md>) | Candidate policy is defined below; handoff to Sprint 30 for fixture curation. |
 
 
 ## **DoD Evidence**
