@@ -9,7 +9,7 @@
   "scripts": {
     "start": "expo start",
     "start:dev": "expo start --dev-client",
-    "android": "expo run:android",
+    "android": "node scripts/run-android-with-jdk.mjs",
     "ios": "expo run:ios",
     "commit": "cz",
     "prepare": "husky",
@@ -24,7 +24,8 @@
     "bump": "commit-and-tag-version",
     "bump:dry": "commit-and-tag-version --dry-run",
     "bump:patch": "commit-and-tag-version --release-as patch",
-    "bump:minor": "commit-and-tag-version --release-as minor"
+    "bump:minor": "commit-and-tag-version --release-as minor",
+    "android:expo": "expo run:android"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -42,6 +43,7 @@
     "expo-splash-screen": "~31.0.13",
     "expo-status-bar": "~3.0.9",
     "expo-web-browser": "~15.0.10",
+    "promise": "^8.3.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
