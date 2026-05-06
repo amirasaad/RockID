@@ -77,6 +77,15 @@ export function findCoverageGaps(
 }
 
 
+export type RockIdEvalSummaryOptions = {
+  maxConfusions?: number;
+  maxNonRockConfusions?: number;
+  maxLowConfidenceSamples?: number;
+  maxSamplesPerConfusion?: number;
+  coverageGapMinSamplesPerClass?: number;
+  coverageGapRequiredNonRockLabels?: string[];
+};
+
 type RockIdEvalResult = {
   fixture: RockIdEvalFixture;
   analysis: RockIdAnalyzerResult;
@@ -93,14 +102,7 @@ type RockIdEvalResult = {
  */
 export function formatRockIdEvalSummary(
   report: RockIdEvalReport,
-  options?: {
-    maxConfusions?: number;
-    maxNonRockConfusions?: number;
-    maxLowConfidenceSamples?: number;
-    maxSamplesPerConfusion?: number;
-    coverageGapMinSamplesPerClass?: number;
-    coverageGapRequiredNonRockLabels?: string[];
-  }
+  options?: RockIdEvalSummaryOptions
 ): string {
   const maxConfusions = options?.maxConfusions ?? 10;
   const maxNonRockConfusions = options?.maxNonRockConfusions ?? 10;
@@ -117,16 +119,9 @@ export function formatRockIdEvalSummary(
   lines.push(`Low-confidence samples: ${formatSampleList(report.lowConfidenceSampleIds, maxLowConfidenceSamples)}`);
   lines.push(`Non-rock false positives: ${formatPercent(report.nonRockFalsePositiveRate)}`);
 
-  const coverageGapMinSamplesPerClass = options?.coverageGapMinSamplesPerClass;
-  const coverageGapRequiredNonRockLabels = options?.coverageGapRequiredNonRockLabels;
-  if (coverageGapMinSamplesPerClass && coverageGapRequiredNonRockLabels) {
-    const coverageGaps = findCoverageGaps(report, {
-      minSamplesPerClass: coverageGapMinSamplesPerClass,
-      requiredNonRockLabels: coverageGapRequiredNonRockLabels,
-    });
-    lines.push(
-      `Coverage gaps: low=${formatCoverageGapList(coverageGaps.lowCoverageClasses, 10)}, missing non-rock=${formatCoverageGapList(coverageGaps.missingNonRockLabels, 10)}`
-    );
+  const coverageGapLine = formatCoverageGapSummaryLine(report, options);
+  if (coverageGapLine) {
+    lines.push(coverageGapLine);
   }
 
   lines.push('Top confusions:');
@@ -365,6 +360,19 @@ function formatSampleList(sampleIds: string[], maxSampleIds: number): string {
  * @param classes - Coverage map keyed by expected label.
  * @returns Readable class summary, or "None" when empty.
  */
+function formatCoverageGapSummaryLine(report: RockIdEvalReport, options?: RockIdEvalSummaryOptions): string | null {
+  const minSamplesPerClass = options?.coverageGapMinSamplesPerClass;
+  const requiredNonRockLabels = options?.coverageGapRequiredNonRockLabels;
+  if (!minSamplesPerClass || !requiredNonRockLabels) return null;
+
+  const coverageGaps = findCoverageGaps(report, {
+    minSamplesPerClass,
+    requiredNonRockLabels,
+  });
+
+  return `Coverage gaps: low=${formatCoverageGapList(coverageGaps.lowCoverageClasses, 10)}, missing non-rock=${formatCoverageGapList(coverageGaps.missingNonRockLabels, 10)}`;
+}
+
 function formatCoverageGapList(values: string[], maxItems: number): string {
   if (values.length === 0) return 'None';
   if (values.length <= maxItems) return values.join(' | ');
