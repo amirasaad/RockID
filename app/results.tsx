@@ -10,9 +10,8 @@ import { track } from '@/lib/analytics';
 import { useAppSettings } from '@/lib/app-settings-context';
 import { useIdentificationSession } from '@/lib/identification-session-context';
 import { analyzeIdentificationSession } from '@/lib/mock-analysis';
-import { type ResultFeedbackChoice } from '@/lib/result-feedback';
 import { useResultFeedback } from '@/lib/result-feedback-context';
-import { isLowConfidenceVariant } from '@/lib/results-clarity';
+import { classifyResultFeedbackChoice, isLowConfidenceVariant } from '@/lib/results-clarity';
 import { saveIdentificationResultAsync } from '@/lib/saved-finds-actions';
 import { persistSavedPhotoUriAsync } from '@/lib/saved-photo-storage';
 import { useSavedFinds } from '@/lib/saved-finds-context';
@@ -84,8 +83,34 @@ export default function ResultsScreen() {
     router.replace('/capture-tips');
   }
 
-  function handleResultFeedback(choice: ResultFeedbackChoice) {
-    saveFeedback({ sessionId: analysis.sessionId, choice });
+  function buildFeedbackPayload(isUseful: boolean) {
+    const choice = classifyResultFeedbackChoice({
+      confidence: topMatch.confidence,
+      isUseful,
+    });
+
+    return {
+      choice,
+      payload: {
+        sessionId: analysis.sessionId,
+        choice,
+        analysisContext: {
+          topMatch: topMatch.name,
+          confidence: topMatch.confidence,
+          diagnostics: analysis.diagnostics ?? {
+            engine: 'detailsMock',
+            fallback: false,
+            durationMs: 0,
+          },
+        },
+      },
+    };
+  }
+
+  function handleResultFeedback(isUseful: boolean) {
+    const { choice, payload } = buildFeedbackPayload(isUseful);
+
+    saveFeedback(payload);
     track('result_feedback_submitted', {
       sessionId: analysis.sessionId,
       choice,
@@ -98,12 +123,12 @@ export default function ResultsScreen() {
         <SectionTitle>Was this result useful?</SectionTitle>
         {resultFeedback ? (
           <Text style={styles.bodyText}>
-            Thanks for the feedback. You marked this result as {resultFeedback.choice === 'useful' ? 'useful' : 'not useful'}.
+            Thanks for the feedback. You marked this result as {resultFeedback.choice.replace('_', ' ')}.
           </Text>
         ) : (
           <View style={styles.feedbackButtons}>
-            <FeedbackChoiceButton label="Useful" onPress={() => handleResultFeedback('useful')} />
-            <FeedbackChoiceButton label="Not useful" onPress={() => handleResultFeedback('not_useful')} />
+            <FeedbackChoiceButton label="Useful" onPress={() => handleResultFeedback(true)} />
+            <FeedbackChoiceButton label="Not useful" onPress={() => handleResultFeedback(false)} />
           </View>
         )}
       </Card>
