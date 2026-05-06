@@ -2,6 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import {
   createResultFeedbackStore,
+  normalizeFeedbackNote,
   findResultFeedbackBySession,
   type ResultFeedback,
   type ResultFeedbackAnalysisContext,
@@ -37,7 +38,7 @@ export function createResultFeedbackRepository(initialFeedback: ResultFeedback[]
         id: `feedback-${input.sessionId}`,
         sessionId: input.sessionId,
         choice: input.choice,
-        note: input.note,
+        note: normalizeFeedbackNote(input.note),
         analysisContext: input.analysisContext,
         recordedAt: input.recordedAt ?? Date.now(),
       });

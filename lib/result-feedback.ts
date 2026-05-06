@@ -28,6 +28,11 @@ export type ResultFeedbackStore = {
 
 export type SaveResultFeedbackFn = (feedback: ResultFeedback) => ResultFeedback;
 
+export function normalizeFeedbackNote(note?: string): string | undefined {
+  const trimmed = note?.trim();
+  return trimmed ? trimmed : undefined;
+}
+
 export function recordResultFeedback(input: {
   sessionId: string;
   choice: ResultFeedbackChoice;
@@ -40,7 +45,7 @@ export function recordResultFeedback(input: {
     id: `feedback-${input.sessionId}`,
     sessionId: input.sessionId,
     choice: input.choice,
-    note: input.note,
+    note: normalizeFeedbackNote(input.note),
     analysisContext: input.analysisContext,
     recordedAt: input.recordedAt ?? Date.now(),
   });
