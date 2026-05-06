@@ -37,6 +37,12 @@ function isReviewedForFixtureCuration(candidate: ReviewedEvalCandidate): boolean
 }
 
 function toEvalFixture(candidate: ReviewedEvalCandidate): RockIdEvalFixture {
+  const provenanceNotes = withProvenanceTags({
+    notes: candidate.session.observations.notes,
+    source: candidate.source,
+    license: candidate.license,
+  });
+
   return {
     id: candidate.id,
     expectedLabel: candidate.expectedLabel,
@@ -53,10 +59,20 @@ function toEvalFixture(candidate: ReviewedEvalCandidate): RockIdEvalFixture {
         color: candidate.session.observations.color,
         grainSize: candidate.session.observations.grainSize,
         features: candidate.session.observations.features,
-        notes: candidate.session.observations.notes,
+        notes: provenanceNotes,
       },
       createdAt: DEFAULT_TIMESTAMP,
       updatedAt: DEFAULT_TIMESTAMP,
     },
   };
+}
+
+
+function withProvenanceTags(input: { notes: string; source: string; license: string }): string {
+  const source = input.source.trim();
+  const license = input.license.trim();
+  const base = input.notes.trim();
+  const provenance = `[source:${source}] [license:${license}]`;
+
+  return base ? `${base} ${provenance}` : provenance;
 }
