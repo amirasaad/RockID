@@ -80,7 +80,12 @@ A story is done when:
 | Sprint 24 | Detection Fixture Expansion | [Sprint-24](<agile/sprints/Sprint-24-detection-fixture-expansion.md>) |
 | Sprint 25 | Dataset And Field QA | [Sprint-25](<agile/sprints/Sprint-25-dataset-and-field-qa.md>) |
 | Sprint 26 | Real Engine Confidence Hardening | [Sprint-26](<agile/sprints/Sprint-26-confidence-hardening.md>) |
+| Sprint 27 | Real Engine Default | [Sprint-27](<agile/sprints/Sprint-27-real-engine-default.md>) |
+| Sprint 28 | Platform Release Hardening | [Sprint-28](<agile/sprints/Sprint-28-platform-release-hardening.md>) |
+| Sprint 29 | Real Engine Feedback Loop | [Sprint-29](<agile/sprints/Sprint-29-real-engine-feedback.md>) |
+| Sprint 30 | Dataset And Eval Expansion | [Sprint-30](<agile/sprints/Sprint-30-dataset-eval-expansion.md>) |
+| Sprint 31 | Calibration Release Candidate | [Sprint-31](<agile/sprints/Sprint-31-calibration-release-candidate.md>) |
 
 ## **Current Next Action**
 
-Calibrate confidence thresholds and harden non-rock detection using Sprint 25 field QA data before enabling the real engine by default. Track progress in [Kanban.md](<Kanban.md>).
+Run Sprint 28 platform release hardening: prove iOS and Android bundle/native build stability before the next release bump, then use Sprint 29-31 to collect feedback, expand eval coverage, and calibrate the real-engine release candidate. Track progress in [Kanban.md](<Kanban.md>).

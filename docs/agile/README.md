@@ -40,6 +40,12 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 23 | Detection Quality Gates | [Open](<sprints/Sprint-23-detection-quality-gates.md>) |
 | Sprint 24 | Detection Fixture Expansion | [Open](<sprints/Sprint-24-detection-fixture-expansion.md>) |
 | Sprint 25 | Dataset And Field QA | [Open](<sprints/Sprint-25-dataset-and-field-qa.md>) |
+| Sprint 26 | Real Engine Confidence Hardening | [Open](<sprints/Sprint-26-confidence-hardening.md>) |
+| Sprint 27 | Real Engine Default | [Open](<sprints/Sprint-27-real-engine-default.md>) |
+| Sprint 28 | Platform Release Hardening | [Open](<sprints/Sprint-28-platform-release-hardening.md>) |
+| Sprint 29 | Real Engine Feedback Loop | [Open](<sprints/Sprint-29-real-engine-feedback.md>) |
+| Sprint 30 | Dataset And Eval Expansion | [Open](<sprints/Sprint-30-dataset-eval-expansion.md>) |
+| Sprint 31 | Calibration Release Candidate | [Open](<sprints/Sprint-31-calibration-release-candidate.md>) |
 
 ## **Update Rules**
 
