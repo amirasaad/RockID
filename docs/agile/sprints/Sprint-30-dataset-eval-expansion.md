@@ -32,6 +32,18 @@ Planning date:
 
 | Story | Status | Evidence | Notes |
 | --- | --- | --- | --- |
-| `S30-1` | `Backlog` | TBD | Use S29 feedback summary if available. |
+| `S30-1` | `Review` | [rock-id-eval.ts](<../../../lib/rock-id-eval.ts>), [s30-eval-coverage-gaps.test.ts](<../../../__tests__/s30-eval-coverage-gaps.test.ts>), [s30-coverage-gap-summary.acceptance.test.ts](<../../../__tests__/s30-coverage-gap-summary.acceptance.test.ts>), [s11-rock-id-eval.acceptance.test.ts](<../../../__tests__/s11-rock-id-eval.acceptance.test.ts>) | Coverage-gap helper and summary output are implemented with ATDD+TDD+refactor evidence. |
 | `S30-2` | `Backlog` | TBD | Keep license-safe. |
 | `S30-3` | `Backlog` | TBD | Focus on false positive safety. |
+
+
+## **DoD Evidence**
+
+- `❌ test-fail(eval): add coverage-gap reporting spec` (`7ca6e42`)
+- `✅ test-pass(eval): add coverage-gap reporting helper` (`9cb28c2`)
+- `📦 refactor(eval): surface coverage gaps in summary` (`6e6a272`)
+- `✨ feat(eval): add red acceptance test for coverage-gap summary` (`a9788cc`)
+- `❌ test-fail(eval): require pipe-delimited missing labels in summaries` (`45a9df9`)
+- `✅ test-pass(eval): use pipe-delimited missing-label summaries` (`a0576b0`)
+- `📦 refactor(eval): extract coverage-gap summary formatter` (`6855114`)
+- Validation: S30 coverage tests + S11 eval acceptance pass; `pnpm run typecheck` passes.
