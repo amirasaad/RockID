@@ -30,7 +30,8 @@
     "bundle:android": "expo export --platform android --output-dir /private/tmp/rockid-android-export",
     "build:ios": "expo run:ios --no-install --no-bundler",
     "build:android": "node scripts/run-android-with-jdk.mjs --no-install --no-bundler",
-    "verify:release-builds": "node scripts/verify-release-builds.mjs"
+    "verify:release-builds": "node scripts/verify-release-builds.mjs",
+    "verify:detection-gates": "vitest run __tests__/s32-detection-gate-hardening.acceptance.test.ts __tests__/s32-non-rock-gate-fixture-shape.test.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
