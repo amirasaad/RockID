@@ -13,7 +13,7 @@ Re-run full expanded eval, verify stability against Sprint 32 baseline, and lock
 ## Status
 - `S34-1` Completed (`verify:expanded-eval` passed: 9 files / 16 tests on May 8, 2026).
 - `S34-2` Completed (`verify:calibration-stability` and boundary-policy acceptance checks passed on May 8, 2026).
-- `S34-3` Completed (decision recorded: `STOP` until `verify:release-builds` passes in a native-ready environment).
+- `S34-3` Completed (decision recorded: `GO` after `verify:release-builds` passed on May 8, 2026).
 
 ## Planned Exit Criteria
 - `pnpm verify:release-builds` passes.
@@ -25,7 +25,7 @@ Re-run full expanded eval, verify stability against Sprint 32 baseline, and lock
 - `pnpm verify:detection-gates` -> Pass.
 - `pnpm verify:failure-clusters` -> Pass.
 - `pnpm verify:calibration-stability` -> Pass.
-- `pnpm verify:release-builds` -> Fail on this machine: iOS Simulator unavailable (`Can't determine id of Simulator app`).
+- `pnpm verify:release-builds` -> Pass (iOS and Android builds succeeded on May 8, 2026).
 
 ## Release Candidate Stop/Go Checklist
 - `GO` only if all are true:
@@ -45,5 +45,5 @@ Re-run full expanded eval, verify stability against Sprint 32 baseline, and lock
 - Roll back to last passing analyzer config and open next sprint with one narrower hypothesis.
 
 ## Decision
-- Current outcome: `STOP` (not a detection quality failure; release-platform environment gate failed on this machine).
-- Unblock requirement: run `pnpm verify:release-builds` on a machine with Xcode Simulator/native SDK fully available and capture a passing result.
+- Current outcome: `GO` (all detection and release gates passed).
+- Decision date: May 8, 2026.
