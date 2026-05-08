@@ -19,7 +19,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `E11: Real Engine Integration` | The app runs the real analyzer by default with conservative guardrails | `In Progress` | [Sprint 13](<sprints/Sprint-13-embedding-pipeline.md>), [Sprint 15](<sprints/Sprint-15-app-integration-real-engine.md>), [Sprint 16](<sprints/Sprint-16-confidence-and-analytics.md>), [Sprint 27](<sprints/Sprint-27-real-engine-default.md>), [Sprint 31](<sprints/Sprint-31-calibration-release-candidate.md>), [Sprint 32](<sprints/Sprint-32-non-rock-gate-hardening.md>) | Keep non-rock safety gates green while reducing top confusion clusters |
 | `E12: Release Stability` | iOS and Android build gates pass before release | `Done` | [Sprint 28](<sprints/Sprint-28-platform-release-hardening.md>), [Sprint 31](<sprints/Sprint-31-calibration-release-candidate.md>) | Keep running `verify:release-builds` before every bump |
 | `E13: Engine Feedback Loop` | Real-engine feedback becomes reviewable local evidence | `Planned` | [Sprint 29](<sprints/Sprint-29-real-engine-feedback.md>) | Capture wrong/uncertain feedback with diagnostics |
-| `E14: Dataset Quality` | Curated eval fixtures guide release decisions | `In Progress` | [Sprint 30](<sprints/Sprint-30-dataset-eval-expansion.md>), [Sprint 31](<sprints/Sprint-31-calibration-release-candidate.md>), [Sprint 32](<sprints/Sprint-32-non-rock-gate-hardening.md>), [Sprint 33](<sprints/Sprint-33-targeted-failure-mode-reduction.md>), [Sprint 34](<sprints/Sprint-34-calibration-stability-pass.md>) | Lock strong-detection stop/go criteria with conservative non-rock gates |
+| `E14: Dataset Quality` | Curated eval fixtures guide release decisions | `In Progress` | [Sprint 30](<sprints/Sprint-30-dataset-eval-expansion.md>), [Sprint 31](<sprints/Sprint-31-calibration-release-candidate.md>), [Sprint 32](<sprints/Sprint-32-non-rock-gate-hardening.md>), [Sprint 33](<sprints/Sprint-33-targeted-failure-mode-reduction.md>), [Sprint 34](<sprints/Sprint-34-calibration-stability-pass.md>) | Execute full expanded rerun and finalize Sprint 34 go/no-go evidence |
 
 ## **Milestone Health**
 
@@ -37,7 +37,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `Real engine default` | `Done` | `v0.27.0` defaults to on-device CLIP kNN analyzer with eval guardrails. |
 | `Release build stability` | `Done` | `verify:release-builds` passed with iOS and Android bundle/native build success. |
 | `Feedback-to-eval loop` | `In Progress` | Sprint 29-32 connects real-engine feedback to curated eval candidates and conservative gates. |
-| `Calibration release candidate` | `In Progress` | Sprint 31 established baseline; Sprint 32-34 completes strong detection stabilization and stop/go checklist. |
+| `Calibration release candidate` | `In Progress` | Sprint 31 established baseline; Sprint 32-33 stabilized detection, and Sprint 34 now has explicit stop/go checklist pending final full-suite rerun evidence. |
 
 ## **Epic Update Rules**
 
