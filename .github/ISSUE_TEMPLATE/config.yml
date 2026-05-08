@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Friends Beta Tester Guide
+    url: https://github.com/amirasaad/RockID/wiki/Getting-Started-(Friends-Beta)
+    about: Read onboarding, scope, and known limits before filing feedback.

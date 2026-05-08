@@ -1,0 +1,60 @@
+name: Bug / Crash Report
+description: Report app crashes, blockers, or technical bugs during friends beta.
+title: "[Bug] <short summary>"
+labels:
+  - beta-bug
+body:
+  - type: input
+    id: app_version
+    attributes:
+      label: App version
+      placeholder: v0.30.0
+    validations:
+      required: true
+  - type: input
+    id: device_os
+    attributes:
+      label: Device + OS
+      placeholder: iPhone 13, iOS 18.5
+    validations:
+      required: true
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+      description: Describe the bug/crash clearly.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Open app
+        2. Go to ...
+        3. Tap ...
+        4. Crash / freeze / wrong behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Blocked (cannot continue)
+        - High (major issue, workaround hard)
+        - Medium (annoying, workaround exists)
+        - Low (minor)
+    validations:
+      required: true
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshot / video / logs (optional)
+      description: Attach anything that helps reproduction.

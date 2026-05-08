@@ -22,6 +22,16 @@ Use this page as the front door for Rock ID documentation. Product intent, imple
 | [Kanban.md](<Kanban.md>) | Live board for backlog, ready, in progress, review, and done |
 | [NextDriverDevGuide.md](<NextDriverDevGuide.md>) | Day-to-day engineering workflow, ATDD cycle, merge rules |
 
+## **Friends Beta Ops**
+
+| Doc | Use It For |
+| --- | --- |
+| [beta/Friends-Beta-Getting-Started.md](<beta/Friends-Beta-Getting-Started.md>) | Tester onboarding, install expectations, scope, known limits |
+| [beta/How-To-Report-Feedback.md](<beta/How-To-Report-Feedback.md>) | Required GitHub issue intake path and template usage |
+| [beta/Test-Missions.md](<beta/Test-Missions.md>) | Field missions for high-signal friend testing |
+| [beta/Daily-Triage-Runbook.md](<beta/Daily-Triage-Runbook.md>) | Daily triage process and label/priority contract |
+| [beta/Wave-1-Acceptance.md](<beta/Wave-1-Acceptance.md>) | Operational + product acceptance criteria for wave close |
+
 ## **Sprint History**
 
 Sprint details live in [agile/sprints](<agile/sprints>). Each sprint file contains stories, tracking, DoD evidence, QA notes, and retros where available.

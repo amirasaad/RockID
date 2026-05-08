@@ -1,0 +1,80 @@
+name: Wrong Result Report
+description: Report a wrong or misleading identification result from the offline beta flow.
+title: "[Wrong Result] <short summary>"
+labels:
+  - beta-wrong-result
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping test Rock ID. Please fill this out as completely as possible.
+  - type: input
+    id: app_version
+    attributes:
+      label: App version
+      description: Example: v0.30.0
+      placeholder: v0.30.0
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device + OS
+      description: Example: iPhone 14, iOS 18.5
+      placeholder: Pixel 8, Android 15
+    validations:
+      required: true
+  - type: textarea
+    id: expected_vs_shown
+    attributes:
+      label: Expected vs shown result
+      description: What did you expect, and what was shown?
+      placeholder: I expected basalt but got granite as top match.
+    validations:
+      required: true
+  - type: dropdown
+    id: confidence_shown
+    attributes:
+      label: Confidence shown in app
+      options:
+        - High
+        - Medium
+        - Low
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: photo_conditions
+    attributes:
+      label: Photo conditions (lighting/distance/background)
+      description: Include details that might affect identification quality.
+      placeholder: Outdoor shade, ~30cm distance, mixed gravel background.
+    validations:
+      required: true
+  - type: dropdown
+    id: useful_feedback_tapped
+    attributes:
+      label: Did you tap "Was this useful?" feedback in app?
+      options:
+        - Yes - Useful
+        - Yes - Not useful
+        - No
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: repro_steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open app
+        2. Upload photo
+        3. Tap Analyze
+        4. Observe result
+    validations:
+      required: true
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Screenshot / photo / video (optional)
+      description: Drag and drop files here if possible.

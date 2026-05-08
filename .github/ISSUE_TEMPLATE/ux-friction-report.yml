@@ -1,0 +1,53 @@
+name: UX Friction Report
+description: Report confusing or frustrating moments in the app flow.
+title: "[UX] <short summary>"
+labels:
+  - beta-ux
+body:
+  - type: input
+    id: app_version
+    attributes:
+      label: App version
+      placeholder: v0.30.0
+    validations:
+      required: true
+  - type: input
+    id: screen_or_flow
+    attributes:
+      label: Where did this happen?
+      description: Screen or flow name.
+      placeholder: Results screen, Save flow, Reanalyze from saved item
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: What felt confusing or frustrating?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Blocked
+        - Annoying
+        - Suggestion
+    validations:
+      required: true
+  - type: textarea
+    id: repro_steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open app
+        2. Navigate to ...
+        3. Observe confusing behavior
+    validations:
+      required: true
