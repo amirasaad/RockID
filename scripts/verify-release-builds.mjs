@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 const pnpmCommand = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm';
 const outputRoot = join(tmpdir(), 'rockid-release-builds');
 
-const requiredSteps = [
+const steps = [
   {
     label: 'iOS JS bundle export',
     args: ['exec', 'expo', 'export', '--platform', 'ios', '--output-dir', join(outputRoot, 'ios-export')],
@@ -15,9 +15,6 @@ const requiredSteps = [
     label: 'Android JS bundle export',
     args: ['exec', 'expo', 'export', '--platform', 'android', '--output-dir', join(outputRoot, 'android-export')],
   },
-];
-
-const optionalSteps = [
   {
     label: 'iOS native build',
     args: ['exec', 'expo', 'run:ios', '--no-install', '--no-bundler'],
@@ -28,32 +25,24 @@ const optionalSteps = [
   },
 ];
 
-function runStep(step, { required = true } = {}) {
-  console.log(`\n==> ${step.label}${required ? '' : ' (optional)'}`);
+function runStep(step) {
+  console.log(`\n==> ${step.label}`);
   const result = spawnSync(pnpmCommand, step.args, {
     stdio: 'inherit',
     env: process.env,
   });
 
   if (result.status !== 0) {
-    if (required) {
-      console.error(`\nRelease build gate failed: ${step.label}`);
-      process.exit(result.status ?? 1);
-    }
-    console.warn(`\n⚠️  ${step.label} skipped or failed (requires native SDK environment)`);
-  } else {
-    console.log(`✅ ${step.label} succeeded`);
+    console.error(`\nRelease build gate failed: ${step.label}`);
+    process.exit(result.status ?? 1);
   }
+  console.log(`✅ ${step.label} succeeded`);
 }
 
 rmSync(outputRoot, { recursive: true, force: true });
 
-for (const step of requiredSteps) {
-  runStep(step, { required: true });
+for (const step of steps) {
+  runStep(step);
 }
 
-for (const step of optionalSteps) {
-  runStep(step, { required: false });
-}
-
-console.log('\n✅ Release build gate passed: iOS and Android bundle exports succeeded.');
+console.log('\n✅ Release build gate passed: iOS and Android builds succeeded.');

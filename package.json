@@ -13,7 +13,6 @@
     "ios": "expo run:ios",
     "commit": "cz",
     "prepare": "husky",
-    "postinstall": "node scripts/fix-react-native-codegen.mjs",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -80,7 +79,10 @@
   },
   "pnpm": {
     "overrides": {
-      "@react-native/codegen": "0.85.2"
+      "@react-native/codegen": "0.81.5"
+    },
+    "patchedDependencies": {
+      "expo-dev-launcher@6.0.21": "patches/expo-dev-launcher@6.0.21.patch"
     }
   },
   "private": true,
