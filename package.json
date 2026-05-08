@@ -13,6 +13,7 @@
     "ios": "expo run:ios",
     "commit": "cz",
     "prepare": "husky",
+    "postinstall": "node scripts/fix-native-deps.mjs",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -40,6 +41,7 @@
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native/codegen": "0.81.6",
     "@react-navigation/native": "^7.1.8",
     "expo": "~54.0.33",
     "expo-constants": "~18.0.13",
@@ -67,8 +69,8 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
-    "@playwright/test": "^1.59.1",
     "@types/react": "~19.1.0",
+    "babel-preset-expo": "~54.0.10",
     "commit-and-tag-version": "^12.7.1",
     "commitizen": "^4.3.1",
     "conventional-changelog-gitmoji-config": "^1.5.2",
