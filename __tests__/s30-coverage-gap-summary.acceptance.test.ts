@@ -13,6 +13,7 @@ describe('S30 coverage-gap summary acceptance', () => {
       lowConfidenceSampleIds: ['ambiguous-1'],
       nonRockFalsePositiveRate: 0.5,
       confusionPairs: [],
+      topConfusions: [],
       nonRockConfusions: [],
       perClassAccuracy: {},
       coverage: {

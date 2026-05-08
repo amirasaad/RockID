@@ -206,6 +206,11 @@ describe('S11 rock-ID eval acceptance', () => {
         { expected: 'Glass', predicted: 'Granite', count: 3, sampleIds: ['glass-a', 'glass-b', 'glass-c'] },
         { expected: 'Asphalt', predicted: 'Basalt', count: 2, sampleIds: ['asphalt-a', 'asphalt-b'] },
       ],
+      topConfusions: [
+        { expected: 'Coal', predicted: 'Granite', count: 1, sampleIds: ['coal-a'] },
+        { expected: 'Glass', predicted: 'Granite', count: 3, sampleIds: ['glass-a', 'glass-b', 'glass-c'] },
+        { expected: 'Asphalt', predicted: 'Basalt', count: 2, sampleIds: ['asphalt-a', 'asphalt-b'] },
+      ],
       nonRockConfusions: [
         { expected: 'Coal', predicted: 'Granite', count: 1, sampleIds: ['coal-a'] },
         { expected: 'Asphalt', predicted: 'Basalt', count: 2, sampleIds: ['asphalt-a', 'asphalt-b'] },

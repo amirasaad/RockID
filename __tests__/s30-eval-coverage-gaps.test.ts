@@ -12,6 +12,7 @@ describe('S30 eval coverage gaps', () => {
       lowConfidenceSampleIds: ['sample-1', 'sample-2'],
       nonRockFalsePositiveRate: 0.5,
       confusionPairs: [],
+      topConfusions: [],
       nonRockConfusions: [],
       perClassAccuracy: {},
       coverage: {
@@ -48,6 +49,7 @@ describe('S30 eval coverage gaps', () => {
       lowConfidenceSampleIds: [],
       nonRockFalsePositiveRate: 0,
       confusionPairs: [],
+      topConfusions: [],
       nonRockConfusions: [],
       perClassAccuracy: {},
       coverage: {

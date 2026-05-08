@@ -37,6 +37,7 @@ export type RockIdEvalReport = {
   lowConfidenceSampleIds: string[];
   nonRockFalsePositiveRate: number;
   confusionPairs: RockIdConfusionPair[];
+  topConfusions: RockIdConfusionPair[];
   nonRockConfusions: RockIdConfusionPair[];
   perClassAccuracy: Record<string, RockIdClassAccuracy>;
   coverage: {
@@ -149,6 +150,7 @@ export function evaluateRockIdentifier(input: {
     lowConfidenceSampleIds: collectLowConfidenceSampleIds(results),
     nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(nonRockResults),
     confusionPairs: collectConfusionPairs(results),
+    topConfusions: collectConfusionPairs(results),
     nonRockConfusions: collectConfusionPairs(nonRockResults),
     perClassAccuracy: calculatePerClassAccuracy(results),
     coverage: calculateCoverage(input.fixtures),
@@ -171,6 +173,7 @@ export async function evaluateRockIdentifierAsync(input: {
     lowConfidenceSampleIds: collectLowConfidenceSampleIds(results),
     nonRockFalsePositiveRate: calculateNonRockFalsePositiveRate(nonRockResults),
     confusionPairs: collectConfusionPairs(results),
+    topConfusions: collectConfusionPairs(results),
     nonRockConfusions: collectConfusionPairs(nonRockResults),
     perClassAccuracy: calculatePerClassAccuracy(results),
     coverage: calculateCoverage(input.fixtures),
