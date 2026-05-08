@@ -46,6 +46,9 @@ Use this folder like a small local Jira: epics show milestone progress, sprint f
 | Sprint 29 | Real Engine Feedback Loop | [Open](<sprints/Sprint-29-real-engine-feedback.md>) |
 | Sprint 30 | Dataset And Eval Expansion | [Open](<sprints/Sprint-30-dataset-eval-expansion.md>) |
 | Sprint 31 | Calibration Release Candidate | [Open](<sprints/Sprint-31-calibration-release-candidate.md>) |
+| Sprint 32 | Non-Rock Gate Hardening | [Open](<sprints/Sprint-32-non-rock-gate-hardening.md>) |
+| Sprint 33 | Targeted Failure-Mode Reduction | [Open](<sprints/Sprint-33-targeted-failure-mode-reduction.md>) |
+| Sprint 34 | Calibration Stability Pass | [Open](<sprints/Sprint-34-calibration-stability-pass.md>) |
 
 ## **Update Rules**
 

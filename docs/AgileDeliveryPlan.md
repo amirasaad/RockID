@@ -85,7 +85,10 @@ A story is done when:
 | Sprint 29 | Real Engine Feedback Loop | [Sprint-29](<agile/sprints/Sprint-29-real-engine-feedback.md>) |
 | Sprint 30 | Dataset And Eval Expansion | [Sprint-30](<agile/sprints/Sprint-30-dataset-eval-expansion.md>) |
 | Sprint 31 | Calibration Release Candidate | [Sprint-31](<agile/sprints/Sprint-31-calibration-release-candidate.md>) |
+| Sprint 32 | Non-Rock Gate Hardening | [Sprint-32](<agile/sprints/Sprint-32-non-rock-gate-hardening.md>) |
+| Sprint 33 | Targeted Failure-Mode Reduction | [Sprint-33](<agile/sprints/Sprint-33-targeted-failure-mode-reduction.md>) |
+| Sprint 34 | Calibration Stability Pass | [Sprint-34](<agile/sprints/Sprint-34-calibration-stability-pass.md>) |
 
 ## **Current Next Action**
 
-Run Sprint 28 platform release hardening: prove iOS and Android bundle/native build stability before the next release bump, then use Sprint 29-31 to collect feedback, expand eval coverage, and calibrate the real-engine release candidate. Track progress in [Kanban.md](<Kanban.md>).
+Run Sprint 32 non-rock gate hardening: expand confuser fixtures, enforce conservative detection gates, then execute Sprint 33 targeted failure-mode reduction and Sprint 34 calibration stability pass before the next release candidate. Track progress in [Kanban.md](<Kanban.md>).
