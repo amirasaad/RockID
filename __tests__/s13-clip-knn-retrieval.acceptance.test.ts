@@ -36,6 +36,22 @@ describe('S13 CLIP kNN retrieval acceptance', () => {
   });
 });
 
+
+  it('flags near-tie non-rock candidates as possible non-rock', () => {
+    const queryEmbedding = normalizeVector([1, 0, 0]);
+    const items: VectorIndexItem[] = [
+      item('granite-1', 'Granite', 'rock', [1, 0, 0]),
+      item('glass-1', 'Glass', 'non-rock', [0.78, 0.625, 0]),
+      item('basalt-1', 'Basalt', 'rock', [0.4, 0.9165, 0]),
+    ];
+
+    const result = retrieveByCosine({ queryEmbedding, items, topK: 3 });
+
+    expect(result.matches[0].item.kind).toBe('rock');
+    expect(result.possibleNonRock).toBe(true);
+    expect(result.confidence).not.toBe('High');
+  });
+
 function item(id: string, label: string, kind: VectorIndexItem['kind'], embedding: number[]): VectorIndexItem {
   return {
     id,

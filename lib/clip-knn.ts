@@ -26,6 +26,7 @@ export type ClipKnnRetrievalResult = {
 
 export type ClipKnnAnalyzer = (session: IdentificationSession) => { matches: RockMatch[]; topMatch: RockMatch };
 export type ClipKnnAnalyzerAsync = (session: IdentificationSession) => Promise<{ matches: RockMatch[]; topMatch: RockMatch }>;
+const POSSIBLE_NON_ROCK_PROXIMITY_MARGIN = 0.25;
 
 /**
  * Normalizes a vector to unit length (L2 norm = 1).
@@ -190,7 +191,7 @@ function isPossibleNonRock(matches: RankedVectorIndexItem[]): boolean {
   if (nonRockCount === 1 && matches.length >= 2) {
     const topScore = topMatch.score;
     const nonRockMatch = matches.find((m) => m.item.kind === 'non-rock');
-    if (nonRockMatch && topScore - nonRockMatch.score < 0.2) {
+    if (nonRockMatch && topScore - nonRockMatch.score < POSSIBLE_NON_ROCK_PROXIMITY_MARGIN) {
       return true;
     }
   }

@@ -13,7 +13,7 @@ Use Sprint 32 confusion evidence to reduce top 2–3 failure clusters with one b
 ## Status
 - `S33-1` Completed on `sprint/32-strong-detection-arc` (failure-cluster selection + brief pipeline).
 - `S33-2` Completed on `sprint/32-strong-detection-arc` (fixture-slice generator wired into `verify:failure-clusters`).
-- `S33-3` In progress (single bounded analyzer-rule change + no-regression gate evidence).
+- `S33-3` Completed on `sprint/32-strong-detection-arc` (single bounded non-rock proximity guardrail change + passing detection/no-regression gates).
 
 ## Planned Implementation Constraints
 - One hypothesis, one bounded model/analyzer variable change.
