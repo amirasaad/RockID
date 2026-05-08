@@ -12,7 +12,7 @@ Re-run full expanded eval, verify stability against Sprint 32 baseline, and lock
 
 ## Status
 - `S34-1` In progress (`evaluateCalibrationStability` comparator + dedicated verification test added).
-- `S34-2` Pending (confidence policy behavior pass on expanded full fixture rerun).
+- `S34-2` In progress (boundary-policy acceptance tests added for non-rock-adjacent conservative confidence behavior).
 - `S34-3` Pending (release-candidate stop/go checklist lock).
 
 ## Planned Exit Criteria
