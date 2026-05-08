@@ -31,7 +31,8 @@
     "build:ios": "expo run:ios --no-install --no-bundler",
     "build:android": "node scripts/run-android-with-jdk.mjs --no-install --no-bundler",
     "verify:release-builds": "node scripts/verify-release-builds.mjs",
-    "verify:detection-gates": "vitest run __tests__/s32-detection-gate-hardening.acceptance.test.ts __tests__/s32-non-rock-gate-fixture-shape.test.ts"
+    "verify:detection-gates": "vitest run __tests__/s32-detection-gate-hardening.acceptance.test.ts __tests__/s32-non-rock-gate-fixture-shape.test.ts",
+    "verify:failure-clusters": "vitest run __tests__/s33-failure-cluster-selection.test.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
