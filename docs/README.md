@@ -31,6 +31,7 @@ Use this page as the front door for Rock ID documentation. Product intent, imple
 | [beta/Test-Missions.md](<beta/Test-Missions.md>) | Field missions for high-signal friend testing |
 | [beta/Daily-Triage-Runbook.md](<beta/Daily-Triage-Runbook.md>) | Daily triage process and label/priority contract |
 | [beta/Wave-1-Acceptance.md](<beta/Wave-1-Acceptance.md>) | Operational + product acceptance criteria for wave close |
+| [beta/Friends-Beta-Wave1-Release-Note.md](<beta/Friends-Beta-Wave1-Release-Note.md>) | Ready-to-publish release note text for Friends Beta Wave 1 |
 
 ## **Sprint History**
 
