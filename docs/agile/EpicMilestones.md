@@ -37,7 +37,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `Real engine default` | `Done` | `v0.27.0` defaults to on-device CLIP kNN analyzer with eval guardrails. |
 | `Release build stability` | `Done` | `verify:release-builds` passed with iOS and Android bundle/native build success. |
 | `Feedback-to-eval loop` | `In Progress` | Sprint 29-32 connects real-engine feedback to curated eval candidates and conservative gates. |
-| `Calibration release candidate` | `In Progress` | Sprint 31 established baseline; Sprint 32-33 stabilized detection, and Sprint 34 now has explicit stop/go checklist pending final full-suite rerun evidence. |
+| `Calibration release candidate` | `In Progress` | Sprint 34 rerun evidence is green for detection quality, but release outcome is STOP on this machine until `verify:release-builds` passes in a native-ready iOS environment. |
 
 ## **Epic Update Rules**
 

@@ -11,15 +11,21 @@ Re-run full expanded eval, verify stability against Sprint 32 baseline, and lock
 | `S34-3` | As the team, release-candidate decision is explicit. | Stop/go checklist is documented and linked from milestone evidence. | Must |
 
 ## Status
-- `S34-1` In progress (`evaluateCalibrationStability` comparator + dedicated verification test added).
-- `S34-2` In progress (boundary-policy acceptance tests added for non-rock-adjacent conservative confidence behavior).
-- `S34-3` Completed (release-candidate stop/go checklist documented and linked for milestone handoff). 
+- `S34-1` Completed (`verify:expanded-eval` passed: 9 files / 16 tests on May 8, 2026).
+- `S34-2` Completed (`verify:calibration-stability` and boundary-policy acceptance checks passed on May 8, 2026).
+- `S34-3` Completed (decision recorded: `STOP` until `verify:release-builds` passes in a native-ready environment).
 
 ## Planned Exit Criteria
 - `pnpm verify:release-builds` passes.
 - Detection gate passes with baseline-aware regression checks.
 - Release-candidate checklist documented in sprint notes and Epic Milestones.
 
+## Evidence Snapshot
+- `pnpm verify:expanded-eval` -> Pass (9 files / 16 tests).
+- `pnpm verify:detection-gates` -> Pass.
+- `pnpm verify:failure-clusters` -> Pass.
+- `pnpm verify:calibration-stability` -> Pass.
+- `pnpm verify:release-builds` -> Fail on this machine: iOS Simulator unavailable (`Can't determine id of Simulator app`).
 
 ## Release Candidate Stop/Go Checklist
 - `GO` only if all are true:
@@ -33,6 +39,11 @@ Re-run full expanded eval, verify stability against Sprint 32 baseline, and lock
 - Non-rock false positive gate fails.
 - Top-1 or Top-3 regression exceeds Sprint 32 tolerance.
 - Calibration stability check fails.
+- Release build gate does not pass.
 
 - Default response when stopped:
 - Roll back to last passing analyzer config and open next sprint with one narrower hypothesis.
+
+## Decision
+- Current outcome: `STOP` (not a detection quality failure; release-platform environment gate failed on this machine).
+- Unblock requirement: run `pnpm verify:release-builds` on a machine with Xcode Simulator/native SDK fully available and capture a passing result.
