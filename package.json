@@ -69,6 +69,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
+    "@playwright/test": "^1.59.1",
     "@types/react": "~19.1.0",
     "babel-preset-expo": "~54.0.10",
     "commit-and-tag-version": "^12.7.1",
@@ -87,7 +88,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@react-native/codegen": "0.81.5"
+      "@react-native/codegen": "0.81.6"
     },
     "patchedDependencies": {
       "expo-dev-launcher@6.0.21": "patches/expo-dev-launcher@6.0.21.patch"
