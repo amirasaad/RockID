@@ -15,7 +15,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.rock-id"
+      "bundleIdentifier": "com.anonymous.rock-id",
+      "runtimeVersion": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +25,10 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.rockid"
+      "package": "com.anonymous.rockid",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +41,15 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "98d5f682-6859-474c-bd6a-999f3ecf646e"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/98d5f682-6859-474c-bd6a-999f3ecf646e"
     }
   }
 }
