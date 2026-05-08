@@ -10,6 +10,11 @@ Re-run full expanded eval, verify stability against Sprint 32 baseline, and lock
 | `S34-2` | As the team, confidence policy remains conservative near non-rock boundaries. | Non-rock-adjacent outcomes avoid overconfident mislabeling. | Must |
 | `S34-3` | As the team, release-candidate decision is explicit. | Stop/go checklist is documented and linked from milestone evidence. | Must |
 
+## Status
+- `S34-1` In progress (`evaluateCalibrationStability` comparator + dedicated verification test added).
+- `S34-2` Pending (confidence policy behavior pass on expanded full fixture rerun).
+- `S34-3` Pending (release-candidate stop/go checklist lock).
+
 ## Planned Exit Criteria
 - `pnpm verify:release-builds` passes.
 - Detection gate passes with baseline-aware regression checks.

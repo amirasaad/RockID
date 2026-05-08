@@ -33,7 +33,8 @@
     "verify:release-builds": "node scripts/verify-release-builds.mjs",
     "verify:detection-gates": "vitest run __tests__/s32-detection-gate-hardening.acceptance.test.ts __tests__/s32-non-rock-gate-fixture-shape.test.ts",
     "verify:failure-clusters": "vitest run __tests__/s33-failure-cluster-selection.test.ts __tests__/s33-cluster-brief-format.test.ts __tests__/s33-failure-cluster-brief.acceptance.test.ts __tests__/s33-failure-cluster-brief-cli.acceptance.test.ts __tests__/s33-fixture-slice-generator.test.ts",
-    "brief:failure-clusters": "node scripts/print-failure-cluster-brief.mjs"
+    "brief:failure-clusters": "node scripts/print-failure-cluster-brief.mjs",
+    "verify:calibration-stability": "vitest run __tests__/s34-calibration-stability.test.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
