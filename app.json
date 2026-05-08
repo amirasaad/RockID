@@ -2,7 +2,7 @@
   "expo": {
     "name": "Rock ID",
     "slug": "rock-id",
-    "version": "0.29.0",
+    "version": "0.30.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "rockid",
@@ -31,7 +31,10 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "expo-dev-client"],
+    "plugins": [
+      "expo-router",
+      "expo-dev-client"
+    ],
     "experiments": {
       "typedRoutes": true
     }

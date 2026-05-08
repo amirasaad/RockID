@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 0.30.0 (2026-05-08)
+
+
+### ✨ Features
+
+* **detection**: Add conservative quality gates and sprint32 confuser fixtures ([b94d43b](https://github.com/amirasaad/RockID/commit/b94d43b))
+* **detection**: Add failure-cluster planning brief formatter ([37f6c68](https://github.com/amirasaad/RockID/commit/37f6c68))
+* **detection**: Add fixture slice generator for top failure clusters ([1d2d7ed](https://github.com/amirasaad/RockID/commit/1d2d7ed))
+* **detection**: Select top failure clusters for sprint targeting ([454c1c6](https://github.com/amirasaad/RockID/commit/454c1c6))
+* **detection**: Start S34 calibration stability comparator and verify gate ([2bd9473](https://github.com/amirasaad/RockID/commit/2bd9473))
+
+
+### 🐛 Bug Fixes
+
+* **release**: Stabilize ios and android release build verification ([478aa3d](https://github.com/amirasaad/RockID/commit/478aa3d))
+
+
+
+
+
 # 0.29.0 (2026-05-06)
 
 
