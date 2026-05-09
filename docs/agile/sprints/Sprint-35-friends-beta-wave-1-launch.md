@@ -29,14 +29,15 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - Once tester access is available, invite one tester first and verify repo/wiki access, template issue creation, and screenshot upload before expanding Wave 1.
 
 ## Android Product Smoke Status
-- `adb devices` succeeds, but no Android device/emulator is currently attached.
-- Live Android product smoke is pending device availability.
+- Android emulator attached: `emulator-5554`.
 - `pnpm bundle:android` passed on May 9, 2026 and exported to `/private/tmp/rockid-android-export`.
-- Remaining manual smoke steps once a device is available:
-- install preview build
-- complete offline scan
-- verify low-confidence copy is understandable
-- save, reopen, and reanalyze one result
+- EAS preview APK install initially hit `INSTALL_FAILED_UPDATE_INCOMPATIBLE`; resolved by uninstalling the older differently signed emulator package.
+- EAS preview APK installed and launched successfully.
+- Upload Photo path opened Android Photo Picker and selected a pushed emulator image.
+- Review Photo, Add Details, Analyze Rock, and Results screens completed without crash.
+- Low-confidence copy was visible and understandable on the result.
+- Save Result persisted the find; Collection showed the saved `Brick` result.
+- Saved Find detail opened and `Re-analyze` returned to Review Photo with the saved image.
 
 ## Exit Criteria
 - At least one trusted tester confirms GitHub issue access and screenshot upload.
