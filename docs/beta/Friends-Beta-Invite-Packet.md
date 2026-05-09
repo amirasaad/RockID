@@ -2,13 +2,13 @@
 
 Last updated: May 9, 2026
 
-Purpose: provide one copy/paste packet for the first trusted Android tester, then reuse it for the wider Wave 1 invite after access validation passes.
+Purpose: provide one copy/paste packet for the trusted Friends Beta Wave 1 Android invite. The one-tester pilot was intentionally skipped on May 9, 2026 to move faster with a trusted group.
 
-## First Tester Validation
+## Launch Decision
 
-Invite only one trusted tester first.
+The one-tester pilot is skipped for Wave 1. Invite the trusted Android tester group directly, then use daily GitHub triage to catch access or install problems quickly.
 
-Before inviting the wider group, confirm they can:
+During the first day of Wave 1, confirm testers can:
 - access the private GitHub repo
 - access the beta docs/wiki
 - open GitHub Issues
@@ -17,7 +17,7 @@ Before inviting the wider group, confirm they can:
 - install the Android preview build
 - complete one scan/save/reopen/reanalyze mission
 
-If any access step fails, fix the GitHub permission or invite flow before expanding Wave 1.
+If any access step fails, label it `beta-install` or `beta-ux`, assign the Wave 1 milestone, and fix or document the workaround in triage.
 
 ## Links To Include
 
@@ -27,26 +27,22 @@ If any access step fails, fix the GitHub permission or invite flow before expand
 - Feedback guide: `docs/beta/How-To-Report-Feedback.md`
 - GitHub issues: https://github.com/amirasaad/RockID/issues
 
-## Message To First Tester
+## Message To Testers
 
 ```text
-Hey! I’m starting a tiny private Android beta for Rock ID and would love your help as the first tester.
+Rock ID Friends Beta Wave 1 is ready for Android testing.
 
 Scope: Android only, offline app flow only. No account, no cloud sync, and iOS is not available yet.
 
-What I need you to validate first:
-1. You can access the private GitHub repo/docs.
-2. You can open GitHub Issues.
-3. You can create one issue from a template.
-4. You can attach/upload a screenshot to that issue.
-
-Then please try the app:
+Please first confirm you can access GitHub Issues and upload a screenshot. Then try the app:
 1. Install the Android preview build.
 2. Upload or capture a rock-like photo.
 3. Run analysis and read the confidence message.
 4. Save the result.
 5. Reopen it from Collection.
 6. Try Re-analyze.
+7. Try one tricky low-confidence photo.
+8. Try one non-rock confuser, like glass, concrete, or brick-like material.
 
 Android build:
 https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a03a-63a21a7026f0
@@ -56,6 +52,8 @@ https://github.com/amirasaad/RockID/issues
 
 If Android says the app cannot install because a previous version exists, uninstall the old Rock ID app first, then install this preview build again.
 
+Please include screenshots when possible. For wrong results, include expected vs shown result, confidence shown, and photo conditions.
+
 What I care about most:
 - Did install work?
 - Did the first scan flow make sense?
@@ -64,20 +62,18 @@ What I care about most:
 - If the result looked wrong, can you report expected vs shown result, confidence shown, and photo conditions?
 ```
 
-## Message For Wider Wave 1
+## Optional Short Reminder
 
-Send this only after first tester validation passes.
+Use this after the first invite when nudging testers to complete missions.
 
 ```text
-Rock ID Friends Beta Wave 1 is ready for Android testing.
+Quick reminder for Rock ID Friends Beta Wave 1: Android only, offline app flow only. No account, no cloud sync, and iOS is not available yet.
 
-Scope: Android only, offline app flow only. No account, no cloud sync, and iOS is not available yet.
-
-Please try these missions:
+Please try:
 1. First scan flow.
 2. Low-confidence handling with a tricky photo.
 3. Save, reopen, and reanalyze.
-4. Three non-rock confuser attempts, like glass, concrete, or brick-like material.
+4. One non-rock confuser attempt, like glass, concrete, or brick-like material.
 
 Android build:
 https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a03a-63a21a7026f0

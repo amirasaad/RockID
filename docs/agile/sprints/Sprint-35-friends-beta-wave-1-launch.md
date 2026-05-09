@@ -26,10 +26,10 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - First tester invite packet: [Friends Beta Invite Packet](../../beta/Friends-Beta-Invite-Packet.md).
 
 ## Move-Forward Decision
-- Tester GitHub access validation remains pending until the first trusted tester username is available.
-- This is not blocking invite packet readiness or daily triage preparation.
-- Android product smoke is complete; next active slice is first-tester access validation when a trusted tester username is available.
-- Once tester access is available, invite one tester first and verify repo/wiki access, template issue creation, and screenshot upload before expanding Wave 1.
+- One-tester pilot intentionally skipped on May 9, 2026; move directly to trusted Android Wave 1 invites.
+- Access and screenshot-upload validation moves into first-day daily triage instead of blocking launch.
+- Android product smoke is complete; next active slice is sending the Wave 1 invite and monitoring install/access issues.
+- If access or screenshot upload fails for any tester, create or label a GitHub issue and document the workaround before continuing invite expansion.
 
 ## Android Product Smoke Status
 - Android emulator attached: `emulator-5554`.
@@ -44,7 +44,7 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - Reproduction guide and screenshots: [Android Preview Smoke Reproduction](../../beta/Android-Preview-Smoke-Reproduction.md).
 
 ## Exit Criteria
-- At least one trusted tester confirms GitHub issue access and screenshot upload.
+- Trusted Wave 1 testers can access GitHub Issues and upload screenshots, or blockers are triaged within 24h.
 - `pnpm verify:release-builds` passes before any beta/release-worthy merge.
 - Friends can complete first scan, save/reopen, reanalyze, and issue submission missions.
 - All incoming Wave 1 issues are triaged within 24h.
