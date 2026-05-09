@@ -12,6 +12,7 @@ Last updated: May 9, 2026
 
 Current Android preview build:
 - https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a03a-63a21a7026f0
+- If install fails with a signature mismatch, uninstall the previous Rock ID build first, then reinstall the preview APK.
 
 ## What To Test (Scope)
 - Capture or upload a photo.
@@ -33,8 +34,10 @@ Current Android preview build:
 
 ## How To Report Feedback
 - Use GitHub Issues only (structured templates):
-- Wrong Result Report
-- Bug / Crash Report
-- UX Friction Report
+- Wrong Result Report.
+- Bug / Crash Report.
+- UX Friction Report.
 
 See: `How-To-Report-Feedback.md`
+
+For the first private invite, use: `Friends-Beta-Invite-Packet.md`

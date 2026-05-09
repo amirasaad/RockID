@@ -6,6 +6,7 @@ Update policy:
 - Update after each story merge into a `sprint/*` branch, after each merge to `main`, and after each sprint planning / demo.
 - Keep completed details in sprint files under [agile/sprints](<agile/sprints>).
 - Workflow note: prefer story branches merged into a `sprint/*` base branch with `git merge --ff-only`, then merge the sprint branch into `main` with `git merge --ff-only` at DoD.
+- Current beta continuation: Sprint 35 setup is merged to `main`; first trusted tester access validation remains the active launch blocker.
 
 | Backlog | Ready | In Progress | Review | Done |
 | --- | --- | --- | --- | --- |

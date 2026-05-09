@@ -15,6 +15,7 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - Planned start: May 9, 2026.
 - Android is the active friend beta platform.
 - iOS friend distribution is deferred until Apple Developer team access exists.
+- Setup branch merged to `main` on May 9, 2026 after local fast-forward merge and passing release-build gate.
 
 ## Current Evidence
 - GitHub Issues enabled for `amirasaad/RockID`.
@@ -22,6 +23,7 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - Priority labels added on May 9, 2026 to satisfy the triage contract: `beta-priority-normal`, `beta-priority-low`.
 - Wave milestone verified: `Friends Beta Wave 1 (May 8-May 18, 2026)`.
 - Closed validation issues: [#3](<https://github.com/amirasaad/RockID/issues/3>), [#4](<https://github.com/amirasaad/RockID/issues/4>), [#5](<https://github.com/amirasaad/RockID/issues/5>).
+- First tester invite packet: [Friends Beta Invite Packet](../../beta/Friends-Beta-Invite-Packet.md).
 
 ## Move-Forward Decision
 - Tester GitHub access validation remains pending until the first trusted tester username is available.

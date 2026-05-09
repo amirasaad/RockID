@@ -1,6 +1,6 @@
 # Friends Beta — Test Missions
 
-Last updated: May 8, 2026
+Last updated: May 9, 2026
 
 ## Mission A — First Scan Flow
 1. Open app.
