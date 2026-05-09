@@ -4,11 +4,13 @@ Window: May 8, 2026 to May 18, 2026
 
 ## Operational
 - One test issue per template created and closed.
+- Status: Done on May 9, 2026 with GitHub issues #3, #4, and #5.
 - At least one invited tester confirms:
   - wiki access
   - issue creation
   - screenshot upload
 - Labels and milestone visible to collaborators.
+- Status: Labels and milestone verified on May 9, 2026.
 
 ## Product
 - Offline capture/upload and analyze flow completes.
