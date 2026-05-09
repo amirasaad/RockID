@@ -1,53 +1,90 @@
-import { existsSync, readdirSync, renameSync, writeFileSync, copyFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
 
-function fixCodegen() {
-  const codegenDir = path.join(
+function getReactNativeRoot() {
+  return path.join(root, "node_modules", "react-native");
+}
+
+function normalizeAndroidResourceName(filename) {
+  return filename
+    .toLowerCase()
+    .replace(/\s+/g, "_")
+    .replace(/[^a-z0-9_.]/g, "_");
+}
+
+function getExpoDevLauncherResBases() {
+  const directResBase = path.join(
     root,
     "node_modules",
-    ".pnpm",
-    "@react-native+codegen@0.81.5_@babel+core@7.29.0",
-    "node_modules",
-    "@react-native",
-    "codegen",
-    "lib",
-    "parsers",
+    "expo-dev-launcher",
+    "android",
+    "src",
+    "debug",
+    "res",
   );
+  const resBases = existsSync(directResBase) ? [directResBase] : [];
+  const pnpmDir = path.join(root, "node_modules", ".pnpm");
 
-  if (!existsSync(codegenDir)) return;
+  if (!existsSync(pnpmDir)) return resBases;
 
-  const missingFiles = ["parsers-utils.js", "schema.js"];
-  const codegen816 = path.join(
-    root,
-    "node_modules",
-    ".pnpm",
-    "@react-native+codegen@0.81.6_@babel+core@7.29.0",
-    "node_modules",
-    "@react-native",
-    "codegen",
-    "lib",
-    "parsers",
-  );
+  for (const entry of readdirSync(pnpmDir)) {
+    if (!entry.startsWith("expo-dev-launcher@")) continue;
 
-  for (const file of missingFiles) {
-    const dst = path.join(codegenDir, file);
-    if (!existsSync(dst) && existsSync(codegen816)) {
-      const src = path.join(codegen816, file);
-      if (existsSync(src)) {
-        copyFileSync(src, dst);
-        console.log(`[fix-native-deps] Copied ${file} from codegen 0.81.6`);
+    const resBase = path.join(
+      pnpmDir,
+      entry,
+      "node_modules",
+      "expo-dev-launcher",
+      "android",
+      "src",
+      "debug",
+      "res",
+    );
+
+    if (existsSync(resBase)) {
+      resBases.push(resBase);
+    }
+  }
+
+  return resBases;
+}
+
+function fixExpoDevLauncherResourceNames() {
+  for (const resBase of getExpoDevLauncherResBases()) {
+    for (const dir of readdirSync(resBase).filter((entry) => entry.startsWith("drawable"))) {
+      const dirPath = path.join(resBase, dir);
+
+      for (const file of readdirSync(dirPath)) {
+        const normalized = normalizeAndroidResourceName(file);
+        if (normalized === file) continue;
+
+        const src = path.join(dirPath, file);
+        const dst = path.join(dirPath, normalized);
+        if (!existsSync(dst)) {
+          renameSync(src, dst);
+          console.log(`[fix-native-deps] Renamed ${file} to ${normalized}`);
+        }
       }
     }
   }
 }
 
+function fixPromiseSetImmediateFiles() {
+  const setImmediateDir = path.join(root, "node_modules", "promise", "setimmediate");
+  const duplicateFinally = path.join(setImmediateDir, "finally 2.js");
+  const expectedFinally = path.join(setImmediateDir, "finally.js");
+
+  if (existsSync(duplicateFinally) && !existsSync(expectedFinally)) {
+    renameSync(duplicateFinally, expectedFinally);
+    console.log("[fix-native-deps] Renamed promise setimmediate finally shim");
+  }
+}
+
 function createMissingPlatformHeaders() {
   const platformCxxDir = path.join(
-    root,
-    "node_modules",
-    "react-native",
+    getReactNativeRoot(),
     "ReactCommon",
     "react",
     "renderer",
@@ -96,14 +133,26 @@ using HostPlatformTouch = BaseTouch;
 `,
   };
 
-  for (const [file, content] of Object.entries(headers)) {
-    const filePath = path.join(platformCxxDir, file);
-    if (!existsSync(filePath)) {
-      writeFileSync(filePath, content);
-      console.log(`[fix-native-deps] Created ${file}`);
+  const headerDirs = [
+    platformCxxDir,
+    path.join(root, "ios", "Pods", "Headers", "Public", "React-Fabric", "react", "renderer", "components", "view"),
+  ];
+
+  for (const headerDir of headerDirs) {
+    if (!existsSync(headerDir)) {
+      mkdirSync(headerDir, { recursive: true });
+    }
+
+    for (const [file, content] of Object.entries(headers)) {
+      const filePath = path.join(headerDir, file);
+      if (!existsSync(filePath)) {
+        writeFileSync(filePath, content);
+        console.log(`[fix-native-deps] Created ${file} in ${headerDir}`);
+      }
     }
   }
 }
 
-fixCodegen();
+fixExpoDevLauncherResourceNames();
+fixPromiseSetImmediateFiles();
 createMissingPlatformHeaders();
