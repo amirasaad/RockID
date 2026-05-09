@@ -1,6 +1,6 @@
 # Friends Beta — How To Report Feedback
 
-Last updated: May 8, 2026
+Last updated: May 9, 2026
 
 ## Required Intake Path
 - All feedback must be submitted through GitHub Issue Templates.
@@ -25,5 +25,5 @@ Last updated: May 8, 2026
 ## Triage Contract
 - Every issue gets:
   - one category label (`beta-bug` / `beta-ux` / `beta-wrong-result` / `beta-install`)
-  - one priority label (`beta-priority-high` or lower-priority bucket)
+  - one priority label (`beta-priority-high` / `beta-priority-normal` / `beta-priority-low`)
 - Wave milestone assignment is required before fix work begins.

@@ -1,6 +1,6 @@
 # Friends Beta — Daily Triage Runbook
 
-Last updated: May 8, 2026
+Last updated: May 9, 2026
 
 ## Daily Rhythm (15-20 min)
 1. Review new issues.
@@ -10,15 +10,14 @@ Last updated: May 8, 2026
 5. Mark owner and next action.
 
 ## Labeling Rules
-- Category (required): `beta-bug`, `beta-ux`, `beta-wrong-result`, or `beta-install`
-- Priority (required): `beta-priority-high` or deferred priority
-- Optional status: `beta-needs-repro`, `beta-fixed`
+- Category (required): `beta-bug`, `beta-ux`, `beta-wrong-result`, or `beta-install`.
+- Priority (required): `beta-priority-high`, `beta-priority-normal`, or `beta-priority-low`.
+- Optional status: `beta-needs-repro`, `beta-fixed`.
 
 ## Resolve Policy
-- `beta-priority-high`:
-  - Fix in current wave or explicitly defer with reason.
-- Non-high:
-  - Batch for next wave unless severe trend appears.
+- `beta-priority-high`: fix in current wave or explicitly defer with reason.
+- `beta-priority-normal`: triage within 24h and batch into the next fix slice unless it becomes a repeated theme.
+- `beta-priority-low`: track as next-wave polish or learning unless it blocks a mission.
 
 ## Wrong-Result Triage Notes
 - Cross-check with:

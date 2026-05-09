@@ -19,13 +19,14 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 ## Current Evidence
 - GitHub Issues enabled for `amirasaad/RockID`.
 - Beta labels verified on May 9, 2026: `beta-bug`, `beta-ux`, `beta-wrong-result`, `beta-install`, `beta-priority-high`, `beta-needs-repro`, `beta-fixed`.
+- Priority labels added on May 9, 2026 to satisfy the triage contract: `beta-priority-normal`, `beta-priority-low`.
 - Wave milestone verified: `Friends Beta Wave 1 (May 8-May 18, 2026)`.
 - Closed validation issues: [#3](<https://github.com/amirasaad/RockID/issues/3>), [#4](<https://github.com/amirasaad/RockID/issues/4>), [#5](<https://github.com/amirasaad/RockID/issues/5>).
 
 ## Move-Forward Decision
 - Tester GitHub access validation remains pending until the first trusted tester username is available.
-- This is not blocking Android product smoke work.
-- Next active slice: validate Android install, offline scan, low-confidence copy, save/reopen, and reanalyze flow against the preview build.
+- This is not blocking invite packet readiness or daily triage preparation.
+- Android product smoke is complete; next active slice is first-tester access validation when a trusted tester username is available.
 - Once tester access is available, invite one tester first and verify repo/wiki access, template issue creation, and screenshot upload before expanding Wave 1.
 
 ## Android Product Smoke Status
