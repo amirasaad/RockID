@@ -38,6 +38,7 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - Low-confidence copy was visible and understandable on the result.
 - Save Result persisted the find; Collection showed the saved `Brick` result.
 - Saved Find detail opened and `Re-analyze` returned to Review Photo with the saved image.
+- Reproduction guide and screenshots: [Android Preview Smoke Reproduction](../../beta/Android-Preview-Smoke-Reproduction.md).
 
 ## Exit Criteria
 - At least one trusted tester confirms GitHub issue access and screenshot upload.

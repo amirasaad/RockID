@@ -21,6 +21,7 @@ Window: May 8, 2026 to May 18, 2026
 - Status: Android preview product smoke passed on emulator on May 9, 2026.
 - Status: Move-forward slice completed for Android preview; tester access validation remains pending.
 - Wrong-result issues include enough detail for reproduction.
+- Evidence: [Android Preview Smoke Reproduction](Android-Preview-Smoke-Reproduction.md).
 
 ## Wave-Close Criteria
 - At least 10 completed tester issue reports.
