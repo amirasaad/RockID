@@ -20,6 +20,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `E12: Release Stability` | iOS and Android build gates pass before release | `Done` | [Sprint 28](<sprints/Sprint-28-platform-release-hardening.md>), [Sprint 31](<sprints/Sprint-31-calibration-release-candidate.md>) | Keep running `verify:release-builds` before every bump |
 | `E13: Engine Feedback Loop` | Real-engine feedback becomes reviewable local evidence | `Planned` | [Sprint 29](<sprints/Sprint-29-real-engine-feedback.md>) | Capture wrong/uncertain feedback with diagnostics |
 | `E14: Dataset Quality` | Curated eval fixtures guide release decisions | `Done` | [Sprint 30](<sprints/Sprint-30-dataset-eval-expansion.md>), [Sprint 31](<sprints/Sprint-31-calibration-release-candidate.md>), [Sprint 32](<sprints/Sprint-32-non-rock-gate-hardening.md>), [Sprint 33](<sprints/Sprint-33-targeted-failure-mode-reduction.md>), [Sprint 34](<sprints/Sprint-34-calibration-stability-pass.md>) | Maintain gates in release cadence and start next dataset cycle from top confusions |
+| `E15: Friends Beta Ops` | Trusted friends can test offline and report high-signal feedback through GitHub | `In Progress` | [Sprint 35](<sprints/Sprint-35-friends-beta-wave-1-launch.md>) | Launch Android Wave 1, triage daily, and defer iOS until Apple Developer team access exists |
 
 ## **Milestone Health**
 
@@ -38,6 +39,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `Release build stability` | `Done` | `verify:release-builds` passed with iOS and Android bundle/native build success. |
 | `Feedback-to-eval loop` | `In Progress` | Sprint 29-32 connects real-engine feedback to curated eval candidates and conservative gates. |
 | `Calibration release candidate` | `Done` | Sprint 34 finalized GO decision on May 8, 2026 with expanded eval, calibration, detection, and release-build gates passing. |
+| `Friends Beta Wave 1` | `In Progress` | Android beta launch starts May 9, 2026 with GitHub-only intake; iOS TestFlight is deferred until Apple Developer team access exists. |
 
 ## **Epic Update Rules**
 

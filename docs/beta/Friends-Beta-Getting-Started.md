@@ -1,14 +1,17 @@
 # Friends Beta — Getting Started
 
-Last updated: May 8, 2026
+Last updated: May 9, 2026
 
 ## Who This Is For
 - Trusted friends testing Rock ID before wider release.
 - Scope is offline app usage only (no local/cloud server required).
 
 ## Install
-- iOS: install via the private TestFlight/build link shared by the team.
-- Android: install via the private APK/AAB/testing link shared by the team.
+- Android: install via the private EAS preview/APK link shared by the team.
+- iOS: deferred for Friends Beta Wave 1 until Apple Developer team access exists.
+
+Current Android preview build:
+- https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a03a-63a21a7026f0
 
 ## What To Test (Scope)
 - Capture or upload a photo.
@@ -18,6 +21,8 @@ Last updated: May 8, 2026
 
 ## Known Limits (Expected At This Stage)
 - No account sync/cloud backup yet.
+- Android is the active friend beta platform for Wave 1.
+- iOS friend installs are not available yet.
 - Confidence can be uncertain on hard or ambiguous samples.
 - Non-rock materials can still appear in top alternatives.
 

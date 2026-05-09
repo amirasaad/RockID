@@ -1,7 +1,8 @@
 # Friends Beta Wave 1 Release Note
 
-Date: May 8, 2026  
-Build: v0.30.0 (or your shared beta build identifier)
+Date: May 9, 2026
+Build: v0.30.0 Android EAS preview build
+Build link: https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a03a-63a21a7026f0
 
 ## What This Beta Is
 Rock ID Friends Beta Wave 1 is an offline-first test focused on real user flow quality:
@@ -9,6 +10,8 @@ Rock ID Friends Beta Wave 1 is an offline-first test focused on real user flow q
 - identify with confidence messaging
 - save/reopen/reanalyze
 - report quality and usability feedback
+
+Android is the active beta platform for this wave. iOS friend distribution is deferred until Apple Developer team access exists.
 
 ## What We Need Testers To Do
 - Complete missions in `docs/beta/Test-Missions.md`
