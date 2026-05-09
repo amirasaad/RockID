@@ -28,6 +28,16 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - Next active slice: validate Android install, offline scan, low-confidence copy, save/reopen, and reanalyze flow against the preview build.
 - Once tester access is available, invite one tester first and verify repo/wiki access, template issue creation, and screenshot upload before expanding Wave 1.
 
+## Android Product Smoke Status
+- `adb devices` succeeds, but no Android device/emulator is currently attached.
+- Live Android product smoke is pending device availability.
+- `pnpm bundle:android` passed on May 9, 2026 and exported to `/private/tmp/rockid-android-export`.
+- Remaining manual smoke steps once a device is available:
+- install preview build
+- complete offline scan
+- verify low-confidence copy is understandable
+- save, reopen, and reanalyze one result
+
 ## Exit Criteria
 - At least one trusted tester confirms GitHub issue access and screenshot upload.
 - `pnpm verify:release-builds` passes before any beta/release-worthy merge.

@@ -17,6 +17,8 @@ Window: May 8, 2026 to May 18, 2026
 - Offline capture/upload and analyze flow completes.
 - Low-confidence messaging is understandable.
 - Save/reopen flow is reliable.
+- Status: Android bundle export passed on May 9, 2026.
+- Status: Live Android product smoke is pending an attached device/emulator.
 - Status: Move-forward slice is Android preview product smoke before broad tester invite.
 - Wrong-result issues include enough detail for reproduction.
 
