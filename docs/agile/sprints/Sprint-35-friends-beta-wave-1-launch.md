@@ -22,6 +22,12 @@ Launch Android Friends Beta Wave 1 with GitHub-only feedback intake, offline-fir
 - Wave milestone verified: `Friends Beta Wave 1 (May 8-May 18, 2026)`.
 - Closed validation issues: [#3](<https://github.com/amirasaad/RockID/issues/3>), [#4](<https://github.com/amirasaad/RockID/issues/4>), [#5](<https://github.com/amirasaad/RockID/issues/5>).
 
+## Move-Forward Decision
+- Tester GitHub access validation remains pending until the first trusted tester username is available.
+- This is not blocking Android product smoke work.
+- Next active slice: validate Android install, offline scan, low-confidence copy, save/reopen, and reanalyze flow against the preview build.
+- Once tester access is available, invite one tester first and verify repo/wiki access, template issue creation, and screenshot upload before expanding Wave 1.
+
 ## Exit Criteria
 - At least one trusted tester confirms GitHub issue access and screenshot upload.
 - `pnpm verify:release-builds` passes before any beta/release-worthy merge.

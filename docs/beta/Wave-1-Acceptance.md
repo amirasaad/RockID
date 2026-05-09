@@ -10,12 +10,14 @@ Window: May 8, 2026 to May 18, 2026
   - issue creation
   - screenshot upload
 - Labels and milestone visible to collaborators.
+- Status: Tester access and screenshot upload validation pending first trusted tester username.
 - Status: Labels and milestone verified on May 9, 2026.
 
 ## Product
 - Offline capture/upload and analyze flow completes.
 - Low-confidence messaging is understandable.
 - Save/reopen flow is reliable.
+- Status: Move-forward slice is Android preview product smoke before broad tester invite.
 - Wrong-result issues include enough detail for reproduction.
 
 ## Wave-Close Criteria
