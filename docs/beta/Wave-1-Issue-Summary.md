@@ -1,7 +1,7 @@
 # Friends Beta Wave 1 — Issue Summary
 
 Window: May 8, 2026 to May 18, 2026
-Last updated: May 9, 2026
+Last updated: May 10, 2026
 
 ## Theme Grouping
 
@@ -56,6 +56,9 @@ None
 ## Cross-Cutting Themes
 (Themes that appear across multiple categories)
 - None identified yet
+
+## Weekly Changelog
+- [Week 1 Changelog (May 8–10)](https://github.com/amirasaad/RockID/issues/2) — No tester issues received. Validation complete, triage operational.
 
 ## Next Sprint Decisions
 (To be filled at wave close)
