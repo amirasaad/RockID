@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.30.1 (2026-05-09)
+
+
+### 🐛 Bug Fixes
+
+* **native**: Align RN codegen and promise runtime fixes ([7b23c3e](https://github.com/amirasaad/RockID/commit/7b23c3e))
+
+
+
+
+
 # 0.30.0 (2026-05-08)
 
 
