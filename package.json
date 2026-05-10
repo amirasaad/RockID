@@ -32,7 +32,7 @@
     "build:ios": "expo run:ios --no-install --no-bundler",
     "build:android": "node scripts/run-android-with-jdk.mjs --no-install --no-bundler",
     "verify:release-builds": "node scripts/verify-release-builds.mjs",
-    "verify:detection-gates": "vitest run __tests__/s32-detection-gate-hardening.acceptance.test.ts __tests__/s32-non-rock-gate-fixture-shape.test.ts",
+    "verify:detection-gates": "vitest run __tests__/s32-detection-gate-hardening.acceptance.test.ts __tests__/s32-non-rock-gate-fixture-shape.test.ts __tests__/s37-evidence-detection-hardening.test.ts",
     "verify:failure-clusters": "vitest run __tests__/s33-failure-cluster-selection.test.ts __tests__/s33-cluster-brief-format.test.ts __tests__/s33-failure-cluster-brief.acceptance.test.ts __tests__/s33-failure-cluster-brief-cli.acceptance.test.ts __tests__/s33-fixture-slice-generator.test.ts",
     "brief:failure-clusters": "node scripts/print-failure-cluster-brief.mjs",
     "verify:calibration-stability": "vitest run __tests__/s34-calibration-stability.test.ts __tests__/s34-confidence-boundary-policy.acceptance.test.ts",
