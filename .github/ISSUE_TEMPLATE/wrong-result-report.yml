@@ -20,7 +20,7 @@ body:
     id: device
     attributes:
       label: Device + OS
-      description: Example: iPhone 14, iOS 18.5
+      description: Example iPhone 14, iOS 18.5
       placeholder: Pixel 8, Android 15
     validations:
       required: true
