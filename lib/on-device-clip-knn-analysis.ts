@@ -22,6 +22,8 @@ const photoIndex: VectorIndexItem[] = [
   { id: 'photo-concrete-1', label: 'Concrete', kind: 'non-rock', embedding: normalizeVector([0, 0, 1, 0, 0, 0.5, 0, 0]) },
   { id: 'photo-brick-1', label: 'Brick', kind: 'non-rock', embedding: normalizeVector([0, 0, 0, 0, 1, 0, 0.5, 0]) },
   { id: 'photo-plastic-1', label: 'Plastic', kind: 'non-rock', embedding: normalizeVector([0, 0, 0, 0, 0, 1, 0, 0.5]) },
+  // S37 bounded addition: Sandstone — sedimentary rock class added from S37 coverage gap evidence.
+  { id: 'photo-sandstone-1', label: 'Sandstone', kind: 'rock', embedding: normalizeVector([0, 0, 0, 0, 0, 0, 0, 1]) },
 ];
 
 async function embedPhotoSession(input: { session: IdentificationSession }): Promise<{ vector: number[]; engine: PhotoAnalysisEngine }> {
