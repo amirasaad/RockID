@@ -84,9 +84,19 @@ function buildAndroidEnv() {
 }
 
 const pnpmCommand = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm';
+const androidEnv = buildAndroidEnv();
+const fixNativeDeps = spawnSync(process.execPath, ['scripts/fix-native-deps.mjs'], {
+  stdio: 'inherit',
+  env: androidEnv,
+});
+
+if (fixNativeDeps.status !== 0) {
+  process.exit(fixNativeDeps.status ?? 1);
+}
+
 const child = spawn(pnpmCommand, ['exec', 'expo', 'run:android', ...process.argv.slice(2)], {
   stdio: 'inherit',
-  env: buildAndroidEnv(),
+  env: androidEnv,
 });
 
 child.on('exit', (code, signal) => {
