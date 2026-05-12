@@ -1,0 +1,48 @@
+name: QA
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'sprint/**'
+      - 'story/**'
+      - 'fix/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: Typecheck + unit QA
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+          cache: pnpm
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit smoke
+        run: pnpm test:unit
+
+      - name: Known-answer QA summary test
+        run: pnpm vitest run __tests__/s38-known-answer-summary.test.ts
+
+      - name: Known-answer QA summary smoke
+        run: pnpm qa:known-answer
