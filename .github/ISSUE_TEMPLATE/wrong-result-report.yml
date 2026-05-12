@@ -8,28 +8,72 @@ body:
     attributes:
       value: |
         Thanks for helping test Rock ID. Please fill this out as completely as possible.
+
+        For Sprint 38 known-answer QA, start with a sample where you already know the expected answer before scanning.
   - type: input
     id: app_version
     attributes:
       label: App version
-      description: Example v0.30.0
-      placeholder: v0.30.0
+      description: Example v0.30.2
+      placeholder: v0.30.2
     validations:
       required: true
   - type: input
     id: device
     attributes:
       label: Device + OS
-      description: Example iPhone 14, iOS 18.5
+      description: Example Pixel 8, Android 15
       placeholder: Pixel 8, Android 15
     validations:
       required: true
-  - type: textarea
-    id: expected_vs_shown
+  - type: dropdown
+    id: sample_group
     attributes:
-      label: Expected vs shown result
-      description: What did you expect, and what was shown?
-      placeholder: I expected basalt but got granite as top match.
+      label: Sample group
+      description: Pick the closest known-answer QA group.
+      options:
+        - Clear known rock
+        - Ambiguous known rock
+        - Non-rock confuser
+        - Unknown / exploratory sample
+    validations:
+      required: true
+  - type: input
+    id: expected_answer
+    attributes:
+      label: Expected answer before scanning
+      description: Use the known label, or write non-rock for glass/concrete/brick/plastic/etc.
+      placeholder: basalt, sandstone, non-rock glass, non-rock concrete
+    validations:
+      required: true
+  - type: input
+    id: top_match
+    attributes:
+      label: Shown top match
+      description: Exact top result shown by the app.
+      placeholder: granite
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives shown
+      description: List the other matches shown by the app, if any.
+      placeholder: |
+        1. Granite
+        2. Basalt
+        3. Diorite
+    validations:
+      required: true
+  - type: dropdown
+    id: top3_includes_expected
+    attributes:
+      label: Did Top-3 include the expected answer?
+      options:
+        - Yes
+        - No
+        - Not applicable - non-rock confuser
+        - Not sure
     validations:
       required: true
   - type: dropdown
@@ -44,11 +88,19 @@ body:
     validations:
       required: true
   - type: textarea
+    id: expected_vs_shown
+    attributes:
+      label: Why did this feel wrong or misleading?
+      description: Explain the mismatch in plain language.
+      placeholder: I expected basalt, but granite was shown as the high-confidence top match.
+    validations:
+      required: true
+  - type: textarea
     id: photo_conditions
     attributes:
       label: Photo conditions (lighting/distance/background)
       description: Include details that might affect identification quality.
-      placeholder: Outdoor shade, ~30cm distance, mixed gravel background.
+      placeholder: Outdoor shade, ~30cm distance, mixed gravel background, dry surface.
     validations:
       required: true
   - type: dropdown

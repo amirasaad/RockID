@@ -1,6 +1,6 @@
 # Friends Beta — Invite Packet
 
-Last updated: May 9, 2026
+Last updated: May 12, 2026
 
 Purpose: provide one copy/paste packet for the trusted Friends Beta Wave 1 Android invite. The one-tester pilot was intentionally skipped on May 9, 2026 to move faster with a trusted group.
 
@@ -24,6 +24,7 @@ If any access step fails, label it `beta-install` or `beta-ux`, assign the Wave 
 - Android preview build: https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a03a-63a21a7026f0
 - Tester guide: `docs/beta/Friends-Beta-Getting-Started.md`
 - Test missions: `docs/beta/Test-Missions.md`
+- Known-answer QA guide: `docs/beta/Known-Answer-Detection-QA.md`
 - Feedback guide: `docs/beta/How-To-Report-Feedback.md`
 - GitHub issues: https://github.com/amirasaad/RockID/issues
 
@@ -43,6 +44,7 @@ Please first confirm you can access GitHub Issues and upload a screenshot. Then 
 6. Try Re-analyze.
 7. Try one tricky low-confidence photo.
 8. Try one non-rock confuser, like glass, concrete, or brick-like material.
+9. If possible, use samples where you already know the answer before scanning.
 
 Android build:
 https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a03a-63a21a7026f0
@@ -52,14 +54,14 @@ https://github.com/amirasaad/RockID/issues
 
 If Android says the app cannot install because a previous version exists, uninstall the old Rock ID app first, then install this preview build again.
 
-Please include screenshots when possible. For wrong results, include expected vs shown result, confidence shown, and photo conditions.
+Please include screenshots when possible. For wrong results, include expected answer, shown top match, alternatives, Top-3 status, confidence shown, and photo conditions.
 
 What I care about most:
 - Did install work?
 - Did the first scan flow make sense?
 - Was low-confidence wording understandable?
 - Did save/reopen/reanalyze feel reliable?
-- If the result looked wrong, can you report expected vs shown result, confidence shown, and photo conditions?
+- If the result looked wrong, can you report expected answer, shown top match, alternatives, Top-3 status, confidence shown, and photo conditions?
 ```
 
 ## Optional Short Reminder
@@ -81,7 +83,7 @@ https://expo.dev/accounts/amirasaad/projects/rock-id/builds/cb22e5f0-8ae0-4914-a
 Feedback goes through GitHub Issues only:
 https://github.com/amirasaad/RockID/issues
 
-Please include screenshots when possible. For wrong results, include expected vs shown result, confidence shown, and photo conditions.
+Please include screenshots when possible. For wrong results, include expected answer, shown top match, alternatives, Top-3 status, confidence shown, and photo conditions.
 ```
 
 ## Triage Follow-Up

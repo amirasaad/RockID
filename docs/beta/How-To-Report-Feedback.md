@@ -1,6 +1,6 @@
 # Friends Beta — How To Report Feedback
 
-Last updated: May 9, 2026
+Last updated: May 12, 2026
 
 ## Required Intake Path
 - All feedback must be submitted through GitHub Issue Templates.
@@ -9,6 +9,7 @@ Last updated: May 9, 2026
 ## Which Template To Use
 - **Wrong Result Report**
   - Use when output label/confidence appears incorrect or misleading.
+  - For Sprint 38 known-answer QA, include expected answer, shown top match, alternatives, Top-3 status, confidence, and photo conditions.
 - **Bug / Crash Report**
   - Use for crashes, freezes, broken actions, install/runtime blockers.
 - **UX Friction Report**
@@ -16,9 +17,9 @@ Last updated: May 9, 2026
 
 ## Good Report Examples
 - Wrong result:
-  - “Expected basalt, got granite (High). Outdoor shade, 30cm, mixed gravel background.”
+  - “Known sample: basalt. Top match: granite (High). Alternatives: diorite, basalt. Top-3 included expected: yes. Outdoor shade, 30cm, mixed gravel background.”
 - Bug:
-  - “App crashes after tapping Analyze on iPhone 13 iOS 18.5, v0.30.0.”
+  - “App crashes after tapping Analyze on iPhone 13 iOS 18.5, v0.30.2.”
 - UX:
   - “Low-confidence banner text was unclear; expected clearer next action.”
 
