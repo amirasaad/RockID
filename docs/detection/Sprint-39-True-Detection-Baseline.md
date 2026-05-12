@@ -32,14 +32,27 @@ Pause external friend beta QA and use Sprint 39 to establish the true-detection 
 4. Select exactly one failure boundary for Sprint 40.
 5. Write the Sprint 40 experiment as one variable, one expected metric delta, and one rollback criterion.
 
-## Candidate Sprint 40 Experiment
-Default candidate: Basalt vs non-rock dark confusers. This boundary already has evidence, affects common field-looking samples, and directly protects against confident wrong rock claims.
+## Selected Sprint 40 Boundary
+Selected boundary: Basalt vs non-rock dark confusers: Slag, Asphalt, and Coal.
 
-Possible one-variable experiments:
-- Add one or two high-signal dark-confuser fixtures and re-run gates without analyzer changes.
-- Adjust only the non-rock proximity downgrade threshold and compare low-confidence/non-rock false-positive deltas.
-- Add one bounded index vector for a missing dark boundary example, then verify no Top-3 regression.
+Why this boundary first:
+- It protects against one of the most damaging trust failures: confidently calling human-made or carbon-rich dark material a natural rock.
+- Existing S32/S37 fixtures already exercise the area, so the next step can be measured without inventing a new workflow.
+- The product can explain this boundary to future testers in plain language: dark bubbly/granular samples need extra caution.
+
+## Sprint 40 Experiment Proposal
+One variable: fixture data only.
+
+Add one or two high-signal dark-confuser fixture variants, then re-run the gates without changing analyzer thresholds, index vectors, or UI behavior. If the added fixtures expose a failure, Sprint 40 can decide whether the next one-variable change should be threshold/calibration or index data.
+
+Expected metric delta:
+- Non-rock false-positive rate remains 0 on the S32/S37/S40 dark-confuser gate slice.
+- Low-confidence behavior remains visible for boundary samples instead of producing high-confidence wrong rock claims.
+- Top-3 regression remains within the existing Sprint 34 tolerance.
+
+Rollback criterion:
+- Revert the fixture slice or defer analyzer changes if the new cases bundle multiple failure modes that cannot be explained as Basalt vs dark non-rock confusion.
 
 ## Stop / Go
-- Go to Sprint 40 implementation only after the selected boundary and one-variable experiment are documented.
+- Go to Sprint 40 implementation: selected boundary and one-variable experiment are documented.
 - Stop and narrow the scope if multiple labels, thresholds, and fixture changes are bundled together.

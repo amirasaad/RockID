@@ -23,6 +23,9 @@ Sprint 39 should measure the current analyzer against known-answer fixtures, the
 | 2 | Obsidian vs Glass / Coal | Glassy dark surfaces can create plausible but misleading volcanic-rock IDs. | S30/S33/S37 non-rock confuser patterns. |
 | 3 | Sandstone vs Brick / Concrete | Tan/red granular human-made materials can look sedimentary in photos. | S37 Sandstone addition plus S32 brick/concrete variants. |
 
+## Selected Next Boundary
+Sprint 39 selects Basalt vs Slag / Asphalt / Coal as the next boundary. The first Sprint 40 move should add fixture evidence only; analyzer thresholds or index vectors should wait until the new slice proves a specific failure.
+
 ## Product Contract
 - If the target label is outside the active analyzer surface, prefer uncertainty over a confident exact claim.
 - Non-rock lookalikes are product safety labels, not user-facing taxonomy expansion.
