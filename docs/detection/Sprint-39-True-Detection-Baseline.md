@@ -23,11 +23,13 @@ Pause external friend beta QA and use Sprint 39 to establish the true-detection 
 
 ## Baseline Gate Status
 - May 13, 2026: `pnpm verify:detection-gates` passed with 3 test files and 6 tests.
-- This confirms the current conservative S32/S37 detection gates remain green before Sprint 40 experiment selection.
+- May 13, 2026: the S40 dark-confuser fixture slice was added to `verify:detection-gates`, increasing coverage to 4 test files and 7 tests.
+- May 13, 2026: `pnpm verify:expanded-eval` passed with 11 test files and 19 tests after adding S37/S40 coverage.
+- This confirms the current conservative S32/S37/S40 detection gates remain green before any analyzer behavior change.
 
 ## Sprint 39 Baseline Runbook
 1. Run `pnpm verify:detection-gates` to confirm the current conservative gates still pass.
-2. Run `pnpm verify:expanded-eval` when a broader regression surface is needed.
+2. Run `pnpm verify:expanded-eval` when a broader regression surface is needed; it includes the S37 evidence gate and S40 dark-confuser slice.
 3. Summarize the report using the existing `formatRockIdEvalSummary` fields: Top-1, Top-3, low confidence, non-rock false positives, and top confusions.
 4. Select exactly one failure boundary for Sprint 40.
 5. Write the Sprint 40 experiment as one variable, one expected metric delta, and one rollback criterion.
