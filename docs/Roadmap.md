@@ -11,6 +11,10 @@ This roadmap is the source of truth for release sequencing across the `Rock ID` 
 | `V2` | Expand retention, robustness, and model assistance | Users get sync, broader coverage, stronger metadata-aware guidance, and improved non-rock detection |
 | `Future` | Extend the app into expert, classroom, and community use cases | The product supports advanced validation, collaboration, and richer field workflows |
 
+## **Near-Term Product Focus**
+
+As of May 13, 2026, friend beta QA is paused after setup. The next milestone is true detection foundation: measure the current analyzer against a known-answer pack, clarify the supported rock taxonomy, identify the biggest accuracy gap, and choose one bounded experiment before broadening tester asks.
+
 ## **MVP**
 
 ### **Objective**

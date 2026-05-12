@@ -1,11 +1,11 @@
 # Known-Answer Detection QA
 
-Last updated: May 12, 2026
+Last updated: May 13, 2026
 
 ## Purpose
-Use trusted Android beta testing to answer one product question: when we already know what the sample is, does RockID behave usefully and honestly?
+Use known-answer testing to answer one product question: when we already know what the sample is, does RockID behave usefully and honestly?
 
-This is not a public accuracy claim. It is a small beta trust check before broader friends testing.
+Status: paused for external friend beta. Keep this guide as internal QA scaffolding while Sprint 39 moves toward true detection foundation work. This is not a public accuracy claim.
 
 ## Test Pack
 Prepare at least 20 known-answer attempts across these groups. Use [Known-Answer Test Pack](Known-Answer-Test-Pack.md) as the default sample checklist:
@@ -44,6 +44,9 @@ For every attempt, capture the result in [Known-Answer Attempt Log](Known-Answer
 
 ## Sprint 38 Summary
 Use [Wave-1 Trust Summary](Wave-1-Trust-Summary.md) to close the sprint with explicit pass/fail gates and the next distribution decision. Run `pnpm qa:known-answer` to summarize the current attempt log before making the decision.
+
+## May 13, 2026 Pause Decision
+External friend QA is paused. The app setup and feedback channel are ready, but the next product need is stronger true detection: a measured baseline, clearer target taxonomy, and one bounded engine experiment before asking testers for more scans.
 
 ## Sprint 38 Decision Options
 | Decision | Use When |
