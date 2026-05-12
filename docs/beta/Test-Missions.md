@@ -1,6 +1,6 @@
 # Friends Beta — Test Missions
 
-Last updated: May 9, 2026
+Last updated: May 12, 2026
 
 ## Mission A — First Scan Flow
 1. Open app.
@@ -38,3 +38,18 @@ Try three non-rock-adjacent samples:
 Success:
 - Report outcome quality using Wrong Result template when misleading.
 - Include photo condition context in every report.
+
+## Mission E — Known-Answer Detection Trust
+1. Pick a sample where you already know the expected answer before scanning.
+2. Run the normal scan flow.
+3. Record expected answer, shown top match, alternatives, confidence band, and photo conditions.
+4. Mark whether the result felt useful, misleading, unclear, or blocked.
+5. Repeat with both clear rocks and non-rock confusers.
+
+Success:
+- Known rocks are useful in Top-3 often enough to guide a beginner.
+- Ambiguous cases do not sound overconfident.
+- Non-rock confusers do not receive high-confidence rock claims.
+- Any wrong or misleading result becomes a GitHub issue with enough detail to reproduce.
+
+Reference: [Known-Answer Detection QA](<Known-Answer-Detection-QA.md>).
