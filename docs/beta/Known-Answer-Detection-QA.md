@@ -43,7 +43,7 @@ For every attempt, capture the result in [Known-Answer Attempt Log](Known-Answer
 - Do not tune thresholds from one report; first group reports into a reproducible failure cluster.
 
 ## Sprint 38 Summary
-Use [Wave-1 Trust Summary](Wave-1-Trust-Summary.md) to close the sprint with explicit pass/fail gates and the next distribution decision.
+Use [Wave-1 Trust Summary](Wave-1-Trust-Summary.md) to close the sprint with explicit pass/fail gates and the next distribution decision. Run `pnpm qa:known-answer` to summarize the current attempt log before making the decision.
 
 ## Sprint 38 Decision Options
 | Decision | Use When |
