@@ -22,10 +22,14 @@ This is not a tester-recruitment sprint and not a broad tuning sprint. We are ge
 - `pnpm verify:release-builds` remains green before any release-worthy merge.
 
 ## Evidence To Produce
-- Current detection baseline summary using the known-answer pack.
-- Target taxonomy note: core labels, lookalikes, and confusers.
+- Current detection baseline summary using the known-answer pack: [Sprint 39 True Detection Baseline](../../detection/Sprint-39-True-Detection-Baseline.md).
+- Target taxonomy note: [True Detection Target Taxonomy](../../detection/True-Detection-Target-Taxonomy.md).
 - One selected failure cluster for Sprint 40.
 - One bounded experiment proposal with rollback criteria.
+
+## Current Status
+- `S39-1` is in progress: beta QA is paused in planning docs while beta artifacts remain available.
+- `S39-2` and `S39-3` have starting artifacts; next work is to run detection gates and select the Sprint 40 boundary.
 
 ## Guardrails
 - Keep beta ops available but paused.
