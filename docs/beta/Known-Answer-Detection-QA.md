@@ -17,7 +17,7 @@ Prepare at least 20 known-answer attempts across these groups:
 | Non-rock confusers | 8+ | glass, concrete, brick, slag, asphalt, plastic, ceramic, mixed-material scene | Avoid high-confidence rock claims. |
 
 ## Attempt Record
-For every attempt, capture:
+For every attempt, capture the result in [Known-Answer Attempt Log](Known-Answer-Attempt-Log.md):
 
 | Field | Required? | Notes |
 | --- | --- | --- |
@@ -41,6 +41,9 @@ For every attempt, capture:
 - Non-rock high-confidence rock claims are `beta-priority-high` until reproduced in eval.
 - Low-confidence ambiguous outputs are usually acceptable if the uncertainty copy is clear.
 - Do not tune thresholds from one report; first group reports into a reproducible failure cluster.
+
+## Sprint 38 Summary
+Use [Wave-1 Trust Summary](Wave-1-Trust-Summary.md) to close the sprint with explicit pass/fail gates and the next distribution decision.
 
 ## Sprint 38 Decision Options
 | Decision | Use When |

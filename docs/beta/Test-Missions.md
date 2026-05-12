@@ -52,4 +52,4 @@ Success:
 - Non-rock confusers do not receive high-confidence rock claims.
 - Any wrong or misleading result becomes a GitHub issue with enough detail to reproduce.
 
-Reference: [Known-Answer Detection QA](<Known-Answer-Detection-QA.md>).
+Reference: [Known-Answer Detection QA](<Known-Answer-Detection-QA.md>) and [Known-Answer Attempt Log](<Known-Answer-Attempt-Log.md>).

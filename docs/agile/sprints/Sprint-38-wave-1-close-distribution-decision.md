@@ -23,7 +23,7 @@ This sprint is not a broad tuning sprint. The milestone bar is **Trustworthy Bet
 - Release target: `pnpm verify:release-builds` remains green before any beta-worthy merge.
 
 ## Evidence To Capture
-- Known-answer attempt table or issue summary.
+- [Known-answer attempt table](../../beta/Known-Answer-Attempt-Log.md) or issue summary.
 - Top-1 and Top-3 observed behavior.
 - Confident wrong cases, if any.
 - Non-rock false positives, if any.
@@ -32,7 +32,7 @@ This sprint is not a broad tuning sprint. The milestone bar is **Trustworthy Bet
 
 ## Planned Exit Criteria
 - Known-answer QA guide is published for testers.
-- Wave 1 / Sprint 38 trust summary is complete.
+- [Wave 1 / Sprint 38 trust summary](../../beta/Wave-1-Trust-Summary.md) is complete.
 - Detection trust decision is documented with pass/fail gates.
 - Kanban and Epic Milestones reflect the outcome.
 
