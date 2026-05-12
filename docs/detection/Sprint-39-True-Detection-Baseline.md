@@ -43,7 +43,7 @@ Why this boundary first:
 ## Sprint 40 Experiment Proposal
 One variable: fixture data only.
 
-Add one or two high-signal dark-confuser fixture variants, then re-run the gates without changing analyzer thresholds, index vectors, or UI behavior. If the added fixtures expose a failure, Sprint 40 can decide whether the next one-variable change should be threshold/calibration or index data.
+Add one or two high-signal dark-confuser fixture variants, then re-run the gates without changing analyzer thresholds, index vectors, or UI behavior. The first fixture-data slice is `data/eval/sprint40-dark-confuser-fixtures.ts`, guarded by `__tests__/s40-dark-confuser-fixture-slice.test.ts`. If the added fixtures expose a failure, Sprint 40 can decide whether the next one-variable change should be threshold/calibration or index data.
 
 Expected metric delta:
 - Non-rock false-positive rate remains 0 on the S32/S37/S40 dark-confuser gate slice.

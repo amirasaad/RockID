@@ -32,6 +32,7 @@ This is not a tester-recruitment sprint and not a broad tuning sprint. We are ge
 - `S39-2` and `S39-3` have starting artifacts; `pnpm verify:detection-gates` passed on May 13, 2026.
 - `S39-4` selected Basalt vs Slag / Asphalt / Coal as the Sprint 40 boundary.
 - `S39-5` proposes fixture-data-only as the first bounded experiment: add dark-confuser variants before changing analyzer behavior.
+- First fixture-data slice added in `data/eval/sprint40-dark-confuser-fixtures.ts` and guarded by `__tests__/s40-dark-confuser-fixture-slice.test.ts`.
 
 ## Guardrails
 - Keep beta ops available but paused.
