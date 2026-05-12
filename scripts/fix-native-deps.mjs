@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readdirSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
@@ -267,7 +267,44 @@ using HostPlatformTouch = BaseTouch;
   }
 }
 
+function patchCMakeReactNativeIncludes(filePath, targetName) {
+  if (!existsSync(filePath)) return;
+
+  const marker = "# RockID: prefer React Native prefab headers over host-level includes.";
+  const content = readFileSync(filePath, "utf8");
+  if (content.includes(marker)) return;
+
+  const findPackage = "find_package(ReactAndroid REQUIRED CONFIG)";
+  if (!content.includes(findPackage)) return;
+
+  const patch = `${findPackage}
+
+${marker}
+get_target_property(ROCKID_REACT_NATIVE_INCLUDE_DIRS ReactAndroid::reactnative INTERFACE_INCLUDE_DIRECTORIES)
+if(ROCKID_REACT_NATIVE_INCLUDE_DIRS)
+  target_include_directories(${targetName} BEFORE PRIVATE \${ROCKID_REACT_NATIVE_INCLUDE_DIRS})
+endif()`;
+
+  writeFileSync(filePath, content.replace(findPackage, patch));
+  console.log(`[fix-native-deps] Patched React Native include priority in ${filePath}`);
+}
+
+function patchAndroidCMakeIncludePriority() {
+  for (const packageRoot of getPackageRoots()) {
+    const packageName = path.basename(packageRoot);
+
+    if (packageName === "react-native-screens") {
+      patchCMakeReactNativeIncludes(path.join(packageRoot, "android", "CMakeLists.txt"), "rnscreens");
+    }
+
+    if (packageName === "expo-modules-core") {
+      patchCMakeReactNativeIncludes(path.join(packageRoot, "android", "CMakeLists.txt"), "expo-modules-core");
+    }
+  }
+}
+
 fixExpoDevLauncherResourceNames();
 fixAndroidResourceCopyArtifacts();
 fixPromiseSetImmediateFiles();
 createMissingPlatformHeaders();
+patchAndroidCMakeIncludePriority();
