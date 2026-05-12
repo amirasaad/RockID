@@ -8,7 +8,7 @@ Use trusted Android beta testing to answer one product question: when we already
 This is not a public accuracy claim. It is a small beta trust check before broader friends testing.
 
 ## Test Pack
-Prepare at least 20 known-answer attempts across these groups:
+Prepare at least 20 known-answer attempts across these groups. Use [Known-Answer Test Pack](Known-Answer-Test-Pack.md) as the default sample checklist:
 
 | Group | Target Count | Examples | Expected Behavior |
 | --- | ---: | --- | --- |
