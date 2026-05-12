@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.30.2 (2026-05-12)
+
+
+### 🐛 Bug Fixes
+
+* **android**: Clean native resource copy artifacts ([60f5d57](https://github.com/amirasaad/RockID/commit/60f5d57))
+* **android**: Prefer React Native native headers ([8bed33d](https://github.com/amirasaad/RockID/commit/8bed33d))
+
+
+
+
+
 ## 0.30.1 (2026-05-09)
 
 
