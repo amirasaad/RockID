@@ -32,10 +32,10 @@ body:
       label: Sample group
       description: Pick the closest known-answer QA group.
       options:
-        - Clear known rock
-        - Ambiguous known rock
-        - Non-rock confuser
-        - Unknown / exploratory sample
+        - "Clear known rock"
+        - "Ambiguous known rock"
+        - "Non-rock confuser"
+        - "Unknown / exploratory sample"
     validations:
       required: true
   - type: input
@@ -70,10 +70,10 @@ body:
     attributes:
       label: Did Top-3 include the expected answer?
       options:
-        - Yes
-        - No
-        - Not applicable - non-rock confuser
-        - Not sure
+        - "Yes"
+        - "No"
+        - "Not applicable - non-rock confuser"
+        - "Not sure"
     validations:
       required: true
   - type: dropdown
@@ -81,10 +81,10 @@ body:
     attributes:
       label: Confidence shown in app
       options:
-        - High
-        - Medium
-        - Low
-        - Not sure
+        - "High"
+        - "Medium"
+        - "Low"
+        - "Not sure"
     validations:
       required: true
   - type: textarea
@@ -108,10 +108,10 @@ body:
     attributes:
       label: Did you tap "Was this useful?" feedback in app?
       options:
-        - Yes - Useful
-        - Yes - Not useful
-        - No
-        - Not sure
+        - "Yes - Useful"
+        - "Yes - Not useful"
+        - "No"
+        - "Not sure"
     validations:
       required: true
   - type: textarea
