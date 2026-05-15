@@ -31,7 +31,8 @@ This sprint is intentionally small. We are not broadening the product claim yet;
 - May 15, 2026: `pnpm verify:detection-gates` passed with 4 files and 7 tests.
 - May 15, 2026: `pnpm verify:expanded-eval` passed with 11 files and 19 tests.
 - `S40-3` is done: the next candidate is a single shadow index-data experiment for the Basalt vs Slag / Asphalt / Coal boundary, with no production threshold or UI behavior change.
-- `S40-4` is in progress: Shadow Candidate 1 adds one non-rock Slag boundary neighbor and is classified unsafe to promote because it flips the known low-margin Basalt fixture to a non-rock Top-1 result.
+- `S40-4` is done for Shadow Candidate 1: the candidate adds one non-rock Slag boundary neighbor and is classified unsafe to promote because it flips the known low-margin Basalt fixture to a non-rock Top-1 result.
+- May 15, 2026: `pnpm verify:release-builds` passed after a clean dependency-store rebuild and Android emulator restart; iOS/Android bundle exports and native builds were green.
 
 ## Guardrails
 - Keep beta QA paused until this detection boundary has a clearer trust readout.

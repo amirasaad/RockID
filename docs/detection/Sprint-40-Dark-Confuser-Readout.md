@@ -30,6 +30,7 @@ May 15, 2026:
 | `pnpm verify:expanded-eval` | Pass: 11 files, 19 tests | Broader regression surface remains green with the S40 slice included. |
 | `pnpm verify:detection-gates` after Shadow Candidate 1 | Pass: 5 files, 8 tests | Adds the unsafe-candidate shadow guard without changing production index behavior. |
 | `pnpm verify:expanded-eval` after Shadow Candidate 1 | Pass: 12 files, 20 tests | Expanded eval remains green with the shadow guard included. |
+| `pnpm verify:release-builds` | Pass | iOS/Android bundle exports and native builds passed after clearing corrupted local pnpm cache and restarting the offline Android emulator. |
 
 S40 slice expectations remain intact:
 - Non-rock false-positive rate is `0` for the S40 dark-confuser slice.
