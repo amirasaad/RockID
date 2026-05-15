@@ -21,13 +21,16 @@ This sprint is intentionally small. We are not broadening the product claim yet;
 - Any detected failure becomes evidence for Sprint 41 instead of being patched opportunistically.
 
 ## Evidence To Produce
-- Updated dark-confuser eval summary against the Sprint 39 baseline.
+- Updated dark-confuser eval summary against the Sprint 39 baseline: [Sprint 40 Dark Confuser Readout](../../detection/Sprint-40-Dark-Confuser-Readout.md).
 - One clear stop/go decision: keep fixture-data-only, promote one index-data change, or stop and narrow further.
 - Scrum board update after each story branch merge.
 
 ## Current Status
-- `S40-1` is in progress: `main` is pushed at the Sprint 39 gated baseline and `sprint/40-dark-confuser-index-experiment` has been realigned to that baseline.
-- The existing S40 fixture slice is present and included in detection gates.
+- `S40-1` is done: `main` is pushed at the Sprint 39 gated baseline and `sprint/40-dark-confuser-index-experiment` has been realigned to that baseline.
+- `S40-2` is done: the existing S40 fixture slice is present, documented, and included in detection gates.
+- May 15, 2026: `pnpm verify:detection-gates` passed with 4 files and 7 tests.
+- May 15, 2026: `pnpm verify:expanded-eval` passed with 11 files and 19 tests.
+- `S40-3` is next: propose exactly one index-data change for the Basalt vs Slag / Asphalt / Coal boundary.
 
 ## Guardrails
 - Keep beta QA paused until this detection boundary has a clearer trust readout.
