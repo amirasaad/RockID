@@ -11,7 +11,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'pnpm -s web -- --port 19006',
+    command: 'pnpm -s exec expo start --web --port 19006',
     url: 'http://localhost:19006',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

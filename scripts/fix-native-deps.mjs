@@ -7,6 +7,14 @@ function getReactNativeRoot() {
   return path.join(root, "node_modules", "react-native");
 }
 
+function isDirectory(filePath) {
+  try {
+    return statSync(filePath).isDirectory();
+  } catch {
+    return false;
+  }
+}
+
 function normalizeAndroidResourceName(filename) {
   return filename
     .toLowerCase()
@@ -94,12 +102,12 @@ function getPackageRoots() {
 
     for (const packageEntry of readdirSync(nodeModulesDir)) {
       const packageRoot = path.join(nodeModulesDir, packageEntry);
-      if (!statSync(packageRoot).isDirectory()) continue;
+      if (!isDirectory(packageRoot)) continue;
 
       if (packageEntry.startsWith("@")) {
         for (const scopedEntry of readdirSync(packageRoot)) {
           const scopedPackageRoot = path.join(packageRoot, scopedEntry);
-          if (statSync(scopedPackageRoot).isDirectory()) {
+          if (isDirectory(scopedPackageRoot)) {
             packageRoots.push(scopedPackageRoot);
           }
         }
