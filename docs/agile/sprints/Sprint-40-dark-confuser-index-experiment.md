@@ -26,6 +26,7 @@ This sprint is intentionally small. We are not broadening the product claim yet;
 - Scrum board update after each story branch merge.
 
 ## Current Status
+- Sprint 40 is closed and ready to merge.
 - `S40-1` is done: `main` is pushed at the Sprint 39 gated baseline and `sprint/40-dark-confuser-index-experiment` has been realigned to that baseline.
 - `S40-2` is done: the existing S40 fixture slice is present, documented, and included in detection gates.
 - May 15, 2026: `pnpm verify:detection-gates` passed with 4 files and 7 tests.
@@ -33,6 +34,11 @@ This sprint is intentionally small. We are not broadening the product claim yet;
 - `S40-3` is done: the next candidate is a single shadow index-data experiment for the Basalt vs Slag / Asphalt / Coal boundary, with no production threshold or UI behavior change.
 - `S40-4` is done for Shadow Candidate 1: the candidate adds one non-rock Slag boundary neighbor and is classified unsafe to promote because it flips the known low-margin Basalt fixture to a non-rock Top-1 result.
 - May 15, 2026: `pnpm verify:release-builds` passed after a clean dependency-store rebuild and Android emulator restart; iOS/Android bundle exports and native builds were green.
+
+## Sprint Decision
+- Do not promote Shadow Candidate 1.
+- Do not retune thresholds.
+- Move next to Sprint 41: create a small paired dark-boundary labeled evidence pack before testing another index candidate.
 
 ## Guardrails
 - Keep beta QA paused until this detection boundary has a clearer trust readout.
