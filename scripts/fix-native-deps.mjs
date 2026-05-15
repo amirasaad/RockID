@@ -280,20 +280,31 @@ function patchCMakeReactNativeIncludes(filePath, targetName) {
 
   const marker = "# RockID: prefer React Native prefab headers over host-level includes.";
   const content = readFileSync(filePath, "utf8");
-  if (content.includes(marker)) return;
+  if (content.includes(marker) && content.includes(`target_compile_options(${targetName} BEFORE PRIVATE`)) {
+    return;
+  }
 
   const findPackage = "find_package(ReactAndroid REQUIRED CONFIG)";
   if (!content.includes(findPackage)) return;
 
-  const patch = `${findPackage}
-
-${marker}
+  const patchBody = `${marker}
 get_target_property(ROCKID_REACT_NATIVE_INCLUDE_DIRS ReactAndroid::reactnative INTERFACE_INCLUDE_DIRECTORIES)
 if(ROCKID_REACT_NATIVE_INCLUDE_DIRS)
   target_include_directories(${targetName} BEFORE PRIVATE \${ROCKID_REACT_NATIVE_INCLUDE_DIRS})
+  foreach(ROCKID_REACT_NATIVE_INCLUDE_DIR \${ROCKID_REACT_NATIVE_INCLUDE_DIRS})
+    target_compile_options(${targetName} BEFORE PRIVATE "-I\${ROCKID_REACT_NATIVE_INCLUDE_DIR}")
+  endforeach()
 endif()`;
 
-  writeFileSync(filePath, content.replace(findPackage, patch));
+  if (content.includes(marker)) {
+    const markerStart = content.indexOf(marker);
+    const markerEnd = content.indexOf("endif()", markerStart);
+    if (markerEnd === -1) return;
+
+    writeFileSync(filePath, `${content.slice(0, markerStart)}${patchBody}${content.slice(markerEnd + "endif()".length)}`);
+  } else {
+    writeFileSync(filePath, content.replace(findPackage, `${findPackage}\n\n${patchBody}`));
+  }
   console.log(`[fix-native-deps] Patched React Native include priority in ${filePath}`);
 }
 
