@@ -47,6 +47,14 @@ Expected delta:
 Rollback criterion:
 - Revert the index-data change if any existing S32/S37/S40 non-rock gate regresses, or if the change improves one confuser while creating a new confident wrong rock claim.
 
+## Index-Data Risk Check
+The active app index is currently a small deterministic 8-dimensional reference list in `lib/on-device-clip-knn-analysis.ts`. The S40 low-margin Basalt fixture intentionally sits close to the Slag dimension, which is why the current behavior remains cautious.
+
+Implication:
+- Adding a non-rock neighbor too close to the low-margin Basalt vector can incorrectly make Slag / Asphalt / Coal the Top-1 result for a known Basalt edge case.
+- Adding a Basalt neighbor too close to that edge case can make the same boundary overconfident, weakening the desired uncertainty behavior.
+- Therefore the next code change should be a shadow/index experiment with explicit before/after eval evidence, not a silent production index mutation.
+
 ## Stop / Go
-- Go: keep Sprint 40 active and prepare a single index-data branch.
+- Go: keep Sprint 40 active and prepare a single shadow index-data experiment branch.
 - Stop: do not retune thresholds until the index-data proposal is measured and shown insufficient.

@@ -30,7 +30,8 @@ This sprint is intentionally small. We are not broadening the product claim yet;
 - `S40-2` is done: the existing S40 fixture slice is present, documented, and included in detection gates.
 - May 15, 2026: `pnpm verify:detection-gates` passed with 4 files and 7 tests.
 - May 15, 2026: `pnpm verify:expanded-eval` passed with 11 files and 19 tests.
-- `S40-3` is next: propose exactly one index-data change for the Basalt vs Slag / Asphalt / Coal boundary.
+- `S40-3` is done: the next candidate is a single shadow index-data experiment for the Basalt vs Slag / Asphalt / Coal boundary, with no production threshold or UI behavior change.
+- `S40-4` is next: prove the shadow experiment with detection gates before deciding whether any production index mutation is safe.
 
 ## Guardrails
 - Keep beta QA paused until this detection boundary has a clearer trust readout.
