@@ -11,7 +11,7 @@ This sprint is intentionally small. We are not broadening the product claim yet;
 | `S40-1` | As the team, Sprint 39 is closed and Sprint 40 starts from the gated baseline. | `main` is pushed after the release-build gate, the Sprint 40 branch is aligned to `main`, and scrum docs show Sprint 40 in progress. | Must |
 | `S40-2` | As the team, the dark-confuser fixture slice is treated as the active experiment surface. | S40 fixture docs/tests identify Basalt vs Slag / Asphalt / Coal as the only active boundary. | Must |
 | `S40-3` | As the team, one index-data experiment is proposed before analyzer behavior changes. | The change names exactly one variable, expected delta, and rollback criterion. | Must |
-| `S40-4` | As the team, detection and release gates prove the experiment is safe. | `pnpm verify:detection-gates`, expanded eval where relevant, and `pnpm verify:release-builds` pass before any sprint-worthy merge. | Must |
+| `S40-4` | As the team, detection and release gates prove the experiment is safe or unsafe. | Shadow candidate evidence is captured, `pnpm verify:detection-gates`, expanded eval where relevant, and `pnpm verify:release-builds` pass before any sprint-worthy merge. | Must |
 
 ## Acceptance Gates
 - No app API or user-facing result contract changes.
@@ -31,7 +31,7 @@ This sprint is intentionally small. We are not broadening the product claim yet;
 - May 15, 2026: `pnpm verify:detection-gates` passed with 4 files and 7 tests.
 - May 15, 2026: `pnpm verify:expanded-eval` passed with 11 files and 19 tests.
 - `S40-3` is done: the next candidate is a single shadow index-data experiment for the Basalt vs Slag / Asphalt / Coal boundary, with no production threshold or UI behavior change.
-- `S40-4` is next: prove the shadow experiment with detection gates before deciding whether any production index mutation is safe.
+- `S40-4` is in progress: Shadow Candidate 1 adds one non-rock Slag boundary neighbor and is classified unsafe to promote because it flips the known low-margin Basalt fixture to a non-rock Top-1 result.
 
 ## Guardrails
 - Keep beta QA paused until this detection boundary has a clearer trust readout.

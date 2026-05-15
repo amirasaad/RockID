@@ -28,6 +28,8 @@ May 15, 2026:
 | --- | --- | --- |
 | `pnpm verify:detection-gates` | Pass: 4 files, 7 tests | Includes the S32/S37/S40 conservative detection gates. |
 | `pnpm verify:expanded-eval` | Pass: 11 files, 19 tests | Broader regression surface remains green with the S40 slice included. |
+| `pnpm verify:detection-gates` after Shadow Candidate 1 | Pass: 5 files, 8 tests | Adds the unsafe-candidate shadow guard without changing production index behavior. |
+| `pnpm verify:expanded-eval` after Shadow Candidate 1 | Pass: 12 files, 20 tests | Expanded eval remains green with the shadow guard included. |
 
 S40 slice expectations remain intact:
 - Non-rock false-positive rate is `0` for the S40 dark-confuser slice.
@@ -55,6 +57,15 @@ Implication:
 - Adding a Basalt neighbor too close to that edge case can make the same boundary overconfident, weakening the desired uncertainty behavior.
 - Therefore the next code change should be a shadow/index experiment with explicit before/after eval evidence, not a silent production index mutation.
 
+## Shadow Candidate 1
+Candidate: add one non-rock Slag neighbor near the Basalt/Slag boundary.
+
+Result:
+- The candidate is classified as unsafe to promote because it becomes Top-1 for the known low-margin Basalt fixture.
+- This is useful negative evidence: the current index is too small/coarse for a single near-boundary non-rock neighbor to be promoted without richer rock-side support.
+- Production index remains unchanged.
+
 ## Stop / Go
-- Go: keep Sprint 40 active and prepare a single shadow index-data experiment branch.
-- Stop: do not retune thresholds until the index-data proposal is measured and shown insufficient.
+- Go: keep Sprint 40 active, but do not promote Shadow Candidate 1.
+- Next: either test a rock-side support candidate in shadow mode or stop Sprint 40 with a "needs richer labeled embeddings" decision.
+- Stop: do not retune thresholds until index-data options are measured and shown insufficient.
