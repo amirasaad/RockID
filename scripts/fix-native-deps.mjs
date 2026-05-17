@@ -318,6 +318,7 @@ function patchAndroidCMakeIncludePriority() {
 
     if (packageName === "expo-modules-core") {
       patchCMakeReactNativeIncludes(path.join(packageRoot, "android", "CMakeLists.txt"), "expo-modules-core");
+      patchCMakeReactNativeIncludes(path.join(packageRoot, "android", "src", "fabric", "CMakeLists.txt"), "fabric");
     }
   }
 }
