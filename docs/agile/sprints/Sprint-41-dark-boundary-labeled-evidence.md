@@ -25,6 +25,30 @@ Turn the Sprint 40 negative shadow-index result into better evidence. The next u
 - `S41-4`: Candidate 2 is now measured in shadow mode only; Basalt and Slag remain visible in Top-3 and no high-confidence rock claim is made on the Slag guard.
 - `S41-4`: Paired before/after readout now covers all six S41 labeled samples and keeps detection gates green.
 
+## Review Readout
+Sprint 41 is ready for review.
+
+What changed:
+- Added a six-sample labeled dark-boundary evidence pack covering Basalt vs Slag / Asphalt / Coal.
+- Added shape tests so every sample carries expected label, expected kind, photo conditions, and conservative acceptance checks.
+- Measured Shadow Candidate 2 as a Basalt-side support candidate in test-only index space.
+- Added paired before/after shadow readout across the full S41 pack.
+
+What did not change:
+- No production analyzer behavior.
+- No production index data.
+- No confidence thresholds.
+- No user-facing result contract.
+
+Gate evidence:
+- `pnpm vitest run __tests__/s41-basalt-support-shadow-experiment.test.ts`: Pass, 2 tests.
+- `pnpm typecheck`: Pass.
+- `pnpm verify:detection-gates`: Pass, 7 files / 13 tests.
+
+Decision:
+- Candidate 2 is safer than Sprint 40 Candidate 1, but remains shadow-only.
+- Next sprint should decide whether to promote a production index mutation from this evidence, with a release gate and rollback plan.
+
 ## Starting Evidence
 - [Sprint 40 Dark Confuser Readout](../../detection/Sprint-40-Dark-Confuser-Readout.md)
 - [Sprint 41 Dark Boundary Labeled Pack](../../detection/Sprint-41-Dark-Boundary-Labeled-Pack.md)
