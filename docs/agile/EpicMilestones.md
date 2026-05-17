@@ -43,7 +43,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `True Detection Foundation` | `Done` | Sprint 39 measured the current real-engine gap, clarified target taxonomy, selected Basalt vs Slag / Asphalt / Coal, and merged with a green release-build gate. |
 | `Dark Confuser Index Experiment` | `Done` | Sprint 40 classified the first Slag boundary shadow candidate as unsafe to promote, preserved it as evidence, and passed the release-build gate. |
 | `Dark Boundary Labeled Evidence` | `Done` | Sprint 41 merged paired evidence and a shadow readout with a green release gate. |
-| `Production Index Decision` | `Ready` | Sprint 42 is prepared to decide one Basalt support index-data mutation from Sprint 41 evidence. |
+| `Production Index Decision` | `In Progress` | Sprint 42 promoted one Basalt support index-data candidate and is validating broader gates. |
 
 ## **Epic Update Rules**
 

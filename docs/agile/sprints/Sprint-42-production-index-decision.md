@@ -22,6 +22,7 @@ Use Sprint 41's paired shadow evidence to make one careful production-index deci
 ## Starting Evidence
 - [Sprint 41 Dark Boundary Labeled Pack](../../detection/Sprint-41-Dark-Boundary-Labeled-Pack.md)
 - [Sprint 41 Shadow Candidate 2 Plan](../../detection/Sprint-41-Shadow-Candidate-2-Plan.md)
+- [Sprint 42 Production Index Decision](../../detection/Sprint-42-Production-Index-Decision.md)
 
 ## Default Candidate
 Default candidate: a Basalt-side support neighbor derived from `s41-rock-basalt-vesicular-shade-a`.
@@ -35,3 +36,11 @@ Default rollback:
 - One variable only.
 - Prefer uncertainty over overclaiming.
 - If the candidate needs threshold changes to pass, reject it and keep the behavior shadow-only.
+
+## Current Progress
+- `S42-1`: Selected the Basalt-side support candidate from Sprint 41 evidence.
+- `S42-2`: Applied one production index-data mutation only: `photo-basalt-vesicular-shade-support-1`.
+- `S42-3`: Added `__tests__/s42-production-index-decision.test.ts` to compare S41 known-answer behavior after promotion.
+
+## Gate Evidence
+- `pnpm vitest run __tests__/s42-production-index-decision.test.ts`: Pass, 1 file / 2 tests.
