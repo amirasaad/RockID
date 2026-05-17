@@ -44,6 +44,8 @@ Gate evidence:
 - `pnpm vitest run __tests__/s41-basalt-support-shadow-experiment.test.ts`: Pass, 2 tests.
 - `pnpm typecheck`: Pass.
 - `pnpm verify:detection-gates`: Pass, 7 files / 13 tests.
+- `pnpm verify:expanded-eval`: Pass, 14 files / 25 tests.
+- `pnpm verify:release-builds`: Pass; iOS/Android bundle exports and native builds succeeded.
 
 Decision:
 - Candidate 2 is safer than Sprint 40 Candidate 1, but remains shadow-only.
