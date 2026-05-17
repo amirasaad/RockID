@@ -42,7 +42,7 @@ This file tracks MVP epic progress in a Jira-like shape: epic, milestone, linked
 | `Friends Beta Wave 1 / Known-Answer Trust` | `Paused` | Beta setup is usable, but external QA is paused so the team can focus on true detection quality before asking more from friends. |
 | `True Detection Foundation` | `Done` | Sprint 39 measured the current real-engine gap, clarified target taxonomy, selected Basalt vs Slag / Asphalt / Coal, and merged with a green release-build gate. |
 | `Dark Confuser Index Experiment` | `Done` | Sprint 40 classified the first Slag boundary shadow candidate as unsafe to promote, preserved it as evidence, and passed the release-build gate. |
-| `Dark Boundary Labeled Evidence` | `Ready` | Sprint 41 prepares a small paired evidence pack before another index-data experiment. |
+| `Dark Boundary Labeled Evidence` | `In Progress` | Sprint 41 is defining a small paired evidence pack before another index-data experiment. |
 
 ## **Epic Update Rules**
 
