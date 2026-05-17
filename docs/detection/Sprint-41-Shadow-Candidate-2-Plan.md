@@ -39,3 +39,18 @@ Passing a shadow test is not enough to promote to production. Promotion requires
 - Confusion-pair readout.
 - Release-build gate evidence.
 - Explicit stop/go note in Sprint 41 or Sprint 42 docs.
+
+## Shadow Readout
+May 17, 2026:
+
+Candidate 2 is safe as shadow evidence only.
+
+- The Basalt-side boundary query keeps `Basalt` visible in Top-3 and selects the Basalt support neighbor.
+- The Slag-side guard keeps `Slag` visible in Top-3.
+- The Slag-side guard is not a `High` confidence rock claim because non-rock proximity remains active.
+- Production analyzer/index data remains unchanged.
+
+Decision:
+- Keep Candidate 2 as a measured shadow candidate.
+- Do not promote in this slice.
+- Next useful step is a paired before/after report across the S41 pack, then a stop/go call for a production index mutation in a later sprint.

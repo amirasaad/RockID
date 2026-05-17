@@ -22,6 +22,7 @@ Turn the Sprint 40 negative shadow-index result into better evidence. The next u
 - `S41-2`: Minimum labeled boundary pack defined in [Sprint 41 Dark Boundary Labeled Pack](../../detection/Sprint-41-Dark-Boundary-Labeled-Pack.md).
 - `S41-3`: Added fixture/evidence scaffolding plus shape tests only; no production analyzer, threshold, UI, or index behavior changed.
 - `S41-4`: Next candidate selected as a rock-side Basalt support shadow test in [Sprint 41 Shadow Candidate 2 Plan](../../detection/Sprint-41-Shadow-Candidate-2-Plan.md).
+- `S41-4`: Candidate 2 is now measured in shadow mode only; Basalt and Slag remain visible in Top-3 and no high-confidence rock claim is made on the Slag guard.
 
 ## Starting Evidence
 - [Sprint 40 Dark Confuser Readout](../../detection/Sprint-40-Dark-Confuser-Readout.md)
