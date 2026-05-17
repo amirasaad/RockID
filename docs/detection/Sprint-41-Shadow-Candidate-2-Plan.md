@@ -54,3 +54,26 @@ Decision:
 - Keep Candidate 2 as a measured shadow candidate.
 - Do not promote in this slice.
 - Next useful step is a paired before/after report across the S41 pack, then a stop/go call for a production index mutation in a later sprint.
+
+## Paired Before / After Readout
+May 17, 2026:
+
+The paired S41 pack readout now compares the baseline shadow index against Candidate 2 across all six labeled samples:
+
+| Sample | Expected | Safety check |
+| --- | --- | --- |
+| `s41-rock-basalt-vesicular-shade-a` | Basalt | Basalt remains Top-3 and Candidate 2 becomes the shadow Top-1 without High confidence. |
+| `s41-non-rock-slag-rusty-vesicular-a` | Slag | Slag remains Top-3 and the result is not a High confidence rock claim. |
+| `s41-rock-basalt-fresh-break-a` | Basalt | Basalt remains Top-3. |
+| `s41-non-rock-asphalt-wet-aggregate-a` | Asphalt | Asphalt remains Top-3 and the result is not a High confidence rock claim. |
+| `s41-rock-basalt-dull-massive-a` | Basalt | Basalt remains Top-3. |
+| `s41-non-rock-coal-dull-fractured-a` | Coal | Coal remains Top-3 and the result is not a High confidence rock claim. |
+
+Gate evidence:
+- `pnpm vitest run __tests__/s41-basalt-support-shadow-experiment.test.ts`: Pass, 2 tests.
+- `pnpm typecheck`: Pass.
+- `pnpm verify:detection-gates`: Pass, 7 files / 13 tests.
+
+Interpretation:
+- Candidate 2 is stronger than Candidate 1 because it supports the rock side without introducing a high-confidence rock claim on known non-rock guards.
+- It is still not promoted. The current evidence is deterministic and shadow-only; production index mutation should remain a separate sprint decision.
