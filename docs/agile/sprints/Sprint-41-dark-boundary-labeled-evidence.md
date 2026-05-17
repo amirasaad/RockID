@@ -21,10 +21,12 @@ Turn the Sprint 40 negative shadow-index result into better evidence. The next u
 - `S41-1`: Sprint 40 readout remains linked and explicitly says Shadow Candidate 1 is not promoted.
 - `S41-2`: Minimum labeled boundary pack defined in [Sprint 41 Dark Boundary Labeled Pack](../../detection/Sprint-41-Dark-Boundary-Labeled-Pack.md).
 - `S41-3`: Added fixture/evidence scaffolding plus shape tests only; no production analyzer, threshold, UI, or index behavior changed.
+- `S41-4`: Next candidate selected as a rock-side Basalt support shadow test in [Sprint 41 Shadow Candidate 2 Plan](../../detection/Sprint-41-Shadow-Candidate-2-Plan.md).
 
 ## Starting Evidence
 - [Sprint 40 Dark Confuser Readout](../../detection/Sprint-40-Dark-Confuser-Readout.md)
 - [Sprint 41 Dark Boundary Labeled Pack](../../detection/Sprint-41-Dark-Boundary-Labeled-Pack.md)
+- [Sprint 41 Shadow Candidate 2 Plan](../../detection/Sprint-41-Shadow-Candidate-2-Plan.md)
 - Shadow Candidate 1: unsafe to promote because a single Slag boundary neighbor flips a known low-margin Basalt fixture to non-rock Top-1.
 
 ## Guardrails
