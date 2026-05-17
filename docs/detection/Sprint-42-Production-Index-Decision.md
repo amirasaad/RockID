@@ -1,34 +1,45 @@
 # Sprint 42 Production Index Decision
 
 ## Decision
-Promote one Basalt-side support neighbor to the production photo index.
+Do not promote the Basalt-side support neighbor to production index data.
 
-## Production Change
-One index-data mutation in `lib/on-device-clip-knn-analysis.ts`:
+## Candidate Tested
+Candidate: `photo-basalt-vesicular-shade-support-1`
 
-- Added `photo-basalt-vesicular-shade-support-1`.
 - Label: `Basalt`.
 - Kind: `rock`.
 - Embedding: `[0, 0.6, 0.05, 0, 0, 0, 0, 0]`.
+- Intended effect: support the S41 vesicular Basalt boundary while preserving Slag Top-1 on the known Slag guard.
 
-No other behavior changed:
+## What Happened
+The targeted S42 test passed, but the broader expanded eval caught an unacceptable side effect:
 
-- No confidence threshold changes.
-- No UI changes.
-- No API/result contract changes.
-- No non-rock index mutation.
+- `pnpm verify:expanded-eval` failed in `s25-field-qa.acceptance.test.ts`.
+- Top-1 and Top-3 stayed correct.
+- Low-confidence rate regressed from `1 / 7` to `2 / 7`.
+- Cause: clear Basalt became Low confidence because the added Basalt support neighbor sat too close to the existing Basalt anchor, collapsing the confidence margin.
 
-## Why This Variant
-The Sprint 41 shadow candidate proved the Basalt-side support idea was promising, but the production version is intentionally more conservative on the Slag axis. It supports the vesicular Basalt boundary while preserving Slag Top-1 on the known Slag guard.
+## Final Production Change
+None.
+
+Rollback was applied:
+
+- No production analyzer behavior changed.
+- No production index data changed.
+- No confidence threshold changed.
+- No UI/API/result contract changed.
 
 ## Gate Readout
 May 17, 2026:
 
 | Gate | Result | Notes |
 | --- | --- | --- |
-| `pnpm vitest run __tests__/s42-production-index-decision.test.ts` | Pass, 1 file / 2 tests | S41 pack stays Top-1/Top-3 correct; non-rock guards avoid High confidence rock claims. |
+| `pnpm vitest run __tests__/s42-production-index-decision.test.ts` | Pass, 1 file / 1 test | Documents the rollback signal: the candidate makes clear Basalt Low confidence in a shadow index. |
 
 ## Stop / Go
-Go for continued Sprint 42 validation.
+Stop for production promotion.
 
-Rollback remains required if broader detection gates or release-build gates fail.
+Next useful step:
+- Keep Candidate 2 shadow-only.
+- Investigate confidence scoring that is aware of duplicate same-label neighbors, or gather real embeddings before another production index mutation.
+- Do not alter thresholds to force this candidate through.

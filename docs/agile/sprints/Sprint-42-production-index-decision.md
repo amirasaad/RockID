@@ -39,8 +39,13 @@ Default rollback:
 
 ## Current Progress
 - `S42-1`: Selected the Basalt-side support candidate from Sprint 41 evidence.
-- `S42-2`: Applied one production index-data mutation only: `photo-basalt-vesicular-shade-support-1`.
-- `S42-3`: Added `__tests__/s42-production-index-decision.test.ts` to compare S41 known-answer behavior after promotion.
+- `S42-2`: Tested one production index-data mutation candidate only: `photo-basalt-vesicular-shade-support-1`.
+- `S42-3`: Expanded eval found a low-confidence regression in the S25 field QA baseline, so the production index mutation was rolled back.
+- `S42-4`: Stop/go decision is `stop for production promotion`; keep the candidate shadow-only.
 
 ## Gate Evidence
-- `pnpm vitest run __tests__/s42-production-index-decision.test.ts`: Pass, 1 file / 2 tests.
+- `pnpm vitest run __tests__/s42-production-index-decision.test.ts`: Pass, 1 file / 1 test.
+- `pnpm verify:expanded-eval`: Failed before rollback; clear Basalt low-confidence rate regressed from `1 / 7` to `2 / 7`.
+
+## Decision
+Sprint 42 rejects the production index mutation. The evidence says the candidate helps the Basalt boundary locally but makes a clear existing Basalt fixture less confident because confidence margin is not same-label aware.
