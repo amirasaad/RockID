@@ -11,7 +11,7 @@ type PhotoAnalysisEngine = 'photoBytesPreview' | 'photoOnDeviceEncoder';
 
 const EMBEDDING_DIMENSION = 8;
 
-const photoIndex: VectorIndexItem[] = [
+export const photoIndex: VectorIndexItem[] = [
   { id: 'photo-granite-1', label: 'Granite', kind: 'rock', embedding: normalizeVector([1, 0, 0, 0, 0, 0, 0, 0]) },
   { id: 'photo-basalt-1', label: 'Basalt', kind: 'rock', embedding: normalizeVector([0, 1, 0, 0, 0, 0, 0, 0]) },
   { id: 'photo-slag-1', label: 'Slag', kind: 'non-rock', embedding: normalizeVector([0, 0, 1, 0, 0, 0, 0, 0]) },

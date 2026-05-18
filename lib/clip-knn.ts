@@ -200,9 +200,12 @@ function isPossibleNonRock(matches: RankedVectorIndexItem[]): boolean {
 }
 
 function calculateConfidence(matches: RankedVectorIndexItem[], possibleNonRock: boolean): ClipKnnConfidence {
-  const top = matches[0]?.score ?? -Infinity;
-  const second = matches[1]?.score ?? -Infinity;
-  const margin = top - second;
+  const topMatch = matches[0];
+  const top = topMatch?.score ?? -Infinity;
+  const nearestDifferentLabel = matches.find(
+    (match) => match.item.label !== topMatch?.item.label || match.item.kind !== topMatch?.item.kind
+  );
+  const margin = top - (nearestDifferentLabel?.score ?? -Infinity);
 
   let confidence: ClipKnnConfidence = 'Low';
   const thresholds = getDefaultConfidenceThresholds();
