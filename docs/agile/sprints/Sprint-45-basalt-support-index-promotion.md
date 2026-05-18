@@ -35,14 +35,14 @@ Re-test and promote the Sprint 42 Basalt support index candidate now that Sprint
 - `S45-1`: Candidate added as one bounded production index mutation.
 - `S45-2`: Targeted regression coverage updated for same-label-aware confidence.
 - `S45-3`: Detection gates and expanded eval passed with no threshold, API, UI, or result-contract changes.
-- `S45-4`: Candidate is safe to keep pending release-build gate.
+- `S45-4`: Candidate is safe to keep with release-build gate passed.
 
 ## Gate Evidence
 - `pnpm vitest run __tests__/s42-production-index-decision.test.ts __tests__/s43-same-label-confidence-shadow.test.ts`: passed, 2 files / 3 tests.
 - `pnpm typecheck`: passed.
 - `pnpm verify:detection-gates`: passed, 9 files / 16 tests.
 - `pnpm verify:expanded-eval`: passed, 16 files / 28 tests.
-- `pnpm verify:release-builds`: pending before merge to `main`.
+- `pnpm verify:release-builds`: passed with iOS and Android native builds.
 
 ## Decision
-Keep `photo-basalt-vesicular-shade-support-1` as the first production Basalt support index point if the release-build gate also passes.
+Keep `photo-basalt-vesicular-shade-support-1` as the first production Basalt support index point.
