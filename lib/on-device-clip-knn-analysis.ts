@@ -14,6 +14,8 @@ const EMBEDDING_DIMENSION = 8;
 export const photoIndex: VectorIndexItem[] = [
   { id: 'photo-granite-1', label: 'Granite', kind: 'rock', embedding: normalizeVector([1, 0, 0, 0, 0, 0, 0, 0]) },
   { id: 'photo-basalt-1', label: 'Basalt', kind: 'rock', embedding: normalizeVector([0, 1, 0, 0, 0, 0, 0, 0]) },
+  // S45 bounded addition: Basalt support point unlocked by same-label-aware confidence policy.
+  { id: 'photo-basalt-vesicular-shade-support-1', label: 'Basalt', kind: 'rock', embedding: normalizeVector([0, 0.6, 0.05, 0, 0, 0, 0, 0]) },
   { id: 'photo-slag-1', label: 'Slag', kind: 'non-rock', embedding: normalizeVector([0, 0, 1, 0, 0, 0, 0, 0]) },
   { id: 'photo-obsidian-1', label: 'Obsidian', kind: 'rock', embedding: normalizeVector([0, 0, 0, 1, 0, 0, 0, 0]) },
   { id: 'photo-glass-1', label: 'Glass', kind: 'non-rock', embedding: normalizeVector([0, 0, 0, 0, 1, 0, 0, 0]) },
