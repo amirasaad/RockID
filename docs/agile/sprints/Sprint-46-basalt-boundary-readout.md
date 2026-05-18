@@ -35,7 +35,7 @@ Measure whether the Sprint 45 Basalt support point improves the dark Basalt boun
 - `pnpm typecheck`: passed.
 - `pnpm verify:detection-gates`: passed, 10 files / 17 tests.
 - `pnpm verify:expanded-eval`: passed, 17 files / 29 tests.
-- `pnpm verify:release-builds`: pending before merge to `main`.
+- `pnpm verify:release-builds`: passed with iOS and Android native builds.
 
 ## Decision
 Keep the S45 Basalt support point. Sprint 46 is a readout sprint only; no new production behavior is promoted.
