@@ -36,7 +36,7 @@ Add one readout-only known-answer pressure case for ambiguous dull Coal near the
 - `pnpm typecheck`: passed.
 - `pnpm verify:detection-gates`: passed, 12 files / 19 tests.
 - `pnpm verify:expanded-eval`: passed, 19 files / 31 tests.
-- `pnpm verify:release-builds`: pending before merge to `main`.
+- `pnpm verify:release-builds`: passed with iOS and Android native builds before merge to `main`.
 
 ## Decision
 Keep S48 as readout-only evidence. Do not promote new production behavior.
