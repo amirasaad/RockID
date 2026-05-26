@@ -38,7 +38,7 @@ Close the synthetic dark-boundary readout arc and decide the next evidence sourc
 - `pnpm typecheck`: passed.
 - `pnpm verify:detection-gates`: passed, 13 files / 21 tests.
 - `pnpm verify:expanded-eval`: passed, 20 files / 33 tests.
-- `pnpm verify:release-builds`: pending before merge to `main`.
+- `pnpm verify:release-builds`: passed with iOS and Android bundle/native checks before merge to `main`.
 
 ## Decision
 No production behavior change. The next detection-quality input should be a real known-answer dark-confuser photo candidate, not another synthetic readout by default.
